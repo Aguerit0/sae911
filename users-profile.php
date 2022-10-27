@@ -27,9 +27,9 @@
   }
   //OBTENIÓN CAMPOS TABLA USUARIO
   if($row2 = $resultado2->fetch_assoc()){
-      $usuario=$row2['usuario'];
-      $contraseña=$row2['contraseña'];
-      $rol=$row2['rol'];
+      $usuarioUsuario=$row2['usuario'];
+      $contraseñaUsuario=$row2['contraseña'];
+      $rolUsuario=$row2['rol'];
   }
   //OBTENIÓN CAMPOS TABLA COMISARIA
   if($row3 = $resultado3->fetch_assoc()){
@@ -48,9 +48,6 @@
         $estadoComisaria='DESHABILITADO';
       }
   }
-
-      
-   
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -589,14 +586,6 @@
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Editar Perfil</button>
-                </li>
-
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Configuraciones</button>
-                </li>
-
-                <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar Contraseña</button>
                 </li>
 
@@ -649,133 +638,71 @@
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-                  <!-- Profile Edit Form -->
-                  <form>
-                    <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Editar Perfil</label>
-                      <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/siluetaPolicia.jpg" alt="Profile">
-                        <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Apellido y Nombre</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?php echo $apellidoPersona." ".$nombrePersona;?>">
-                      </div>
-                    </div>
-
-                    
-
-                    <div class="row mb-3">
-                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Correo</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="company" type="text" class="form-control" id="company" value="<?php echo $correoPersona; ?>">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Telefono</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="job" type="text" class="form-control" id="Job" value="<?php echo $telefonoPersona; ?>">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Comisaria</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="<?php echo $nombreComisaria; ?>">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Direccción Comisaria</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="<?php echo $direccionComisaria; ?>">
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End Profile Edit Form -->
+                  
 
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-settings">
-
-                  <!-- Settings Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                          <label class="form-check-label" for="changesMade">
-                            Changes made to your account
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers">
-                          <label class="form-check-label" for="proOffers">
-                            Marketing and promo offers
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                          <label class="form-check-label" for="securityNotify">
-                            Security alerts
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End settings Form -->
-
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
+                  <form method="post">
 
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Contraseña Actual</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="contraseñaActual" type="password" class="form-control" id="contraseñaActual">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Contraseña Nueva</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="contraseñaNueva" type="password" class="form-control" id="contraseñaNueva">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Repetir Contraseña Nueva</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="repetirContraseñaNueva" type="password" class="form-control" id="repetirContraseñaNueva">
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                      <button type="submit" class="btn btn-primary" name="cambiarContraseña">Cambiar Contraseña</button>
                     </div>
+                    <?php 
+                          if(isset($_POST['cambiarContraseña'])){
+                            //PASO VALORES A VARIABLES
+                            $contraseñaActual=$_POST['contraseñaActual'];
+                            $contraseñaNueva=$_POST['contraseñaNueva'];
+                            $repetirContraseñaNueva=$_POST['contraseñaActual'];
+
+                            //CONSULTA SQL
+                            $consultaCambiarContraseña="UPDATE usuarios SET contraseña='$contraseñaNueva' WHERE idUsuarios=1";
+
+
+                            //VERIFICAR CONTRASEÑA
+                            $verificarContraseña=mysqli_query($conexion,"SELECT * FROM usuarios WHERE contraseña='$contraseñaActual' AND idUsuario=1");
+                            if (mysql_num_rows($verificarContraseña)>0) {
+                              echo '<script>alert("La contraseña debe ser diferente");window.history.go(-1);</script>';
+                              exit;
+                            }
+                            //EJECUTAMOS LA CONSULTA DE CAMBIAR CONTRASEÑA
+                            $resultadoCambiarContraseña=mysqli_query($conexion, $consultaCambiarContraseña);
+                            if (!$resultadoCambiarContraseña) {
+                              echo "Error al cambiar contraseña";
+                            }else{
+                              header('location:user-profile.php');
+                            }
+                          }
+                          mysqli_close($conexion);
+
+                       ?>
                   </form><!-- End Change Password Form -->
+                      
 
                 </div>
 
