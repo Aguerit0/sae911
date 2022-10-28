@@ -27,9 +27,7 @@
   }
   //OBTENIÓN CAMPOS TABLA USUARIO
   if($row2 = $resultado2->fetch_assoc()){
-      $usuarioUsuario=$row2['usuario'];
-      $contraseñaUsuario=$row2['contraseña'];
-      $rolUsuario=$row2['rol'];
+
   }
   //OBTENIÓN CAMPOS TABLA COMISARIA
   if($row3 = $resultado3->fetch_assoc()){
@@ -586,6 +584,7 @@
                 </li>
 
                 <li class="nav-item">
+
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar Contraseña</button>
                 </li>
 
@@ -638,71 +637,36 @@
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-                  
+
 
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-settings">
+
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form method="post">
 
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Contraseña Actual</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="contraseñaActual" type="password" class="form-control" id="contraseñaActual">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Contraseña Nueva</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="contraseñaNueva" type="password" class="form-control" id="contraseñaNueva">
-                      </div>
+</div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Repetir Contraseña Nueva</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="repetirContraseñaNueva" type="password" class="form-control" id="repetirContraseñaNueva">
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary" name="cambiarContraseña">Cambiar Contraseña</button>
-                    </div>
-                    <?php 
-                          if(isset($_POST['cambiarContraseña'])){
-                            //PASO VALORES A VARIABLES
-                            $contraseñaActual=$_POST['contraseñaActual'];
-                            $contraseñaNueva=$_POST['contraseñaNueva'];
-                            $repetirContraseñaNueva=$_POST['contraseñaActual'];
-
-                            //CONSULTA SQL
-                            $consultaCambiarContraseña="UPDATE usuarios SET contraseña='$contraseñaNueva' WHERE idUsuarios=1";
-
-
-                            //VERIFICAR CONTRASEÑA
-                            $verificarContraseña=mysqli_query($conexion,"SELECT * FROM usuarios WHERE contraseña='$contraseñaActual' AND idUsuario=1");
-                            if (mysql_num_rows($verificarContraseña)>0) {
-                              echo '<script>alert("La contraseña debe ser diferente");window.history.go(-1);</script>';
-                              exit;
-                            }
-                            //EJECUTAMOS LA CONSULTA DE CAMBIAR CONTRASEÑA
-                            $resultadoCambiarContraseña=mysqli_query($conexion, $consultaCambiarContraseña);
-                            if (!$resultadoCambiarContraseña) {
-                              echo "Error al cambiar contraseña";
-                            }else{
-                              header('location:user-profile.php');
-                            }
-                          }
-                          mysqli_close($conexion);
-
-                       ?>
-                  </form><!-- End Change Password Form -->
-                      
 
                 </div>
 
@@ -735,5 +699,3 @@
   <script src="assets/js/main.js"></script>
 
 </body>
-
-</html>>
