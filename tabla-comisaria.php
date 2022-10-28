@@ -1,3 +1,33 @@
+<?php 
+    include 'conexion.php';
+
+    //SI APRETA EL BOTON AGREGAR
+    if (isset($_POST['agregarComisaria'])) {
+      $nombreComisaria=$_POST['nombreComisaria'];
+      $direccionComisaria=$_POST['direccionComisaria'];
+      $provinciaComisaria=$_POST['provinciaComisaria'];
+      $departamentoComisaria=$_POST['departamentoComisaria'];
+      $localidadComisaria=$_POST['localidadComisaria'];
+      $telefonoComisaria=$_POST['telefonoComisaria'];
+      $latitudComisaria=$_POST['latitudComisaria'];
+      $longitudComisaria=$_POST['longitudComisaria'];
+      $habilitadoComisaria=$_POST['habilitadoComisaria'];
+
+
+      //CONSULTA INSERTAR EN SQL
+      $insertarComisaria = "INSERT INTO comisarias (nombre, direccion, provincia, departamento, localidad, telefono, latitud, longitud, habilitado) VALUES ('$nombreComisaria','$direccionComisaria','$provinciaComisaria','$departamentoComisaria','$localidadComisaria','$telefonoComisaria','$latitudComisaria','$longitudComisaria','$habilitadoComisaria')";
+
+      //EJECUTAR CONSULTA DE INSERTAR
+      $ejecutarInsertarComisaria=mysqli_query($conexion,$insertarComisaria);
+      if (!$ejecutarInsertarComisaria) {
+        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+      }else{
+        header('location:tabla-comisaria.php');
+      }
+    }
+    //CERRAMOS CONEXIÓN BD
+    mysqli_close($conexion);
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -345,7 +375,7 @@
       <i class="bi bi-plus-circle-fill"></i>
       Agregar
     </button>
-    <!-- Modal -->
+    <!-- Modal AGREGAR COMISARIA -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -357,49 +387,49 @@
             <div class="card">
               <div class="card-body">
                 <!-- FORMULARIO PARA AGREGAR COMISARIA -->
-                <form class="row g-3">
+                <form class="row g-3" method="post">
                   <div class="col-md-12">
                     <label for="inputName5" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="inputName5">
+                    <input type="text" class="form-control" id="nombreComisaria" name="nombreComisaria">
                   </div>
                   <div class="col-md-12">
                     <label for="inputEmail5" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="inputtext5">
+                    <input type="text" class="form-control" id="direccionComisaria" name="direccionComisaria">
                   </div>
                   <div class="col-md-6">
                     <label for="inputtext5" class="form-label">Provincia</label>
-                    <input type="text" class="form-control" id="inputtext5">
+                    <input type="text" class="form-control" id="provinciaComisaria" name="provinciaComisaria">
                   </div>
                   <div class="col-md-6">
                     <label for="inputtext5" class="form-label">Departamento</label>
-                    <input type="text" class="form-control" id="inputtext5">
+                    <input type="text" class="form-control" id="departamentoComisaria" name="departamentoComisaria">
                   </div>
                   <div class="col-md-12">
                     <label for="inputtext5" class="form-label">Localidad</label>
-                    <input type="text" class="form-control" id="inputtext5">
+                    <input type="text" class="form-control" id="localidadComisaria" name="localidadComisaria">
                   </div>
                   <div class="col-12">
                     <label for="inputAddress5" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="inputAddres5s">
+                    <input type="text" class="form-control" id="telefonoComisaria" name="telefonoComisaria">
                   </div>
                   <div class="col-md-6">
                     <label for="inputtext5" class="form-label">Latitud</label>
-                    <input type="text" class="form-control" id="inputtext5">
+                    <input type="text" class="form-control" id="latitudComisaria" name="latitudComisaria">
                   </div>
                   <div class="col-md-6">
                     <label for="inputtext5" class="form-label">Longitud</label>
-                    <input type="text" class="form-control" id="inputtext5">
+                    <input type="text" class="form-control" id="longitudComisaria" name="longitudComisaria">
                   </div>
                   <div class="col-md-6">
                     <label for="inputState" class="form-label">Habilitado</label>
-                    <select id="inputState" class="form-select">
+                    <select id="habilitadoComisaria" name="habilitadoComisaria" class="form-select">
                       <option selected>Habilitado</option>
                       <option>Deshabilitado</option>
                     </select>
                   </div>
                   
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <button type="submit" id="agregarComisaria" name="agregarComisaria" value="agregarComisaria" class="btn btn-primary">Agregar</button>
                   </div>
                 </form><!-- End Multi Columns Form -->
   
@@ -412,7 +442,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div><!--FIN MODAL AGREGEAR-->
+
+
     <!-- SEGUNDA OPCION -->
     <table class="table table-sm table-hover table-bordered text-center">
       <thead class="table-dark">
