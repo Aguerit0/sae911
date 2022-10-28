@@ -52,10 +52,10 @@
                             //PASO VALORES A VARIABLES
                             $contraseñaActual=$_POST['contraseñaActual'];
                             $contraseñaNueva=$_POST['contraseñaNueva'];
-                            $repetirContraseñaNueva=$_POST['contraseñaActual'];
+                            $repetirContraseñaNueva=$_POST['repetirContraseñaNueva'];
 
                             //CONSULTA SQL
-                            $consultaCambiarContraseña="UPDATE usuarios SET contraseña='$contraseñaNueva' WHERE idUsuarios=1";
+                            $consultaCambiarContraseña="UPDATE usuarios SET contraseña='$contraseñaNueva' WHERE idUsuario=1";
 
 
                             if ($contraseñaUsuario==$contraseñaActual) {
@@ -70,7 +70,8 @@
                                   if (!$resultadoCambiarContraseña) {
                                     echo "Error al cambiar contraseña";
                                   }else{
-                                    header('location:user-profile.php');
+                                    
+                                    echo "<script>alert('SE CAMBIO CORRECTAMENTE');</script>";
                                   }
                                 }
                               }

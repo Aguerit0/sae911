@@ -1,36 +1,48 @@
 <?php
-
-
-  $txtFecha = (isset($_POST['txtFecha']))?$_POST['txtFecha']:"";
-  $txtTurno = (isset($_POST['txtTurno']))?$_POST['txtTurno']:"";
-  $txtSuperiorTurno = (isset($_POST['txtSuperiorTurno']))?$_POST['txtSuperiorTurno']:"";
-  $txtOficialServicio = (isset($_POST['txtOficialServicio']))?$_POST['txtOficialServicio']:"";
-  $txtCantPersonalGuardia = (isset($_POST['txtCantPersonalGuardia']))?$_POST['txtCantPersonalGuardia']:"";
-  $txtMotoristas = (isset($_POST['txtMotoristas']))?$_POST['txtMotoristas']:"";
-  $txtMovilesFuncionamiento = (isset($_POST['txtMovilesFuncionamiento']))?$_POST['txtMovilesFuncionamiento']:"";
-  $txtMovilesFueraFuncionamiento = (isset($_POST['txtMovilesFueraFuncionamiento']))?$_POST['txtMovilesFueraFuncionamiento']:"";
-  $txtCantDetenidosCausaFederal = (isset($_POST['txtCantDetenidosCausaFederal']))?$_POST['txtCantDetenidosCausaFederal']:"";
-  $txtCantDetenidosJusticiaOrdinaria = (isset($_POST['txtCantDetenidosJusticiaOrdinaria']))?$_POST['txtCantDetenidosJusticiaOrdinaria']:"";
-  $txtArrestadisAveriguacionHecho = (isset($_POST['txtArrestadisAveriguacionHecho']))?$_POST['txtArrestadisAveriguacionHecho']:"";
-  $txtCantAprehendidos = (isset($_POST['txtCantAprehendidos']))?$_POST['txtCantAprehendidos']:"";
-  $txtArrestadosAveriguacionActividades = (isset($_POST['txtArrestadosAveriguacionActividades']))?$_POST['txtArrestadosAveriguacionActividades']:"";
-  $txtArrestadosInfCodigoFaltas = (isset($_POST['txtArrestadosInfCodigoFaltas']))?$_POST['txtArrestadosInfCodigoFaltas']:"";
-  $txtDemorados = (isset($_POST['txtDemorados']))?$_POST['txtDemorados']:"";
-
-
-  // LLAMANDO A LA BASE DE DATOS
+// LLAMANDO A LA BASE DE DATOS
   include('conexion.php');
 
-  // AGREGAR NOVEDAD A LA BASE DE DATOS
-  $insertar = "INSERT INTO novedades_de_guardia (fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
+  //INICIALIZAMOS DATOS
+  $idUsuario = 1;
+  $idComisaria=1;
+  if (isset($_POST['agregar'])) {
+    $txtFecha = $_POST['txtFecha'];
+    $txtTurno = $_POST['txtTurno'];
+    $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
+    $txtOficialServicio = $_POST['txtOficialServicio'];
+    $txtCantPersonalGuardia = $_POST['txtCantPersonalGuardia'];
+    $txtMotoristas = $_POST['txtMotoristas'];
+    $txtMovilesFuncionamiento = $_POST['txtMovilesFuncionamiento'];
+    $txtMovilesFueraFuncionamiento = $_POST['txtMovilesFueraFuncionamiento'];
+    $txtCantDetenidosCausaFederal = $_POST['txtCantDetenidosCausaFederal'];
+    $txtCantDetenidosJusticiaOrdinaria = $_POST['txtCantDetenidosJusticiaOrdinaria'];
+    $txtArrestadisAveriguacionHecho = $_POST['txtArrestadisAveriguacionHecho'];
+    $txtArrestadosAveriguacionActividades = $_POST['txtArrestadosAveriguacionActividades'];
+    $txtArrestadosInfCodigoFaltas = $_POST['txtArrestadosInfCodigoFaltas'];
+    $txtDemorados = $_POST['txtDemorados'];
+    $txtCantAprehendidos = $_POST['txtCantAprehendidos'];
 
-  $ejecutarInsertar=mysqli_query($conexion,$insertar);
+
+
+
+    //CONSULTA INSERTAR DATOS
+    $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria,fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$idComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
+
+    //EJECUTAR CONSULTA INSERTAR DATOS
+    $ejecutarInsertar=mysqli_query($conexion,$insertar);
     if(!$ejecutarInsertar){
-      echo "Error al registrarse";
+      echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     }
     else{
-      header('location:home.html');
+      header('location:users-profile.php');
     }
+  }
+
+  
+
+  
+
+  
   mysqli_close($conexion);
 
 ?>
@@ -370,11 +382,12 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-  <?php if($solicitud!=""){ ?>
+  <?php 
+  //if($solicitud!=""){ ?>
             <div class="alert alert-success">
-                <?php echo $solicitud;?>
+                <?php //echo $solicitud;?>
             </div>
-        <?php }?>
+        <?php //}?>
     <div class="pagetitle">
         <h1>Formulario Novedades de Guardia</h1>
         <nav>
