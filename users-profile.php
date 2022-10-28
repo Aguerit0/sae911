@@ -686,7 +686,7 @@
 
                             //VERIFICAR CONTRASEÑA
                             $verificarContraseña=mysqli_query($conexion,"SELECT * FROM usuarios WHERE contraseña='$contraseñaActual' AND idUsuario=1");
-                            if (mysql_num_rows($verificarContraseña)>0) {
+                            if (mysqli_num_rows($verificarContraseña)>0) {
                               echo '<script>alert("La contraseña debe ser diferente");window.history.go(-1);</script>';
                               exit;
                             }
