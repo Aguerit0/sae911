@@ -199,12 +199,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="tabla-comisaria.html">
                             <i class="bi bi-circle"></i><span>Comisarias</span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="#">
                             <i class="bi bi-circle"></i><span>Usuarios</span>
                         </a>
                     </li>
@@ -343,13 +343,76 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
                     <li class="breadcrumb-item active">Usuarios</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-
+        <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="bi bi-plus-circle-fill"></i>
+            Agregar
+          </button>
+          <!-- Modal -->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Usuario</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="card">
+                    <div class="card-body">
+                      <!-- FORMULARIO PARA AGREGAR COMISARIA -->
+                     
+                      <form class="row g-3">
+                        <div class="col-md-12">
+                          <label for="inputName5" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="inputName5">
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputLastName5" class="form-label">Apellido</label>
+                          <input type="text" class="form-control" id="inputLastName5">
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputEmail5" class="form-label">Correo</label>
+                          <input type="email" class="form-control" id="inputEmail5">
+                        </div>
+                        <div class="col-12">
+                          <label for="inputPhone5" class="form-label">Teléfono</label>
+                          <input type="text" class="form-control" id="inputPhone5">
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputUser5" class="form-label">Usuario</label>
+                          <input type="text" class="form-control" id="inputUser5">
+                        </div>
+                        <div class="col-12">
+                          <label for="inputPassword5" class="form-label">Contraseña</label>
+                          <input type="password" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputState" class="form-label">Habilitado</label>
+                          <select id="inputState" class="form-select">
+                            <option selected>Habilitado</option>
+                            <option>Deshabilitado</option>
+                          </select>
+                        </div>
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary float-end">Agregar</button>
+                        </div>
+                      </form>
+        
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
         <section class="section">
             <table class="table table-sm table-hover table-bordered text-center">
                 <thead class="table-dark">
@@ -357,23 +420,19 @@
                         <th scope="col">Nombre/s</th>
                         <th scope="col">Apellido/s</th>
                         <th scope="col">Correo</th>
-                        <th scope="col">Teléfono</th>
                         <th scope="col">Fecha de Registro</th>
-                        <th scope="col">Habilitado</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <td scope="row">1</td>
-                        <td scope="row">Decima</td>
+                        <td scope="row">Leandro</td>
+                        <td scope="row">Cabrera</td>
+                        <td>ljcabrera@institutosanmartin.edu.ar</td>
                         <td>22/10/22</td>
-                        <td>MATUTINO (06:00 - 14:00)</td>
-                        <td>Manuel Salazar</td>
-                        <td>Armando Paredes</td>
                         <td>
-                            <a class="btn btn-primary" href="/ver-mas.html">Ver más</a>
+                            <a class="btn btn-primary" href="/verMas-usuario.html">Ver más</a>
                         </td>
                     </tr>
                 </tbody>
