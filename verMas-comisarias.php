@@ -1,3 +1,31 @@
+<?php 
+    include('conexion.php');
+
+    $idComisaria=$_GET['id'];
+    //CONSULTA TABLA COMISARIA
+    $consulta="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $resultado=mysqli_query($conexion,$consulta);
+    if (!$resultado) {
+      echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+    }
+
+    //OBTENCION DE DATOS TABLA COMISARIA
+    if ($row = $resultado->fetch_assoc()) {
+      $nombreComisaria=$row['nombre'];
+      $direccionComisaria=$row['direccion'];
+      $provinciaComisaria=$row['provincia'];
+      $departamentoComisaria=$row['departamento'];
+      $localidadComisaria=$row['localidad'];
+      $telefonoComisaria=$row['telefono'];
+      $latitudComisaria=$row['latitud'];
+      $longitudComisaria=$row['longitud'];
+      $habilitadoComisaria=$row['habilitado'];
+      $eliminadoComisaria=$row['eliminado'];
+  }
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,7 +179,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -330,116 +358,160 @@
 
   </aside><!-- End Sidebar-->
 
-  <main id="main" class="main">
+  <main id="main" class="main container">
     <div class="pagetitle">
         <h1>Tabla Comisarias</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Comisarias</li>
+            <li class="breadcrumb-item"><a href="tabla-comisaria.php">Tabla Comisarias</a></li>
+            <li class="breadcrumb-item active">Ver Más</li>
           </ol>
         </nav>
     </div><!-- End Page Title -->
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      <i class="bi bi-plus-circle-fill"></i>
-      Agregar
-    </button>
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Comisaria</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="card">
-              <div class="card-body">
-                <!-- FORMULARIO PARA AGREGAR COMISARIA -->
-                <form class="row g-3">
-                  <div class="col-md-12">
-                    <label for="inputName5" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="inputName5">
-                  </div>
-                  <div class="col-md-12">
-                    <label for="inputEmail5" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="inputtext5">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Provincia</label>
-                    <input type="text" class="form-control" id="inputtext5">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Departamento</label>
-                    <input type="text" class="form-control" id="inputtext5">
-                  </div>
-                  <div class="col-md-12">
-                    <label for="inputtext5" class="form-label">Localidad</label>
-                    <input type="text" class="form-control" id="inputtext5">
-                  </div>
-                  <div class="col-12">
-                    <label for="inputAddress5" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="inputAddres5s">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Latitud</label>
-                    <input type="text" class="form-control" id="inputtext5">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Longitud</label>
-                    <input type="text" class="form-control" id="inputtext5">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputState" class="form-label">Habilitado</label>
-                    <select id="inputState" class="form-select">
-                      <option selected>Habilitado</option>
-                      <option>Deshabilitado</option>
-                    </select>
-                  </div>
-                  
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Agregar</button>
-                  </div>
-                </form><!-- End Multi Columns Form -->
-  
+    <div class="card w-75 pt-3">
+      <div class="card-body">
+        
+        <ul class="list-group mb-3">
+            <li class="list-group-item fw-bold">ID: <?php echo $idComisaria; ?></li>
+            <li class="list-group-item fw-bold">Nombre: <?php echo $nombreComisaria; ?></li>
+            <li class="list-group-item fw-bold">Direccion: <?php echo $direccionComisaria; ?></li>
+            <li class="list-group-item fw-bold">Provincia: <?php echo $provinciaComisaria; ?></li>
+            <li class="list-group-item fw-bold">Departamento: <?php echo $departamentoComisaria; ?></li>
+            <li class="list-group-item fw-bold">Localidad: <?php echo $localidadComisaria; ?></li>
+            <li class="list-group-item fw-bold">Telefono: <?php echo $telefonoComisaria; ?></li>
+            <li class="list-group-item fw-bold">Latitud: <?php echo $latitudComisaria; ?></li>
+            <li class="list-group-item fw-bold">Longitud: <?php echo $longitudComisaria; ?></li>
+            <li class="list-group-item fw-bold">Habilitado: <?php echo $habilitadoComisaria; ?></li>
+            <li class="list-group-item fw-bold">Eliminado: <?php echo $eliminadoComisaria; ?></li>
+        </ul>
+
+         <!-- BOTON MODAL ELIMINAR -->
+         <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+          Eliminar
+          </button>
+          <!-- Modal ELIMINAR -->
+          <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>¿Esta seguro que desea eliminar este archivo?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+          
+          <!-- BOTON MODAL DESHABILITAR -->
+          <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+            Deshabilitar
+          </button>
+          <!-- Modal DEHABILITAR -->
+          <div class="modal fade" id="modalDeshabilitar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>¿Esta seguro que desea deshabilitar este archivo?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-danger">Deshabilitar</button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <!-- BOTON MODAL EDITAR -->
+          <button type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="bi bi-pencil-square"></i>
+            Editar
+          </button>
+          <!-- MODAL EDITAR -->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Comisaria</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="card">
+                    <div class="card-body">
+                      
+                      <!-- FORMULARIO PARA EDITAR COMISARIA -->
+                      <form class="row g-3">
+                        <div class="col-md-12">
+                          <label for="inputName5" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="inputName5">
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputEmail5" class="form-label">Dirección</label>
+                          <input type="email" class="form-control" id="inputEmail5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputEmail5" class="form-label">Provincia</label>
+                          <input type="email" class="form-control" id="inputEmail5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputPassword5" class="form-label">Departamento</label>
+                          <input type="password" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputPassword5" class="form-label">Localidad</label>
+                          <input type="password" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-12">
+                          <label for="inputAddress5" class="form-label">Teléfono</label>
+                          <input type="text" class="form-control" id="inputAddres5s">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputPassword5" class="form-label">Latitud</label>
+                          <input type="password" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputPassword5" class="form-label">Longitud</label>
+                          <input type="password" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputState" class="form-label">Habilitado</label>
+                          <select id="inputState" class="form-select">
+                            <option selected>Habilitado</option>
+                            <option>Deshabilitado</option>
+                          </select>
+                        </div>
+                        
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                        </div>
+                      </form><!-- End Multi Columns Form -->
+        
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
-    <!-- SEGUNDA OPCION -->
-    <table class="table table-sm table-hover table-bordered text-center">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Dirección</th>
-          <th scope="col">Provincia</th>
-          <th scope="col">Departamento</th>
-          <th scope="col">Localidad</th>
-          <th scope="col">. . .</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <th scope="row">Comisaria N°412</th>
-          <td>Av.Ramdom 312</td>
-          <td>Catamarca</td>
-          <td>Capital</td>
-          <td>SFVC</td>
-          <td>
-            <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="/verMas-comisarias.html">Ver más</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <br>
+    <div class="d-flex justify-content-between">
+      <a class="btn btn-primary " href="tabla-comisaria.php">Volver</a>
+    </div>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

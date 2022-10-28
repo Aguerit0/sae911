@@ -37,12 +37,6 @@
       header('location:users-profile.php');
     }
   }
-
-  
-
-  
-
-  
   mysqli_close($conexion);
 
 ?>
