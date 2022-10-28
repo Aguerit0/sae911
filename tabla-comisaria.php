@@ -25,6 +25,19 @@
         header('location:tabla-comisaria.php');
       }
     }
+
+
+
+
+    //CONSULTA TABLAS PARA MOSTRAR DATOS DE COMISARIA
+    $consultaDatosComisaria="SELECT * FROM comisarias";
+    //RESULTAOD DE LA CONSULTA
+    $resultado=mysqli_query($conexion,$consultaDatosComisaria);
+    if (!$resultado) {
+      echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN');</script>";
+      }else{
+        
+      }
     //CERRAMOS CONEXIÓN BD
     mysqli_close($conexion);
  ?>
@@ -448,28 +461,34 @@
     <!-- SEGUNDA OPCION -->
     <table class="table table-sm table-hover table-bordered text-center">
       <thead class="table-dark">
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Dirección</th>
-          <th scope="col">Provincia</th>
-          <th scope="col">Departamento</th>
-          <th scope="col">Localidad</th>
-          <th scope="col">. . .</th>
-        </tr>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Provincia</th>
+            <th scope="col">Departamento</th>
+            <th scope="col">Localidad</th>
+            <th scope="col">. . .</th>
+          </tr>
+           
+          
       </thead>
 
       <tbody>
+          <?php 
+            while ($row = $resultado->fetch_assoc()) {
+           ?>   
         <tr>
-          <th scope="row">Comisaria N°412</th>
-          <td>Av.Ramdom 312</td>
-          <td>Catamarca</td>
-          <td>Capital</td>
-          <td>SFVC</td>
-          <td>
-            <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="/verMas-comisarias.html">Ver más</a>
-          </td>
+              <th scope="row"><?php echo $row['nombre'] ?></th>
+              <td scope="row"><?php echo $row['direccion'] ?></td>
+              <td scope="row"><?php echo $row['provincia'] ?></td>
+              <td scope="row"><?php echo $row['departamento'] ?></td>
+              <td scope="row"><?php echo $row['localidad'] ?></td>
+              <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
+            <a class="btn btn-primary" href="verMas-comisarias.php?id=<?php echo $row['idComisaria'];?>">Ver más</a></td></td>
         </tr>
+        <?php 
+            }
+          ?>
       </tbody>
     </table>
   </main><!-- End #main -->

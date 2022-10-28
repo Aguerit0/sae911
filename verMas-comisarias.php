@@ -1,3 +1,31 @@
+<?php 
+    include('conexion.php');
+
+    $idComisaria=$_GET['id'];
+    //CONSULTA TABLA COMISARIA
+    $consulta="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $resultado=mysqli_query($conexion,$consulta);
+    if (!$resultado) {
+      echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+    }
+
+    //OBTENCION DE DATOS TABLA COMISARIA
+    if ($row = $resultado->fetch_assoc()) {
+      $nombreComisaria=$row['nombre'];
+      $direccionComisaria=$row['direccion'];
+      $provinciaComisaria=$row['provincia'];
+      $departamentoComisaria=$row['departamento'];
+      $localidadComisaria=$row['localidad'];
+      $telefonoComisaria=$row['telefono'];
+      $latitudComisaria=$row['latitud'];
+      $longitudComisaria=$row['longitud'];
+      $habilitadoComisaria=$row['habilitado'];
+      $eliminadoComisaria=$row['eliminado'];
+  }
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,7 +179,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -336,7 +364,7 @@
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="tabla-comisaria.html">Tabla Comisarias</a></li>
+            <li class="breadcrumb-item"><a href="tabla-comisaria.php">Tabla Comisarias</a></li>
             <li class="breadcrumb-item active">Ver Más</li>
           </ol>
         </nav>
@@ -345,15 +373,17 @@
       <div class="card-body">
         
         <ul class="list-group mb-3">
-            <li class="list-group-item fw-bold">Nombre: </li>
-            <li class="list-group-item fw-bold">Direccion: </li>
-            <li class="list-group-item fw-bold">Provincia:</li>
-            <li class="list-group-item fw-bold">Departamento: </li>
-            <li class="list-group-item fw-bold">Localidad: </li>
-            <li class="list-group-item fw-bold">Telefono: </li>
-            <li class="list-group-item fw-bold">Latitud: </li>
-            <li class="list-group-item fw-bold">Longitud: </li>
-            <li class="list-group-item fw-bold">Habilitado: </li>
+            <li class="list-group-item fw-bold">ID: <?php echo $idComisaria; ?></li>
+            <li class="list-group-item fw-bold">Nombre: <?php echo $nombreComisaria; ?></li>
+            <li class="list-group-item fw-bold">Direccion: <?php echo $direccionComisaria; ?></li>
+            <li class="list-group-item fw-bold">Provincia: <?php echo $provinciaComisaria; ?></li>
+            <li class="list-group-item fw-bold">Departamento: <?php echo $departamentoComisaria; ?></li>
+            <li class="list-group-item fw-bold">Localidad: <?php echo $localidadComisaria; ?></li>
+            <li class="list-group-item fw-bold">Telefono: <?php echo $telefonoComisaria; ?></li>
+            <li class="list-group-item fw-bold">Latitud: <?php echo $latitudComisaria; ?></li>
+            <li class="list-group-item fw-bold">Longitud: <?php echo $longitudComisaria; ?></li>
+            <li class="list-group-item fw-bold">Habilitado: <?php echo $habilitadoComisaria; ?></li>
+            <li class="list-group-item fw-bold">Eliminado: <?php echo $eliminadoComisaria; ?></li>
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
@@ -480,7 +510,7 @@
     </div>
     <br>
     <div class="d-flex justify-content-between">
-      <a class="btn btn-primary " href="tabla-comisaria.html">Volver</a>
+      <a class="btn btn-primary " href="tabla-comisaria.php">Volver</a>
     </div>
   </main><!-- End #main -->
 
