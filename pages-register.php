@@ -49,7 +49,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                
+
                   <span class="d-none d-lg-block">Sae 911</span>
                 </a>
               </div><!-- End Logo -->
@@ -79,11 +79,26 @@
                     </div>
 
                     <div class="col-12">
+                      <label for="yourName" class="form-label">DNI</label>
+                      <input type="text" name="dni" class="form-control" id="dni" required>
+                      <div class="invalid-feedback">¡Por favor, escriba su DNI!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
                       <label for="yourEmail" class="form-label">Correo</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">¡Por favor, escriba su Gmail!</div>
                     </div>
 
+                    <div class="col-12">
+                    <select class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
+                      <option selected>Sexo</option>
+                      <option value="1">Masculino</option>
+                      <option value="2">Femenino</option>
+                      <option value="3">Otro</option>
+                    </select>
+                    </div>
                     <div class="col-12">
                       <label for="yourName" class="form-label">Telefono</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
@@ -95,7 +110,6 @@
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Nombre de Usuario</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">¡Por favor, escriba su nombre de usuario</div>
                       </div>
@@ -118,7 +132,7 @@
                       <button class="btn btn-primary w-100" type="submit">Crear Cuenta</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">¿Ya tienes una cuenta?  <a href="pages-login.html">Iniciar sesión</a></p>
+                      <p class="small mb-0">¿Ya tienes una cuenta? <a href="pages-login.html">Iniciar sesión</a></p>
                     </div>
                   </form>
 
