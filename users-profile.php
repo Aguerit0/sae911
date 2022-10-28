@@ -64,25 +64,16 @@
                                 if ($contraseñaNueva==$contraseñaUsuario) {
                                     echo '<script>alert("La contraseña debe ser diferente");window.history.go(-1);</script>';
                                   exit;    
-                                }
-                                else{
-
+                                }else{
+                                    //SI TODO ESTA BIEN EJECUTAMOS EL CAMBIO DE CONTRASEÑA
+                                  $resultadoCambiarContraseña=mysqli_query($conexion,$consultaCambiarContraseña);
+                                  if (!$resultadoCambiarContraseña) {
+                                    echo "Error al cambiar contraseña";
+                                  }else{
+                                    header('location:user-profile.php');
+                                  }
                                 }
                               }
-                            }
-
-                            //VERIFICAR CONTRASEÑA
-                            $verificarContraseña=mysqli_query($conexion,"SELECT * FROM usuarios WHERE contraseña='$contraseñaActual' AND idUsuario='$id");
-                            if (!mysqli_num_rows($verificarContraseña)>0) {
-                              echo '<script>alert("La contraseña debe ser diferente");window.history.go(-1);</script>';
-                              exit;
-                            }
-                            //EJECUTAMOS LA CONSULTA DE CAMBIAR CONTRASEÑA
-                            $resultadoCambiarContraseña=mysqli_query($conexion, $consultaCambiarContraseña);
-                            if (!$resultadoCambiarContraseña) {
-                              echo "Error al cambiar contraseña";
-                            }else{
-                              header('location:user-profile.php');
                             }
                           }
                           mysqli_close($conexion);
@@ -90,13 +81,10 @@
 
  ?>
 
-
-
-
  <?php 
-
+/*
  $insertar = "INSERT INTO  novedades_de_guardia (fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal,detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados)  VALUES ('$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMo','[value-9]','[value-10]','[value-11]','[value-12]','[value-13]','[value-14]','[value-15]','[value-16]','[value-17]','[value-18]')";
-
+*/
 
   ?>
 <!DOCTYPE html>
