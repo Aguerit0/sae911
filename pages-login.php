@@ -1,3 +1,44 @@
+<?php
+ include("conexion.php");
+ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
+     //FUNCION PARA VALIDAR LOS DATOS INGRESADOS
+     function validar($data){
+         $data = trim($data);
+         $data = stripslashes($data);
+         $data = htmlspecialchars($data);
+         return $data;
+     }
+     $USUARIO = validar($_POST['usuario']);
+     $CONTRASEÑA = validar($_POST['contraseña']);
+         //Consulta sql
+         $consulta = "SELECT * FROM usuarios WHERE usuario='$USUARIO' AND contraseña='$CONTRASEÑA'";
+         //EJECUTAMOS LA CONSULTA
+         $resultado = mysqli_query($conexion,$consulta);
+
+         //SI ENTRA REDIRIGIMOS AL INICIO
+         if(mysqli_num_rows($resultado)==1){
+             $row = mysqli_fetch_assoc($resultado);
+             if ($row['usuario']==$USUARIO && $row['contraseña']==$CONTRASEÑA) {
+                 $_SESSION['usuario']==$row['usuario'];
+                 $_SESSION['nombre']==$row['nombre'];
+                 $_SESSION['idUsuario']==$row['idUsuario'];
+                 header('Location: index.html');
+                 exit();
+             }
+             else{
+             header('Location: pages-login.php');
+             echo "El usuario o la contraseña ingresadas son incorrecta";
+             exit();
+         }
+         }
+}
+ mysqli_close($conexion);
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +46,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>Iniciar sesion</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -63,19 +104,19 @@
                     <p class="text-center small">Ingrese su nombre de usuario y contraseña para iniciar sesión</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" method="POST" novalidate>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Nombre de Usuario</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="usuario" class="form-control" id="usuario" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="contraseña" class="form-control" id="contraseña" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
@@ -86,7 +127,7 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Ingresar</button>
+                      <button class="btn btn-primary w-100" type="submit" name="ingresar">Ingresar</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">¿No tienes cuenta? <a href="pages-register.html">Crea una cuenta</a></p>
