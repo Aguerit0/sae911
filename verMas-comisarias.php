@@ -225,7 +225,7 @@
             </a>
           </li>
           <li>
-            <a href="/tabla-comisaria.html">
+            <a href="/tabla-comisaria.php">
               <i class="bi bi-circle"></i><span>Comisarias</span>
             </a>
           </li>
@@ -245,12 +245,12 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
           <li>
-            <a href="agregar-novedadesGuardia.html">
+            <a href="agregar-novedadesGuardia.php">
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
-            <a href="tabla-novedadesGuardia.html">
+            <a href="tabla-novedadesGuardia.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
@@ -369,21 +369,24 @@
           </ol>
         </nav>
     </div><!-- End Page Title -->
+    <!-- DATOS DE COMISARIA -->
     <div class="card w-75 pt-3">
       <div class="card-body">
         
         <ul class="list-group mb-3">
-            <li class="list-group-item fw-bold">ID: <?php echo $idComisaria; ?></li>
-            <li class="list-group-item fw-bold">Nombre: <?php echo $nombreComisaria; ?></li>
-            <li class="list-group-item fw-bold">Direccion: <?php echo $direccionComisaria; ?></li>
-            <li class="list-group-item fw-bold">Provincia: <?php echo $provinciaComisaria; ?></li>
-            <li class="list-group-item fw-bold">Departamento: <?php echo $departamentoComisaria; ?></li>
-            <li class="list-group-item fw-bold">Localidad: <?php echo $localidadComisaria; ?></li>
-            <li class="list-group-item fw-bold">Telefono: <?php echo $telefonoComisaria; ?></li>
-            <li class="list-group-item fw-bold">Latitud: <?php echo $latitudComisaria; ?></li>
-            <li class="list-group-item fw-bold">Longitud: <?php echo $longitudComisaria; ?></li>
-            <li class="list-group-item fw-bold">Habilitado: <?php echo $habilitadoComisaria; ?></li>
-            <li class="list-group-item fw-bold">Eliminado: <?php echo $eliminadoComisaria; ?></li>
+            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"><?php echo $idComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombreComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"><?php echo $direccionComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"><?php echo $provinciaComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Departamento: <span class="fw-normal ms-2"><?php echo $departamentoComisaria; ?></span> </li>
+            <li class="list-group-item fw-bold">Localidad: <span class="fw-normal ms-2"><?php echo $localidadComisaria; ?></span> </li>
+            <li class="list-group-item fw-bold">Telefono: <span class="fw-normal ms-2"><?php echo $telefonoComisaria; ?></span> </li>
+            <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"><?php echo $latitudComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"><?php echo $longitudComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">
+              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></span> 
+            </li>
+            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoComisaria; ?></span></li>
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
@@ -453,40 +456,41 @@
                       <form class="row g-3">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" id="inputName5">
+                          <input type="text" value="<?php echo $nombreComisaria?>" class="form-control" id="inputName5">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
-                          <input type="email" class="form-control" id="inputEmail5">
+                          <input type="text" value="<?php echo $direccionComisaria?>" class="form-control" id="inputEmail5">
                         </div>
                         <div class="col-md-6">
                           <label for="inputEmail5" class="form-label">Provincia</label>
-                          <input type="email" class="form-control" id="inputEmail5">
+                          <input type="text" value="<?php echo $provinciaComisaria?>"  class="form-control" id="inputEmail5">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Departamento</label>
-                          <input type="password" class="form-control" id="inputPassword5">
+                          <input type="text" value="<?php echo $departamentoComisaria?>" class="form-control" id="inputPassword5">
                         </div>
                         <div class="col-md-12">
                           <label for="inputPassword5" class="form-label">Localidad</label>
-                          <input type="password" class="form-control" id="inputPassword5">
+                          <input type="text" value="<?php echo $localidadComisaria?>" class="form-control" id="inputPassword5">
                         </div>
                         <div class="col-12">
                           <label for="inputAddress5" class="form-label">Teléfono</label>
-                          <input type="text" class="form-control" id="inputAddres5s">
+                          <input type="text" value="<?php echo $telefonoComisaria?>" class="form-control" id="inputAddres5s">
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Latitud</label>
-                          <input type="password" class="form-control" id="inputPassword5">
+                          <input type="text" value="<?php echo $latitudComisaria?>" class="form-control" id="inputPassword5">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Longitud</label>
-                          <input type="password" class="form-control" id="inputPassword5">
-                        </div>
+                          <input type="text" value="<?php echo $longitudComisaria?>" class="form-control" id="inputPassword5">
+                        </div> -->
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Habilitado</label>
                           <select id="inputState" class="form-select">
-                            <option selected>Habilitado</option>
+                            <option selected value="<?php echo $habilitadoComisaria?>"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></option>
+                            <option >Habilitado</option>
                             <option>Deshabilitado</option>
                           </select>
                         </div>
