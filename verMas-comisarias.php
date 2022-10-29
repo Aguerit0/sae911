@@ -23,7 +23,52 @@
       $eliminadoComisaria=$row['eliminado'];
   }
 
+  //ELIMINAR UN REGISTRO
+  //CONSULTA ELIMINAR REGISTRO
+    if (isset($_POST['confirmarEliminarRegistro'])) {
+      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria=$idComisaria";
+      $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
+      if (!$resultadoConsularEliminarRegistro) {
+      echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
+      }else{
+      header('location:tabla-comisaria.php');
+      }
+    }
 
+
+    //EDITAR UN REGISTRO
+    //CONSULTAR VALORES NUEVOS DE LOS INPUTS
+    $consulta="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $resultado=mysqli_query($conexion,$consulta);
+    if (!$resultado) {
+      echo '<script>alert("ERROR INF")</script>';
+    }
+
+    //OBTENCION DE DATOS TABLA COMISARIA
+    if ($row = $resultado->fetch_assoc()) {
+      $nombreComisaria=$row['nombre'];
+      $direccionComisaria=$row['direccion'];
+      $provinciaComisaria=$row['provincia'];
+      $departamentoComisaria=$row['departamento'];
+      $localidadComisaria=$row['localidad'];
+      $telefonoComisaria=$row['telefono'];
+      $latitudComisaria=$row['latitud'];
+      $longitudComisaria=$row['longitud'];
+      $habilitadoComisaria=$row['habilitado'];
+      $eliminadoComisaria=$row['eliminado'];
+  }
+    //CONSULTA EDITAR REGISTRO
+  $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombreComisaria', direccion='$direccionComisaria', provincia='$provinciaComisaria', departamento='$departamentoComisaria', localidad='$localidadComisaria', telefono='$telefonoComisaria', habilitado='$habilitadoComisaria' WHERE idComisaria=$idComisaria";
+    if (isset($_POST['guardarRegistro'])) {
+      
+      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
+      if (!$resultadoEditarRegistro) {
+        echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
+      }else{
+        header('location:tabla-comisaria.php');
+      }
+    }
+    mysqli_close($conexion);
  ?>
 
 <!DOCTYPE html>
@@ -387,15 +432,16 @@
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
-         <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+         <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalEliminar" value="eliminarRegistro">
           Eliminar
           </button>
           <!-- Modal ELIMINAR -->
+          <form method="post">
           <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+                  <h1 class="modal-title fs-5" id="exampleModalLabel" data-bs-dismiss="modal">Eliminar</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -403,11 +449,14 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-danger">Eliminar</button>
+                  <input type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="Eliminar">
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
+
+          </form>
+          
           
           <!-- BOTON MODAL DESHABILITAR -->
           <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
@@ -450,39 +499,42 @@
                     <div class="card-body">
                       
                       <!-- FORMULARIO PARA EDITAR COMISARIA -->
-                      <form class="row g-3">
+                      <form class="row g-3" method="post">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
                           <input type="text" class="form-control" id="inputName5">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
-                          <input type="email" class="form-control" id="inputEmail5">
+                          <input type="text" class="form-control" id="inputEmail5">
                         </div>
                         <div class="col-md-6">
                           <label for="inputEmail5" class="form-label">Provincia</label>
-                          <input type="email" class="form-control" id="inputEmail5">
+                          <input type="text" class="form-control" id="inputEmail5">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Departamento</label>
-                          <input type="password" class="form-control" id="inputPassword5">
+                          <input type="text" class="form-control" id="inputPassword5">
                         </div>
                         <div class="col-md-12">
                           <label for="inputPassword5" class="form-label">Localidad</label>
-                          <input type="password" class="form-control" id="inputPassword5">
+                          <input type="text" class="form-control" id="inputPassword5">
                         </div>
                         <div class="col-12">
                           <label for="inputAddress5" class="form-label">Teléfono</label>
                           <input type="text" class="form-control" id="inputAddres5s">
                         </div>
-                        <div class="col-md-6">
+                        <!--
+                          <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Latitud</label>
-                          <input type="password" class="form-control" id="inputPassword5">
+                          <input type="text" class="form-control" id="inputPassword5">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Longitud</label>
-                          <input type="password" class="form-control" id="inputPassword5">
+                          <input type="text" class="form-control" id="inputPassword5">
                         </div>
+                        -->
+                        
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Habilitado</label>
                           <select id="inputState" class="form-select">
@@ -492,7 +544,10 @@
                         </div>
                         
                         <div class="text-center">
+                          <!--
                           <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                          -->
+                          <input type="submit" class="btn btn-primary float-end" name="guardarRegistro" value="Guardar">
                         </div>
                       </form><!-- End Multi Columns Form -->
         
