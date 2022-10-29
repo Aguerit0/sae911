@@ -240,7 +240,7 @@
             </a>
           </li>
           <li>
-            <a href="/tabla-comisaria.html">
+            <a href="/tabla-comisaria.php">
               <i class="bi bi-circle"></i><span>Comisarias</span>
             </a>
           </li>
@@ -260,12 +260,12 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
           <li>
-            <a href="agregar-novedadesGuardia.html">
+            <a href="agregar-novedadesGuardia.php">
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
-            <a href="tabla-novedadesGuardia.html">
+            <a href="tabla-novedadesGuardia.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
@@ -436,8 +436,8 @@
                   <div class="col-md-6">
                     <label for="inputState" class="form-label">Habilitado</label>
                     <select id="habilitadoComisaria" name="habilitadoComisaria" class="form-select">
-                      <option selected>Habilitado</option>
-                      <option>Deshabilitado</option>
+                      <option value="1" selected>Habilitado</option>
+                      <option value="0">Deshabilitado</option>
                     </select>
                   </div>
                   
