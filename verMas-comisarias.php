@@ -38,28 +38,29 @@
 
     //EDITAR UN REGISTRO
     //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-    $consulta="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-    $resultado=mysqli_query($conexion,$consulta);
-    if (!$resultado) {
+    if (isset($_POST['guardarRegistro'])) {
+    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
+    if (!$resultadoSelectRegistro) {
       echo '<script>alert("ERROR INF")</script>';
     }
 
     //OBTENCION DE DATOS TABLA COMISARIA
-    if ($row = $resultado->fetch_assoc()) {
-      $nombreComisaria=$row['nombre'];
-      $direccionComisaria=$row['direccion'];
-      $provinciaComisaria=$row['provincia'];
-      $departamentoComisaria=$row['departamento'];
-      $localidadComisaria=$row['localidad'];
-      $telefonoComisaria=$row['telefono'];
-      $latitudComisaria=$row['latitud'];
-      $longitudComisaria=$row['longitud'];
-      $habilitadoComisaria=$row['habilitado'];
-      $eliminadoComisaria=$row['eliminado'];
+    if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
+      $nombre=$row1['nombre'];
+      $direccion=$row1['direccion'];
+      $provincia=$row1['provincia'];
+      $departamento=$row1['departamento'];
+      $localidad=$row1['localidad'];
+      $telefono=$row1['telefono'];
+      $latitud=$row1['latitud'];
+      $longitud=$row1['longitud'];
+      $habilitado=$row1['habilitado'];
+      $eliminado=$row1['eliminado'];
   }
     //CONSULTA EDITAR REGISTRO
-  $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombreComisaria', direccion='$direccionComisaria', provincia='$provinciaComisaria', departamento='$departamentoComisaria', localidad='$localidadComisaria', telefono='$telefonoComisaria', habilitado='$habilitadoComisaria' WHERE idComisaria=$idComisaria";
-    if (isset($_POST['guardarRegistro'])) {
+  $consultaEditarRegistro="UPDATE comisarias SET idComisaria='$idComisaria', nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono',habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
+    
       
       $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
       if (!$resultadoEditarRegistro) {
