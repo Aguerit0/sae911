@@ -3,7 +3,7 @@
 
     $idComisaria=$_GET['id'];
     //CONSULTA TABLA COMISARIA
-    $consulta="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $consulta="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
     $resultado=mysqli_query($conexion,$consulta);
     if (!$resultado) {
       echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
@@ -26,7 +26,7 @@
   //ELIMINAR UN REGISTRO
   //CONSULTA ELIMINAR REGISTRO
     if (isset($_POST['confirmarEliminarRegistro'])) {
-      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria=$idComisaria";
+      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria='$idComisaria'";
       $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
       if (!$resultadoConsularEliminarRegistro) {
       echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
@@ -38,8 +38,8 @@
 
     //EDITAR UN REGISTRO
     //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-    if (isset($_POST['guardarRegistro'])) {
-    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    if (isset($_POST['guardar'])) {
+    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
     $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
     if (!$resultadoSelectRegistro) {
       echo '<script>alert("ERROR INF")</script>';
@@ -59,10 +59,11 @@
       $eliminado=$row1['eliminado'];
   }
     //CONSULTA EDITAR REGISTRO
-  $consultaEditarRegistro="UPDATE comisarias SET idComisaria='$idComisaria', nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono',habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
+  $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
+
     
       
-      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
+      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro) or die(mysqli_error());
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
       }else{
@@ -503,30 +504,30 @@
                     <div class="card-body">
                       
                       <!-- FORMULARIO PARA EDITAR COMISARIA -->
-                      <form class="row g-3" method="post">
+                      <form class="row g-3" method="POST" action="verMas-comisarias.php">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" value="<?php echo $nombreComisaria?>" class="form-control" id="inputName5">
+                          <input type="text" value="<?php echo $nombreComisaria?>" class="form-control" id="inputName5" name="nombre">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
-                          <input type="text" value="<?php echo $direccionComisaria?>" class="form-control" id="inputEmail5">
+                          <input type="text" value="<?php echo $direccionComisaria?>" class="form-control" id="inputEmail5" name="direccion">
                         </div>
                         <div class="col-md-6">
                           <label for="inputEmail5" class="form-label">Provincia</label>
-                          <input type="text" value="<?php echo $provinciaComisaria?>"  class="form-control" id="inputEmail5">
+                          <input type="text" value="<?php echo $provinciaComisaria?>"  class="form-control" id="inputEmail5" name="provincia">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Departamento</label>
-                          <input type="text" value="<?php echo $departamentoComisaria?>" class="form-control" id="inputPassword5">
+                          <input type="text" value="<?php echo $departamentoComisaria?>" class="form-control" id="inputPassword5" name="departamento">
                         </div>
                         <div class="col-md-12">
                           <label for="inputPassword5" class="form-label">Localidad</label>
-                          <input type="text" value="<?php echo $localidadComisaria?>" class="form-control" id="inputPassword5">
+                          <input type="text" value="<?php echo $localidadComisaria?>" class="form-control" id="inputPassword5" name="localidad">
                         </div>
                         <div class="col-12">
                           <label for="inputAddress5" class="form-label">Teléfono</label>
-                          <input type="text" value="<?php echo $telefonoComisaria?>" class="form-control" id="inputAddres5s">
+                          <input type="text" value="<?php echo $telefonoComisaria?>" class="form-control" id="inputAddres5s" name="telefono">
                         </div>
                         <!-- <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Latitud</label>
@@ -538,7 +539,7 @@
                         </div> -->
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Habilitado</label>
-                          <select id="inputState" class="form-select">
+                          <select id="inputState" class="form-select" name="Habilitado" >
                             <option selected value="<?php echo $habilitadoComisaria?>"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></option>
                             <option >Habilitado</option>
                             <option>Deshabilitado</option>
@@ -549,7 +550,8 @@
                           <!--
                           <button type="submit" class="btn btn-primary float-end">Guardar</button>
                           -->
-                          <input type="submit" class="btn btn-primary float-end" name="guardarRegistro" value="Guardar">
+                          <input type="submit" class="btn btn-primary float-end" name="guardar" value="Guardar">
+
                         </div>
                       </form><!-- End Multi Columns Form -->
         
