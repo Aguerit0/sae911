@@ -516,7 +516,7 @@
           <td><?php echo $row['oficial_servicio'] ?></td>
           <td>
             <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="verMas-novedadesGuardia.php">Ver más</a>
+            <a class="btn btn-primary" href="verMas-novedadesGuardia.php?id=<?php echo $row['id']?>">Ver más</a>
           </td>
         </tr>
         <?php 
