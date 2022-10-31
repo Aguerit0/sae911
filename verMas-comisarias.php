@@ -3,7 +3,7 @@
 
     $idComisaria=$_GET['id'];
     //CONSULTA TABLA COMISARIA
-    $consulta="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $consulta="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
     $resultado=mysqli_query($conexion,$consulta);
     if (!$resultado) {
       echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
@@ -23,7 +23,54 @@
       $eliminadoComisaria=$row['eliminado'];
   }
 
+  //ELIMINAR UN REGISTRO
+  //CONSULTA ELIMINAR REGISTRO
+    if (isset($_POST['confirmarEliminarRegistro'])) {
+      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria='$idComisaria'";
+      $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
+      if (!$resultadoConsularEliminarRegistro) {
+      echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
+      }else{
+      header('location:tabla-comisaria.php');
+      }
+    }
 
+
+    //EDITAR UN REGISTRO
+    //CONSULTAR VALORES NUEVOS DE LOS INPUTS
+    if (isset($_POST['guardar'])) {
+    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
+    $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
+    if (!$resultadoSelectRegistro) {
+      echo '<script>alert("ERROR INF")</script>';
+    }
+
+    //OBTENCION DE DATOS TABLA COMISARIA
+    if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
+      $nombre=$row1['nombre'];
+      $direccion=$row1['direccion'];
+      $provincia=$row1['provincia'];
+      $departamento=$row1['departamento'];
+      $localidad=$row1['localidad'];
+      $telefono=$row1['telefono'];
+      $latitud=$row1['latitud'];
+      $longitud=$row1['longitud'];
+      $habilitado=$row1['habilitado'];
+      $eliminado=$row1['eliminado'];
+  }
+    //CONSULTA EDITAR REGISTRO
+  $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
+
+    
+      
+      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro) or die(mysqli_error());
+      if (!$resultadoEditarRegistro) {
+        echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
+      }else{
+        header('location:tabla-comisaria.php');
+      }
+    }
+    mysqli_close($conexion);
  ?>
 
 <!DOCTYPE html>
@@ -390,15 +437,16 @@
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
-         <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+         <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalEliminar" value="eliminarRegistro">
           Eliminar
           </button>
           <!-- Modal ELIMINAR -->
+          <form method="post">
           <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+                  <h1 class="modal-title fs-5" id="exampleModalLabel" data-bs-dismiss="modal">Eliminar</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -406,11 +454,14 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-danger">Eliminar</button>
+                  <input type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="Eliminar">
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
+
+          </form>
+          
           
           <!-- BOTON MODAL DESHABILITAR -->
           <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
@@ -453,30 +504,30 @@
                     <div class="card-body">
                       
                       <!-- FORMULARIO PARA EDITAR COMISARIA -->
-                      <form class="row g-3">
+                      <form class="row g-3" method="POST" action="verMas-comisarias.php">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" value="<?php echo $nombreComisaria?>" class="form-control" id="inputName5">
+                          <input type="text" value="<?php echo $nombreComisaria?>" class="form-control" id="inputName5" name="nombre">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
-                          <input type="text" value="<?php echo $direccionComisaria?>" class="form-control" id="inputEmail5">
+                          <input type="text" value="<?php echo $direccionComisaria?>" class="form-control" id="inputEmail5" name="direccion">
                         </div>
                         <div class="col-md-6">
                           <label for="inputEmail5" class="form-label">Provincia</label>
-                          <input type="text" value="<?php echo $provinciaComisaria?>"  class="form-control" id="inputEmail5">
+                          <input type="text" value="<?php echo $provinciaComisaria?>"  class="form-control" id="inputEmail5" name="provincia">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Departamento</label>
-                          <input type="text" value="<?php echo $departamentoComisaria?>" class="form-control" id="inputPassword5">
+                          <input type="text" value="<?php echo $departamentoComisaria?>" class="form-control" id="inputPassword5" name="departamento">
                         </div>
                         <div class="col-md-12">
                           <label for="inputPassword5" class="form-label">Localidad</label>
-                          <input type="text" value="<?php echo $localidadComisaria?>" class="form-control" id="inputPassword5">
+                          <input type="text" value="<?php echo $localidadComisaria?>" class="form-control" id="inputPassword5" name="localidad">
                         </div>
                         <div class="col-12">
                           <label for="inputAddress5" class="form-label">Teléfono</label>
-                          <input type="text" value="<?php echo $telefonoComisaria?>" class="form-control" id="inputAddres5s">
+                          <input type="text" value="<?php echo $telefonoComisaria?>" class="form-control" id="inputAddres5s" name="telefono">
                         </div>
                         <!-- <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Latitud</label>
@@ -488,7 +539,7 @@
                         </div> -->
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Habilitado</label>
-                          <select id="inputState" class="form-select">
+                          <select id="inputState" class="form-select" name="Habilitado" >
                             <option selected value="<?php echo $habilitadoComisaria?>"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></option>
                             <option >Habilitado</option>
                             <option>Deshabilitado</option>
@@ -496,7 +547,11 @@
                         </div>
                         
                         <div class="text-center">
+                          <!--
                           <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                          -->
+                          <input type="submit" class="btn btn-primary float-end" name="guardar" value="Guardar">
+
                         </div>
                       </form><!-- End Multi Columns Form -->
         
