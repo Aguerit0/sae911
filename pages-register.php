@@ -1,3 +1,56 @@
+<?php 
+    include('conexion.php');
+    if (isset($_POST['registrarse'])) {
+      $usuario=$_POST["usuario"];
+      $contraseña=$_POST["contraseña"];
+      $nombre=$_POST["nombre"];
+      $apellido=$_POST["apellido"];
+      $dni=$_POST["dni"];
+      $email=$_POST["email"];
+      $telefono=$_POST["telefono"];
+      $sexo=$_POST["sexo"];
+     
+      //CONSULTA INSERTAR DATOS
+      $insertarPersona="INSERT INTO persona(nombre, apellido, gmail, telefono, dni, sexo) VALUES 
+      ('$nombre','$apellido','$gmail','$telefono','$dni','$sexo')";
+
+      $resultado=mysqli_query($conexion,$insertarPersona);
+      if (!$resultado) {
+        echo "ERROR";
+      }else{
+
+        //OBTENCION DE DATOS TABLA COMISARIA
+       if ($row = $resultado->fetch_assoc()) {
+        $idPerona=$row['idPersona'];
+        }
+      }
+
+      $insertarUsuario="INSERT INTO usuarios(usuario, contraseña, idPersona) VALUES ('$usuario','$contraseña','$idPersona')";
+      $resultado=mysqli_query($conexion,$insertarUsuario);
+      
+
+      //VERIFICAR USUARIO
+      $verificarUsuario=mysqli_query($conexion, "SELECT * FROM usuarios WHERE usuario='$usuario'");
+      if(mysqli_num_rows($verificarUsuario)>0){
+        echo '<script>alert("El usuario ya esta registrado");
+        window.history.go(-1);
+        </script>';
+        exit;
+      }
+
+      //EJECUTAR CONSULTA
+      $ejecutarInsertar=mysqli_query($conexion,$insertar);
+      if(!$ejecutarInsertar){
+        echo "Error al registrarse";
+      }
+      else{
+        header('location:home.html');
+      }
+    }
+    mysqli_close($conexion);
+ ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,63 +116,75 @@
                     <p class="text-center small"></p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Nombre</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">¡Por favor, escriba su nombre!
-                      </div>
-                    </div>
+                  <form class="row g-3 needs-validation" method="POST" novalidate>
 
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Apellido</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">¡Por favor, escriba su Apellido!
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">DNI</label>
-                      <input type="text" name="dni" class="form-control" id="dni" required>
-                      <div class="invalid-feedback">¡Por favor, escriba su DNI!
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Correo</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">¡Por favor, escriba su Gmail!</div>
-                    </div>
-
-                    <div class="col-12">
-                    <select class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
-                      <option selected>Sexo</option>
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
-                      <option value="3">Otro</option>
-                    </select>
-                    </div>
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Telefono</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">¡Por favor, escriba su Telefono!
-                      </div>
-                    </div>
-
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Nombre de Usuario</label>
+                      <label for="yourUsername" class="form-label">Usuario</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="usuario" class="form-control" id="usuario"  required>
                         <div class="invalid-feedback">¡Por favor, escriba su nombre de usuario</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="contraseña" class="form-control" id="contraseña" required>
                       <div class="invalid-feedback">¡Por favor, escriba una Contraseña!</div>
                     </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Repetir Contraseña</label>
+                      <input type="password" name="repcontraseña" class="form-control" id="repcontraseña"  required>
+                      <div class="invalid-feedback">¡Por favor, escriba una Contraseña!</div>
+                    </div>
+
+                    <div class="col-12">
+
+                      <label for="yourName" class="form-label">Nombre</label>
+                      <input type="text" name="nombre" class="form-control" id="nombre" required>
+                      <div class="invalid-feedback">¡Por favor, escriba su nombre!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">Apellido</label>
+                      <input type="text" name="apellido" class="form-control" id="apellido" required>
+                      <div class="invalid-feedback">¡Por favor, escriba su Apellido!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">DNI</label>
+                      <input type="number" name="dni" class="form-control" id="dni" value="dni" required>
+                      <div class="invalid-feedback">¡Por favor, escriba su DNI!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label">Correo</label>
+                      <input type="email" name="email" class="form-control" id="email"  required>
+                      <div class="invalid-feedback">¡Por favor, escriba su Gmail!</div>
+                    </div>
+
+
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">Telefono</label>
+                      <input type="number" name="telefono" class="form-control" id="telefono"  required>
+                      <div class="invalid-feedback">¡Por favor, escriba su Telefono!
+                      </div>
+                    </div>
+
+
+
+                    <div class="col-12">
+                      <label for="yourName" class="form-label" >Sexo</label>
+                      <br>
+                       <input type="radio" class="form-check-input" id="femenino" name="femenino"  checked>
+                      <label class="form-check-label" for="radio1">Femenino</label>
+                      <input type="radio" class="form-check-input" id="masculino" name="masculino" >
+                      <label class="form-check-label" for="radio2">Masculino</label>
+                      </div>
+
 
                     <div class="col-12">
                       <div class="form-check">
@@ -128,8 +193,9 @@
                         <div class="invalid-feedback">You must agree before submitting.</div>
                       </div>
                     </div>
+
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Crear Cuenta</button>
+                      <button class="btn btn-primary w-100" type="submit" value="registrase">Registrarse</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">¿Ya tienes una cuenta? <a href="pages-login.html">Iniciar sesión</a></p>
