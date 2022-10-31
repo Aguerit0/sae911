@@ -567,10 +567,21 @@
                         </div>
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Habilitado</label>
-                          <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
-                            <option >Habilitado</option>
-                            <option>Deshabilitado</option>
-                          </select>
+                          <?php if ($habilitadoComisaria==1) {
+                            ?>
+                            <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
+                              <option selected="">Habilitado</option>
+                              <option>Deshabilitado</option>
+                          </select>  
+                          <?php }else{ ?>
+                            <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
+                              <option selected="">Habilitado</option>
+                              <option>Deshabilitado</option>
+                          </select>  
+                          <?php } ?>
+
+
+                          
                         </div>
                         
                         <div class="text-center">
