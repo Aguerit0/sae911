@@ -42,7 +42,7 @@ if (isset($_POST['agregarPersona'])) {
 
 
 
-//CONSULTA TABLAS PARA MOSTRAR DATOS DE USUARIO
+//CONSULTA TABLAS PARA MOSTRAR DATOS DE USUARIOa
 $consultaDatosTabla = "SELECT * FROM usuarios INNER JOIN personas WHERE personas.idPersona=usuarios.idUsuario";
 //RESULTAOD DE LA CONSULTA
 $resultado4 = mysqli_query($conexion, $consultaDatosTabla);

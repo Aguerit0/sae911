@@ -2,13 +2,13 @@
 include('conexion.php');
 $idUsuario = $_GET['id'];
 //CONSULTA TABLA COMISARIA
-$consulta = "SELECT * FROM usuarios INNER JOIN personas ON idUsuario='$idUsuario'=personas.idPersona='$idPersona'";
+$consulta = "SELECT * FROM usuarios INNER JOIN personas ON usuarios.idUsuario='$idUsuario'=personas.idPersona='$idPersona'";
 $resultado = mysqli_query($conexion, $consulta);
 if (!$resultado) {
   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
 }
 
-//OBTENCION DE DATOS TABLA COMISARIA
+//OBTENCION DE DATOS TABLA COMISARIAa
 if ($row = $resultado->fetch_assoc()) {
   $nombrePersona = $row['nombre'];
   $apellidoPersona = $row['apellido'];
@@ -39,7 +39,7 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
 //EDITAR UN REGISTRO
 //CONSULTAR VALORES NUEVOS DE LOS INPUTS
 if (isset($_POST['guardar'])) {
-  $consultaSelectRegistro = "SELECT * FROM comisarias WHERE idUsuario='$idUsuario'";
+  $consultaSelectRegistro = "SELECT * FROM usuarios WHERE idUsuario='$idUsuario'";
   $resultadoSelectRegistro = mysqli_query($conexion, $consultaSelectRegistro);
   if (!$resultadoSelectRegistro) {
     echo '<script>alert("ERROR INF")</script>';
