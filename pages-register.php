@@ -10,9 +10,6 @@
       $telefono=$_POST["telefono"];
       $sexo=$_POST["sexo"];
      
-      
-
-
       //CONSULTA INSERTAR DATOS
       $insertarPersona="INSERT INTO persona(nombre, apellido, gmail, telefono, dni, sexo) VALUES 
       ('$nombre','$apellido','$gmail','$telefono','$dni','$sexo')";
