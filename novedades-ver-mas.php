@@ -61,7 +61,7 @@
       $demorados=$_POST['demorados'];
 
       //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
-      $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE 7 ";
+      $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
       $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
       if (!$resultadoUpdateNovedades) {
         echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
@@ -80,7 +80,7 @@
       if (!$resultadoConsularEliminarRegistro) {
       echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
       }else{
-      header('location:tabla-comisaria.php');
+      header('location:comisarias-tabla.php');
       }
     }
 
@@ -104,7 +104,7 @@
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
       }else{
-        header('location:tabla-comisaria.php');
+        header('location:comisarias-tabla.php');
       }
     }
     mysqli_close($conexion);
@@ -174,73 +174,6 @@
 
         <li class="nav-item dropdown">
 
-          
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
 
         </li><!-- End Notification Nav -->
 
@@ -263,7 +196,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -329,12 +262,12 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
           <li>
-            <a href="agregar-novedadesGuardia.html">
+            <a href="novedades-agregar.php">
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
-            <a href="tabla-novedadesGuardia.html">
+            <a href="novedades-tabla.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
@@ -403,40 +336,18 @@
       <li class="nav-heading">Paginas</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="usuarios-perfil.php">
           <i class="bi bi-person"></i>
           <span>Perfil</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
-      
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Iniciar sesion</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" href="registrarse.php">
           <i class="bi bi-card-list"></i>
           <span>Registrace</span>
         </a>
       </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contacto</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-     
-
-     
-
-     
 
     </ul>
 
@@ -447,8 +358,8 @@
         <h1>Tabla Novedades de Guardia</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="tabla-novedadesGuardia.html">Tabla Novedades de Guardia</a></li>
+            <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="novedades-tabla.html">Tabla Novedades de Guardia</a></li>
             <li class="breadcrumb-item active">Ver Más</li>
           </ol>
         </nav>
@@ -622,22 +533,8 @@
       </div>
     </div>
     <br>
-    <a class="btn btn-primary" href="tabla-novedadesGuardia.html">Volver</a>
+    <a class="btn btn-primary" href="novedades-tabla.html">Volver</a>
   </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

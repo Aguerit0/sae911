@@ -163,7 +163,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -173,7 +173,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
                 <i class="bi bi-gear"></i>
                 <span>Configuración de Cuenta</span>
               </a>
@@ -222,7 +222,7 @@
 
       
       <li>
-        <a href="/tabla-comisaria.html">
+        <a href="comisarias-tabla.php">
           <i class="bi bi-circle"></i><span>Comisarias</span>
         </a>
       </li>
@@ -261,12 +261,12 @@
     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
   
       <li>
-        <a href="agregar-novedadesGuardia.php">
+        <a href="novedades-agregar.php">
           <i class="bi bi-circle"></i><span>Agregar registros</span>
         </a>
       </li>
       <li>
-        <a href="">
+        <a href="novedades-ver-mas.php">
           <i class="bi bi-circle"></i><span>Ver registros</span>
         </a>
       </li>
@@ -316,34 +316,19 @@
   <li class="nav-heading">Paginas</li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="users-profile.php">
+    <a class="nav-link collapsed" href="usuarios-perfil.php">
       <i class="bi bi-person"></i>
       <span>Perfil</span>
     </a>
   </li><!-- End Profile Page Nav -->
 
   
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-login.php">
-      <i class="bi bi-box-arrow-in-right"></i>
-      <span>Iniciar sesion</span>
-    </a>
-  </li><!-- End Login Page Nav -->
-
   <li class="nav-item">
     <a class="nav-link collapsed" href="pages-register.php">
       <i class="bi bi-card-list"></i>
       <span>Registrarse</span>
     </a>
   </li><!-- End Register Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-contact.html">
-      <i class="bi bi-envelope"></i>
-      <span>Contacto</span>
-    </a>
-  </li><!-- End Contact Page Nav -->
 
 </ul>
 
@@ -355,7 +340,7 @@
       <h1>Perfil</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+          <li class="breadcrumb-item"><a href="inicio-dashboard.php">Inicio</a></li>
           <li class="breadcrumb-item">Usuario</li>
           <li class="breadcrumb-item active">Perfil</li>
         </ol>

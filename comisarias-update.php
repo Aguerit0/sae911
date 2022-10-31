@@ -26,7 +26,7 @@
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
       }else{
-        header('location:tabla-comisaria.php');
+        header('location:comisarias-tabla.php');
       }
     mysqli_close($conexion);
  ?>
