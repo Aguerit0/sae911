@@ -1,8 +1,8 @@
 <?php 
 	$servidor='localhost';
 	$usuario='root';
-	$clave='1234567';
-	$bd='BDSae911';
+	$clave='';
+	$bd='sae911';
 
 	$conexion=mysqli_connect($servidor,$usuario,$clave,$bd);
 	if (!$conexion) {

@@ -37,7 +37,7 @@ if (isset($_POST['agregarPersona'])) {
     if (!$ejecutarInsertarUsuario) {
         echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     } else {
-        header('location:tabla-usuario.php');
+        header('location:usuarios-tabla.php');
     }
 }
 //****************************************************************************************************************
@@ -88,12 +88,6 @@ mysqli_close($conexion);
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin - v2.4.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -122,73 +116,6 @@ mysqli_close($conexion);
                 <li class="nav-item dropdown">
 
 
-
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                        <li class="dropdown-header">
-                            You have 4 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-exclamation-circle text-warning"></i>
-                            <div>
-                                <h4>Lorem Ipsum</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>30 min. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-x-circle text-danger"></i>
-                            <div>
-                                <h4>Atque rerum nesciunt</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>1 hr. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-check-circle text-success"></i>
-                            <div>
-                                <h4>Sit rerum fuga</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>2 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="dropdown-footer">
-                            <a href="#">Show all notifications</a>
-                        </li>
-
-                    </ul><!-- End Notification Dropdown Items -->
-
                 </li><!-- End Notification Nav -->
 
 
@@ -210,7 +137,7 @@ mysqli_close($conexion);
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
                                 <i class="bi bi-person"></i>
                                 <span>Mi Perfil</span>
                             </a>
@@ -256,7 +183,7 @@ mysqli_close($conexion);
                         </a>
                     </li>
                     <li>
-                        <a href="tabla-comisaria.php">
+                        <a href="comisarias-tabla.php">
                             <i class="bi bi-circle"></i><span>Comisarias</span>
                         </a>
                     </li>
@@ -359,33 +286,12 @@ mysqli_close($conexion);
 
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-login.html">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <span>Iniciar sesion</span>
-                </a>
-            </li><!-- End Login Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-register.html">
+                <a class="nav-link collapsed" href="registrarse.php">
                     <i class="bi bi-card-list"></i>
                     <span>Registrarse</span>
                 </a>
             </li><!-- End Register Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-contact.html">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contacto</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
-
-
-
-
-
-
-
-        </ul>
+</ul>
 
     </aside><!-- End Sidebar-->
 
@@ -395,7 +301,7 @@ mysqli_close($conexion);
             <h1>Registro de Usuarios</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Admin</a></li>
                     <li class="breadcrumb-item active">Usuarios</li>
                 </ol>
@@ -500,7 +406,7 @@ mysqli_close($conexion);
                             <?php $idUsuario = $row['idUsuario'] ?>
                             <td scope="row">
                                 <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-                                <a class="btn btn-primary" href="verMas-usuarios.php?id=<?php echo $idUsuario?>">Ver más</a>
+                                <a class="btn btn-primary" href="usuarios-ver-mas.php?id=<?php echo $idUsuario?>">Ver más</a>
                             </td>
                             </td>
                         </tr>
@@ -513,19 +419,6 @@ mysqli_close($conexion);
 
     </main><!-- End #main -->
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-        <div class="copyright">
-            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-    </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

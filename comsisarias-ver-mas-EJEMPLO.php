@@ -2,108 +2,45 @@
     include('conexion.php');
     $idComisaria = $_GET['id'];
     $id = $_GET['id'];
+
+    $idComisaria=intval($idComisaria);
+    $id=intval($id);
+
+
     
-
-    //CONSULTA TABLA COMISARIA
-    $consulta="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
-    $resultado=mysqli_query($conexion,$consulta);
-    if (!$resultado) {
-      echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    }
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    if ($row = $resultado->fetch_assoc()) {
-      $nombreComisaria=$row['nombre'];
-      $direccionComisaria=$row['direccion'];
-      $provinciaComisaria=$row['provincia'];
-      $departamentoComisaria=$row['departamento'];
-      $localidadComisaria=$row['localidad'];
-      $telefonoComisaria=$row['telefono'];
-      $latitudComisaria=$row['latitud'];
-      $longitudComisaria=$row['longitud'];
-      $habilitadoComisaria=$row['habilitado'];
-      $eliminadoComisaria=$row['eliminado'];
-  }
-
-  //ELIMINAR UN REGISTRO
-  //CONSULTA ELIMINAR REGISTRO
-    if (isset($_POST['confirmarEliminarRegistro'])) {
-      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria='$idComisaria'";
-      $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
-      if (!$resultadoConsularEliminarRegistro) {
-      echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
-      }else{
-      header('location:tabla-comisaria.php');
-      }
-    }
-
-
-    //EDITAR UN REGISTRO
-/*    //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-    if (isset($_POST['guardar'])) {
-    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria='$id'";
-    $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-    if (!$resultadoSelectRegistro) {
-      echo '<script>alert("ERROR INF")</script>';
-    }
-
-
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-  }
-  */
   if (isset($_POST['guardar'])) {
     $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
     $resultado1=mysqli_query($conexion,$sql);
-
-    while($row1=$resultado1->fetch_assoc()){
+    if($row1=$resultado1->fetch_assoc()){
       $nombre=$row1['nombre'];
       $direccion=$row1['direccion'];
       $provincia=$row1['provincia'];
       $departamento=$row1['departamento'];
       $localidad=$row1['localidad'];
       $telefono=$row1['telefono'];
-      $latitud=$row1['latitud'];
-      $longitud=$row1['longitud'];
-      $habilitado=$row1['habilitado'];
-      $eliminado=$row1['eliminado'];
+      $latitud='0';
+      $longitud='0';
+      $habilitado='0';
+      $eliminado='0';
+
+      $nombre=strval($nombre);
+      $direccion=strval($direccion);
+      $provincia=strval($provincia);
+      $departamento=strval($departamento);
+      $localidad=strval($localidad);
+      $telefono=strval($telefono);
+      $latitud='0';
+      $longitud='0';
+      $habilitado='0';
+      $eliminado='0';
     }
-    
-    /*//OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultado1->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-      }*/
-
     //CONSULTA EDITAR REGISTRO
-  $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
-
-    
-      
+      $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
       $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro) or die(mysqli_error());
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
       }else{
-        header('location:tabla-comisaria.php');
+        header('location:comisarias-tabla.php');
       }
     }
     mysqli_close($conexion);
@@ -171,77 +108,7 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
 
-          
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
 
       
 
@@ -262,7 +129,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -289,7 +156,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="inicio-dashboard.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -303,17 +170,17 @@
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
           <li>
-            <a href="">
+            <a href="inicio-dashboard.php">
               <i class="bi bi-circle"></i><span>Admin</span>
             </a>
           </li>
           <li>
-            <a href="/tabla-comisaria.php">
+            <a href="comisarias-tabla.php">
               <i class="bi bi-circle"></i><span>Comisarias</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="usuarios-tabla.php">
               <i class="bi bi-circle"></i><span>Usuarios</span>
             </a>
           </li>
@@ -328,12 +195,12 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
           <li>
-            <a href="agregar-novedadesGuardia.php">
+            <a href="novedades-agregar.php">
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
-            <a href="tabla-novedadesGuardia.php">
+            <a href="novedades-tabla.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
@@ -402,34 +269,19 @@
       <li class="nav-heading">Paginas</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="usuarios-perfil.php">
           <i class="bi bi-person"></i>
           <span>Perfil</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
-      
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Iniciar sesion</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" href="registrarse.php">
           <i class="bi bi-card-list"></i>
-          <span>Registrace</span>
+          <span>Registrase</span>
         </a>
       </li><!-- End Register Page Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contacto</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
 
      
 
@@ -446,8 +298,8 @@
         <h1>Tabla Comisarias</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="tabla-comisaria.php">Tabla Comisarias</a></li>
+            <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="comisarias-tabla.php">Tabla Comisarias</a></li>
             <li class="breadcrumb-item active">Ver Más</li>
           </ol>
         </nav>
@@ -457,19 +309,19 @@
       <div class="card-body">
         
         <ul class="list-group mb-3">
-            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"><?php echo $idComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombreComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"><?php echo $direccionComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"><?php echo $provinciaComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Departamento: <span class="fw-normal ms-2"><?php echo $departamentoComisaria; ?></span> </li>
-            <li class="list-group-item fw-bold">Localidad: <span class="fw-normal ms-2"><?php echo $localidadComisaria; ?></span> </li>
-            <li class="list-group-item fw-bold">Telefono: <span class="fw-normal ms-2"><?php echo $telefonoComisaria; ?></span> </li>
-            <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"><?php echo $latitudComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"><?php echo $longitudComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Departamento: <span class="fw-normal ms-2"></span> </li>
+            <li class="list-group-item fw-bold">Localidad: <span class="fw-normal ms-2"></span> </li>
+            <li class="list-group-item fw-bold">Telefono: <span class="fw-normal ms-2"></span> </li>
+            <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"></span></li>
             <li class="list-group-item fw-bold">
-              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></span> 
+              Habilitado: <span class="fw-normal ms-2"></span> 
             </li>
-            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"></span></li>
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
@@ -540,48 +392,37 @@
                     <div class="card-body">
                       
                       <!-- FORMULARIO PARA EDITAR COMISARIA -->
-                      <form class="row g-3" method="POST" action="verMas-comisarias.php">
+                      <form class="row g-3" method="POST" action="comisarias-ver-mas.php">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombreComisaria?>">
+                          <input type="text" class="form-control" id="nombre" name="nombre">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
-                          <input type="text" class="form-control" id="direccion" name="direccion" value="<?php echo $direccionComisaria ?>">
+                          <input type="text" class="form-control" id="direccion" name="direccion">
                         </div>
                         <div class="col-md-6">
                           <label for="inputEmail5" class="form-label">Provincia</label>
-                          <input type="text" class="form-control" id="provincia" name="provincia" value="<?php echo $provinciaComisaria ?>">
+                          <input type="text" class="form-control" id="provincia" name="provincia">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Departamento</label>
-                          <input type="text" class="form-control" id="departamento" name="departamento" value="<?php echo $departamentoComisaria ?>">
+                          <input type="text" class="form-control" id="departamento" name="departamento">
                         </div>
                         <div class="col-md-12">
                           <label for="inputPassword5" class="form-label">Localidad</label>
-                          <input type="text" class="form-control" id="localidad" name="localidad" value="<?php echo $localidadComisaria ?>">
+                          <input type="text" class="form-control" id="localidad" name="localidad">
                         </div>
                         <div class="col-12">
                           <label for="inputAddress5" class="form-label">Teléfono</label>
-                          <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefonoComisaria ?>">
+                          <input type="text" class="form-control" id="telefono" name="telefono">
                         </div>
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Habilitado</label>
-                          <?php if ($habilitadoComisaria==1) {
-                            ?>
-                            <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
-                              <option selected="">Habilitado</option>
-                              <option>Deshabilitado</option>
-                          </select>  
-                          <?php }else{ ?>
-                            <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
-                              <option selected="">Habilitado</option>
-                              <option>Deshabilitado</option>
-                          </select>  
-                          <?php } ?>
-
-
-                          
+                          <select id="inputState" class="form-select" name="habilitado" >
+                            <option >Habilitado</option>
+                            <option>Deshabilitado</option>
+                          </select>
                         </div>
                         
                         <div class="text-center">
@@ -607,7 +448,7 @@
     </div>
     <br>
     <div class="d-flex justify-content-between">
-      <a class="btn btn-primary " href="tabla-comisaria.php">Volver</a>
+      <a class="btn btn-primary " href="comisarias-tabla.php">Volver</a>
     </div>
   </main><!-- End #main -->
 
