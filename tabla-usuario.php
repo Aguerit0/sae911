@@ -1,3 +1,59 @@
+<?php
+include 'conexion.php';
+
+//SI APRETA EL BOTON AGREGAR
+if (isset($_POST['agregarPersona'])) {
+    $nombrePersona = $_POST['nombrePersona'];
+    $apellidoPersona = $_POST['apellidoPersona'];
+    $correoPersona = $_POST['correoPersona'];
+    $telefonoPersona = $_POST['telefonoPersona'];
+    $sexoPersona = $_POST['sexoPersona'];
+    $dniPersona = $_POST['dniPersona'];
+    $fecharegistroPersona = $_POST['fecharegistroPersona'];
+    $habilitadoPersona = $_POST['habilitadoPersona'];
+    $eliminadoPersona = $_POST['eliminadoPersona'];
+
+
+    //CONSULTA INSERTAR EN SQL
+    $insertarPersona = "INSERT INTO personas (nombre, apellido, correo, telefono, sexo, dni, fechaRegistro, habilitado, eliminado) VALUES ('$nombrePersona', '$apellidoPersona', '$correoPersona', '$telefonoPersona', '$sexoPersona', '$dniPersona', '$fechaRegistroPersona', '$habilitadoPersona', '$eliminadoPersona')";
+
+    $insertarUsuario = "INSERT INTO usuarios(usuario, contraseña, idPersona) VALUES ('$usuario','$contraseña','$idPersona')";
+
+    $resultado = mysqli_query($conexion, $insertarUsuario);
+
+    if (!$resultado) {
+        echo "ERROR2";
+    } else {
+        $resultado = mysqli_query($conexion, $insertarPersona);
+        if ($row = $resultado->fetch_assoc()) {
+            $idPersona = $row['idPersona'];
+        }
+    }
+
+    //EJECUTAR CONSULTA DE INSERTAR
+    $ejecutarInsertarUsuario = mysqli_query($conexion, $insertarUsuario);
+    if (!$ejecutarInsertarUsuario) {
+        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+    } else {
+        header('location:tabla-usuario.php');
+    }
+}
+
+
+
+
+//CONSULTA TABLAS PARA MOSTRAR DATOS DE USUARIO
+$consultaDatosTabla = "SELECT * FROM usuarios INNER JOIN personas WHERE personas.idPersona=usuarios.idUsuario";
+//RESULTAOD DE LA CONSULTA
+$resultado4 = mysqli_query($conexion, $consultaDatosTabla);
+if (!$resultado4) {
+    echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN 4');</script>";
+} else {
+}
+//CERRAMOS CONEXIÓN BD
+mysqli_close($conexion);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,9 +71,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -199,7 +253,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="tabla-comisaria.html">
+                        <a href="tabla-comisaria.php">
                             <i class="bi bi-circle"></i><span>Comisarias</span>
                         </a>
                     </li>
@@ -214,8 +268,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Novedades de Guardia</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-menu-button-wide"></i><span>Novedades de Guardia</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -234,8 +287,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-journal-text"></i><span>Novedades de Relevancia</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-journal-text"></i><span>Novedades de Relevancia</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -254,8 +306,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-layout-text-window-reverse"></i><span>Ingreso Personas</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-layout-text-window-reverse"></i><span>Ingreso Personas</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -274,8 +325,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-bar-chart"></i><span>Registro Secuestros</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-bar-chart"></i><span>Registro Secuestros</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -352,89 +402,107 @@
         <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <i class="bi bi-plus-circle-fill"></i>
             Agregar
-          </button>
-          <!-- Modal -->
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Usuario</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="card">
-                    <div class="card-body">
-                      <!-- FORMULARIO PARA AGREGAR COMISARIA -->
-                     
-                      <form class="row g-3">
-                        <div class="col-md-12">
-                          <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" id="inputName5">
-                        </div>
-                        <div class="col-md-12">
-                          <label for="inputLastName5" class="form-label">Apellido</label>
-                          <input type="text" class="form-control" id="inputLastName5">
-                        </div>
-                        <div class="col-md-12">
-                          <label for="inputEmail5" class="form-label">Correo</label>
-                          <input type="email" class="form-control" id="inputEmail5">
-                        </div>
-                        <div class="col-12">
-                          <label for="inputPhone5" class="form-label">Teléfono</label>
-                          <input type="text" class="form-control" id="inputPhone5">
-                        </div>
-                        <div class="col-md-12">
-                          <label for="inputUser5" class="form-label">Usuario</label>
-                          <input type="text" class="form-control" id="inputUser5">
-                        </div>
-                        <div class="col-12">
-                          <label for="inputPassword5" class="form-label">Contraseña</label>
-                          <input type="password" class="form-control" id="inputPassword5">
-                        </div>
-                        <div class="col-md-6">
-                          <label for="inputState" class="form-label">Habilitado</label>
-                          <select id="inputState" class="form-select">
-                            <option selected>Habilitado</option>
-                            <option>Deshabilitado</option>
-                          </select>
-                        </div>
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-primary float-end">Agregar</button>
-                        </div>
-                      </form>
-        
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Usuario</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                  </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- FORMULARIO PARA AGREGAR USUARIO -->
+
+                                <form class="row g-3">
+                                    <div class="col-md-12">
+                                        <label for="inputName5" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputLastName5" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputEmail5" class="form-label">Correo</label>
+                                        <input type="email" class="form-control" id="correoUsuario" name="correoUsuario">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="inputPhone5" class="form-label">Teléfono</label>
+                                        <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputUser5" class="form-label">Usuario</label>
+                                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="inputPassword5" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="nombreUsuario" name="nombreUsuario">
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
+                                            <option selected>Sexo</option>
+                                            <option value="1">Masculino</option>
+                                            <option value="2">Femenino</option>
+                                            <option value="3">Otro</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputState" class="form-label">Habilitado</label>
+                                        <select id="inputState" class="form-select">
+                                            <option selected>Habilitado</option>
+                                            <option>Deshabilitado</option>
+                                        </select>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary float-end">Agregar</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <!-- <button type="button" class="btn btn-primary">Understood</button> -->
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
         <section class="section">
             <table class="table table-sm table-hover table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Nombre/s</th>
-                        <th scope="col">Apellido/s</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nombre</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Fecha de Registro</th>
+                        <th scope="col">Habilitado</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td scope="row">Leandro</td>
-                        <td scope="row">Cabrera</td>
-                        <td>ljcabrera@institutosanmartin.edu.ar</td>
-                        <td>22/10/22</td>
-                        <td>
-                            <a class="btn btn-primary" href="/verMas-usuario.html">Ver más</a>
-                        </td>
-                    </tr>
+                    <?php
+                    while ($row = $resultado4->fetch_assoc()) {
+                    ?>
+                        <tr>
+                            <th scope="row"><?php echo $row['usuario'] ?></th>
+                            <td scope="row"><?php echo $row['nombre'] ?></td>
+                            <td scope="row"><?php echo $row['correo'] ?></td>
+                            <td scope="row"><?php echo $row['fechaRegistro'] ?></td>
+                            <td scope="row"><?php echo $row['habilitado'] ?></td>
+                            <td scope="row">
+                                <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
+                                <a class="btn btn-primary" href="verMas-usuarios.php?id=<?php echo $row['idUsuario']; ?>">Ver más</a>
+                            </td>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </section>
@@ -455,8 +523,7 @@
         </div>
     </footer><!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

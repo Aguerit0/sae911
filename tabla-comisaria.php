@@ -240,12 +240,12 @@
             </a>
           </li>
           <li>
-            <a href="/tabla-comisaria.php">
+            <a href="tabla-comisaria.php">
               <i class="bi bi-circle"></i><span>Comisarias</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="tabla-usuario.php">
               <i class="bi bi-circle"></i><span>Usuarios</span>
             </a>
           </li>
