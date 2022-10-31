@@ -2,103 +2,40 @@
     include('conexion.php');
     $idComisaria = $_GET['id'];
     $id = $_GET['id'];
+
+    $idComisaria=intval($idComisaria);
+    $id=intval($id);
+
+
     
-
-    //CONSULTA TABLA COMISARIA
-    $consulta="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
-    $resultado=mysqli_query($conexion,$consulta);
-    if (!$resultado) {
-      echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    }
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    if ($row = $resultado->fetch_assoc()) {
-      $nombreComisaria=$row['nombre'];
-      $direccionComisaria=$row['direccion'];
-      $provinciaComisaria=$row['provincia'];
-      $departamentoComisaria=$row['departamento'];
-      $localidadComisaria=$row['localidad'];
-      $telefonoComisaria=$row['telefono'];
-      $latitudComisaria=$row['latitud'];
-      $longitudComisaria=$row['longitud'];
-      $habilitadoComisaria=$row['habilitado'];
-      $eliminadoComisaria=$row['eliminado'];
-  }
-
-  //ELIMINAR UN REGISTRO
-  //CONSULTA ELIMINAR REGISTRO
-    if (isset($_POST['confirmarEliminarRegistro'])) {
-      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria='$idComisaria'";
-      $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
-      if (!$resultadoConsularEliminarRegistro) {
-      echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
-      }else{
-      header('location:tabla-comisaria.php');
-      }
-    }
-
-
-    //EDITAR UN REGISTRO
-/*    //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-    if (isset($_POST['guardar'])) {
-    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria='$id'";
-    $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-    if (!$resultadoSelectRegistro) {
-      echo '<script>alert("ERROR INF")</script>';
-    }
-
-
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-  }
-  */
   if (isset($_POST['guardar'])) {
     $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
     $resultado1=mysqli_query($conexion,$sql);
-
-    while($row1=$resultado1->fetch_assoc()){
+    if($row1=$resultado1->fetch_assoc()){
       $nombre=$row1['nombre'];
       $direccion=$row1['direccion'];
       $provincia=$row1['provincia'];
       $departamento=$row1['departamento'];
       $localidad=$row1['localidad'];
       $telefono=$row1['telefono'];
-      $latitud=$row1['latitud'];
-      $longitud=$row1['longitud'];
-      $habilitado=$row1['habilitado'];
-      $eliminado=$row1['eliminado'];
+      $latitud='0';
+      $longitud='0';
+      $habilitado='0';
+      $eliminado='0';
+
+      $nombre=strval($nombre);
+      $direccion=strval($direccion);
+      $provincia=strval($provincia);
+      $departamento=strval($departamento);
+      $localidad=strval($localidad);
+      $telefono=strval($telefono);
+      $latitud='0';
+      $longitud='0';
+      $habilitado='0';
+      $eliminado='0';
     }
-    
-    /*//OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultado1->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-      }*/
-
     //CONSULTA EDITAR REGISTRO
-  $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
-
-    
-      
+      $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
       $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro) or die(mysqli_error());
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
@@ -457,19 +394,19 @@
       <div class="card-body">
         
         <ul class="list-group mb-3">
-            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"><?php echo $idComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombreComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"><?php echo $direccionComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"><?php echo $provinciaComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Departamento: <span class="fw-normal ms-2"><?php echo $departamentoComisaria; ?></span> </li>
-            <li class="list-group-item fw-bold">Localidad: <span class="fw-normal ms-2"><?php echo $localidadComisaria; ?></span> </li>
-            <li class="list-group-item fw-bold">Telefono: <span class="fw-normal ms-2"><?php echo $telefonoComisaria; ?></span> </li>
-            <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"><?php echo $latitudComisaria; ?></span></li>
-            <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"><?php echo $longitudComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Departamento: <span class="fw-normal ms-2"></span> </li>
+            <li class="list-group-item fw-bold">Localidad: <span class="fw-normal ms-2"></span> </li>
+            <li class="list-group-item fw-bold">Telefono: <span class="fw-normal ms-2"></span> </li>
+            <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"></span></li>
+            <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"></span></li>
             <li class="list-group-item fw-bold">
-              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></span> 
+              Habilitado: <span class="fw-normal ms-2"></span> 
             </li>
-            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"></span></li>
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
@@ -543,31 +480,31 @@
                       <form class="row g-3" method="POST" action="verMas-comisarias.php">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombreComisaria?>">
+                          <input type="text" class="form-control" id="nombre" name="nombre">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
-                          <input type="text" class="form-control" id="direccion" name="direccion" value="<?php echo $direccionComisaria ?>">
+                          <input type="text" class="form-control" id="direccion" name="direccion">
                         </div>
                         <div class="col-md-6">
                           <label for="inputEmail5" class="form-label">Provincia</label>
-                          <input type="text" class="form-control" id="provincia" name="provincia" value="<?php echo $provinciaComisaria ?>">
+                          <input type="text" class="form-control" id="provincia" name="provincia">
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword5" class="form-label">Departamento</label>
-                          <input type="text" class="form-control" id="departamento" name="departamento" value="<?php echo $departamentoComisaria ?>">
+                          <input type="text" class="form-control" id="departamento" name="departamento">
                         </div>
                         <div class="col-md-12">
                           <label for="inputPassword5" class="form-label">Localidad</label>
-                          <input type="text" class="form-control" id="localidad" name="localidad" value="<?php echo $localidadComisaria ?>">
+                          <input type="text" class="form-control" id="localidad" name="localidad">
                         </div>
                         <div class="col-12">
                           <label for="inputAddress5" class="form-label">Teléfono</label>
-                          <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefonoComisaria ?>">
+                          <input type="text" class="form-control" id="telefono" name="telefono">
                         </div>
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Habilitado</label>
-                          <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
+                          <select id="inputState" class="form-select" name="habilitado" >
                             <option >Habilitado</option>
                             <option>Deshabilitado</option>
                           </select>

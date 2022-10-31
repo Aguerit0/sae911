@@ -462,6 +462,7 @@
     <table class="table table-sm table-hover table-bordered text-center">
       <thead class="table-dark">
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Dirección</th>
             <th scope="col">Provincia</th>
@@ -478,11 +479,13 @@
             while ($row = $resultado->fetch_assoc()) {
            ?>   
         <tr>
+              <th scope="row"><?php echo $row['idComisaria'] ?></th>
               <th scope="row"><?php echo $row['nombre'] ?></th>
               <td scope="row"><?php echo $row['direccion'] ?></td>
               <td scope="row"><?php echo $row['provincia'] ?></td>
               <td scope="row"><?php echo $row['departamento'] ?></td>
               <td scope="row"><?php echo $row['localidad'] ?></td>
+              
               <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
             <a class="btn btn-primary" href="verMas-comisarias.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
         </tr>
