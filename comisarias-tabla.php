@@ -22,7 +22,7 @@
       if (!$ejecutarInsertarComisaria) {
         echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
       }else{
-        header('location:tabla-comisaria.php');
+        header('location:comisarias-tabla.php');
       }
     }
 
@@ -194,7 +194,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -221,7 +221,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="inicio-dashboard.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -260,12 +260,12 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
           <li>
-            <a href="agregar-novedadesGuardia.php">
+            <a href="novedades-agregar.php">
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
-            <a href="tabla-novedadesGuardia.php">
+            <a href="novedades-tabla.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
@@ -334,7 +334,7 @@
       <li class="nav-heading">Paginas</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="usuarios-perfil.php">
           <i class="bi bi-person"></i>
           <span>Perfil</span>
         </a>
@@ -343,32 +343,11 @@
       
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Iniciar sesion</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" href="registrarse.php">
           <i class="bi bi-card-list"></i>
-          <span>Registrace</span>
+          <span>Registrase</span>
         </a>
       </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contacto</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-     
-
-     
-
-     
-
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -378,7 +357,7 @@
         <h1>Tabla Comisarias</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
             <li class="breadcrumb-item active">Comisarias</li>
           </ol>
         </nav>
@@ -462,6 +441,7 @@
     <table class="table table-sm table-hover table-bordered text-center">
       <thead class="table-dark">
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Dirección</th>
             <th scope="col">Provincia</th>
@@ -478,13 +458,15 @@
             while ($row = $resultado->fetch_assoc()) {
            ?>   
         <tr>
+              <th scope="row"><?php echo $row['idComisaria'] ?></th>
               <th scope="row"><?php echo $row['nombre'] ?></th>
               <td scope="row"><?php echo $row['direccion'] ?></td>
               <td scope="row"><?php echo $row['provincia'] ?></td>
               <td scope="row"><?php echo $row['departamento'] ?></td>
               <td scope="row"><?php echo $row['localidad'] ?></td>
+              
               <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="verMas-comisarias.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
+            <a class="btn btn-primary" href="comisarias-update.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
         </tr>
         <?php 
             }
