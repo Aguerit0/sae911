@@ -64,7 +64,7 @@
   }
   */
   if (isset($_POST['guardar'])) {
-    $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
+    $sql="SELECT * FROM comisarias WHERE idComisaria=$idComisaria ";
     $resultado1=mysqli_query($conexion,$sql);
 
     while($row1=$resultado1->fetch_assoc()){
@@ -74,32 +74,18 @@
       $departamento=$row1['departamento'];
       $localidad=$row1['localidad'];
       $telefono=$row1['telefono'];
-      $latitud=$row1['latitud'];
-      $longitud=$row1['longitud'];
+      //$latitud=$row1['latitud'];
+      //$longitud=$row1['longitud'];
       $habilitado=$row1['habilitado'];
       $eliminado=$row1['eliminado'];
     }
-    
-    /*//OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultado1->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-      }*/
 
     //CONSULTA EDITAR REGISTRO
   $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
 
     
       
-      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro) or die(mysqli_error());
+      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
       }else{
@@ -461,7 +447,7 @@
                       <form class="row g-3" method="POST" action="comisarias-ver-mas.php">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombreComisaria?>">
+                          <input type="text" class="form-control" id="nombre" name="nombre"value="<?php echo $nombreComisaria?>">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
@@ -525,7 +511,7 @@
     </div>
     <br>
     <div class="d-flex justify-content-between">
-      <a class="btn btn-primary " href="tabla-comisaria.php">Volver</a>
+      <a class="btn btn-primary " href="comisarias-tabla.php">Volver</a>
     </div>
   </main><!-- End #main -->
 

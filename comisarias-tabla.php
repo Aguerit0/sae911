@@ -466,7 +466,7 @@
               <td scope="row"><?php echo $row['localidad'] ?></td>
               
               <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="comisarias-update.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
+            <a class="btn btn-primary" href="comisarias-ver-mas-EJEMPLO.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
         </tr>
         <?php 
             }
