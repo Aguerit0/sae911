@@ -2,7 +2,7 @@
 	$servidor='localhost';
 	$usuario='root';
 	$clave='1234567';
-	$BDSae='sae911';
+	$bd='bdsae911';
 
 	$conexion=mysqli_connect($servidor,$usuario,$clave,$bd);
 	if (!$conexion) {

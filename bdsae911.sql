@@ -39,7 +39,7 @@ CREATE TABLE `comisarias` (
   `longitud` varchar(50) NOT NULL,
   `habilitado` tinyint(1) NOT NULL,
   `eliminado` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `comisarias`
@@ -75,7 +75,7 @@ CREATE TABLE `novedades_de_guardia` (
   `arres_averiguacion_actividades` int NOT NULL,
   `arres_info_codigo_de_faltas` int NOT NULL,
   `demorados` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `novedades_de_guardia`
@@ -104,7 +104,7 @@ CREATE TABLE `personas` (
   `fechaRegistro` date DEFAULT NULL,
   `habilitado` int DEFAULT NULL,
   `borrado` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `personas`
@@ -134,7 +134,7 @@ CREATE TABLE `usuario-comisaria` (
   `idComisaria` int NOT NULL,
   `habilitado` int NOT NULL,
   `eliminado` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -150,7 +150,7 @@ CREATE TABLE `usuarios` (
   `habilitado` int NOT NULL,
   `borrado` int NOT NULL,
   `idPersona` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`

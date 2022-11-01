@@ -23,7 +23,7 @@ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
       $_SESSION['usuario'] == $row['usuario'];
       $_SESSION['nombre'] == $row['nombre'];
       $_SESSION['idUsuario'] == $row['idUsuario'];
-      header('Location: index.html');
+      header('Location: inicio-dashboard.php');
       exit();
     } else {
       header('Location: index.php?fallo=true');
