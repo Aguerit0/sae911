@@ -167,6 +167,8 @@
           <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoPersona; ?></span></li>
         </ul>
 
+
+        
         <!-- BOTON MODAL ELIMINAR -->
         <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalEliminar">
           Eliminar
@@ -212,6 +214,8 @@
             </div>
           </div>
         </div>
+
+        
 
         <!-- BOTON MODAL EDITAR -->
         <button type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -276,7 +280,75 @@
             </div>
           </div>
         </div>
+
+        
+         <!-- BOTON DESIGNAR COMISARIA-->
+         <button type="button" class="btn btn-info float-left mt-3" data-bs-toggle="modal" data-bs-target="#btn-designar">
+          <i class="bi bi-pencil-square"></i>
+          Designar comisaria
+        </button>
+
+        <div class="modal fade" id="btn-designar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Designar Comisaria</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="card">
+                  <div class="card-body">
+
+                    <!-- FORMULARIO PARA DESIGNAR COMISARIA -->
+                    <form class="row g-3">
+                      <div class="col-md-12">
+                        <label for="inputName5" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="inputName5">
+                      </div>
+                      <div class="col-md-12">
+                        <label for="inputLastName5" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="inputLastName5">
+                      </div>
+                      <div class="col-md-12">
+                        <label for="inputEmail5" class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="inputEmail5">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputPhone5" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="inputPhone5">
+                      </div>
+                      <div class="col-md-12">
+                        <label for="inputUser5" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="inputUser5">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputState" class="form-label">Habilitado</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>Habilitado</option>
+                          <option>Deshabilitado</option>
+                        </select>
+                      </div>
+
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                      </div>
+                    </form>
+                    <!-- End Multi Columns Form -->
+
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      
     </div>
     <br>
     <div class="d-flex justify-content-between">
