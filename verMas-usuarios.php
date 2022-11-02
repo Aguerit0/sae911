@@ -18,9 +18,9 @@ if ($row = $resultado->fetch_assoc()) {
   $dniPersona = $row['dni'];
   $fechaRegistroPersona = $row['fechaRegistro'];
   $nombreUsuario = $row['usuario'];
-  $contraseniaUsuario = $row['contrasenia'];
+  $contraseñaUsuario = $row['contraseña'];
   $habilitadoPersona = $row['habilitado'];
-  $eliminadoPersona = $row['eliminado'];
+  $borradoPersona = $row['borrado'];
 }
 
 //ELIMINAR UN REGISTRO
@@ -432,7 +432,7 @@ mysqli_close($conexion);
           <li class="list-group-item fw-bold">DNI: <span class="fw-normal ms-2"><?php echo $dniPersona; ?></span> </li>
           <li class="list-group-item fw-bold">Fecha de Registro: <span class="fw-normal ms-2"><?php echo $fechaRegistroPersona; ?></span></li>
           <li class="list-group-item fw-bold">Usuario: <span class="fw-normal ms-2"><?php echo $nombreUsuario; ?></span></li>
-          <li class="list-group-item fw-bold">Contraseña: <span class="fw-normal ms-2"><?php echo $contraseniaUsuario; ?></span></li>
+          <li class="list-group-item fw-bold">Contraseña: <span class="fw-normal ms-2"><?php echo $contraseñaUsuario; ?></span></li>
           <li class="list-group-item fw-bold">
             Habilitado: <span class="fw-normal ms-2"><?php if ($habilitadoPersona == 1) {
                                                         echo "Habilitado";
@@ -440,7 +440,7 @@ mysqli_close($conexion);
                                                         echo "Deshabilitado";
                                                       } ?></span>
           </li>
-          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoPersona; ?></span></li>
+          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $borradoPersona; ?></span></li>
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->
