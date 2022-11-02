@@ -15,8 +15,6 @@
       $habilitado=1;
       $eliminado=0;
 
-
-      
     //CONSULTA EDITAR REGISTRO
   $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
 

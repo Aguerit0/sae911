@@ -1,6 +1,7 @@
 <?php 
 	$servidor='localhost';
 	$usuario='root';
+	$clave='';
 	$clave='41624421';
 	$bd='bdsae911';
 

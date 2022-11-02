@@ -304,7 +304,7 @@
     <form class="row g-3" method="POST" action="comisarias-ver-mas.php">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombreComisaria?>">
+                          <input type="text" class="form-control" id="nombre" name="nombre"value="<?php echo $nombreComisaria?>">
                         </div>
                         <div class="col-md-12">
                           <label for="inputEmail5" class="form-label">Dirección</label>
