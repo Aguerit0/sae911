@@ -1,5 +1,6 @@
 <?php 
     include 'conexion.php';
+    session_start();
 
     //SI APRETA EL BOTON AGREGAR
     if (isset($_POST['agregarComisaria'])) {
@@ -38,6 +39,58 @@
       }else{
         
       }
+
+
+
+//BOTON BUSCAR CAMPOS EN TABLA 
+
+  $salida = "";
+  $consultaSearch = "SELECT * FROM comisarias ORDER BY idComisarias";
+  if (isset($_POST['txtBuscar'])) {
+    
+      $q = $conexion->real_escape_string($_POST['txtBuscar']);
+
+      $consultaSearch= "SELECT nombre, direccion, provincia, departamento, localidad FROM comisarias WHERE nombre LIKE '%".$q."%' OR direccion LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR localidad LIKE '%".$q."%' ";
+
+      $resultadoSearch = mysqli_query($conexion,$consultaSearch);
+      /*
+      $if($resultadoSearch->num_rows > 0){
+
+        $salida.="<table class='table table-sm table-hover table-bordered text-center'>
+          <thead class='table-dark'>
+          <tr>
+            <th scope='col'>ID</th>
+            <th scope='col'>Nombre</th>
+            <th scope='col'>Dirección</th>
+            <th scope='col'>Provincia</th>
+            <th scope='col'>Departamento</th>
+            <th scope='col'>Localidad</th>
+            <th scope='col'>. . .</th>
+          </tr>
+          </thead>
+          <tbody>";
+          while ($fila = $resultadoSearch->fetch_assoc()) {   
+              $salida.="
+                <tr>
+              <th>".$fila['idComisaria']."</th>
+              <th>".$fila['nombre']."</th>
+              <td scope='row'>".$fila['direccion']."</td>
+              <td scope='row'>".$fila['provincia']."</td>
+              <td scope='row'>".$fila['departamento']."</td>
+              <td scope='row'>".$fila['localidad']."</td>
+              </tr>";
+            };
+            $salida.=" </tbody></table>";
+      
+              
+      }else{
+        $salida.="No hay datos";
+      }
+      echo $salida;
+      */
+
+    }
+  
     //CERRAMOS CONEXIÓN BD
     mysqli_close($conexion);
  ?>
@@ -69,6 +122,9 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
+  <!--Buscador Files-->
+  <script src="jquery.js"></script>
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -83,274 +139,15 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <span class="d-none d-lg-block">SAE 911</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-   <!-- End Search Bar -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
-
-          
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-      
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
-                <i class="bi bi-person"></i>
-                <span>Mi Perfil</span>
-              </a>
-            </li>
-           
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Salir</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
+  <?php include("./template/dashboard.php")?>
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="inicio-dashboard.php">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Admin</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Admin</span>
-            </a>
-          </li>
-          <li>
-            <a href="/tabla-comisaria.php">
-              <i class="bi bi-circle"></i><span>Comisarias</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Usuarios</span>
-            </a>
-          </li>
-         
-        </ul>
-      </li><!-- End Icons Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Novedades de Guardia</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-          <li>
-            <a href="novedades-agregar.php">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="novedades-tabla.php">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Novedades de Relevancia</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Ingreso Personas</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Registro Secuestros</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        
-         
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
-
-     
-      <li class="nav-heading">Paginas</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="usuarios-perfil.php">
-          <i class="bi bi-person"></i>
-          <span>Perfil</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="registrarse.php">
-          <i class="bi bi-card-list"></i>
-          <span>Registrase</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-    </ul>
-
-  </aside><!-- End Sidebar-->
+  <?php  if($_SESSION['rol'] == 1){
+      include ("./template/admin.php");
+    }else{
+      include ("./template/usuario.php");
+    }
+  ?>
 
   <main id="main" class="main">
     <div class="pagetitle">
@@ -363,10 +160,28 @@
         </nav>
     </div><!-- End Page Title -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+
+    <div class="search">
+      
+      
+
+      <!--INPUT BUSCAR EN TABLAS-->
+      <form method="post">
+
+        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
+
+        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="bi bi-plus-circle-fill"></i>
       Agregar
-    </button>
+      </button>  
+
+      </form>
+      
+      
+    </div><!--FIN INPUT BUSCAR EN TABLAS-->
+    
+
+
     <!-- Modal AGREGAR COMISARIA -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
@@ -453,20 +268,20 @@
           
       </thead>
 
-      <tbody>
+      <tbody id="content">
           <?php 
-            while ($row = $resultado->fetch_assoc()) {
+            while ($row1 = $resultado->fetch_assoc()) {
            ?>   
         <tr>
-              <th scope="row"><?php echo $row['idComisaria'] ?></th>
-              <th scope="row"><?php echo $row['nombre'] ?></th>
-              <td scope="row"><?php echo $row['direccion'] ?></td>
-              <td scope="row"><?php echo $row['provincia'] ?></td>
-              <td scope="row"><?php echo $row['departamento'] ?></td>
-              <td scope="row"><?php echo $row['localidad'] ?></td>
-              
+              <th ><?php echo $row1['idComisaria']; ?></th>
+              <th ><?php echo $row1['nombre']; ?></th>
+              <td scope="row"><?php echo $row1['direccion']; ?></td>
+              <td scope="row"><?php echo $row1['provincia']; ?></td>
+              <td scope="row"><?php echo $row1['departamento']; ?></td>
+              <td scope="row"><?php echo $row1['localidad']; ?></td>
+              <?php $idComisaria=$row1['idComisaria']; ?>
               <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="comisarias-update.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
+            <a class="btn btn-primary" href="comisarias-ver-mas.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
         </tr>
         <?php 
             }
@@ -474,20 +289,31 @@
       </tbody>
     </table>
   </main><!-- End #main -->
+<script>
+  /* Llamando a la función getData() */
+        getData()
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
+        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+        document.getElementById("campo").addEventListener("keyup", getData)
+
+        /* Peticion AJAX */
+        function getData() {
+            let input = document.getElementById("campo").value
+            let content = document.getElementById("content")
+            let url = "search.php"
+            let formaData = new FormData()
+            formaData.append('campo', input)
+
+            fetch(url, {
+                    method: "POST",
+                    body: formaData
+                }).then(response => response.json())
+                .then(data => {
+                    content.innerHTML = data
+                }).catch(err => console.log(err))
+        }
+
+</script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
