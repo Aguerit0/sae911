@@ -1,37 +1,53 @@
 <?php
-include("conexion.php");
-if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
-  //FUNCION PARA VALIDAR LOS DATOS INGRESADOS
-  function validar($data)
-  {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
-  $USUARIO = validar($_POST['usuario']);
-  $CONTRASEÑA = validar($_POST['contraseña']);
-  //Consulta sql
-  $consulta = "SELECT * FROM usuarios WHERE usuario='$USUARIO' AND contraseña='$CONTRASEÑA'";
-  //EJECUTAMOS LA CONSULTA
-  $resultado = mysqli_query($conexion, $consulta);
+  require_once "conexion.php";
+  session_start();
+  $error = ""; //variable para almacenar error
 
-  //SI ENTRA REDIRIGIMOS AL INICIO
-  if (mysqli_num_rows($resultado) == 1) {
-    $row = mysqli_fetch_assoc($resultado);
-    if ($row['usuario'] == $USUARIO && $row['contraseña'] == $CONTRASEÑA) {
-      $_SESSION['usuario'] == $row['usuario'];
-      $_SESSION['nombre'] == $row['nombre'];
-      $_SESSION['idUsuario'] == $row['idUsuario'];
-      header('Location: inicio-dashboard.php');
-      exit();
-    } else {
-      header('Location: index.php?fallo=true');
+  if (isset($_POST['submit'])){
+    if (!isset($_POST['usuario']) && !isset($_POST['password'])) {
+      $error = "Usuario o Contraseña invalidos";
+    }else{
+      // DEFINE USUSARIO Y Contraseña
+      $usuario = $_POST['usuario'];
+      $password = $_POST['password'];
+
+      $sentenciaSQL=$bd_conex->prepare('SELECT idUsuario, usuario, rol FROM usuarios WHERE usuario=:usuario AND contraseña=:password');
+      $sentenciaSQL->bindParam(':usuario', $usuario);
+      $sentenciaSQL->bindParam(':password', $password);
+      $sentenciaSQL->execute();
+      $cuenta = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
+
+      if($cuenta == true){
+        $_SESSION['usuario']=$cuenta['usuario'];
+        $_SESSION['rol']=$cuenta['rol'];
+        $_SESSION['id']=$cuenta['idUsuario'];
+
+        $sentenciaSQL=$bd_conex->prepare('SELECT nombre, apellido FROM personas WHERE idPersona =:id');
+        $sentenciaSQL->bindParam(':id', $_SESSION['id']);
+        $sentenciaSQL->execute();
+        $persona = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
+        $_SESSION['nombre']=$persona['nombre'];
+        $_SESSION['apellido']=$persona['apellido'];
+        header('Location: inicio-dashboard.php');
+      }else{
+        $error="Ususario o Contraseña son incorrectos";
+      }
+      // Para proteger de Inyecciones SQL 
+      // $usuario = mysqli_real_escape_string($conexion,(strip_tags($usuario,ENT_QUOTES)));
+      // $password =  sha1($password);//Algoritmo de encriptacion de la contraseña http://php.net/manual/es/function.sha1.php
+
+      // $sql="SELECT * FROM usuarios WHERE ususario=$usuario AND contraseña = $password";
+      // $query=mysqli_query($conexion,$sql);
+      // $counter=mysqli_num_rows($query);
+
+      // if ($counter==1){
+      //   $_SESSION['usuario']=$usuario; // Iniciando la sesion
+      //   header("location: inicio-dashboard.php"); // Redireccionando a la pagina profile.php
+	    // }else {
+      //   $error = "El correo electrónico o la contraseña es inválida.";	
+      // }
     }
   }
-}
-
-mysqli_close($conexion);
 
 
 
@@ -106,7 +122,7 @@ mysqli_close($conexion);
                   <form class="row g-3 needs-validation" method="POST" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Nombre de Usuario</label>
+                      <label for="yourUsername" class="form-label">Usuario</label>
                       <div class="input-group has-validation">
                         <input type="text" name="usuario" class="form-control" id="usuario" required>
                         <div class="invalid-feedback">Por favor, introduzca su nombre de usuario.</div>
@@ -115,7 +131,7 @@ mysqli_close($conexion);
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">contraseña</label>
-                      <input type="password" name="contraseña" class="form-control" id="contraseña" required>
+                      <input type="password" name="password" class="form-control" id="password" required>
                       <div class="invalid-feedback">Por favor, introduzca su contraseña.</div>
                     </div>
 
@@ -129,9 +145,8 @@ mysqli_close($conexion);
                     <div class="col-12">
                       <div style='color:red'>
                         <?php
-                        if (isset($_GET["fallo"]) && $_GET["fallo"] == 'true') {
-                          echo "Usuario o contraseña invalido ";
-                        }
+                       
+                          echo $error;
                         ?> 
                         </div>
                     </div>
@@ -140,7 +155,7 @@ mysqli_close($conexion);
                 </div>
 
                 <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit" name="ingresar">Ingresar</button>
+                  <button class="btn btn-primary w-100" type="submit" name="submit">Ingresar</button>
                 </div>
                 </form>
 
