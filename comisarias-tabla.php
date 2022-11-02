@@ -51,8 +51,10 @@
 
       $consultaSearch= "SELECT nombre, direccion, provincia, departamento, localidad FROM comisarias WHERE nombre LIKE '%".$q."%' OR direccion LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR localidad LIKE '%".$q."%' ";
 
-      $resultadoSearch = $mysqi->query($consultaSearch);
+      $resultadoSearch = mysqli_query($conexion,$consultaSearch);
+      /*
       $if($resultadoSearch->num_rows > 0){
+
         $salida.="<table class='table table-sm table-hover table-bordered text-center'>
           <thead class='table-dark'>
           <tr>
@@ -84,6 +86,7 @@
         $salida.="No hay datos";
       }
       echo $salida;
+      */
 
     }
   
@@ -354,7 +357,7 @@
       <!--INPUT BUSCAR EN TABLAS-->
       <form method="post">
 
-        <input type="text" class="form rounded" name="txtBuscar" id="txtBuscar" placeholder="Buscar" aria-label="Buscar" aria-describedy="basc-addon2">
+        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
 
         <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="bi bi-plus-circle-fill"></i>
@@ -454,7 +457,7 @@
           
       </thead>
 
-      <tbody>
+      <tbody id="content">
           <?php 
             while ($row1 = $resultado->fetch_assoc()) {
            ?>   
@@ -476,20 +479,31 @@
       </tbody>
     </table>
   </main><!-- End #main -->
+<script>
+  /* Llamando a la función getData() */
+        getData()
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
+        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+        document.getElementById("campo").addEventListener("keyup", getData)
+
+        /* Peticion AJAX */
+        function getData() {
+            let input = document.getElementById("campo").value
+            let content = document.getElementById("content")
+            let url = "search.php"
+            let formaData = new FormData()
+            formaData.append('campo', input)
+
+            fetch(url, {
+                    method: "POST",
+                    body: formaData
+                }).then(response => response.json())
+                .then(data => {
+                    content.innerHTML = data
+                }).catch(err => console.log(err))
+        }
+
+</script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
