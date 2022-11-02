@@ -81,6 +81,22 @@
     $eliminadoPersona = $row2['eliminado'];
   }
 
+  // HABILITAR / DESHABILITAR
+
+  if(isset($_POST['confirmarDeshabilitar'])){
+    if($habilitadoPersona == 1){
+      $estado = 0;
+    }elseif($habilitadoPersona==0){
+      $estado = 1;
+    }
+    $sentenciaSQL=$bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
+    $sentenciaSQL->bindParam(':id', $idPersona);
+    $sentenciaSQL->bindParam(':estado',$estado);
+    $sentenciaSQL->execute();
+
+    header('Location: usuarios-tabla.php');
+  }
+
   mysqli_close($conexion);
 ?>
 
@@ -191,9 +207,15 @@
         </div>
 
         <!-- BOTON MODAL DESHABILITAR -->
-        <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-          Deshabilitar
-        </button>
+        <?php if($habilitadoPersona == 1){?>
+            <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+              Deshabilitar
+            </button>                    
+          <?php }elseif($habilitadoPersona==0){?>
+            <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+             Habilitar
+            </button>                    
+          <?php }?> 
         <!-- Modal DEHABILITAR -->
         <div class="modal fade" id="modalDeshabilitar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -207,7 +229,13 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Deshabilitar</button>
+                <form action="" method="post">
+                    <?php if($habilitadoPersona == 1){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
+                    <?php }elseif($habilitadoPersona==0){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
+                    <?php }?>                     
+                  </form>
               </div>
             </div>
           </div>
@@ -251,13 +279,6 @@
                       <div class="col-md-12">
                         <label for="inputUser5" class="form-label">Usuario</label>
                         <input type="text" class="form-control" id="inputUser5">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="inputState" class="form-label">Habilitado</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Habilitado</option>
-                          <option>Deshabilitado</option>
-                        </select>
                       </div>
 
                       <div class="text-center">
