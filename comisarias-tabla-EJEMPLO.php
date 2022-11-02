@@ -52,6 +52,7 @@
       $consultaSearch= "SELECT nombre, direccion, provincia, departamento, localidad FROM comisarias WHERE nombre LIKE '%".$q."%' OR direccion LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR localidad LIKE '%".$q."%' ";
 
       $resultadoSearch = $mysqi->query($consultaSearch);
+      /*
       $if($resultadoSearch->num_rows > 0){
         $salida.="<table class='table table-sm table-hover table-bordered text-center'>
           <thead class='table-dark'>
@@ -84,6 +85,7 @@
         $salida.="No hay datos";
       }
       echo $salida;
+      */
 
     }
   
@@ -439,42 +441,56 @@
 
 
     <!-- SEGUNDA OPCION -->
-    <table class="table table-sm table-hover table-bordered text-center">
-      <thead class="table-dark">
+    <?php 
+    $if($resultadoSearch->num_rows > 0){
+        $salida.=
+        ?> 
+        <table class='table table-sm table-hover table-bordered text-center'>
+          <thead class='table-dark'>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Provincia</th>
-            <th scope="col">Departamento</th>
-            <th scope="col">Localidad</th>
-            <th scope="col">. . .</th>
+            <th scope='col'>ID</th>
+            <th scope='col'>Nombre</th>
+            <th scope='col'>Dirección</th>
+            <th scope='col'>Provincia</th>
+            <th scope='col'>Departamento</th>
+            <th scope='col'>Localidad</th>
+            <th scope='col'>. . .</th>
           </tr>
-           
-          
-      </thead>
+          </thead>
+          <tbody>
 
-      <tbody>
           <?php 
-            while ($row1 = $resultado->fetch_assoc()) {
-           ?>   
-        <tr>
-              <th ><?php echo $row1['idComisaria']; ?></th>
-              <th ><?php echo $row1['nombre']; ?></th>
-              <td scope="row"><?php echo $row1['direccion']; ?></td>
-              <td scope="row"><?php echo $row1['provincia']; ?></td>
-              <td scope="row"><?php echo $row1['departamento']; ?></td>
-              <td scope="row"><?php echo $row1['localidad']; ?></td>
-              <?php $idComisaria=$row1['idComisaria']; ?>
-              <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-                <a class="btn btn-primary" href="comisarias-ver-mas-EJEMPLO.php?id=<?php echo $idComisaria?>">Ver más</a>
-              </td>
-        </tr>
-        <?php 
-            }
+          while ($fila = $resultadoSearch->fetch_assoc()) {   
+              $salida.=
           ?>
-      </tbody>
-    </table>
+          
+                <tr>
+              <th><?php  ".$fila['idComisaria']."?></th>
+              <th><?php  ".$fila['nombre']."?></th>
+              <td scope='row'><?php  ".$fila['direccion']."?></td>
+              <td scope='row'><?php  ".$fila['provincia']."?></td>
+              <td scope='row'><?php  ".$fila['departamento']."?></td>
+              <td scope='row'><?php  ".$fila['localidad']."?></td>
+              </tr>
+              <?php 
+              ; 
+              };
+
+              $salida.=
+              ?>
+            
+            </tbody></table>
+            <?php 
+            ; 
+
+            }else{
+        $salida.="No hay datos";
+      }
+      echo $salida;
+            ?>
+      
+              
+      
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
