@@ -38,6 +38,19 @@
       }else{
         
       }
+
+
+  if (isset($_POST['txtBuscar'])) {
+    function search(){
+
+      $search = $conexion->real_escape_string($_POST['txtBuscar']);
+      $consultaSearch = "SELECT * FROM comisarias WHERE nombre LIKE '%$txtBuscar%' ";
+      $resultadoSearch = mysqli_query($conexion,$consultaSearch);
+      while ($row = $resultadoSearch->fetch_array(MYSQLI_ASSOC)) {
+        
+      }
+    }
+  }
     //CERRAMOS CONEXIÓN BD
     mysqli_close($conexion);
  ?>
@@ -68,6 +81,9 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!--Buscador Files-->
+  <script src="jquery.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -103,75 +119,6 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
-
-          
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
 
         </li><!-- End Notification Nav -->
 
@@ -363,10 +310,28 @@
         </nav>
     </div><!-- End Page Title -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+
+    <div class="search">
+      
+      
+
+      <!--INPUT BUSCAR EN TABLAS-->
+      <form method="post">
+
+        <input type="text" class="form rounded" name="txtBuscar" id="txtBuscar" placeholder="Buscar" aria-label="Buscar" aria-describedy="basc-addon2">
+
+        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="bi bi-plus-circle-fill"></i>
       Agregar
-    </button>
+      </button>  
+
+      </form>
+      
+      
+    </div><!--FIN INPUT BUSCAR EN TABLAS-->
+    
+
+
     <!-- Modal AGREGAR COMISARIA -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
@@ -455,18 +420,20 @@
 
       <tbody>
           <?php 
-            while ($row = $resultado->fetch_assoc()) {
+            while ($row1 = $resultado->fetch_assoc()) {
            ?>   
         <tr>
-              <th scope="row"><?php echo $row['idComisaria'] ?></th>
-              <th scope="row"><?php echo $row['nombre'] ?></th>
-              <td scope="row"><?php echo $row['direccion'] ?></td>
-              <td scope="row"><?php echo $row['provincia'] ?></td>
-              <td scope="row"><?php echo $row['departamento'] ?></td>
-              <td scope="row"><?php echo $row['localidad'] ?></td>
-              
+              <th ><?php echo $row1['idComisaria']; ?></th>
+              <th ><?php echo $row1['nombre']; ?></th>
+              <td scope="row"><?php echo $row1['direccion']; ?></td>
+              <td scope="row"><?php echo $row1['provincia']; ?></td>
+              <td scope="row"><?php echo $row1['departamento']; ?></td>
+              <td scope="row"><?php echo $row1['localidad']; ?></td>
+              <?php $idComisaria=$row1['idComisaria']; ?>
               <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="comisarias-ver-mas-EJEMPLO.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
+                <a.
+                 class="btn btn-primary" href="comisarias-ver-mas-EJEMPLO.php?id=<?php echo $idComisaria?>">Ver más</a>
+              </td>
         </tr>
         <?php 
             }
