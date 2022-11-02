@@ -22,7 +22,7 @@
 
     
       
-      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro) or die(mysqli_error());
+      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
       }else{

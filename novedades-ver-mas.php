@@ -1,5 +1,6 @@
 <?php 
     include('conexion.php');
+    session_start();
 
     $idNovedades=$_GET['id'];
     //CONSULTA TABLA NOVEDADES_DE_GUARDIA
@@ -152,206 +153,15 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <span class="d-none d-lg-block">SAE 911</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-   <!-- End Search Bar -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
-
-
-        </li><!-- End Notification Nav -->
-
-      
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="usuarios-perfil.php">
-                <i class="bi bi-person"></i>
-                <span>Mi Perfil</span>
-              </a>
-            </li>
-           
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Salir</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
+  <?php include("./template/dashboard.php")?>
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Admin</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Admin</span>
-            </a>
-          </li>
-          <li>
-            <a href="/tabla-comisaria.html">
-              <i class="bi bi-circle"></i><span>Comisarias</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Usuarios</span>
-            </a>
-          </li>
-         
-        </ul>
-      </li><!-- End Icons Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Novedades de Guardia</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-          <li>
-            <a href="novedades-agregar.php">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="novedades-tabla.php">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Novedades de Relevancia</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Ingreso Personas</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Registro Secuestros</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        
-         
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Agregar registros</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Ver registros</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
-
-     
-      <li class="nav-heading">Paginas</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="usuarios-perfil.php">
-          <i class="bi bi-person"></i>
-          <span>Perfil</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="registrarse.php">
-          <i class="bi bi-card-list"></i>
-          <span>Registrace</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
+  <?php  if($_SESSION['rol'] == 1){
+      include ("./template/admin.php");
+    }else{
+      include ("./template/usuario.php");
+    }
+  ?>
 
   <main id="main" class="main">
     <div class="pagetitle">
@@ -452,12 +262,13 @@
                       <div class="col-md-6">
                           <label for="inputDate" class="col-sm-2 col-form-label">Fecha</label>
                           <div class="col-sm-10">
-                            <input type="date" class="form-control" value="<?php echo $fecha;?>">
+                            <input type="date" class="form-control" value="<?php echo $fecha?>">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <label for="inputState" class="form-label">Turno</label>
                           <select id="inputState" class="form-select" value="turno">
+                            <option value="<?php echo $turno?>"><?php echo $turno?></option>
                             <option >MATUTINO (06:00 - 14:00)</option>
                             <option>VESPERTINO (14:00 - 22:00)</option>
                             <option>NOCTURNO (22:00 - 06:00)</option>
@@ -465,55 +276,55 @@
                         </div>
                       <div class="col-md-6">
                         <label for="inputEmail5" class="form-label">Superior de Turno</label>
-                        <input type="text" class="form-control" id="inputEmail5" value="superior_de_turno">
+                        <input type="text" class="form-control" id="inputEmail5" value="<?php echo $superior_de_turno?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Oficial Servicio</label>
-                        <input type="text" class="form-control" id="inputtext5" value="oficial_servicio">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $oficial_servicio?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Cantidad de personal en guardia</label>
-                        <input type="text" class="form-control" id="inputtext5" value="personas_de_guardia">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $personas_de_guardia?>">
                       </div>
                       <div class="col-6">
                         <label for="inputAddress5" class="form-label">Motoristas</label>
-                        <input type="text" class="form-control" id="inputAddres5s" value="motoristas">
+                        <input type="text" class="form-control" id="inputAddres5s" value="<?php echo $motoristas?>">
                       </div>
                       <div class="col-6">
                           <label for="inputAddress5" class="form-label">Moviles en funcionamiento</label>
-                          <input type="text" class="form-control" id="inputAddres5s" value="mov_funcionamiento">
+                          <input type="text" class="form-control" id="inputAddres5s" value="<?php echo $mov_funcionamiento?>">
                         </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Moviles fuera de servicio</label>
-                        <input type="text" class="form-control" id="inputtext5" value="mov_fuera_de_servicio">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $mov_fuera_de_servicio?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Cantidad de detenidos Causa Federal</label>
-                        <input type="text" class="form-control" id="inputtext5" value="detenidos_causa_federal">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $detenidos_causa_federal?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
-                        <input type="text" class="form-control" id="inputtext5" value="detenidos_justicia_ordinaria">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $detenidos_justicia_ordinaria?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Arrestados averiguacion del hecho</label>
-                        <input type="text" class="form-control" id="inputtext5" value="arres_averiguacion_de_hecho">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $arres_averiguacion_de_hecho?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Cantidad de Aprehendidos</label>
-                        <input type="text" class="form-control" id="inputtext5" value="aprehendidos">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $aprehendidos?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Arrestados averiguacion de activiades</label>
-                        <input type="text" class="form-control" id="inputtext5" value="arres_averiguacion_actividades">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $arres_averiguacion_actividades?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Arrestados Inf. código de faltas</label>
-                        <input type="text" class="form-control" id="inputtext5" value="arres_info_codigo_de_faltas">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $arres_info_codigo_de_faltas?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputtext5" class="form-label">Demorados</label>
-                        <input type="text" class="form-control" id="inputtext5" value="demorados">
+                        <input type="text" class="form-control" id="inputtext5" value="<?php echo $demorados?>">
                       </div>
                       <div class="text-center">
                         <button type="submit" class="btn btn-primary float-end" value="guardarNovedad">Guardar</button>
