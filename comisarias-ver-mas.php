@@ -39,17 +39,6 @@
   //  }else{
   //   echo 'no hay nada';
   //  }
-  //ELIMINAR UN REGISTRO
-  //CONSULTA ELIMINAR REGISTRO
-    if (isset($_POST['confirmarEliminarRegistro'])) {
-      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria='$idComisaria'";
-      $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
-      if (!$resultadoConsularEliminarRegistro) {
-      echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
-      }else{
-      header('location:comisarias-tabla.php');
-      }
-    }
 
 
     //EDITAR UN REGISTRO
@@ -141,6 +130,18 @@
   //     }
   //   }
   //   mysqli_close($conexion);
+
+    //ELIMINAR UN REGISTRO
+    if (isset($_POST['confirmarEliminarRegistro'])){
+      $eliminadoComisaria = 1;
+      $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET eliminado=:eliminado WHERE idComisaria=:id');
+      $sentenciaSQL->bindParam(':id', $id);
+      $sentenciaSQL->bindParam(':eliminado', $eliminadoComisaria);
+      $sentenciaSQL->execute();
+      
+      header('Location: comisarias-tabla.php');
+    }
+
 
     // HABILITAR / DESHABILITAR
 
@@ -241,7 +242,6 @@
             <li class="list-group-item fw-bold">
               Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></span> 
             </li>
-            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoComisaria; ?></span></li>
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
@@ -263,7 +263,9 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <input type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="Eliminar">
+                  <form action="" method="post">
+                    <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
+                  </form>
                 </div>
               </div>
             </div>

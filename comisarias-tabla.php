@@ -31,7 +31,7 @@
 
 
     //CONSULTA TABLAS PARA MOSTRAR DATOS DE COMISARIA
-    $consultaDatosComisaria="SELECT * FROM comisarias";
+    $consultaDatosComisaria="SELECT * FROM comisarias WHERE (eliminado < 1)";
     //RESULTAOD DE LA CONSULTA
     $resultado=mysqli_query($conexion,$consultaDatosComisaria);
     if (!$resultado) {
