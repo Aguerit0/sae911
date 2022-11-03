@@ -1,6 +1,10 @@
 <?php
   include('conexion.php');
   session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+  header('Location: index.php');
+  }
   $idUsuario = $_GET['id'];
 
   //************************   PRIMERA FORMA   ************************ 
@@ -66,6 +70,7 @@
     $nombreUsuario = $row1['usuario'];
     $contraseñaUsuario = $row1['contraseña'];
     $idPersona=$row1['idPersona'];
+    $eliminadoUsuario = $row['eliminado'];
   }
   $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
   $resultado2=mysqli_query($conexion,$consultaSelectPersona);
@@ -96,6 +101,18 @@
 
     header('Location: usuarios-tabla.php');
   }
+
+  // ELIMINAR
+  if (isset($_POST['confirmarEliminarRegistro'])){
+    $eliminadoUsuario = 1;
+    $sentenciaSQL=$bd_conex->prepare('UPDATE usuarios SET eliminado=:eliminado WHERE idUsuario=:id');
+    $sentenciaSQL->bindParam(':id', $idUsuario);
+    $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
+    $sentenciaSQL->execute();
+    
+    header('Location: usuarios-tabla.php');
+  }
+
 
   mysqli_close($conexion);
 ?>
@@ -180,7 +197,7 @@
                                                         echo "Deshabilitado";
                                                       } ?></span>
           </li>
-          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoPersona; ?></span></li>
+          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoUsuario; ?></span></li>
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->
@@ -200,7 +217,9 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <form action="" method="post">
+                  <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
+                </form>
               </div>
             </div>
           </div>
