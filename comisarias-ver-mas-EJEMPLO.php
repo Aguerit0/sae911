@@ -103,7 +103,11 @@
             </a>
           </li>
           <li>
+<<<<<<< Updated upstream:comisarias-ver-mas-EJEMPLO.php
             <a href="comisarias-tabla.php">
+=======
+            <a href="/tabla-comisaria.php">
+>>>>>>> Stashed changes:verMas-comisarias.php
               <i class="bi bi-circle"></i><span>Comisarias</span>
             </a>
           </li>
@@ -123,12 +127,20 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
           <li>
+<<<<<<< Updated upstream:comisarias-ver-mas-EJEMPLO.php
             <a href="novedades-agregar.php">
+=======
+            <a href="agregar-novedadesGuardia.php">
+>>>>>>> Stashed changes:verMas-comisarias.php
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
+<<<<<<< Updated upstream:comisarias-ver-mas-EJEMPLO.php
             <a href="novedades-tabla.php">
+=======
+            <a href="tabla-novedadesGuardia.php">
+>>>>>>> Stashed changes:verMas-comisarias.php
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
@@ -237,6 +249,7 @@
       <div class="card-body">
         
         <ul class="list-group mb-3">
+<<<<<<< Updated upstream:comisarias-ver-mas-EJEMPLO.php
             <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"></span></li>
             <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"></span></li>
             <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"></span></li>
@@ -250,6 +263,21 @@
               Habilitado: <span class="fw-normal ms-2"></span> 
             </li>
             <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"></span></li>
+=======
+            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"><?php echo $idComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombreComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"><?php echo $direccionComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"><?php echo $provinciaComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Departamento: <span class="fw-normal ms-2"><?php echo $departamentoComisaria; ?></span> </li>
+            <li class="list-group-item fw-bold">Localidad: <span class="fw-normal ms-2"><?php echo $localidadComisaria; ?></span> </li>
+            <li class="list-group-item fw-bold">Telefono: <span class="fw-normal ms-2"><?php echo $telefonoComisaria; ?></span> </li>
+            <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"><?php echo $latitudComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"><?php echo $longitudComisaria; ?></span></li>
+            <li class="list-group-item fw-bold">
+              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></span> 
+            </li>
+            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoComisaria; ?></span></li>
+>>>>>>> Stashed changes:verMas-comisarias.php
         </ul>
 
          <!-- BOTON MODAL ELIMINAR -->
@@ -323,6 +351,7 @@
                       <form class="row g-3" method="POST">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
+<<<<<<< Updated upstream:comisarias-ver-mas-EJEMPLO.php
                           <input type="text" class="form-control" id="nombre" name="nombre">
                         </div>
                         <div class="col-md-12">
@@ -348,6 +377,44 @@
                         <div class="col-md-6">
                           <label for="inputAddress5" class="form-label">Habilitado</label>
                           <input type="text" class="form-control" id="habilitado" name="habilitado">
+=======
+                          <input type="text" value="<?php echo $nombreComisaria?>" class="form-control" id="inputName5">
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputEmail5" class="form-label">Dirección</label>
+                          <input type="text" value="<?php echo $direccionComisaria?>" class="form-control" id="inputEmail5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputEmail5" class="form-label">Provincia</label>
+                          <input type="text" value="<?php echo $provinciaComisaria?>"  class="form-control" id="inputEmail5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputPassword5" class="form-label">Departamento</label>
+                          <input type="text" value="<?php echo $departamentoComisaria?>" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputPassword5" class="form-label">Localidad</label>
+                          <input type="text" value="<?php echo $localidadComisaria?>" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-12">
+                          <label for="inputAddress5" class="form-label">Teléfono</label>
+                          <input type="text" value="<?php echo $telefonoComisaria?>" class="form-control" id="inputAddres5s">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputPassword5" class="form-label">Latitud</label>
+                          <input type="password" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputPassword5" class="form-label">Longitud</label>
+                          <input type="password" class="form-control" id="inputPassword5">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputState" class="form-label">Habilitado</label>
+                          <select id="inputState" class="form-select">
+                            <option selected value="<?php echo $habilitadoComisaria?>"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></option>
+                            <option >Habilitado</option>
+                            <option>Deshabilitado</option>
+>>>>>>> Stashed changes:verMas-comisarias.php
                           </select>
                         </div>
                         
