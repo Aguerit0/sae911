@@ -67,6 +67,7 @@
     $contraseñaUsuario = $row1['contraseña'];
     $idPersona=$row1['idPersona'];
   }
+  
   $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
   $resultado2=mysqli_query($conexion,$consultaSelectPersona);
   if ($row2=$resultado2->fetch_assoc()) {
@@ -80,8 +81,6 @@
     $habilitadoPersona = $row2['habilitado'];
     $eliminadoPersona = $row2['eliminado'];
   }
-
-  mysqli_close($conexion);
 ?>
 
 <!DOCTYPE html>
@@ -276,12 +275,84 @@
             </div>
           </div>
         </div>
+        
+        <!-- BOTON DESIGNAR COMISARIA-->
+        <button type="button" class="btn btn-info float-left mt-3" data-bs-toggle="modal" data-bs-target="#btn-designar">
+          <i class="bi bi-pencil-square"></i>
+          Designar comisaria
+        </button>
+
+        <div class="modal fade bd-example-modal-lg" id="btn-designar" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Designar Comisaria</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <div class="modal-dialog">
+                <div class="card">
+                  <div class="card-body">
+
+                    <!-- FORMULARIO PARA DESIGNAR COMISARIA -->
+                    <div class="p-6">
+                        <table class="table align-middle" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Provincia</th>
+                                    <th scope="col">Departamento</th>
+                                    <th scope="col">Designar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                // Codigo Para Designar Comisaria
+                                    $sentencia = $bd_conex -> query("select * from comisarias");
+                                    $usuario_comisaria = $sentencia -> fetchAll(PDO::FETCH_OBJ);
+
+                                    foreach($usuario_comisaria as $comisaria)
+                                    {               
+                                ?>
+                                <tr>
+                                    <td scope="row"><?php echo $comisaria -> idComisaria; ?></td>
+                                    <td><?php echo $comisaria -> nombre; ?></td>
+                                    <td><?php echo $comisaria -> direccion; ?></td>
+                                    <td><?php echo $comisaria -> provincia; ?></td>
+                                    <td><?php echo $comisaria -> departamento; ?></td>
+                                    <td><a class="text-success" href="designar-comisaria.php?id=<?php echo $idUsuario; ?>">hola</a></td>
+                                    <!-- <td><button type="submit" class="btn btn-primary float-end">Designar</button></td> -->
+                                </tr>
+                                <?php
+                                    }
+                                ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End Multi Columns Form -->
+
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     <br>
     <div class="d-flex justify-content-between">
       <a class="btn btn-primary " href="usuarios-tabla.php">Volver</a>
     </div>
+    
   </main><!-- End #main -->
 
 
