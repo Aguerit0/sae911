@@ -180,7 +180,6 @@
     <table class="table table-sm table-hover table-bordered text-center">
       <thead class="table-dark">
           <tr>
-            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Dirección</th>
             <th scope="col">Provincia</th>

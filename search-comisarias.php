@@ -53,7 +53,7 @@ $html = '';
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {        
         $html .= '<tr>';
-        $html .= '<th scope="row">' . $row['idComisaria'] . '</td>';
+        
         $html .= '<th scope="row">' . $row['nombre'] . '</td>';
         $html .= '<td scope="row">' . $row['direccion'] . '</td>';
         $html .= '<td scope="row">' . $row['provincia'] . '</td>';
