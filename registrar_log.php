@@ -16,14 +16,14 @@ if (isset($_POST['Bregistrar']))
     $telefono = trim($_POST['telefono']);
     $fechareg = date("y/m/d");
     $habilitado = 1;
-    $borrado = 0;
+    $eliminado = 0;
 
     // tabla usuario
     $usuario = trim($_POST['username']);
     $password = trim($_POST['password']);
     $rol = 0;
     $habilitado = 1;
-    $borrado = 0;
+    $eliminado = 0;
 
     // Verificar que no exista personas con mismo dni, ni usuarios con el mismo nombre de usuario en bd
     $sql_per = "SELECT * FROM personas WHERE dni = '$dni'";
@@ -43,8 +43,8 @@ if (isset($_POST['Bregistrar']))
       // echo "NO EXISTE USUARIO/PERSONA";
 
       //Registrar personas
-      $sentencia = $bd_conex -> prepare("INSERT INTO personas(nombre, apellido, correo, telefono, sexo, dni, fechaRegistro, habilitado, borrado) VALUES (?,?,?,?,?,?,?,?,?);");
-      $resultado_per = $sentencia -> execute([$nombre,$apellido,$correo,$telefono,$sexo,$dni,$fechareg,$habilitado,$borrado]);
+      $sentencia = $bd_conex -> prepare("INSERT INTO personas(nombre, apellido, correo, telefono, sexo, dni, fechaRegistro, habilitado, eliminado) VALUES (?,?,?,?,?,?,?,?,?);");
+      $resultado_per = $sentencia -> execute([$nombre,$apellido,$correo,$telefono,$sexo,$dni,$fechareg,$habilitado,$eliminado]);
       
       // Comprobar si se registro personas
       // if ($resultado_per)
@@ -69,8 +69,8 @@ if (isset($_POST['Bregistrar']))
       }
 
       // regitrar usuario en la base de datos
-      $sentencia = $bd_conex -> prepare("INSERT INTO usuarios(usuario, contraseña, rol, habilitado, borrado, idPersona) VALUES (?,?,?,?,?,?);");
-      $resultado_usu = $sentencia -> execute([$usuario,$password,$rol,$habilitado,$borrado,$idPersona]);
+      $sentencia = $bd_conex -> prepare("INSERT INTO usuarios(usuario, contraseña, rol, habilitado, eliminado, idPersona) VALUES (?,?,?,?,?,?);");
+      $resultado_usu = $sentencia -> execute([$usuario,$password,$rol,$habilitado,$eliminado,$idPersona]);
 
       // Comprobar si se registro usuario
       // if ($resultado_usu)

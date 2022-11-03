@@ -5,11 +5,15 @@
   if(!isset($_SESSION['usuario'])){
     header('Location: index.php');
   }
+  $sentenciaSQL=$bd_conex->prepare('SELECT nombre FROM comisarias WHERE idComisaria =:id');
+  $sentenciaSQL->bindParam(':id', $_SESSION['idComisaria']);
+  $sentenciaSQL->execute();
+  $comisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
 
    //INICIALIZAMOS DATOS
-  $idUsuario = 1;
-  $idComisaria=1;
-  $nombreComisaria = "Comisaria Ejemplo";
+  $idUsuario = $_SESSION['id'];
+  $idComisaria=$_SESSION['idComisaria'];
+  $nombreComisaria = $comisaria['nombre'];
   if (isset($_POST['agregar'])) {
     $txtFecha = $_POST['txtFecha'];
     $txtTurno = $_POST['txtTurno'];

@@ -195,19 +195,8 @@ mysqli_close($conexion);
                                     <input type="password" name="password" class="form-control" id="yourPassword" required>
                                     <div class="invalid-feedback">¡Por favor, escriba una Contraseña!</div>
                                     </div>
-
-                                    <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                                        <label class="form-check-label" for="acceptTerms">Acepto todos los <a href="#">terminos y condiciones</a></label>
-                                        <div class="invalid-feedback">You must agree before submitting.</div>
-                                    </div>
-                                    </div>
-                                    <div class="col-12">
-                                    <button class="btn btn-primary w-100" type="submit" name="Bregistrar">Crear Cuenta</button>
-                                    </div>
-                                    <div class="col-12">
-                                    <p class="small mb-0 text-center">¿Ya tienes una cuenta? <a href="pages-login.html">Iniciar sesión</a></p>
+                                    <div class="col-12 d-flex align-items-center justify-content-center">
+                                    <button class="btn btn-primary w-50 " type="submit" name="Bregistrar">Agregar Usuario</button>
                                     </div>
                                 </form>
 
@@ -243,7 +232,12 @@ mysqli_close($conexion);
                             <td scope="row"><?php echo $row['nombre'] ?></td>
                             <td scope="row"><?php echo $row['correo'] ?></td>
                             <td scope="row"><?php echo $row['fechaRegistro'] ?></td>
-                            <td scope="row"><?php echo $row['habilitado'] ?></td>
+                            <td scope="row">
+                                <?php
+                                if($row['habilitado'] == 1){
+                                    echo "Si";
+                                }else{echo "No";}
+                                ?></td>
                             <?php $idUsuario = $row['idUsuario'] ?>
                             <td scope="row">
                                 <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
