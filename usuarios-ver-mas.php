@@ -1,13 +1,7 @@
 <?php
-<<<<<<< HEAD
   include('conexion.php');
   session_start();
   $idUsuario = $_GET['id'];
-=======
-include('conexion.php');
-session_start();
-$idUsuario = $_GET['id'];
->>>>>>> main
 
 //************************   PRIMERA FORMA   ************************ 
 //CONSULTA TABLA USUARIOS/PERSONAS
