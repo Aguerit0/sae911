@@ -1,10 +1,6 @@
 <?php 
-  include 'conexion.php';
-  session_start();
-  // PREGUNTA SI HAY UN USUARIO REGISTRADO
-  if(!isset($_SESSION['usuario'])){
-    header('Location: index.php');
-  }
+    include 'conexion.php';
+    session_start();
 
     //SI APRETA EL BOTON AGREGAR
     if (isset($_POST['agregarComisaria'])) {
@@ -35,7 +31,7 @@
 
 
     //CONSULTA TABLAS PARA MOSTRAR DATOS DE COMISARIA
-    $consultaDatosComisaria="SELECT * FROM comisarias WHERE (eliminado < 1)";
+    $consultaDatosComisaria="SELECT * FROM comisarias";
     //RESULTAOD DE LA CONSULTA
     $resultado=mysqli_query($conexion,$consultaDatosComisaria);
     if (!$resultado) {

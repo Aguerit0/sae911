@@ -2,10 +2,6 @@
 // LLAMANDO A LA BASE DE DATOS
   include('conexion.php');
   session_start();
-   // PREGUNTA SI HAY UN USUARIO REGISTRADO
-  if(!isset($_SESSION['usuario'])){
-  header('Location: index.php');
-  }
 
   //INICIALIZAMOS DATOS
   $idUsuario = 1;

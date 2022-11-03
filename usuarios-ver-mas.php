@@ -1,7 +1,13 @@
 <?php
+<<<<<<< HEAD
 include('conexion.php');
 session_start();
 $idUsuario = $_GET['id'];
+=======
+  include('conexion.php');
+  session_start();
+  $idUsuario = $_GET['id'];
+>>>>>>> parent of 718a1be (Merge pull request #80 from Aguerit0/Marcos)
 
 //************************   PRIMERA FORMA   ************************ 
 //CONSULTA TABLA USUARIOS/PERSONAS
@@ -60,6 +66,7 @@ $idUsuario = $_GET['id'];
   }*/
 //************************   TERCERA FORMA   ************************ 
 
+<<<<<<< HEAD
 $consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
 $resultado1 = mysqli_query($conexion, $consultaSelectUsuario);
 if ($row1 = $resultado1->fetch_assoc()) {
@@ -81,6 +88,46 @@ if ($row2 = $resultado2->fetch_assoc()) {
   $habilitadoPersona = $row2['habilitado'];
   $eliminadoPersona = $row2['borrado'];
 }
+=======
+  $consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
+  $resultado1=mysqli_query($conexion,$consultaSelectUsuario);
+  if ($row1 = $resultado1->fetch_assoc()) {
+    $nombreUsuario = $row1['usuario'];
+    $contraseñaUsuario = $row1['contraseña'];
+    $idPersona=$row1['idPersona'];
+  }
+  $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
+  $resultado2=mysqli_query($conexion,$consultaSelectPersona);
+  if ($row2=$resultado2->fetch_assoc()) {
+    $nombrePersona = $row2['nombre'];
+    $apellidoPersona = $row2['apellido'];
+    $correoPersona = $row2['correo'];
+    $telefonoPersona = $row2['telefono'];
+    $sexoPersona = $row2['sexo'];
+    $dniPersona = $row2['dni'];
+    $fechaRegistroPersona = $row2['fechaRegistro'];
+    $habilitadoPersona = $row2['habilitado'];
+    $eliminadoPersona = $row2['eliminado'];
+  }
+
+  // HABILITAR / DESHABILITAR
+
+  if(isset($_POST['confirmarDeshabilitar'])){
+    if($habilitadoPersona == 1){
+      $estado = 0;
+    }elseif($habilitadoPersona==0){
+      $estado = 1;
+    }
+    $sentenciaSQL=$bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
+    $sentenciaSQL->bindParam(':id', $idPersona);
+    $sentenciaSQL->bindParam(':estado',$estado);
+    $sentenciaSQL->execute();
+
+    header('Location: usuarios-tabla.php');
+  }
+
+  mysqli_close($conexion);
+>>>>>>> parent of 718a1be (Merge pull request #80 from Aguerit0/Marcos)
 ?>
 
 <!DOCTYPE html>

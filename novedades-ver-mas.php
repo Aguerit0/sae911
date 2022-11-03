@@ -1,118 +1,114 @@
 <?php 
     include('conexion.php');
     session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
-      header('Location: index.php');
-    }
 
     $idNovedades=$_GET['id'];
     //CONSULTA TABLA NOVEDADES_DE_GUARDIA
-    $consultaSQL = $bd_conex->prepare("SELECT * FROM novedades_de_guardia WHERE id=:id");
-    $consultaSQL->bindParam(':id', $idNovedades);
-    $consultaSQL->execute();
-    $novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
-
-
-    // $consultaSelectNovedades="SELECT * FROM novedades_de_guardia WHERE id=$idNovedades";
-    // $resultadoSelectNovedades=mysqli_query($conexion,$consultaSelectNovedades);
-    // if (!$resultadoSelectNovedades) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
+    $consultaSelectNovedades="SELECT * FROM novedades_de_guardia WHERE id=$idNovedades";
+    $resultadoSelectNovedades=mysqli_query($conexion,$consultaSelectNovedades);
+    if (!$resultadoSelectNovedades) {
+      echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+    }
     //OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
-    
-      $idUsuario = $novedades['idUsuario'];
-      $idComisaria=$novedades['idComisaria'];
-      // LLAMADA PARA SACAR EL NOMBRE DE LA COMISARIA
-      $consultaSQL = $bd_conex->prepare("SELECT nombre FROM comisarias WHERE idComisaria=:id");
-      $consultaSQL->bindParam(':id', $idComisaria);
-      $consultaSQL->execute();
-      $comisaria = $consultaSQL->fetch(PDO::FETCH_LAZY);
-      $nombreComisaria=$comisaria['nombre'];
-      
-      $fecha = $novedades['fecha'];
-      $turno = $novedades['turno'];
-      $superior_de_turno = $novedades['superior_de_turno'];
-      $oficial_servicio = $novedades['oficial_servicio'];
-      $personas_de_guardia = $novedades['personas_de_guardia'];
-      $motoristas = $novedades['motoristas'];
-      $mov_funcionamiento = $novedades['mov_funcionamiento'];
-      $mov_fuera_de_servicio = $novedades['mov_fuera_de_servicio'];
-      $detenidos_causa_federal = $novedades['detenidos_causa_federal'];
-      $detenidos_justicia_ordinaria = $novedades['detenidos_justicia_ordinaria'];
-      $arres_averiguacion_de_hecho = $novedades['arres_averiguacion_de_hecho'];
-      $aprehendidos = $novedades['aprehendidos'];
-      $arres_averiguacion_actividades = $novedades['arres_averiguacion_actividades'];
-      $arres_info_codigo_de_faltas = $novedades['arres_info_codigo_de_faltas'];
-      $demorados = $novedades['demorados'];
-      $eliminado= $novedades['eliminado'];
+    if ($row = $resultadoSelectNovedades->fetch_assoc()) {
+      $idUsuario = $row['idUsuario'];
+      $idComisaria=$row['idComisaria'];
+      $fecha = $row['fecha'];
+      $turno = $row['turno'];
+      $superior_de_turno = $row['superior_de_turno'];
+      $oficial_servicio = $row['oficial_servicio'];
+      $personas_de_guardia = $row['personas_de_guardia'];
+      $motoristas = $row['motoristas'];
+      $mov_funcionamiento = $row['mov_funcionamiento'];
+      $mov_fuera_de_servicio = $row['mov_fuera_de_servicio'];
+      $detenidos_causa_federal = $row['detenidos_causa_federal'];
+      $detenidos_justicia_ordinaria = $row['detenidos_justicia_ordinaria'];
+      $arres_averiguacion_de_hecho = $row['arres_averiguacion_de_hecho'];
+      $aprehendidos = $row['aprehendidos'];
+      $arres_averiguacion_actividades = $row['arres_averiguacion_actividades'];
+      $arres_info_codigo_de_faltas = $row['arres_info_codigo_de_faltas'];
+      $demorados = $row['demorados'];
+
+    }
 
     //OBTENCION DE DATOS DE TABLA COMISARIAS POR: IDCOMISARIAS
     //CONSULTAMOS BD
-    // $consultaSelectComisarias="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-    // $resultadoSelectComisarias=mysqli_query($conexion,$consultaSelectComisarias);
-    // if (!$consultaSelectComisarias) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-    // if ($row2=$resultadoSelectComisarias->fetch_assoc()) {
-    //   $nombreComisaria=$row2['nombre'];
-    // }
+    $consultaSelectComisarias="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $resultadoSelectComisarias=mysqli_query($conexion,$consultaSelectComisarias);
+    if (!$consultaSelectComisarias) {
+      echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+    }
+    if ($row2=$resultadoSelectComisarias->fetch_assoc()) {
+      $nombreComisaria=$row2['nombre'];
+    }
 
 
-    // //BOTON GUARDAR->VERMASNOVEDADES->
-    // if (isset($_POST['guardarNovedad'])) {
-    //   $fecha=$_POST['fecha'];
-    //   $turno=$_POST['turno'];
-    //   $superior_de_turno=$_POST['superior_de_turno'];
-    //   $oficial_servicio=$_POST['oficial_servicio'];
-    //   $personas_de_guardia=$_POST['personas_de_guardia'];
-    //   $motoristas=$_POST['motoristas'];
-    //   $mov_funcionamiento=$_POST['mov_funcionamiento'];
-    //   $mov_fuera_de_servicio=$_POST['mov_fuera_de_servicio'];
-    //   $detenidos_causa_federal=$_POST['detenidos_causa_federal'];
-    //   $detenidos_justicia_ordinaria=$_POST['detenidos_justicia_ordinaria'];
-    //   $arres_averiguacion_de_hecho=$_POST['arres_averiguacion_de_hecho'];
-    //   $aprehendidos=$_POST['aprehendidos'];
-    //   $arres_averiguacion_actividades=$_POST['arres_averiguacion_actividades'];
-    //   $arres_info_codigo_de_faltas=$_POST['arres_info_codigo_de_faltas'];
-    //   $demorados=$_POST['demorados'];
+    //BOTON GUARDAR->VERMASNOVEDADES->
+    if (isset($_POST['guardarNovedad'])) {
+      $fecha=$_POST['fecha'];
+      $turno=$_POST['turno'];
+      $superior_de_turno=$_POST['superior_de_turno'];
+      $oficial_servicio=$_POST['oficial_servicio'];
+      $personas_de_guardia=$_POST['personas_de_guardia'];
+      $motoristas=$_POST['motoristas'];
+      $mov_funcionamiento=$_POST['mov_funcionamiento'];
+      $mov_fuera_de_servicio=$_POST['mov_fuera_de_servicio'];
+      $detenidos_causa_federal=$_POST['detenidos_causa_federal'];
+      $detenidos_justicia_ordinaria=$_POST['detenidos_justicia_ordinaria'];
+      $arres_averiguacion_de_hecho=$_POST['arres_averiguacion_de_hecho'];
+      $aprehendidos=$_POST['aprehendidos'];
+      $arres_averiguacion_actividades=$_POST['arres_averiguacion_actividades'];
+      $arres_info_codigo_de_faltas=$_POST['arres_info_codigo_de_faltas'];
+      $demorados=$_POST['demorados'];
 
-    //   //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
-    //   $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
-    //   $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
-    //   if (!$resultadoUpdateNovedades) {
-    //     echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    //   }
+      //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
+      $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
+      $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
+      if (!$resultadoUpdateNovedades) {
+        echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+      }
 
-    // }
+    }
 
 
 
 
   //ELIMINAR UN REGISTRO
-  if (isset($_POST['confirmarEliminarRegistro'])){
-    $eliminado = 1;
-    $sentenciaSQL=$bd_conex->prepare('UPDATE novedades_de_guardia SET eliminado=:eliminado WHERE id=:id');
-    $sentenciaSQL->bindParam(':id', $idNovedades);
-    $sentenciaSQL->bindParam(':eliminado', $eliminado);
-    $sentenciaSQL->execute();
-    
-    header('Location: novedades-tabla.php');
+  //CONSULTA ELIMINAR REGISTRO
+    if (isset($_POST['confirmarEliminarRegistro'])) {
+      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria=$idComisaria";
+      $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
+      if (!$resultadoConsularEliminarRegistro) {
+      echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
+      }else{
+      header('location:comisarias-tabla.php');
+      }
+    }
+
+    //EDITAR UN REGISTRO
+    //CONSULTAR VALORES NUEVOS DE LOS INPUTS
+    if (isset($_POST['guardarRegistro'])) {
+    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+    $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
+    if (!$resultadoSelectRegistro) {
+      echo '<script>alert("ERROR INF")</script>';
+    }
+    //OBTENCION DE DATOS TABLA COMISARIA
+    if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
+
   }
-
-  //   //EDITAR UN REGISTRO
-  //   //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-  //   if (isset($_POST['guardarRegistro'])) {
-  //   $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-  //   $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-  //   if (!$resultadoSelectRegistro) {
-  //     echo '<script>alert("ERROR INF")</script>';
-  //   }
-  //   //OBTENCION DE DATOS TABLA COMISARIA
-  //   if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-
-  // }
-    // mysqli_close($conexion);
+    //CONSULTA EDITAR REGISTRO
+  $consultaEditarRegistro="UPDATE comisarias SET idComisaria='$idComisaria', nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono',habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
+    
+      
+      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
+      if (!$resultadoEditarRegistro) {
+        echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
+      }else{
+        header('location:comisarias-tabla.php');
+      }
+    }
+    mysqli_close($conexion);
  ?>
 
 <!DOCTYPE html>
@@ -181,25 +177,23 @@
     <div class="card w-75 pt-3">
       <div class="card-body">
           <ul class="list-group">
-          <li class="list-group-item fw-bold">ID Novedades: <span class="fw-normal ms-2"><?php echo $idNovedades ?></span></li>
-            <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
-            <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $fecha ?></span></li></li>
-            <li class="list-group-item fw-bold">Turno: <span class="fw-normal ms-2"><?php echo $turno ?></span></li>
-            <li class="list-group-item fw-bold">Superior de turno: <span class="fw-normal ms-2"><?php echo $superior_de_turno ?></span></li>
-            <li class="list-group-item fw-bold">Oficial servicio: <span class="fw-normal ms-2"><?php echo $oficial_servicio ?></span></li>
-            <li class="list-group-item fw-bold">Cant. de personal de guardia: <span class="fw-normal ms-2"><?php echo $personas_de_guardia ?></span></li>
-            <li class="list-group-item fw-bold">Motoristas: <span class="fw-normal ms-2"><?php echo $motoristas ?></span></li>
-            <li class="list-group-item fw-bold">Mov. en funcionamiento: <span class="fw-normal ms-2"><?php echo $mov_funcionamiento ?></span></li>
-            <li class="list-group-item fw-bold">Mov. fuera de servicio: <span class="fw-normal ms-2"><?php echo $mov_fuera_de_servicio ?></span></li>
-            <li class="list-group-item fw-bold">Cant. detenidos causa federal: <span class="fw-normal ms-2"><?php echo $detenidos_causa_federal ?></span></li>
-            <li class="list-group-item fw-bold">Cant. detenidos justicia ordinaria: <span class="fw-normal ms-2"><?php echo $detenidos_justicia_ordinaria ?></span></li>
-            <li class="list-group-item fw-bold">Arrestados averiguacion del hecho: <span class="fw-normal ms-2"><?php echo $arres_averiguacion_de_hecho ?></span></li>
-            <li class="list-group-item fw-bold">Cant. aprehendidos: <span class="fw-normal ms-2"><?php echo $aprehendidos ?></span></li>
-            <li class="list-group-item fw-bold">Arrestados averiguacion actividades: <span class="fw-normal ms-2"><?php echo $arres_averiguacion_actividades ?></span></li>
-            <li class="list-group-item fw-bold">Arrestados inf. codigo de faltas: <span class="fw-normal ms-2"><?php echo $arres_info_codigo_de_faltas ?></span></li>
-            <li class="list-group-item fw-bold">Demorados: <span class="fw-normal ms-2"><?php echo $demorados ?></span></li>
-            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminado ?></span></li>
-
+          <li class="list-group-item fw-bold">ID Novedades: <span><?php echo $idNovedades ?></span></li>
+            <li class="list-group-item fw-bold">Comisaria: <span><?php echo $nombreComisaria ?></span></li>
+            <li class="list-group-item fw-bold">Fecha: <span><?php echo $fecha ?></span></li></li>
+            <li class="list-group-item fw-bold">Turno: <span><?php echo $turno ?></span></li>
+            <li class="list-group-item fw-bold">Superior de turno: <span><?php echo $superior_de_turno ?></span></li>
+            <li class="list-group-item fw-bold">Oficial servicio: <span><?php echo $oficial_servicio ?></span></li>
+            <li class="list-group-item fw-bold">Cant. de personal de guardia: <span><?php echo $personas_de_guardia ?></span></li>
+            <li class="list-group-item fw-bold">Motoristas: <span><?php echo $motoristas ?></span></li>
+            <li class="list-group-item fw-bold">Mov. en funcionamiento: <span><?php echo $mov_funcionamiento ?></span></li>
+            <li class="list-group-item fw-bold">Mov. fuera de servicio: <span><?php echo $mov_fuera_de_servicio ?></span></li>
+            <li class="list-group-item fw-bold">Cant. detenidos causa federal: <span><?php echo $detenidos_causa_federal ?></span></li>
+            <li class="list-group-item fw-bold">Cant. detenidos justicia ordinaria: <span><?php echo $detenidos_justicia_ordinaria ?></span></li>
+            <li class="list-group-item fw-bold">Arrestados averiguacion del hecho: <span><?php echo $arres_averiguacion_de_hecho ?></span></li>
+            <li class="list-group-item fw-bold">Cant. aprehendidos: <span><?php echo $aprehendidos ?></span></li>
+            <li class="list-group-item fw-bold">Arrestados averiguacion actividades: <span><?php echo $arres_averiguacion_actividades ?></span></li>
+            <li class="list-group-item fw-bold">Arrestados inf. codigo de faltas: <span><?php echo $arres_info_codigo_de_faltas ?></span></li>
+            <li class="list-group-item fw-bold">Demorados: <span><?php echo $demorados ?></span></li>
         </ul>  
         
         <?php  if($_SESSION['rol'] == 1){
@@ -209,7 +203,7 @@
       </div>
     </div>
     <br>
-    <a class="btn btn-primary" href="novedades-tabla.php">Volver</a>
+    <a class="btn btn-primary" href="novedades-tabla.html">Volver</a>
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
