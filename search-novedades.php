@@ -7,10 +7,10 @@
 require 'conexion.php';
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['idComisaria', 'nombre', 'direccion', 'provincia', 'departamento', 'localidad'];
+$columns = ['fecha', 'turno', 'superior_de_turno', 'oficial_servicio'];
 
 /* Nombre de la tabla */
-$table = "comisarias";
+$table = "novedades_de_guardia";
 
 $campo = isset($_POST['campo']) ? $conexion->real_escape_string($_POST['campo']) : null;
 
@@ -44,13 +44,12 @@ $html = '';
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
         $html .= '<tr>';
-        $html .= '<th scope="row">' . $row['idComisaria'] . '</td>';
-        $html .= '<th scope="row">' . $row['nombre'] . '</td>';
-        $html .= '<td scope="row">' . $row['direccion'] . '</td>';
-        $html .= '<td scope="row">' . $row['provincia'] . '</td>';
-        $html .= '<td scope="row">' . $row['departamento'] . '</td>';
-        $html .= '<td scope="row">' . $row['localidad'] . '</td>';
-        $html .= '<td scope="row"><a class="btn btn-primary" href="comisarias-ver-mas-EJEMPLO.php?id=<?php echo $idComisaria?>">Ver más</a></td>';
+        $html .= '<th scope="row">nombre</td>';
+        $html .= '<th scope="row">' . $row['fecha'] . '</td>';
+        $html .= '<td scope="row">' . $row['turno'] . '</td>';
+        $html .= '<td scope="row">' . $row['superior_de_turno'] . '</td>';
+        $html .= '<td scope="row">' . $row['oficial_servicio'] . '</td>';
+        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-ver-mas.php?id=<?php echo $id?>">Ver más</a></td>';
         $html .= '</tr>';
 
     }
@@ -61,3 +60,4 @@ if ($num_rows > 0) {
 }
 
 echo json_encode($html, JSON_UNESCAPED_UNICODE);
+?>

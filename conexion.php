@@ -2,7 +2,6 @@
 	$servidor='localhost';
 	$usuario='root';
 	$clave='';
-	$clave='41624421';
 	$bd='bdsae911';
 
 	$conexion=mysqli_connect($servidor,$usuario,$clave,$bd);

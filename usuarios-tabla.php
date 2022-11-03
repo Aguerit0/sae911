@@ -117,11 +117,27 @@ mysqli_close($conexion);
             </nav>
         </div><!-- End Page Title -->
 
-        <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <i class="bi bi-plus-circle-fill"></i>
-            Agregar
-        </button>
-        <!-- Modal -->
+
+    <div class="search">
+      
+      
+
+      <!--INPUT BUSCAR EN TABLAS-->
+      <form method="post">
+
+        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
+
+        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <i class="bi bi-plus-circle-fill"></i>
+      Agregar
+      </button>  
+
+      </form>
+      
+      
+    </div><!--FIN INPUT BUSCAR EN TABLAS-->
+    
+            <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
@@ -227,6 +243,35 @@ mysqli_close($conexion);
         </section>
 
     </main><!-- End #main -->
+
+    <script>
+  /* Llamando a la función getData() */
+        getData()
+
+        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+        document.getElementById("campo").addEventListener("keyup", getData)
+
+        /* Peticion AJAX */
+        function getData() {
+            let input = document.getElementById("campo").value
+            let content = document.getElementById("content")
+            let url = "usuarios-search.php"
+            let formaData = new FormData()
+            formaData.append('campo', input)
+
+            fetch(url, {
+                    method: "POST",
+                    body: formaData
+                }).then(response => response.json())
+                .then(data => {
+                    content.innerHTML = data
+                }).catch(err => console.log(err))
+        }
+
+</script>
+
+
+    
 
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

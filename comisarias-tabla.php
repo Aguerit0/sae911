@@ -300,7 +300,7 @@
         function getData() {
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
-            let url = "search.php"
+            let url = "search-comisarias.php"
             let formaData = new FormData()
             formaData.append('campo', input)
 
