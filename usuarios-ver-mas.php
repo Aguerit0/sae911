@@ -1,6 +1,10 @@
 <?php
   include('conexion.php');
   session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+  header('Location: index.php');
+  }
   $idUsuario = $_GET['id'];
 
   //************************   PRIMERA FORMA   ************************ 
@@ -66,6 +70,7 @@
     $nombreUsuario = $row1['usuario'];
     $contraseñaUsuario = $row1['contraseña'];
     $idPersona=$row1['idPersona'];
+    $eliminadoUsuario = $row['eliminado'];
   }
   $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
   $resultado2=mysqli_query($conexion,$consultaSelectPersona);
@@ -80,6 +85,34 @@
     $habilitadoPersona = $row2['habilitado'];
     $eliminadoPersona = $row2['eliminado'];
   }
+
+  // HABILITAR / DESHABILITAR
+
+  if(isset($_POST['confirmarDeshabilitar'])){
+    if($habilitadoPersona == 1){
+      $estado = 0;
+    }elseif($habilitadoPersona==0){
+      $estado = 1;
+    }
+    $sentenciaSQL=$bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
+    $sentenciaSQL->bindParam(':id', $idPersona);
+    $sentenciaSQL->bindParam(':estado',$estado);
+    $sentenciaSQL->execute();
+
+    header('Location: usuarios-tabla.php');
+  }
+
+  // ELIMINAR
+  if (isset($_POST['confirmarEliminarRegistro'])){
+    $eliminadoUsuario = 1;
+    $sentenciaSQL=$bd_conex->prepare('UPDATE usuarios SET eliminado=:eliminado WHERE idUsuario=:id');
+    $sentenciaSQL->bindParam(':id', $idUsuario);
+    $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
+    $sentenciaSQL->execute();
+    
+    header('Location: usuarios-tabla.php');;;;
+  }
+
 
   mysqli_close($conexion);
 ?>
@@ -164,7 +197,7 @@
                                                         echo "Deshabilitado";
                                                       } ?></span>
           </li>
-          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoPersona; ?></span></li>
+          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoUsuario; ?></span></li>
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->
@@ -184,16 +217,24 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <form action="" method="post">
+                  <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
 
         <!-- BOTON MODAL DESHABILITAR -->
-        <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-          Deshabilitar
-        </button>
+        <?php if($habilitadoPersona == 1){?>
+            <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+              Deshabilitar
+            </button>                    
+          <?php }elseif($habilitadoPersona==0){?>
+            <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+             Habilitar
+            </button>                    
+          <?php }?> 
         <!-- Modal DEHABILITAR -->
         <div class="modal fade" id="modalDeshabilitar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -207,7 +248,13 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Deshabilitar</button>
+                <form action="" method="post">
+                    <?php if($habilitadoPersona == 1){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
+                    <?php }elseif($habilitadoPersona==0){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
+                    <?php }?>                     
+                  </form>
               </div>
             </div>
           </div>
@@ -251,13 +298,6 @@
                       <div class="col-md-12">
                         <label for="inputUser5" class="form-label">Usuario</label>
                         <input type="text" class="form-control" id="inputUser5">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="inputState" class="form-label">Habilitado</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Habilitado</option>
-                          <option>Deshabilitado</option>
-                        </select>
                       </div>
 
                       <div class="text-center">
