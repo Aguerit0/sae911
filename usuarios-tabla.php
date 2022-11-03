@@ -176,12 +176,12 @@ mysqli_close($conexion);
                                         <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
                                     </div>
                                     <div class="col-12">
-                                        <select class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
-                                            <option selected>Sexo</option>
-                                            <option value="1">Masculino</option>
-                                            <option value="2">Femenino</option>
-                                            <option value="3">Otro</option>
-                                        </select>
+                                    <select name="sexo" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
+                                    <option selected value="">Sexo</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">No binario</option>
+                                    </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="inputState" class="form-label">Habilitado</label>
