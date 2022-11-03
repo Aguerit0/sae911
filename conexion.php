@@ -1,7 +1,11 @@
 <?php 
 	$servidor='localhost';
 	$usuario='root';
-	$clave='12345678';
+<<<<<<< Updated upstream
+	$clave='';
+=======
+	$clave='41624421';
+>>>>>>> Stashed changes
 	$bd='bdsae911';
 
 	$conexion=mysqli_connect($servidor,$usuario,$clave,$bd);
