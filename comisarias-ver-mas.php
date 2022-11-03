@@ -235,7 +235,6 @@
       <div class="card-body">
         
         <ul class="list-group mb-3">
-            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"><?php echo $idComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombreComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"><?php echo $direccionComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"><?php echo $provinciaComisaria; ?></span></li>
@@ -245,7 +244,7 @@
             <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"><?php echo $latitudComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"><?php echo $longitudComisaria; ?></span></li>
             <li class="list-group-item fw-bold">
-              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></span> 
+              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Si";}else{echo "No";} ?></span> 
             </li>
         </ul>
 
