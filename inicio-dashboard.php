@@ -1,7 +1,6 @@
 <?php
   include 'conexion.php';
   session_start();
-
   // PREGUNTA SI HAY UN USUARIO REGISTRADO
   if(!isset($_SESSION['usuario'])){
     header('Location: index.php');

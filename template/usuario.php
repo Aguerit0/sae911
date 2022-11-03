@@ -18,12 +18,12 @@
     <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
      
       <li>
-        <a href="/novedades-agregar.php">
+        <a href="novedades-agregar.php">
           <i class="bi bi-circle"></i><span>Agregar registros</span>
         </a>
       </li>
       <li>
-        <a href="/novedades-tabla.php">
+        <a href="novedades-tabla.php">
           <i class="bi bi-circle"></i><span>Ver registros</span>
         </a>
       </li>

@@ -45,33 +45,15 @@
     }
   }
 
-
-
-//CONSULTA TABLAS PARA MOSTRAR DATOS DE NOVEDADES
-    $consultaDatosNovedades="SELECT * FROM novedades_de_guardia";
-    //RESULTADO DE LA CONSULTA
-    $resultado=mysqli_query($conexion,$consultaDatosNovedades);
-    if (!$resultado) {
-      echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN');</script>";
-      }else{
-        
-      }
-  
-//BOTON BUSCAR CAMPOS EN TABLA 
-
-  $salida = "";
-  $consultaSearch = "SELECT * FROM novedades_de_guardia ORDER BY id";
-  if (isset($_POST['txtBuscar'])) {
-    
-      $q = $conexion->real_escape_string($_POST['txtBuscar']);
-
-      $consultaSearch= "SELECT fecha, turno, superior_de_turno, oficial_servicio FROM novedades_de_guardia WHERE fecha LIKE '%".$q."%' OR turno LIKE '%".$q."%' OR superior_de_turno LIKE '%".$q."%' OR oficial_servicio LIKE '%".$q."%' ";
-
-      $resultadoSearch = mysqli_query($conexion,$consultaSearch);
-
-}
-
-    
+  //CONSULTA TABLAS PARA MOSTRAR DATOS DE NOVEDADES DE GUARDIA
+  $consultaDatosNovedadesDeGuardia="SELECT * FROM novedades_de_guardia  WHERE (eliminado < 1)";
+  //RESULTAOD DE LA CONSULTA
+  $resultado=mysqli_query($conexion,$consultaDatosNovedadesDeGuardia);
+  if (!$resultado) {
+    echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN');</script>";
+    }else{
+      
+    }
 
   mysqli_close($conexion);
 ?>
@@ -104,9 +86,6 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!--Buscador Files-->
-  <script src="jquery.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -142,23 +121,11 @@
           </ol>
         </nav>
     </div><!-- End Page Title -->
-
-
-
-  <div class="search">
-      <!--INPUT BUSCAR EN TABLAS-->
-      <form method="POST">
-        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
-        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <!-- Boton del modal Agregar -->
+    <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="bi bi-plus-circle-fill"></i>
       Agregar
-      </button>  
-      </form>
-    </div><!--FIN INPUT BUSCAR EN TABLAS-->
-
-
-    <!-- Boton del modal Agregar -->
-    
+    </button>
     <!-- Modal Agregar -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -266,20 +233,19 @@
         </tr>
       </thead>
 
-      <tbody id="content">
+      <tbody>
           <?php 
-            while ($row1 = $resultado->fetch_assoc()) {
+            while ($row = $resultado->fetch_assoc()) {
           ?>  
         <tr>
-          <th scope="row"><?php echo "NOMBRE COM";?></th>
-          <td scope="row"><?php echo $row1['fecha'] ?></td>
-          <td scope="row"><?php echo $row1['turno'] ?></td>
-          <td scope="row"><?php echo $row1['superior_de_turno'] ?></td>
-          <td scope="row"><?php echo $row1['oficial_servicio'] ?></td>
-          <?php $idNovedades = $row1['id'];?>
-          <td scope="row">
+          <th scope="row"><?php echo $nombreComisaria;?></th>
+          <td><?php echo $row['fecha'] ?></td>
+          <td><?php echo $row['turno'] ?></td>
+          <td><?php echo $row['superior_de_turno'] ?></td>
+          <td><?php echo $row['oficial_servicio'] ?></td>
+          <td>
             <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="novedades-ver-mas.php?id=<?php echo $row1['id']?>">Ver más</a>
+            <a class="btn btn-primary" href="novedades-ver-mas.php?id=<?php echo $row['id']?>">Ver más</a>
           </td>
         </tr>
         <?php 
@@ -288,31 +254,6 @@
       </tbody>
     </table>
   </main><!-- End #main -->
-  <script>
-  /* Llamando a la función getData() */
-        getData()
-
-        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", getData)
-
-        /* Peticion AJAX */
-        function getData() {
-            let input = document.getElementById("campo").value
-            let content = document.getElementById("content")
-            let url = "search-novedades.php"
-            let formaData = new FormData()
-            formaData.append('campo', input)
-
-            fetch(url, {
-                    method: "POST",
-                    body: formaData
-                }).then(response => response.json())
-                .then(data => {
-                    content.innerHTML = data
-                }).catch(err => console.log(err))
-        }
-
-</script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
