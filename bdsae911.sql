@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2022 a las 04:33:52
+-- Tiempo de generación: 31-10-2022 a las 21:59:55
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -39,15 +39,15 @@ CREATE TABLE `comisarias` (
   `longitud` varchar(50) NOT NULL,
   `habilitado` tinyint(1) NOT NULL,
   `eliminado` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Volcado de datos para la tabla `comisarias`
 --
 
 INSERT INTO `comisarias` (`idComisaria`, `nombre`, `direccion`, `provincia`, `departamento`, `localidad`, `telefono`, `latitud`, `longitud`, `habilitado`, `eliminado`) VALUES
-(1, 'Comisaria 4ta', 'Av Virgen del Valle 604', 'Catamarca', 'SFVC', 'Capital', '3834688699', '001231234123', '9123477124', 1, 0),
-(2, 'Comisaria 4ta', 'Av Virgen del Valle 604', 'Catamarca', 'SFVC', 'Capital', '3834688699', '001231234123', '9123477124', 0, 0),
+(1, 'Sexta', 'Av. virgen del valle 123', 'Catamarca', 'Capital', 'SFVC', '12312412', '12412', '21312312', 1, 0),
+(2, 'quinta', 'Av. virgen del valle 123', 'Catamarca', 'Capital', 'SFVC', '12312412', '23', '342', 0, 0),
 (3, 'Cuarta', 'Rivadavia 123', 'Catamarca', 'Capital', 'SFVC', '+41241231', '5891347', '73642765', 1, 0);
 
 -- --------------------------------------------------------
@@ -74,19 +74,18 @@ CREATE TABLE `novedades_de_guardia` (
   `aprehendidos` int NOT NULL,
   `arres_averiguacion_actividades` int NOT NULL,
   `arres_info_codigo_de_faltas` int NOT NULL,
-  `demorados` int NOT NULL,
-  `eliminado` tinyint NOT NULL DEFAULT '0'
+  `demorados` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `novedades_de_guardia`
 --
 
-INSERT INTO `novedades_de_guardia` (`id`, `idUsuario`, `idComisaria`, `fecha`, `turno`, `superior_de_turno`, `oficial_servicio`, `personas_de_guardia`, `motoristas`, `mov_funcionamiento`, `mov_fuera_de_servicio`, `detenidos_causa_federal`, `detenidos_justicia_ordinaria`, `arres_averiguacion_de_hecho`, `aprehendidos`, `arres_averiguacion_actividades`, `arres_info_codigo_de_faltas`, `demorados`, `eliminado`) VALUES
-(7, 1, 1, '2022-10-12', 'VESPERTINO (14:00 - 22:00)', 'marcos', 'juan', 12, 4, '12', '3', 4, 4, 4, 4, 4, 4, 543, 0),
-(8, 1, 1, '2022-10-07', 'MATUTINO (06:00 - 14:00)', 'asdasdasdasd', 'asdasdasd', 1, 1, '1', '1', 11, 1, 1, 111, 1, 1, 1111, 1),
-(9, 1, 1, '2022-10-06', 'NOCTURNO (22:00 - 06:00)', 'julian', 'samira', 1, 32, '23', '3', 3, 43, 34, 3, 1, 0, 0, 1),
-(10, 1, 1, '2022-10-06', 'NOCTURNO (22:00 - 06:00)', 'ramiro', 'samira', 1, 32, '23', '3', 3, 43, 34, 3, 1, 0, 0, 0);
+INSERT INTO `novedades_de_guardia` (`id`, `idUsuario`, `idComisaria`, `fecha`, `turno`, `superior_de_turno`, `oficial_servicio`, `personas_de_guardia`, `motoristas`, `mov_funcionamiento`, `mov_fuera_de_servicio`, `detenidos_causa_federal`, `detenidos_justicia_ordinaria`, `arres_averiguacion_de_hecho`, `aprehendidos`, `arres_averiguacion_actividades`, `arres_info_codigo_de_faltas`, `demorados`) VALUES
+(7, 1, 1, '2022-10-12', 'VESPERTINO (14:00 - 22:00)', 'marcos', 'juan', 12, 4, '12', '3', 4, 4, 4, 4, 4, 4, 543),
+(8, 1, 1, '2022-10-07', 'MATUTINO (06:00 - 14:00)', 'asdasdasdasd', 'asdasdasd', 1, 1, '1', '1', 11, 1, 1, 111, 1, 1, 1111),
+(9, 1, 1, '2022-10-06', 'NOCTURNO (22:00 - 06:00)', 'julian', 'samira', 1, 32, '23', '3', 3, 43, 34, 3, 1, 0, 0),
+(10, 1, 1, '2022-10-06', 'NOCTURNO (22:00 - 06:00)', 'ramiro', 'samira', 1, 32, '23', '3', 3, 43, 34, 3, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -121,8 +120,7 @@ INSERT INTO `personas` (`idPersona`, `nombre`, `apellido`, `correo`, `telefono`,
 (7, 'Ozzie', 'Wildgoose', 'owildgoose6@facebook.com', '353-250-3043', 'Male', '54.236.62.18', '2022-08-03', 1, 0),
 (8, 'Evangelia', 'Clemmens', 'eclemmens7@twitter.com', '982-823-0278', 'Female', '205.139.235.66', '2021-12-18', 0, 0),
 (9, 'Lucais', 'Foskew', 'lfoskew8@multiply.com', '241-670-9743', 'Male', '15.250.167.191', '2022-06-19', 0, 0),
-(10, 'Sher', 'Gallear', 'sgallear9@ebay.com', '828-437-5364', 'Female', '1.214.113.246', '2022-10-16', 0, 0),
-(11, 'admin', 'admin', 'admin@email.com', '1234123131', 'male', '312412', '2022-10-31', 1, 0);
+(10, 'Sher', 'Gallear', 'sgallear9@ebay.com', '828-437-5364', 'Female', '1.214.113.246', '2022-10-16', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -138,14 +136,6 @@ CREATE TABLE `usuario-comisaria` (
   `eliminado` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Volcado de datos para la tabla `usuario-comisaria`
---
-
-INSERT INTO `usuario-comisaria` (`idUsuarioComisaria`, `idUsuario`, `idComisaria`, `habilitado`, `eliminado`) VALUES
-(1, 1, 3, 1, 0),
-(2, 2, 1, 1, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -157,8 +147,8 @@ CREATE TABLE `usuarios` (
   `usuario` varchar(50) NOT NULL,
   `contraseña` varchar(50) NOT NULL,
   `rol` int NOT NULL,
-  `habilitado` int NOT NULL DEFAULT '1',
-  `eliminado` tinyint NOT NULL DEFAULT '0',
+  `habilitado` int NOT NULL,
+  `borrado` int NOT NULL,
   `idPersona` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -166,7 +156,7 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `usuario`, `contraseña`, `rol`, `habilitado`, `eliminado`, `idPersona`) VALUES
+INSERT INTO `usuarios` (`idUsuario`, `usuario`, `contraseña`, `rol`, `habilitado`, `borrado`, `idPersona`) VALUES
 (1, 'kbrauninger0', 'FPFXNlVp', 1, 0, 0, 1),
 (2, 'tantill1', 'WlegYddi', 1, 0, 0, 2),
 (3, 'ssamweyes2', 'XRpWBo', 1, 0, 0, 3),
@@ -176,8 +166,7 @@ INSERT INTO `usuarios` (`idUsuario`, `usuario`, `contraseña`, `rol`, `habilitad
 (7, 'tmcaw6', 'itDte93Fov', 1, 0, 0, 7),
 (8, 'bpittam7', 'BeayqLDUofC6', 0, 1, 0, 8),
 (9, 'clorne8', 'ghFTIK1Cm0D5', 1, 1, 0, 9),
-(10, 'usu', 'usu', 0, 1, 0, 10),
-(11, 'admin', 'admin', 1, 1, 0, 11);
+(10, 'bglidden9', 'oY7rgmJ43', 0, 1, 0, 10);
 
 --
 -- Índices para tablas volcadas
@@ -238,19 +227,19 @@ ALTER TABLE `novedades_de_guardia`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `idPersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idPersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario-comisaria`
 --
 ALTER TABLE `usuario-comisaria`
-  MODIFY `idUsuarioComisaria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idUsuarioComisaria` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idUsuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
