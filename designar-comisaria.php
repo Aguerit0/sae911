@@ -10,7 +10,6 @@
     $sentencia = $bd_conex->prepare("INSERT INTO `usuario-comisaria`(`idUsuario`, `idComisaria`, `habilitado`, `eliminado`) VALUES (?,?,?,?)");
     $resultado_usu_com = $sentencia->execute([$idUsuario, $idComisaria, $habilitado, $eliminado]);
 
-
     header("Location: usuarios-ver-mas.php?id=$idUsuario");
     exit();
 

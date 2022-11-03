@@ -322,19 +322,52 @@ if ($row2 = $resultado2->fetch_assoc()) {
                             $sentencia = $bd_conex->query("select * from comisarias");
                             $usuario_comisaria = $sentencia->fetchAll(PDO::FETCH_OBJ);
 
-                            foreach ($usuario_comisaria as $comisaria) {
-                            ?>
+                            // SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario
+
+                            $sql = "SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario";
+                            $resultado4 = mysqli_query($conexion, $sql);
+
+                            $existe_com;
+
+                            while ($row4 = $resultado4->fetch_assoc()) 
+                            {
+                              $existe_usu = $row4['idUsuario'];
+                              $existe_com = $row4['idComisaria'];
+                            }
+
+                            foreach ($usuario_comisaria as $comisaria) 
+                            {
+                              $idComisaria = $comisaria->idComisaria;
+
+                              ?>
                               <tr>
-                                <td scope="row"><?php echo $comisaria->idComisaria; ?></td>
+                                <td scope="row"><?php echo $idComisaria; ?></td>
                                 <td><?php echo $comisaria->nombre; ?></td>
                                 <td><?php echo $comisaria->direccion; ?></td>
                                 <td><?php echo $comisaria->provincia; ?></td>
                                 <td><?php echo $comisaria->departamento; ?></td>
-                                <td>
-                                  <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $comisaria -> idComisaria; ?>&idUsuario=<?php echo $idUsuario;?>">Designar</a>
-                                </td>
+
+                                <?php 
+                                if ($idComisaria == $existe_com)
+                                { 
+                                  ?>
+                                  <td>
+                                    <button class="btn btn-primary" disabled="disabled">Designar</button>
+                                  </td>
+                                  <?php
+                                }
+                                else
+                                {
+                                  ?>
+                                  <td>
+                                    <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $comisaria -> idComisaria; ?>&idUsuario=<?php echo $idUsuario;?>">Designar</a>
+                                  </td>
+                                  <?php
+                                }
+                                ?>
+
                               </tr>
-                            <?php
+                              <?php
                             }
                             ?>
                           </tbody>
