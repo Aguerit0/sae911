@@ -1,6 +1,10 @@
 <?php 
-    include 'conexion.php';
-    session_start();
+  include 'conexion.php';
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
+  }
 
     //SI APRETA EL BOTON AGREGAR
     if (isset($_POST['agregarComisaria'])) {
@@ -31,7 +35,7 @@
 
 
     //CONSULTA TABLAS PARA MOSTRAR DATOS DE COMISARIA
-    $consultaDatosComisaria="SELECT * FROM comisarias";
+    $consultaDatosComisaria="SELECT * FROM comisarias WHERE (eliminado < 1)";
     //RESULTAOD DE LA CONSULTA
     $resultado=mysqli_query($conexion,$consultaDatosComisaria);
     if (!$resultado) {
@@ -39,58 +43,6 @@
       }else{
         
       }
-
-
-
-//BOTON BUSCAR CAMPOS EN TABLA 
-
-  $salida = "";
-  $consultaSearch = "SELECT * FROM comisarias ORDER BY idComisarias";
-  if (isset($_POST['txtBuscar'])) {
-    
-      $q = $conexion->real_escape_string($_POST['txtBuscar']);
-
-      $consultaSearch= "SELECT nombre, direccion, provincia, departamento, localidad FROM comisarias WHERE nombre LIKE '%".$q."%' OR direccion LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR localidad LIKE '%".$q."%' ";
-
-      $resultadoSearch = mysqli_query($conexion,$consultaSearch);
-      /*
-      $if($resultadoSearch->num_rows > 0){
-
-        $salida.="<table class='table table-sm table-hover table-bordered text-center'>
-          <thead class='table-dark'>
-          <tr>
-            <th scope='col'>ID</th>
-            <th scope='col'>Nombre</th>
-            <th scope='col'>Dirección</th>
-            <th scope='col'>Provincia</th>
-            <th scope='col'>Departamento</th>
-            <th scope='col'>Localidad</th>
-            <th scope='col'>. . .</th>
-          </tr>
-          </thead>
-          <tbody>";
-          while ($fila = $resultadoSearch->fetch_assoc()) {   
-              $salida.="
-                <tr>
-              <th>".$fila['idComisaria']."</th>
-              <th>".$fila['nombre']."</th>
-              <td scope='row'>".$fila['direccion']."</td>
-              <td scope='row'>".$fila['provincia']."</td>
-              <td scope='row'>".$fila['departamento']."</td>
-              <td scope='row'>".$fila['localidad']."</td>
-              </tr>";
-            };
-            $salida.=" </tbody></table>";
-      
-              
-      }else{
-        $salida.="No hay datos";
-      }
-      echo $salida;
-      */
-
-    }
-  
     //CERRAMOS CONEXIÓN BD
     mysqli_close($conexion);
  ?>
@@ -121,9 +73,6 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!--Buscador Files-->
-  <script src="jquery.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -160,28 +109,10 @@
         </nav>
     </div><!-- End Page Title -->
     <!-- Button trigger modal -->
-
-    <div class="search">
-      
-      
-
-      <!--INPUT BUSCAR EN TABLAS-->
-      <form method="post">
-
-        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
-
-        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="bi bi-plus-circle-fill"></i>
       Agregar
-      </button>  
-
-      </form>
-      
-      
-    </div><!--FIN INPUT BUSCAR EN TABLAS-->
-    
-
-
+    </button>
     <!-- Modal AGREGAR COMISARIA -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
@@ -268,18 +199,18 @@
           
       </thead>
 
-      <tbody id="content">
+      <tbody>
           <?php 
-            while ($row1 = $resultado->fetch_assoc()) {
+            while ($row = $resultado->fetch_assoc()) {
            ?>   
         <tr>
-              <th ><?php echo $row1['idComisaria']; ?></th>
-              <th ><?php echo $row1['nombre']; ?></th>
-              <td scope="row"><?php echo $row1['direccion']; ?></td>
-              <td scope="row"><?php echo $row1['provincia']; ?></td>
-              <td scope="row"><?php echo $row1['departamento']; ?></td>
-              <td scope="row"><?php echo $row1['localidad']; ?></td>
-              <?php $idComisaria=$row1['idComisaria']; ?>
+              <th scope="row"><?php echo $row['idComisaria'] ?></th>
+              <th scope="row"><?php echo $row['nombre'] ?></th>
+              <td scope="row"><?php echo $row['direccion'] ?></td>
+              <td scope="row"><?php echo $row['provincia'] ?></td>
+              <td scope="row"><?php echo $row['departamento'] ?></td>
+              <td scope="row"><?php echo $row['localidad'] ?></td>
+              
               <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
             <a class="btn btn-primary" href="comisarias-ver-mas.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
         </tr>
@@ -289,31 +220,20 @@
       </tbody>
     </table>
   </main><!-- End #main -->
-<script>
-  /* Llamando a la función getData() */
-        getData()
 
-        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", getData)
-
-        /* Peticion AJAX */
-        function getData() {
-            let input = document.getElementById("campo").value
-            let content = document.getElementById("content")
-            let url = "search.php"
-            let formaData = new FormData()
-            formaData.append('campo', input)
-
-            fetch(url, {
-                    method: "POST",
-                    body: formaData
-                }).then(response => response.json())
-                .then(data => {
-                    content.innerHTML = data
-                }).catch(err => console.log(err))
-        }
-
-</script>
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

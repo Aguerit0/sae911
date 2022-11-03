@@ -2,6 +2,10 @@
 <?php 
   include('conexion.php');
   session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+  header('Location: index.php');
+  }
   //SUPONIENDO QUE EL ID QUE TRAEMOS ES == 1
   $id = 1;
   //CONSULTA TABLA PERSONA

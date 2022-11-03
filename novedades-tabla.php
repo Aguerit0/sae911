@@ -1,6 +1,10 @@
 <?php
- include 'conexion.php';
- session_start();
+  include 'conexion.php';
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
+  }
 
    //INICIALIZAMOS DATOS
   $idUsuario = 1;
@@ -38,7 +42,7 @@
   }
 
   //CONSULTA TABLAS PARA MOSTRAR DATOS DE NOVEDADES DE GUARDIA
-  $consultaDatosNovedadesDeGuardia="SELECT * FROM novedades_de_guardia";
+  $consultaDatosNovedadesDeGuardia="SELECT * FROM novedades_de_guardia  WHERE (eliminado < 1)";
   //RESULTAOD DE LA CONSULTA
   $resultado=mysqli_query($conexion,$consultaDatosNovedadesDeGuardia);
   if (!$resultado) {
