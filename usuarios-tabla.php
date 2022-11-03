@@ -1,10 +1,10 @@
 <?php
-    include 'conexion.php';
-    session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
-        header('Location: index.php');
-    }
+include 'conexion.php';
+session_start();
+// PREGUNTA SI HAY UN USUARIO REGISTRADO
+if (!isset($_SESSION['usuario'])) {
+    header('Location: index.php');
+}
 
 
 
@@ -99,14 +99,14 @@ mysqli_close($conexion);
 <body>
 
     <!-- ======= Header ======= -->
-    <?php include("./template/dashboard.php")?>
+    <?php include("./template/dashboard.php") ?>
 
     <!-- ======= Sidebar ======= -->
-    <?php  if($_SESSION['rol'] == 1){
-        include ("./template/admin.php");
-        }else{
-        include ("template/usuario.php");
-        }
+    <?php if ($_SESSION['rol'] == 1) {
+        include("./template/admin.php");
+    } else {
+        include("template/usuario.php");
+    }
     ?>
 
     <main id="main" class="main">
@@ -141,73 +141,83 @@ mysqli_close($conexion);
 
                                 <form class="row g-3 needs-validation" method="POST" action="registrar_log.php">
                                     <div class="col-12">
-                                    <label for="yourName" class="form-label">Nombre</label>
-                                    <input type="text" name="nombre" class="form-control" id="yourName" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su nombre!
-                                    </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <label for="yourName" class="form-label">Apellido</label>
-                                    <input type="text" name="apellido" class="form-control" id="yourName" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su Apellido!
-                                    </div>
+                                        <label for="inputName5" class="form-label">Nombre</label>
+                                        <input type="text" name="nombre" class="form-control" id="nombrePersona" name=="nombrePersona" required>
+                                        <div class="invalid-feedback">¡Por favor, escriba su nombre!
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
-                                    <label for="yourName" class="form-label">DNI</label>
-                                    <input type="text" name="dni" class="form-control" id="dni" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su DNI!
-                                    </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <label for="yourEmail" class="form-label">Correo</label>
-                                    <input type="email" name="correo" class="form-control" id="yourEmail" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su Gmail!</div>
+                                        <label for="yourName" class="form-label">Apellido</label>
+                                        <input type="text" name="apellido" class="form-control" id="apellidoPersona" name="apellidoPersona" required>
+                                        <div class="invalid-feedback">¡Por favor, escriba su Apellido!
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
-                                    <select name="sexo" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
-                                    <option selected value="">Sexo</option>
-                                    <option value="1">Masculino</option>
-                                    <option value="2">Femenino</option>
-                                    <option value="3">Otro</option>
-                                    </select>
-                                    </div>
-                                    <div class="col-12">
-                                    <label for="yourName" class="form-label">Telefono</label>
-                                    <input type="text" name="telefono" class="form-control" id="yourName" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su Telefono!
-                                    </div>
+                                        <label for="yourEmail" class="form-label">Correo</label>
+                                        <input type="email" name="correo" class="form-control" id="correoPersona" name="correoPersona" required>
+                                        <div class="invalid-feedback">¡Por favor, escriba su Gmail!</div>
                                     </div>
 
                                     <div class="col-12">
-                                    <label for="yourUsername" class="form-label">Nombre de Usuario</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                                        <div class="invalid-feedback">¡Por favor, escriba su nombre de usuario</div>
-                                    </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <label for="yourPassword" class="form-label">Contraseña</label>
-                                    <input type="password" name="password" class="form-control" id="yourPassword" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba una Contraseña!</div>
+                                        <label for="yourName" class="form-label">Telefono</label>
+                                        <input type="text" name="telefono" class="form-control" id="telefeonoPersona" name="telefonoPersona" required>
+                                        <div class="invalid-feedback">¡Por favor, escriba su Telefono!
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                                        <label class="form-check-label" for="acceptTerms">Acepto todos los <a href="#">terminos y condiciones</a></label>
-                                        <div class="invalid-feedback">You must agree before submitting.</div>
+                                        <label for="inputState" class="form-label">Seleccionar género</label>
+                                        <select name="sexo" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm" id="sexoPersona" name="sexoPersona">
+                                            <option selected value=""></option>
+                                            <option value="1">Masculino</option>
+                                            <option value="2">Femenino</option>
+                                            <option value="3">Otro</option>
+                                        </select>
                                     </div>
+
+                                    <div class="col-12">
+                                        <label for="yourName" class="form-label">DNI</label>
+                                        <input type="text" name="dni" class="form-control" id="dni" required>
+                                        <div class="invalid-feedback">¡Por favor, escriba su DNI!
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="yourUsername" class="form-label">Nombre de Usuario</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" name="username" class="form-control" id="yourUsername" required>
+                                            <div class="invalid-feedback">¡Por favor, escriba su nombre de usuario</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="yourPassword" class="form-label">Contraseña</label>
+                                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                        <div class="invalid-feedback">¡Por favor, escriba una Contraseña!</div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="inputState" class="form-label">Habilitado</label>
+                                        <select id="habilitadoPersona" name="habilitadoPersona" class="form-select">
+                                            <option value="1" selected>Habilitado</option>
+                                            <option value="0">Deshabilitado</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                                            <label class="form-check-label" for="acceptTerms">Acepto todos los <a href="#">terminos y condiciones</a></label>
+                                            <div class="invalid-feedback">You must agree before submitting.</div>
+                                        </div>
                                     </div>
                                     <div class="col-12">
-                                    <button class="btn btn-primary w-100" type="submit" name="Bregistrar">Crear Cuenta</button>
+                                        <button class="btn btn-primary w-100" type="submit" name="Bregistrar">Crear Cuenta</button>
                                     </div>
                                     <div class="col-12">
-                                    <p class="small mb-0 text-center">¿Ya tienes una cuenta? <a href="pages-login.html">Iniciar sesión</a></p>
+                                        <p class="small mb-0 text-center">¿Ya tienes una cuenta? <a href="pages-login.html">Iniciar sesión</a></p>
                                     </div>
                                 </form>
 
@@ -247,7 +257,7 @@ mysqli_close($conexion);
                             <?php $idUsuario = $row['idUsuario'] ?>
                             <td scope="row">
                                 <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-                                <a class="btn btn-primary" href="usuarios-ver-mas.php?id=<?php echo $idUsuario?>">Ver más</a>
+                                <a class="btn btn-primary" href="usuarios-ver-mas.php?id=<?php echo $idUsuario ?>">Ver más</a>
                             </td>
                             </td>
                         </tr>

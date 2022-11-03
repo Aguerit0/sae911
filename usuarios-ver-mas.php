@@ -179,8 +179,6 @@
       <div class="card-body">
 
         <ul class="list-group mb-3">
-          <li class="list-group-item fw-bold">ID USUARIO: <span class="fw-normal ms-2"><?php echo $idUsuario; ?></span></li>
-          <li class="list-group-item fw-bold">ID PERSONA: <span class="fw-normal ms-2"><?php echo $idPersona; ?></span></li>
           <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombrePersona; ?></span></li>
           <li class="list-group-item fw-bold">Apellido: <span class="fw-normal ms-2"><?php echo $apellidoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Correo: <span class="fw-normal ms-2"><?php echo $correoPersona; ?></span></li>
@@ -189,15 +187,13 @@
           <li class="list-group-item fw-bold">DNI: <span class="fw-normal ms-2"><?php echo $dniPersona; ?></span> </li>
           <li class="list-group-item fw-bold">Fecha de Registro: <span class="fw-normal ms-2"><?php echo $fechaRegistroPersona; ?></span></li>
           <li class="list-group-item fw-bold">Usuario: <span class="fw-normal ms-2"><?php echo $nombreUsuario; ?></span></li>
-          <li class="list-group-item fw-bold">Contraseña: <span class="fw-normal ms-2"><?php echo $contraseñaUsuario; ?></span></li>
           <li class="list-group-item fw-bold">
             Habilitado: <span class="fw-normal ms-2"><?php if ($habilitadoPersona == 1) {
-                                                        echo "Habilitado";
+                                                        echo "Si";
                                                       } else {
-                                                        echo "Deshabilitado";
+                                                        echo "No";
                                                       } ?></span>
           </li>
-          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoUsuario; ?></span></li>
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->

@@ -1,63 +1,62 @@
-<?php 
-  include 'conexion.php';
-  session_start();
-  // PREGUNTA SI HAY UN USUARIO REGISTRADO
-  if(!isset($_SESSION['usuario'])){
-    header('Location: index.php');
+<?php
+include 'conexion.php';
+session_start();
+// PREGUNTA SI HAY UN USUARIO REGISTRADO
+if (!isset($_SESSION['usuario'])) {
+  header('Location: index.php');
+}
+
+//SI APRETA EL BOTON AGREGAR
+if (isset($_POST['agregarComisaria'])) {
+  $nombreComisaria = $_POST['nombreComisaria'];
+  $direccionComisaria = $_POST['direccionComisaria'];
+  $provinciaComisaria = $_POST['provinciaComisaria'];
+  $departamentoComisaria = $_POST['departamentoComisaria'];
+  $localidadComisaria = $_POST['localidadComisaria'];
+  $telefonoComisaria = $_POST['telefonoComisaria'];
+  $latitudComisaria = $_POST['latitudComisaria'];
+  $longitudComisaria = $_POST['longitudComisaria'];
+  $habilitadoComisaria = $_POST['habilitadoComisaria'];
+
+
+  //CONSULTA INSERTAR EN SQL
+  $insertarComisaria = "INSERT INTO comisarias (nombre, direccion, provincia, departamento, localidad, telefono, latitud, longitud, habilitado) VALUES ('$nombreComisaria','$direccionComisaria','$provinciaComisaria','$departamentoComisaria','$localidadComisaria','$telefonoComisaria','$latitudComisaria','$longitudComisaria','$habilitadoComisaria')";
+
+  //EJECUTAR CONSULTA DE INSERTAR
+  $ejecutarInsertarComisaria = mysqli_query($conexion, $insertarComisaria);
+  if (!$ejecutarInsertarComisaria) {
+    echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+  } else {
+    header('location:comisarias-tabla.php');
   }
-
-    //SI APRETA EL BOTON AGREGAR
-    if (isset($_POST['agregarComisaria'])) {
-      $nombreComisaria=$_POST['nombreComisaria'];
-      $direccionComisaria=$_POST['direccionComisaria'];
-      $provinciaComisaria=$_POST['provinciaComisaria'];
-      $departamentoComisaria=$_POST['departamentoComisaria'];
-      $localidadComisaria=$_POST['localidadComisaria'];
-      $telefonoComisaria=$_POST['telefonoComisaria'];
-      $latitudComisaria=$_POST['latitudComisaria'];
-      $longitudComisaria=$_POST['longitudComisaria'];
-      $habilitadoComisaria=$_POST['habilitadoComisaria'];
-
-
-      //CONSULTA INSERTAR EN SQL
-      $insertarComisaria = "INSERT INTO comisarias (nombre, direccion, provincia, departamento, localidad, telefono, latitud, longitud, habilitado) VALUES ('$nombreComisaria','$direccionComisaria','$provinciaComisaria','$departamentoComisaria','$localidadComisaria','$telefonoComisaria','$latitudComisaria','$longitudComisaria','$habilitadoComisaria')";
-
-      //EJECUTAR CONSULTA DE INSERTAR
-      $ejecutarInsertarComisaria=mysqli_query($conexion,$insertarComisaria);
-      if (!$ejecutarInsertarComisaria) {
-        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
-      }else{
-        header('location:comisarias-tabla.php');
-      }
-    }
+}
 
 
 
 
-    //CONSULTA TABLAS PARA MOSTRAR DATOS DE COMISARIA
-    $consultaDatosComisaria="SELECT * FROM comisarias WHERE (eliminado < 1)";
-    //RESULTAOD DE LA CONSULTA
-    $resultado=mysqli_query($conexion,$consultaDatosComisaria);
-    if (!$resultado) {
-      echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN');</script>";
-      }else{
-        
-      }
+//CONSULTA TABLAS PARA MOSTRAR DATOS DE COMISARIA
+$consultaDatosComisaria = "SELECT * FROM comisarias WHERE (eliminado < 1)";
+//RESULTAOD DE LA CONSULTA
+$resultado = mysqli_query($conexion, $consultaDatosComisaria);
+if (!$resultado) {
+  echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN');</script>";
+} else {
+}
 
 
 
 //BOTON BUSCAR CAMPOS EN TABLA 
 
-  $salida = "";
-  $consultaSearch = "SELECT * FROM comisarias ORDER BY idComisarias";
-  if (isset($_POST['txtBuscar'])) {
-    
-      $q = $conexion->real_escape_string($_POST['txtBuscar']);
+$salida = "";
+$consultaSearch = "SELECT * FROM comisarias ORDER BY idComisarias";
+if (isset($_POST['txtBuscar'])) {
 
-      $consultaSearch= "SELECT nombre, direccion, provincia, departamento, localidad FROM comisarias WHERE nombre LIKE '%".$q."%' OR direccion LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR provincia LIKE '%".$q."%' OR localidad LIKE '%".$q."%' ";
+  $q = $conexion->real_escape_string($_POST['txtBuscar']);
 
-      $resultadoSearch = mysqli_query($conexion,$consultaSearch);
-      /*
+  $consultaSearch = "SELECT nombre, direccion, provincia, departamento, localidad FROM comisarias WHERE nombre LIKE '%" . $q . "%' OR direccion LIKE '%" . $q . "%' OR provincia LIKE '%" . $q . "%' OR provincia LIKE '%" . $q . "%' OR localidad LIKE '%" . $q . "%' ";
+
+  $resultadoSearch = mysqli_query($conexion, $consultaSearch);
+  /*
       $if($resultadoSearch->num_rows > 0){
 
         $salida.="<table class='table table-sm table-hover table-bordered text-center'>
@@ -92,12 +91,11 @@
       }
       echo $salida;
       */
+}
 
-    }
-  
-    //CERRAMOS CONEXIÓN BD
-    mysqli_close($conexion);
- ?>
+//CERRAMOS CONEXIÓN BD
+mysqli_close($conexion);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,7 +106,7 @@
   <title>SAE 911</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-<br>
+  <br>
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -143,47 +141,48 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <?php include("./template/dashboard.php")?>
+  <?php include("./template/dashboard.php") ?>
 
   <!-- ======= Sidebar ======= -->
-  <?php  if($_SESSION['rol'] == 1){
-      include ("./template/admin.php");
-    }else{
-      include ("./template/usuario.php");
-    }
+  <?php if ($_SESSION['rol'] == 1) {
+    include("./template/admin.php");
+  } else {
+    include("./template/usuario.php");
+  }
   ?>
 
   <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Tabla Comisarias</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
-            <li class="breadcrumb-item active">Comisarias</li>
-          </ol>
-        </nav>
+      <h1>Tabla Comisarias</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
+          <li class="breadcrumb-item active">Comisarias</li>
+        </ol>
+      </nav>
     </div><!-- End Page Title -->
     <!-- Button trigger modal -->
 
     <div class="search">
-      
-      
+
+
 
       <!--INPUT BUSCAR EN TABLAS-->
       <form method="post">
 
         <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
 
-        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      <i class="bi bi-plus-circle-fill"></i>
-      Agregar
-      </button>  
+        <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <i class="bi bi-plus-circle-fill"></i>
+          Agregar
+        </button>
 
       </form>
-      
-      
-    </div><!--FIN INPUT BUSCAR EN TABLAS-->
-    
+
+
+    </div>
+    <!--FIN INPUT BUSCAR EN TABLAS-->
+
 
 
     <!-- Modal AGREGAR COMISARIA -->
@@ -238,12 +237,12 @@
                       <option value="0">Deshabilitado</option>
                     </select>
                   </div>
-                  
+
                   <div class="text-center">
                     <button type="submit" id="agregarComisaria" name="agregarComisaria" value="agregarComisaria" class="btn btn-primary">Agregar</button>
                   </div>
                 </form><!-- End Multi Columns Form -->
-  
+
               </div>
             </div>
           </div>
@@ -253,71 +252,74 @@
           </div>
         </div>
       </div>
-    </div><!--FIN MODAL AGREGEAR-->
+    </div>
+    <!--FIN MODAL AGREGEAR-->
 
 
     <!-- SEGUNDA OPCION -->
     <table class="table table-sm table-hover table-bordered text-center">
       <thead class="table-dark">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Provincia</th>
-            <th scope="col">Departamento</th>
-            <th scope="col">Localidad</th>
-            <th scope="col">. . .</th>
-          </tr>
-           
-          
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Dirección</th>
+          <th scope="col">Provincia</th>
+          <th scope="col">Departamento</th>
+          <th scope="col">Localidad</th>
+          <th scope="col">. . .</th>
+        </tr>
+
+
       </thead>
 
       <tbody id="content">
-          <?php 
-            while ($row1 = $resultado->fetch_assoc()) {
-           ?>   
-        <tr>
-              <th ><?php echo $row1['idComisaria']; ?></th>
-              <th ><?php echo $row1['nombre']; ?></th>
-              <td scope="row"><?php echo $row1['direccion']; ?></td>
-              <td scope="row"><?php echo $row1['provincia']; ?></td>
-              <td scope="row"><?php echo $row1['departamento']; ?></td>
-              <td scope="row"><?php echo $row1['localidad']; ?></td>
-              <?php $idComisaria=$row1['idComisaria']; ?>
-              <td scope="row"><!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="comisarias-ver-mas.php?id=<?php echo $row['idComisaria']?>">Ver más</a></td></td>
-        </tr>
-        <?php 
-            }
-          ?>
+        <?php
+        while ($row1 = $resultado->fetch_assoc()) {
+        ?>
+          <tr>
+            <th><?php echo $row1['idComisaria']; ?></th>
+            <th><?php echo $row1['nombre']; ?></th>
+            <td scope="row"><?php echo $row1['direccion']; ?></td>
+            <td scope="row"><?php echo $row1['provincia']; ?></td>
+            <td scope="row"><?php echo $row1['departamento']; ?></td>
+            <td scope="row"><?php echo $row1['localidad']; ?></td>
+            <?php $idComisaria = $row1['idComisaria']; ?>
+            <td scope="row">
+              <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
+              <a class="btn btn-primary" href="comisarias-ver-mas.php?id=<?php echo $row['idComisaria'] ?>">Ver más</a>
+            </td>
+            </td>
+          </tr>
+        <?php
+        }
+        ?>
       </tbody>
     </table>
   </main><!-- End #main -->
-<script>
-  /* Llamando a la función getData() */
-        getData()
+  <script>
+    /* Llamando a la función getData() */
+    getData()
 
-        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", getData)
+    /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+    document.getElementById("campo").addEventListener("keyup", getData)
 
-        /* Peticion AJAX */
-        function getData() {
-            let input = document.getElementById("campo").value
-            let content = document.getElementById("content")
-            let url = "search.php"
-            let formaData = new FormData()
-            formaData.append('campo', input)
+    /* Peticion AJAX */
+    function getData() {
+      let input = document.getElementById("campo").value
+      let content = document.getElementById("content")
+      let url = "search.php"
+      let formaData = new FormData()
+      formaData.append('campo', input)
 
-            fetch(url, {
-                    method: "POST",
-                    body: formaData
-                }).then(response => response.json())
-                .then(data => {
-                    content.innerHTML = data
-                }).catch(err => console.log(err))
-        }
-
-</script>
+      fetch(url, {
+          method: "POST",
+          body: formaData
+        }).then(response => response.json())
+        .then(data => {
+          content.innerHTML = data
+        }).catch(err => console.log(err))
+    }
+  </script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
