@@ -92,7 +92,7 @@
   <li class="nav-heading">Paginas</li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="../usuarios-perfil.php">
+    <a class="nav-link collapsed" href="usuarios-perfil.php">
       <i class="bi bi-person"></i>
       <span>Perfil</span>
     </a>

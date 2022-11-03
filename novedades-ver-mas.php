@@ -169,7 +169,7 @@
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="novedades-tabla.html">Tabla Novedades de Guardia</a></li>
+            <li class="breadcrumb-item"><a href="novedades-tabla.php">Tabla Novedades de Guardia</a></li>
             <li class="breadcrumb-item active">Ver Más</li>
           </ol>
         </nav>
@@ -177,23 +177,22 @@
     <div class="card w-75 pt-3">
       <div class="card-body">
           <ul class="list-group">
-          <li class="list-group-item fw-bold">ID Novedades: <span><?php echo $idNovedades ?></span></li>
-            <li class="list-group-item fw-bold">Comisaria: <span><?php echo $nombreComisaria ?></span></li>
-            <li class="list-group-item fw-bold">Fecha: <span><?php echo $fecha ?></span></li></li>
-            <li class="list-group-item fw-bold">Turno: <span><?php echo $turno ?></span></li>
-            <li class="list-group-item fw-bold">Superior de turno: <span><?php echo $superior_de_turno ?></span></li>
-            <li class="list-group-item fw-bold">Oficial servicio: <span><?php echo $oficial_servicio ?></span></li>
-            <li class="list-group-item fw-bold">Cant. de personal de guardia: <span><?php echo $personas_de_guardia ?></span></li>
-            <li class="list-group-item fw-bold">Motoristas: <span><?php echo $motoristas ?></span></li>
-            <li class="list-group-item fw-bold">Mov. en funcionamiento: <span><?php echo $mov_funcionamiento ?></span></li>
-            <li class="list-group-item fw-bold">Mov. fuera de servicio: <span><?php echo $mov_fuera_de_servicio ?></span></li>
-            <li class="list-group-item fw-bold">Cant. detenidos causa federal: <span><?php echo $detenidos_causa_federal ?></span></li>
-            <li class="list-group-item fw-bold">Cant. detenidos justicia ordinaria: <span><?php echo $detenidos_justicia_ordinaria ?></span></li>
-            <li class="list-group-item fw-bold">Arrestados averiguacion del hecho: <span><?php echo $arres_averiguacion_de_hecho ?></span></li>
-            <li class="list-group-item fw-bold">Cant. aprehendidos: <span><?php echo $aprehendidos ?></span></li>
-            <li class="list-group-item fw-bold">Arrestados averiguacion actividades: <span><?php echo $arres_averiguacion_actividades ?></span></li>
-            <li class="list-group-item fw-bold">Arrestados inf. codigo de faltas: <span><?php echo $arres_info_codigo_de_faltas ?></span></li>
-            <li class="list-group-item fw-bold">Demorados: <span><?php echo $demorados ?></span></li>
+          <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
+          <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $fecha ?></span></li></li>
+          <li class="list-group-item fw-bold">Turno: <span class="fw-normal ms-2"><?php echo $turno ?></span></li>
+          <li class="list-group-item fw-bold">Superior de turno: <span class="fw-normal ms-2"><?php echo $superior_de_turno ?></span></li>
+          <li class="list-group-item fw-bold">Oficial servicio: <span class="fw-normal ms-2"><?php echo $oficial_servicio ?></span></li>
+          <li class="list-group-item fw-bold">Cant. de personal de guardia: <span class="fw-normal ms-2"><?php echo $personas_de_guardia ?></span></li>
+          <li class="list-group-item fw-bold">Motoristas: <span class="fw-normal ms-2"><?php echo $motoristas ?></span></li>
+          <li class="list-group-item fw-bold">Mov. en funcionamiento: <span class="fw-normal ms-2"><?php echo $mov_funcionamiento ?></span></li>
+          <li class="list-group-item fw-bold">Mov. fuera de servicio: <span class="fw-normal ms-2"><?php echo $mov_fuera_de_servicio ?></span></li>
+          <li class="list-group-item fw-bold">Cant. detenidos causa federal: <span class="fw-normal ms-2"><?php echo $detenidos_causa_federal ?></span></li>
+          <li class="list-group-item fw-bold">Cant. detenidos justicia ordinaria: <span class="fw-normal ms-2"><?php echo $detenidos_justicia_ordinaria ?></span></li>
+          <li class="list-group-item fw-bold">Arrestados averiguacion del hecho: <span class="fw-normal ms-2"><?php echo $arres_averiguacion_de_hecho ?></span></li>
+          <li class="list-group-item fw-bold">Cant. aprehendidos: <span class="fw-normal ms-2"><?php echo $aprehendidos ?></span></li>
+          <li class="list-group-item fw-bold">Arrestados averiguacion actividades: <span class="fw-normal ms-2"><?php echo $arres_averiguacion_actividades ?></span></li>
+          <li class="list-group-item fw-bold">Arrestados inf. codigo de faltas: <span class="fw-normal ms-2"><?php echo $arres_info_codigo_de_faltas ?></span></li>
+          <li class="list-group-item fw-bold">Demorados: <span class="fw-normal ms-2"><?php echo $demorados ?></span></li>
         </ul>  
         
         <!-- BOTON MODAL ELIMINAR -->

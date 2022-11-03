@@ -8,6 +8,7 @@
   }
 
 
+
 ?>
 
 
@@ -64,6 +65,7 @@
       <p><?php echo $_SESSION['rol'];?></p>
       <p><?php echo $_SESSION['usuario'];?></p>
       <p><?php echo $_SESSION['id'];?></p>
+      <p><?php echo $_SESSION['idComisaria'];?></p>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>

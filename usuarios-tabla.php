@@ -223,12 +223,17 @@ mysqli_close($conexion);
                     while ($row1 = $resultado4->fetch_assoc()) {
                     ?>
                         <tr>
-                            
-                            <td scope="row"><?php echo $row1['nombre'] ?></td>
-                            <td scope="row"><?php echo $row1['correo'] ?></td>
-                            <td scope="row"><?php echo $row1['fechaRegistro'] ?></td>
-                            <td scope="row"><?php echo $row1['habilitado'] ?></td>
-                            <?php $idUsuario = $row1['idUsuario'] ?>
+                            <th scope="row"><?php echo $row['usuario'] ?></th>
+                            <td scope="row"><?php echo $row['nombre'] ?></td>
+                            <td scope="row"><?php echo $row['correo'] ?></td>
+                            <td scope="row"><?php echo $row['fechaRegistro'] ?></td>
+                            <td scope="row">
+                                <?php
+                                if($row['habilitado'] == 1){
+                                    echo "Si";
+                                }else{echo "No";}
+                                ?></td>
+                            <?php $idUsuario = $row['idUsuario'] ?>
                             <td scope="row">
                                 <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
                                 <a class="btn btn-primary" href="usuarios-ver-mas.php?id=<?php echo $idUsuario?>">Ver más</a>

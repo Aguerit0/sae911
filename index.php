@@ -28,6 +28,13 @@
         $persona = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
         $_SESSION['nombre']=$persona['nombre'];
         $_SESSION['apellido']=$persona['apellido'];
+
+        $sentenciaSQL=$bd_conex->prepare('SELECT idComisaria FROM `usuario-comisaria` WHERE idUsuario =:id');
+        $sentenciaSQL->bindParam(':id', $_SESSION['id']);
+        $sentenciaSQL->execute();
+        $usuComisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
+        $_SESSION['idComisaria']=$usuComisaria['idComisaria'];
+        
         header('Location: inicio-dashboard.php');
       }else{
         $error="Ususario o Contraseña son incorrectos";

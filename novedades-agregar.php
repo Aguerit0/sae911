@@ -35,7 +35,7 @@
       echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     }
     else{
-      header('location:usuarios-perfil.php');
+      header('location:novedades-tabla.php');
     }
   }
   mysqli_close($conexion);
