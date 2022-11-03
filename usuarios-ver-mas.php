@@ -1,44 +1,48 @@
 <?php
-include('conexion.php');
-session_start();
-$idUsuario = $_GET['id'];
+  include('conexion.php');
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+  header('Location: index.php');
+  }
+  $idUsuario = $_GET['id'];
 
-//************************   PRIMERA FORMA   ************************ 
-//CONSULTA TABLA USUARIOS/PERSONAS
-// $consultaSelectUsuarios="SELECT * FROM usuarios, personas WHERE (usuarios.idUsuario =  personas.idPersona) AND usuarios.idUsuario= '$idUsuario'";
-// $consultaSelectUsuarios = "SELECT * FROM personas INNER JOIN usuarios WHERE usuarios.idUsuario ='$idUsuario'";
-
-
-// /*$consultaSelectUsuarios = "SELECT * FROM usuarios u LEFT JOIN personas p ON u.idPersona=u.idPersona UNION ALL SELECT * FROM usuarios u RIGHT JOIN personas p ON u.idPersona=p.idPersona";*/
-// $resultado = mysqli_query($conexion, $consultaSelectUsuarios);
-// if (!$resultado) {
-//   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-// }
-
-// if ($row = $resultado->fetch_assoc()) {
-//   //persona
-//   $nombrePersona = $row['nombre'];
-//   $apellidoPersona = $row['apellido'];
-//   $correoPersona = $row['correo'];
-//   $telefonoPersona = $row['telefono'];
-//   $sexoPersona = $row['sexo'];
-//   $dniPersona = $row['dni'];
-//   $fechaRegistroPersona = $row['fechaRegistro'];
-//   $habilitadoPersona = $row['habilitado'];
-//   $eliminadoPersona = $row['eliminado'];
-
-//   //usuario
-//   $nombreUsuario = $row['usuario'];
-//   $contraseñaUsuario = $row['contraseña'];
-//   $idUsuario=$row['idUsuario'];
-// }
+  //************************   PRIMERA FORMA   ************************ 
+  //CONSULTA TABLA USUARIOS/PERSONAS
+  // $consultaSelectUsuarios="SELECT * FROM usuarios, personas WHERE (usuarios.idUsuario =  personas.idPersona) AND usuarios.idUsuario= '$idUsuario'";
+  // $consultaSelectUsuarios = "SELECT * FROM personas INNER JOIN usuarios WHERE usuarios.idUsuario ='$idUsuario'";
 
 
+  // /*$consultaSelectUsuarios = "SELECT * FROM usuarios u LEFT JOIN personas p ON u.idPersona=u.idPersona UNION ALL SELECT * FROM usuarios u RIGHT JOIN personas p ON u.idPersona=p.idPersona";*/
+  // $resultado = mysqli_query($conexion, $consultaSelectUsuarios);
+  // if (!$resultado) {
+  //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+  // }
+
+  // if ($row = $resultado->fetch_assoc()) {
+  //   //persona
+  //   $nombrePersona = $row['nombre'];
+  //   $apellidoPersona = $row['apellido'];
+  //   $correoPersona = $row['correo'];
+  //   $telefonoPersona = $row['telefono'];
+  //   $sexoPersona = $row['sexo'];
+  //   $dniPersona = $row['dni'];
+  //   $fechaRegistroPersona = $row['fechaRegistro'];
+  //   $habilitadoPersona = $row['habilitado'];
+  //   $eliminadoPersona = $row['eliminado'];
+
+  //   //usuario
+  //   $nombreUsuario = $row['usuario'];
+  //   $contraseñaUsuario = $row['contraseña'];
+  //   $idUsuario=$row['idUsuario'];
+  // }
 
 
-//************************   SEGUNDA FORMA   ************************ 
-//OBTENCION DE DATOS TABLA 
-/*$consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
+
+
+  //************************   SEGUNDA FORMA   ************************ 
+  //OBTENCION DE DATOS TABLA 
+  /*$consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
   $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idUsuario";
   $resultado1=mysqli_query($conexion,$consultaSelectUsuario);
   $resultado2=mysqli_query($conexion,$consultaSelectPersona);
@@ -58,29 +62,59 @@ $idUsuario = $_GET['id'];
     $habilitadoPersona = $row2['habilitado'];
     $eliminadoPersona = $row2['eliminado'];
   }*/
-//************************   TERCERA FORMA   ************************ 
+  //************************   TERCERA FORMA   ************************ 
 
-$consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
-$resultado1 = mysqli_query($conexion, $consultaSelectUsuario);
-if ($row1 = $resultado1->fetch_assoc()) {
-  $nombreUsuario = $row1['usuario'];
-  $contraseñaUsuario = $row1['contraseña'];
-  $idPersona = $row1['idPersona'];
-}
+  $consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
+  $resultado1=mysqli_query($conexion,$consultaSelectUsuario);
+  if ($row1 = $resultado1->fetch_assoc()) {
+    $nombreUsuario = $row1['usuario'];
+    $contraseñaUsuario = $row1['contraseña'];
+    $idPersona=$row1['idPersona'];
+    $eliminadoUsuario = $row['eliminado'];
+  }
+  $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
+  $resultado2=mysqli_query($conexion,$consultaSelectPersona);
+  if ($row2=$resultado2->fetch_assoc()) {
+    $nombrePersona = $row2['nombre'];
+    $apellidoPersona = $row2['apellido'];
+    $correoPersona = $row2['correo'];
+    $telefonoPersona = $row2['telefono'];
+    $sexoPersona = $row2['sexo'];
+    $dniPersona = $row2['dni'];
+    $fechaRegistroPersona = $row2['fechaRegistro'];
+    $habilitadoPersona = $row2['habilitado'];
+    $eliminadoPersona = $row2['eliminado'];
+  }
 
-$consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
-$resultado2 = mysqli_query($conexion, $consultaSelectPersona);
-if ($row2 = $resultado2->fetch_assoc()) {
-  $nombrePersona = $row2['nombre'];
-  $apellidoPersona = $row2['apellido'];
-  $correoPersona = $row2['correo'];
-  $telefonoPersona = $row2['telefono'];
-  $sexoPersona = $row2['sexo'];
-  $dniPersona = $row2['dni'];
-  $fechaRegistroPersona = $row2['fechaRegistro'];
-  $habilitadoPersona = $row2['habilitado'];
-  $eliminadoPersona = $row2['borrado'];
-}
+  // HABILITAR / DESHABILITAR
+
+  if(isset($_POST['confirmarDeshabilitar'])){
+    if($habilitadoPersona == 1){
+      $estado = 0;
+    }elseif($habilitadoPersona==0){
+      $estado = 1;
+    }
+    $sentenciaSQL=$bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
+    $sentenciaSQL->bindParam(':id', $idPersona);
+    $sentenciaSQL->bindParam(':estado',$estado);
+    $sentenciaSQL->execute();
+
+    header('Location: usuarios-tabla.php');
+  }
+
+  // ELIMINAR
+  if (isset($_POST['confirmarEliminarRegistro'])){
+    $eliminadoUsuario = 1;
+    $sentenciaSQL=$bd_conex->prepare('UPDATE usuarios SET eliminado=:eliminado WHERE idUsuario=:id');
+    $sentenciaSQL->bindParam(':id', $idUsuario);
+    $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
+    $sentenciaSQL->execute();
+    
+    header('Location: usuarios-tabla.php');
+  }
+
+
+  mysqli_close($conexion);
 ?>
 
 <!DOCTYPE html>
@@ -114,20 +148,20 @@ if ($row2 = $resultado2->fetch_assoc()) {
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-
+  
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <?php include("./template/dashboard.php") ?>
+  <?php include("./template/dashboard.php")?>
 
   <!-- ======= Sidebar ======= -->
-  <?php if ($_SESSION['rol'] == 1) {
-    include("./template/admin.php");
-  } else {
-    include("./template/usuario.php");
-  }
+  <?php  if($_SESSION['rol'] == 1){
+      include ("./template/admin.php");
+    }else{
+      include ("./template/usuario.php");
+    }
   ?>
 
   <main id="main" class="main container">
@@ -163,7 +197,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
                                                         echo "Deshabilitado";
                                                       } ?></span>
           </li>
-          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoPersona; ?></span></li>
+          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoUsuario; ?></span></li>
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->
@@ -183,16 +217,24 @@ if ($row2 = $resultado2->fetch_assoc()) {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <form action="" method="post">
+                  <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
 
         <!-- BOTON MODAL DESHABILITAR -->
-        <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-          Deshabilitar
-        </button>
+        <?php if($habilitadoPersona == 1){?>
+            <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+              Deshabilitar
+            </button>                    
+          <?php }elseif($habilitadoPersona==0){?>
+            <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+             Habilitar
+            </button>                    
+          <?php }?> 
         <!-- Modal DEHABILITAR -->
         <div class="modal fade" id="modalDeshabilitar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -206,7 +248,13 @@ if ($row2 = $resultado2->fetch_assoc()) {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Deshabilitar</button>
+                <form action="" method="post">
+                    <?php if($habilitadoPersona == 1){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
+                    <?php }elseif($habilitadoPersona==0){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
+                    <?php }?>                     
+                  </form>
               </div>
             </div>
           </div>
@@ -251,13 +299,6 @@ if ($row2 = $resultado2->fetch_assoc()) {
                         <label for="inputUser5" class="form-label">Usuario</label>
                         <input type="text" class="form-control" id="inputUser5">
                       </div>
-                      <div class="col-md-6">
-                        <label for="inputState" class="form-label">Habilitado</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Habilitado</option>
-                          <option>Deshabilitado</option>
-                        </select>
-                      </div>
 
                       <div class="text-center">
                         <button type="submit" class="btn btn-primary float-end">Guardar</button>
@@ -275,87 +316,12 @@ if ($row2 = $resultado2->fetch_assoc()) {
             </div>
           </div>
         </div>
-
-        <!-- BOTON DESIGNAR COMISARIA-->
-        <button type="button" class="btn btn-info float-left mt-3" data-bs-toggle="modal" data-bs-target="#btn-designar">
-          <i class="bi bi-pencil-square"></i>
-          Designar comisaria
-        </button>
-
-        <div class="modal fade bd-example-modal-lg" id="btn-designar" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Designar Comisaria</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-
-              <div class="modal-body">
-                <div class="card">
-                  <div class="card-body">
-
-                    <!-- FORMULARIO PARA DESIGNAR COMISARIA -->
-                      <div class="p-6">
-                        <table class="table align-middle" style="text-align: center;">
-                          <thead>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Nombre</th>
-                              <th scope="col">Direccion</th>
-                              <th scope="col">Provincia</th>
-                              <th scope="col">Departamento</th>
-                              <th scope="col">Seleccionar</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            // Codigo Para Designar Comisaria
-                            $sentencia = $bd_conex->query("select * from comisarias");
-                            $usuario_comisaria = $sentencia->fetchAll(PDO::FETCH_OBJ);
-
-                            foreach ($usuario_comisaria as $comisaria) {
-                            ?>
-                              <tr>
-                                <td scope="row"><?php echo $comisaria->idComisaria; ?></td>
-                                <td><?php echo $comisaria->nombre; ?></td>
-                                <td><?php echo $comisaria->direccion; ?></td>
-                                <td><?php echo $comisaria->provincia; ?></td>
-                                <td><?php echo $comisaria->departamento; ?></td>
-                                <td>
-                                  <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $comisaria -> idComisaria; ?>&idUsuario=<?php echo $idUsuario;?>">Designar</a>
-                                </td>
-                              </tr>
-                            <?php
-                            }
-                            ?>
-                          </tbody>
-                        </table>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
-              </div>
-
-              <!-- End Multi Columns Form -->
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-    </div>
-
-    </div>
     </div>
     <br>
     <div class="d-flex justify-content-between">
       <a class="btn btn-primary " href="usuarios-tabla.php">Volver</a>
     </div>
-
   </main><!-- End #main -->
 
 
