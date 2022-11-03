@@ -110,7 +110,7 @@
     $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
     $sentenciaSQL->execute();
     
-    header('Location: usuarios-tabla.php');
+    header('Location: usuarios-tabla.php');;;;
   }
 
 
