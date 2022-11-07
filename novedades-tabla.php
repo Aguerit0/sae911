@@ -12,9 +12,10 @@
 
    //INICIALIZAMOS DATOS
   $idUsuario = $_SESSION['id'];
-  $idComisaria=$_SESSION['idComisaria'];
-  $nombreComisaria = $comisaria['nombre'];
+  // $idComisaria=$_SESSION['idComisaria'];
+  // $nombreComisaria = $comisaria['nombre'];
   if (isset($_POST['agregar'])) {
+    $idComisaria=$_POST['txtComisaria'];
     $txtFecha = $_POST['txtFecha'];
     $txtTurno = $_POST['txtTurno'];
     $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
