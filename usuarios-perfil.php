@@ -57,35 +57,35 @@
       }
   }
  if(isset($_POST['cambiarContraseña'])){
-                            //PASO VALORES A VARIABLES
-                            $contraseñaActual=$_POST['contraseñaActual'];
-                            $contraseñaNueva=$_POST['contraseñaNueva'];
-                            $repetirContraseñaNueva=$_POST['repetirContraseñaNueva'];
+      //PASO VALORES A VARIABLES
+      $contraseñaActual=$_POST['contraseñaActual'];
+      $contraseñaNueva=$_POST['contraseñaNueva'];
+      $repetirContraseñaNueva=$_POST['repetirContraseñaNueva'];
 
-                            //CONSULTA SQL
-                            $consultaCambiarContraseña="UPDATE usuarios SET contraseña='$contraseñaNueva' WHERE idUsuario=1";
+      //CONSULTA SQL
+      $consultaCambiarContraseña="UPDATE usuarios SET contraseña='$contraseñaNueva' WHERE idUsuario= $idUsusario";
 
 
-                            if ($contraseñaUsuario==$contraseñaActual) {
-                              //ENTRA A CAMBIAR CONTRASEÑA
-                              if ($contraseñaNueva==$repetirContraseñaNueva) {
-                                if ($contraseñaNueva==$contraseñaUsuario) {
-                                    echo '<script>alert("La contraseña debe ser diferente");window.history.go(-1);</script>';
-                                  exit;    
-                                }else{
-                                    //SI TODO ESTA BIEN EJECUTAMOS EL CAMBIO DE CONTRASEÑA
-                                  $resultadoCambiarContraseña=mysqli_query($conexion,$consultaCambiarContraseña);
-                                  if (!$resultadoCambiarContraseña) {
-                                    echo "Error al cambiar contraseña";
-                                  }else{
-                                    
-                                    echo "<script>alert('SE CAMBIO CORRECTAMENTE');</script>";
-                                  }
-                                }
-                              }
-                            }
-                          }
-                          mysqli_close($conexion);
+      if ($contraseñaUsuario==$contraseñaActual) {
+        //ENTRA A CAMBIAR CONTRASEÑA
+        if ($contraseñaNueva==$repetirContraseñaNueva) {
+          if ($contraseñaNueva==$contraseñaUsuario) {
+              echo '<script>alert("La contraseña debe ser diferente");window.history.go(-1);</script>';
+            exit;    
+          }else{
+              //SI TODO ESTA BIEN EJECUTAMOS EL CAMBIO DE CONTRASEÑA
+            $resultadoCambiarContraseña=mysqli_query($conexion,$consultaCambiarContraseña);
+            if (!$resultadoCambiarContraseña) {
+              echo "Error al cambiar contraseña";
+            }else{
+              
+              echo "<script>alert('SE CAMBIO CORRECTAMENTE');</script>";
+            }
+          }
+        }
+      }
+    }
+    mysqli_close($conexion);
 
 
  ?>
@@ -216,7 +216,7 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Comisaria</div>
-                    <div class="col-lg-9 col-md-8"><?php echo "comisaria $nombreComisaria" ?></div><!--Extraer comisaria tabla 'comisaria'-->
+                    <div class="col-lg-9 col-md-8"><?php echo " $nombreComisaria" ?></div><!--Extraer comisaria tabla 'comisaria'-->
                   </div>
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Dirección Comisaria</div>

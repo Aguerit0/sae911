@@ -7,7 +7,7 @@
 require 'conexion.php';
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['idUsuario','usuario', 'nombre', 'correo', 'fechaRegistro', 'habilitado'];
+$columns = ['idUsuario','usuario', 'nombre', 'correo', 'fechaRegistro', 'habilitado', 'eliminado'];
 
 /* Nombre de la tabla */
 $table = "usuarios INNER JOIN personas";
@@ -53,19 +53,28 @@ $html = '';
 
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
-        $html .= '<tr>';
-        $html .= '<th scope="row">' . $row['usuario'] . '</td>';
-        $html .= '<th scope="row">' . $row['nombre'] . '</td>';
-        $html .= '<th scope="row">' . $row['correo'] . '</td>';
-        $html .= '<td scope="row">' . $row['fechaRegistro'] . '</td>';
-        if($row['habilitado'] == 1){
-                                    $html .= '<td scope="row">SI</td>';
-                                }else{$html .= '<td scope="row">SI</td>';}
-        
-        $id=$row['idUsuario'];
-        $html .= '<td scope="row"><a class="btn btn-primary" href="usuarios-ver-mas.php?id=' . $row['idUsuario'] .'">Ver más</a></td>';
-        $html .= '</tr>';
-
+            $id=$row['idUsuario'];
+            $sql = "SELECT * FROM usuarios WHERE idUsuario=$id ";
+            $res=mysqli_query($conexion,$sql);
+            if ($row1=$res->fetch_assoc()) {
+                $eliminado=$row1['eliminado'];
+            }
+            if ($eliminado>=1) {
+                
+            }else{
+                $html .= '<tr>';
+                $html .= '<th scope="row">' . $row['usuario'] . '</td>';
+                $html .= '<th scope="row">' . $row['nombre'] . '</td>';
+                $html .= '<th scope="row">' . $row['correo'] . '</td>';
+                $html .= '<td scope="row">' . $row['fechaRegistro'] . '</td>';
+                if($row['habilitado'] == 1){
+                                            $html .= '<td scope="row">SI</td>';
+                                        }else{$html .= '<td scope="row">NO</td>';}
+                
+                $id=$row['idUsuario'];
+                $html .= '<td scope="row"><a class="btn btn-primary" href="usuarios-ver-mas.php?id=' . $row['idUsuario'] .'">Ver más</a></td>';
+                $html .= '</tr>';        
+            }
     }
 } else {
     $html .= '<tr>';

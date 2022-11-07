@@ -7,7 +7,7 @@
 require 'conexion.php';
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['id','fecha', 'turno', 'superior_de_turno', 'oficial_servicio','idComisaria'];
+$columns = ['id','fecha', 'turno', 'superior_de_turno', 'oficial_servicio','idComisaria','eliminado'];
 
 /* Nombre de la tabla */
 $table = "novedades_de_guardia";
@@ -49,6 +49,10 @@ if ($num_rows > 0) {
         if ($fila = $res->fetch_assoc()) {
             $nombreComis=$fila['nombre'];
         }
+        if ($row['eliminado']>=1) {
+            
+        }else{
+         
         $html .= '<tr>';
         $html .= '<th scope="row">' . $nombreComis .'</td>';
         $html .= '<th scope="row">' . $row['fecha'] . '</td>';
@@ -57,7 +61,8 @@ if ($num_rows > 0) {
         $html .= '<td scope="row">' . $row['oficial_servicio'] . '</td>';
         $id=$row['id'];
         $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-ver-mas.php?id=' . $row['id'] .'">Ver más</a></td>';
-        $html .= '</tr>';
+        $html .= '</tr>';   
+        }
 
     }
 } else {

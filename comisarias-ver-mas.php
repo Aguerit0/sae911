@@ -297,7 +297,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <p>¿Esta seguro que desea deshabilitar este archivo?</p>
+                  <p>¿Esta seguro que desea realizar ésta acción?</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -314,7 +314,7 @@
           </div>
 
           <!-- BOTON MODAL EDITAR -->
-          <button type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <button disabled type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <i class="bi bi-pencil-square"></i>
             Editar
           </button>
