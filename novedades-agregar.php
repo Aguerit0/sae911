@@ -128,16 +128,16 @@
 
             <div class="col-md-6">
               <label for="inputState" class="form-label">Comisaria</label>
-              <select required id="inputState" id="txtComisaria" name="txtComisaria" class="form-select">
+              <select required id="txtComisaria" name="txtComisaria" class="form-select">
                <option value="">Seleccionar</option>
                 <?php
                 include('conexion.php');
-                $tabla_comisaria = "SELECT idUsuario, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
                 $resultado4 = mysqli_query($conexion, $tabla_comisaria);
                 
 
-                while ($row = mysqli_fetch_array($resultado4)){
-
+                while ($row = mysqli_fetch_assoc($resultado4)){
+                  
                   $idComisaria = $row['idComisaria'];
                   $nombre = $row['nombre'];
                    ?>

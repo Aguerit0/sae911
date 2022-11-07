@@ -369,7 +369,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
                             // $sentencia = $bd_conex->query("select * from comisarias");
                             // $usuario_comisaria = $sentencia->fetchAll(PDO::FETCH_OBJ);
 
-                            $tabla_comisaria = "SELECT * FROM comisarias";
+                            $tabla_comisaria = "SELECT * FROM comisarias WHERE eliminado<1 AND habilitado>0";
                             $resultado4 = mysqli_query($conexion, $tabla_comisaria);
 
                             // SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario

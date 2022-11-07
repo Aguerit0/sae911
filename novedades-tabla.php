@@ -15,7 +15,7 @@
   // $idComisaria=$_SESSION['idComisaria'];
   // $nombreComisaria = $comisaria['nombre'];
   if (isset($_POST['agregar'])) {
-    $idComisaria=$_POST['txtComisaria'];
+    $txtComisaria=$_POST['txtComisaria'];
     $txtFecha = $_POST['txtFecha'];
     $txtTurno = $_POST['txtTurno'];
     $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
@@ -34,7 +34,7 @@
 
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$idComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
+    $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$txtComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar=mysqli_query($conexion,$insertar);
@@ -147,15 +147,15 @@
             <div class="col-md-6">
               <label for="inputState" class="form-label">Comisaria</label>
               <select required id="inputState" id="txtComisaria" name="txtComisaria" class="form-select">
-               
+              <option value="">Seleccionar</option>
                 <?php
                 include('conexion.php');
-                $tabla_comisaria = "SELECT idUsuario, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
                 $resultado4 = mysqli_query($conexion, $tabla_comisaria);
                 
 
-                while ($row = mysqli_fetch_array($resultado4)){
-
+                while ($row = mysqli_fetch_assoc($resultado4)){
+                  
                   $idComisaria = $row['idComisaria'];
                   $nombre = $row['nombre'];
                    ?>
