@@ -1,6 +1,10 @@
 <?php 
-    include 'conexion.php';
-    session_start();
+  include 'conexion.php';
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
+  }
 
     //SI APRETA EL BOTON AGREGAR
     if (isset($_POST['agregarComisaria'])) {
@@ -30,6 +34,15 @@
 
 
 
+    //CONSULTA TABLAS PARA MOSTRAR DATOS DE COMISARIA
+    $consultaDatosComisaria="SELECT * FROM comisarias WHERE (eliminado < 1)";
+    //RESULTAOD DE LA CONSULTA
+    $resultado=mysqli_query($conexion,$consultaDatosComisaria);
+    if (!$resultado) {
+      echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN');</script>";
+      }else{
+        
+      }
     //CERRAMOS CONEXIÓN BD
     mysqli_close($conexion);
  ?>
@@ -96,7 +109,7 @@
         </nav>
     </div><!-- End Page Title -->
 
-    <!--INPUT BUSCAR EN TABLAS-->
+ <!--INPUT BUSCAR EN TABLAS-->
     <div class="search">
       <form method="post"><input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
         <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -105,8 +118,8 @@
       </button>
       </form>  
     </div><!--FIN INPUT BUSCAR EN TABLAS-->
-
-
+    
+    <!-- Modal AGREGAR COMISARIA -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -190,13 +203,12 @@
            
           
       </thead>
-      <!--ID DEL CUERPO DE LA TABLA-->
-     <tbody id="content">
+
+    <tbody id="content">
         
       </tbody>
     </table>
   </main><!-- End #main -->
-
 
   <script>
   /* Llamando a la función getData() */

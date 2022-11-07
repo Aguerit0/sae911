@@ -7,7 +7,7 @@
 require 'conexion.php';
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['fecha', 'turno', 'superior_de_turno', 'oficial_servicio'];
+$columns = ['id','fecha', 'turno', 'superior_de_turno', 'oficial_servicio','idComisaria'];
 
 /* Nombre de la tabla */
 $table = "novedades_de_guardia";
@@ -43,13 +43,20 @@ $html = '';
 
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
+        $idComisaria = $row['idComisaria'];
+        $cons="SELECT nombre FROM comisarias WHERE idComisaria=$idComisaria ";
+        $res=mysqli_query($conexion,$cons);
+        if ($fila = $res->fetch_assoc()) {
+            $nombreComis=$fila['nombre'];
+        }
         $html .= '<tr>';
-        $html .= '<th scope="row">nombre</td>';
+        $html .= '<th scope="row">' . $nombreComis .'</td>';
         $html .= '<th scope="row">' . $row['fecha'] . '</td>';
         $html .= '<td scope="row">' . $row['turno'] . '</td>';
         $html .= '<td scope="row">' . $row['superior_de_turno'] . '</td>';
         $html .= '<td scope="row">' . $row['oficial_servicio'] . '</td>';
-        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-ver-mas.php?id=<?php echo $id?>">Ver más</a></td>';
+        $id=$row['id'];
+        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-ver-mas.php?id=' . $row['id'] .'">Ver más</a></td>';
         $html .= '</tr>';
 
     }
