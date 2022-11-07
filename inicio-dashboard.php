@@ -41,7 +41,6 @@
 
   
   <link href="assets/css/style.css" rel="stylesheet">
-  <img src="assets/img/sae911.jpg">
 
 </head>
 

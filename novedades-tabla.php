@@ -12,9 +12,10 @@
 
    //INICIALIZAMOS DATOS
   $idUsuario = $_SESSION['id'];
-  $idComisaria=$_SESSION['idComisaria'];
-  $nombreComisaria = $comisaria['nombre'];
+  // $idComisaria=$_SESSION['idComisaria'];
+  // $nombreComisaria = $comisaria['nombre'];
   if (isset($_POST['agregar'])) {
+    $idComisaria=$_POST['txtComisaria'];
     $txtFecha = $_POST['txtFecha'];
     $txtTurno = $_POST['txtTurno'];
     $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
@@ -138,11 +139,34 @@
                 <!-- FORMULARIO PARA AGREGAR COMISARIA -->
           <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
             <div class="col-md-6">
-                <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
-                <div class="col-sm-10">
-                  <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
-                </div>
+              <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
+              <div class="col-sm-10">
+                <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
               </div>
+            </div>
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Comisaria</label>
+              <select required id="inputState" id="txtComisaria" name="txtComisaria" class="form-select">
+               
+                <?php
+                include('conexion.php');
+                $tabla_comisaria = "SELECT idUsuario, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                
+
+                while ($row = mysqli_fetch_array($resultado4)){
+
+                  $idComisaria = $row['idComisaria'];
+                  $nombre = $row['nombre'];
+                   ?>
+                
+                  <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
+                  <?php
+                }
+                ?>
+              </select>
+            </div>
+
               <div class="col-md-6">
                 <label for="inputState" class="form-label">Turno</label>
                 <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
