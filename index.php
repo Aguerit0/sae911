@@ -21,6 +21,7 @@
         $_SESSION['usuario']=$cuenta['usuario'];
         $_SESSION['rol']=$cuenta['rol'];
         $_SESSION['id']=$cuenta['idUsuario'];
+        
 
         $sentenciaSQL=$bd_conex->prepare('SELECT nombre, apellido FROM personas WHERE idPersona =:id');
         $sentenciaSQL->bindParam(':id', $_SESSION['id']);

@@ -33,8 +33,8 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6><?php echo $_SESSION['nombre'];?></h6>
-              <span><?php if($_SESSION['usuario'] == 1){
+              <h6><?php echo $_SESSION['nombre']." ".$_SESSION['apellido'];?></h6>
+              <span><?php if($_SESSION['rol'] == 1){
                 echo "Administrador";
               }else{
                 echo "Usuario";
