@@ -2,10 +2,6 @@
 // LLAMANDO A LA BASE DE DATOS
   include('conexion.php');
   session_start();
-   // PREGUNTA SI HAY UN USUARIO REGISTRADO
-  if(!isset($_SESSION['usuario'])){
-  header('Location: index.php');
-  }
 
   //INICIALIZAMOS DATOS
   $idUsuario = 1;
@@ -39,7 +35,7 @@
       echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     }
     else{
-      header('location:usuarios-perfil.php');
+      header('location:novedades-tabla.php');
     }
   }
   mysqli_close($conexion);

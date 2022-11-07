@@ -1,7 +1,7 @@
 <?php
-include('conexion.php');
-session_start();
-$idUsuario = $_GET['id'];
+  include('conexion.php');
+  session_start();
+  $idUsuario = $_GET['id'];
 
 //************************   PRIMERA FORMA   ************************ 
 //CONSULTA TABLA USUARIOS/PERSONAS
@@ -60,6 +60,30 @@ $idUsuario = $_GET['id'];
   }*/
 //************************   TERCERA FORMA   ************************ 
 
+<<<<<<< HEAD
+  $consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
+  $resultado1=mysqli_query($conexion,$consultaSelectUsuario);
+  if ($row1 = $resultado1->fetch_assoc()) {
+    $nombreUsuario = $row1['usuario'];
+    $contraseñaUsuario = $row1['contraseña'];
+    $idPersona=$row1['idPersona'];
+  }
+  $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
+  $resultado2=mysqli_query($conexion,$consultaSelectPersona);
+  if ($row2=$resultado2->fetch_assoc()) {
+    $nombrePersona = $row2['nombre'];
+    $apellidoPersona = $row2['apellido'];
+    $correoPersona = $row2['correo'];
+    $telefonoPersona = $row2['telefono'];
+    $sexoPersona = $row2['sexo'];
+    $dniPersona = $row2['dni'];
+    $fechaRegistroPersona = $row2['fechaRegistro'];
+    $habilitadoPersona = $row2['habilitado'];
+    $eliminadoPersona = $row2['eliminado'];
+  }
+
+  mysqli_close($conexion);
+=======
 $consultaSelectUsuario = "SELECT * FROM usuarios WHERE idUsuario=$idUsuario";
 $resultado1 = mysqli_query($conexion, $consultaSelectUsuario);
 if ($row1 = $resultado1->fetch_assoc()) {
@@ -81,6 +105,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
   $habilitadoPersona = $row2['habilitado'];
   $eliminadoPersona = $row2['borrado'];
 }
+>>>>>>> main
 ?>
 
 <!DOCTYPE html>
@@ -172,6 +197,10 @@ if ($row2 = $resultado2->fetch_assoc()) {
                                                                                                 echo "No";
                                                                                               } ?></span>
           </li>
+<<<<<<< HEAD
+          <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoPersona; ?></span></li>
+=======
+>>>>>>> main
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->

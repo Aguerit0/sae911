@@ -1,11 +1,6 @@
 <?php
-    include 'conexion.php';
-    session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
-        header('Location: index.php');
-    }
-
+include 'conexion.php';
+session_start();
 
 
 //*******************************************************************************
@@ -122,11 +117,27 @@ mysqli_close($conexion);
             </nav>
         </div><!-- End Page Title -->
 
-        <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <i class="bi bi-plus-circle-fill"></i>
-            Agregar
-        </button>
-        <!-- Modal -->
+
+    <div class="search">
+      
+      
+
+      <!--INPUT BUSCAR EN TABLAS-->
+      <form method="post">
+
+        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
+
+        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <i class="bi bi-plus-circle-fill"></i>
+      Agregar
+      </button>  
+
+      </form>
+      
+      
+    </div><!--FIN INPUT BUSCAR EN TABLAS-->
+    
+            <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
@@ -139,34 +150,31 @@ mysqli_close($conexion);
                             <div class="card-body">
                                 <!-- FORMULARIO PARA AGREGAR USUARIO -->
 
-                                <form class="row g-3 needs-validation" method="POST" action="registrar_log.php">
+                                <form class="row g-3" method="post">
+                                    <div class="col-md-12">
+                                        <label for="inputName5" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputLastName5" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputEmail5" class="form-label">Correo</label>
+                                        <input type="email" class="form-control" id="correoUsuario" name="correoUsuario">
+                                    </div>
                                     <div class="col-12">
-                                    <label for="yourName" class="form-label">Nombre</label>
-                                    <input type="text" name="nombre" class="form-control" id="yourName" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su nombre!
+                                        <label for="inputPhone5" class="form-label">Teléfono</label>
+                                        <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario">
                                     </div>
+                                    <div class="col-md-12">
+                                        <label for="inputUser5" class="form-label">Usuario</label>
+                                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
                                     </div>
-
                                     <div class="col-12">
-                                    <label for="yourName" class="form-label">Apellido</label>
-                                    <input type="text" name="apellido" class="form-control" id="yourName" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su Apellido!
+                                        <label for="inputPassword5" class="form-label">Contraseña</label>
+                                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
                                     </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <label for="yourName" class="form-label">DNI</label>
-                                    <input type="text" name="dni" class="form-control" id="dni" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su DNI!
-                                    </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <label for="yourEmail" class="form-label">Correo</label>
-                                    <input type="email" name="correo" class="form-control" id="yourEmail" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su Gmail!</div>
-                                    </div>
-
                                     <div class="col-12">
                                     <select name="sexo" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
                                     <option selected value="">Sexo</option>
@@ -175,39 +183,15 @@ mysqli_close($conexion);
                                     <option value="3">No binario</option>
                                     </select>
                                     </div>
-                                    <div class="col-12">
-                                    <label for="yourName" class="form-label">Telefono</label>
-                                    <input type="text" name="telefono" class="form-control" id="yourName" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba su Telefono!
+                                    <div class="col-md-6">
+                                        <label for="inputState" class="form-label">Habilitado</label>
+                                        <select id="inputState" class="form-select">
+                                            <option selected>Habilitado</option>
+                                            <option>Deshabilitado</option>
+                                        </select>
                                     </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <label for="yourUsername" class="form-label">Nombre de Usuario</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                                        <div class="invalid-feedback">¡Por favor, escriba su nombre de usuario</div>
-                                    </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <label for="yourPassword" class="form-label">Contraseña</label>
-                                    <input type="password" name="password" class="form-control" id="yourPassword" required>
-                                    <div class="invalid-feedback">¡Por favor, escriba una Contraseña!</div>
-                                    </div>
-
-                                    <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                                        <label class="form-check-label" for="acceptTerms">Acepto todos los <a href="#">terminos y condiciones</a></label>
-                                        <div class="invalid-feedback">You must agree before submitting.</div>
-                                    </div>
-                                    </div>
-                                    <div class="col-12">
-                                    <button class="btn btn-primary w-100" type="submit" name="Bregistrar">Crear Cuenta</button>
-                                    </div>
-                                    <div class="col-12">
-                                    <p class="small mb-0 text-center">¿Ya tienes una cuenta? <a href="pages-login.html">Iniciar sesión</a></p>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary float-end" value="agregarPersona">Agregar</button>
                                     </div>
                                 </form>
 
@@ -225,7 +209,7 @@ mysqli_close($conexion);
             <table class="table table-sm table-hover table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Usuario</th>
+                        
                         <th scope="col">Nombre</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Fecha de Registro</th>
@@ -234,16 +218,21 @@ mysqli_close($conexion);
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="content">
                     <?php
-                    while ($row = $resultado4->fetch_assoc()) {
+                    while ($row1 = $resultado4->fetch_assoc()) {
                     ?>
                         <tr>
                             <th scope="row"><?php echo $row['usuario'] ?></th>
                             <td scope="row"><?php echo $row['nombre'] ?></td>
                             <td scope="row"><?php echo $row['correo'] ?></td>
                             <td scope="row"><?php echo $row['fechaRegistro'] ?></td>
-                            <td scope="row"><?php echo $row['habilitado'] ?></td>
+                            <td scope="row">
+                                <?php
+                                if($row['habilitado'] == 1){
+                                    echo "Si";
+                                }else{echo "No";}
+                                ?></td>
                             <?php $idUsuario = $row['idUsuario'] ?>
                             <td scope="row">
                                 <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
@@ -259,6 +248,35 @@ mysqli_close($conexion);
         </section>
 
     </main><!-- End #main -->
+
+    <script>
+  /* Llamando a la función getData() */
+        getData()
+
+        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+        document.getElementById("campo").addEventListener("keyup", getData)
+
+        /* Peticion AJAX */
+        function getData() {
+            let input = document.getElementById("campo").value
+            let content = document.getElementById("content")
+            let url = "usuarios-search.php"
+            let formaData = new FormData()
+            formaData.append('campo', input)
+
+            fetch(url, {
+                    method: "POST",
+                    body: formaData
+                }).then(response => response.json())
+                .then(data => {
+                    content.innerHTML = data
+                }).catch(err => console.log(err))
+        }
+
+</script>
+
+
+    
 
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
