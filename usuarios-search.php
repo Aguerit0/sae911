@@ -6,59 +6,34 @@
 
 require 'conexion.php';
 
-/* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['nombre', 'correo', 'fechaRegistro', 'habilitado'];
 
-/* Nombre de la tabla */
-$table = "personas";
+
 
 $campo = isset($_POST['campo']) ? $conexion->real_escape_string($_POST['campo']) : null;
 
+$consultaDatosTabla = "SELECT * FROM usuarios u INNER JOIN personas p WHERE (u.idPersona=p.idPersona) AND (usuario LIKE '%$campo%' OR nombre LIKE '%$campo%' OR nombre LIKE '%$campo%' OR correo LIKE '%$campo%' OR fechaRegistro LIKE '%$campo%')";
 
-/* Filtrado */
-$where = '';
-
-if ($campo != null) {
-    $where = "WHERE (";
-
-    $cont = count($columns);
-    for ($i = 0; $i < $cont; $i++) {
-        $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
-    }
-    $where = substr_replace($where, "", -3);
-    $where .= ")";
-}
-
-
-/* Consulta */
-$sql = "SELECT " . implode(", ", $columns) . "
-FROM $table
-$where ";
-//$sql2 = "SELECT usuario, nombre, correo, fechaRegistro, habilitado FROM usuarios u INNER JOIN personas p ON u.idPersona=p.idPersona";
-$resultado = $conexion->query($sql);
+$resultado = $conexion->query($consultaDatosTabla);
 $num_rows = $resultado->num_rows;
+
 
 
 /* Mostrado resultados */
 $html = '';
-$sqlVerMas  = "SELECT * FROM usuarios";
-$res=mysqli_query($conexion,$sqlVerMas);
 
-
-if ($num_rows > 0) {
+if (($num_rows > 0) and ($campo!=null)) {
     while ($row = $resultado->fetch_assoc()) {
-        
-        
-
         $html .= '<tr>';
-        
+        $html .= '<th scope="row">' . $row['usuario'] . '</td>';
         $html .= '<th scope="row">' . $row['nombre'] . '</td>';
-        $html .= '<td scope="row">' . $row['correo'] . '</td>';
+        $html .= '<th scope="row">' . $row['correo'] . '</td>';
         $html .= '<td scope="row">' . $row['fechaRegistro'] . '</td>';
-        $html .= '<td scope="row">' . $row['habilitado'] . '</td>';
-        if ($roww = $res->fetch_assoc) {
-            $idUsuario = $roww['idUsuario'];
-        $html .= '<td scope="row"><a class="btn btn-primary" href="usuario-ver-mas.php?id=<?php echo $idUsuario?>">Ver más</a></td>';}
+        if($row['habilitado'] == 1){
+                                    $html .= '<td scope="row">SI</td>';
+                                }else{$html .= '<td scope="row">SI</td>';}
+        
+        $id=$row['idUsuario'];
+        $html .= '<td scope="row"><a class="btn btn-primary" href="usuarios-ver-mas.php?id=' . $row['idUsuario'] .'">Ver más</a></td>';
         $html .= '</tr>';
 
     }
