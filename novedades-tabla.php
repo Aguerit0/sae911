@@ -1,12 +1,21 @@
 <?php
- include 'conexion.php';
- session_start();
+  include 'conexion.php';
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
+  }
+  $sentenciaSQL=$bd_conex->prepare('SELECT nombre FROM comisarias WHERE idComisaria =:id');
+  $sentenciaSQL->bindParam(':id', $_SESSION['idComisaria']);
+  $sentenciaSQL->execute();
+  $comisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
 
    //INICIALIZAMOS DATOS
-  $idUsuario = 1;
-  $idComisaria=1;
-  $nombreComisaria = "Comisaria Ejemplo";
+  $idUsuario = $_SESSION['id'];
+  // $idComisaria=$_SESSION['idComisaria'];
+  // $nombreComisaria = $comisaria['nombre'];
   if (isset($_POST['agregar'])) {
+    $idComisaria=$_POST['txtComisaria'];
     $txtFecha = $_POST['txtFecha'];
     $txtTurno = $_POST['txtTurno'];
     $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
@@ -37,15 +46,7 @@
     }
   }
 
-  //CONSULTA TABLAS PARA MOSTRAR DATOS DE NOVEDADES DE GUARDIA
-  $consultaDatosNovedadesDeGuardia="SELECT * FROM novedades_de_guardia";
-  //RESULTAOD DE LA CONSULTA
-  $resultado=mysqli_query($conexion,$consultaDatosNovedadesDeGuardia);
-  if (!$resultado) {
-    echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN');</script>";
-    }else{
-      
-    }
+    
 
   mysqli_close($conexion);
 ?>
@@ -113,11 +114,17 @@
           </ol>
         </nav>
     </div><!-- End Page Title -->
-    <!-- Boton del modal Agregar -->
-    <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+   
+  <div class="search">
+      <!--INPUT BUSCAR EN TABLAS-->
+      <form method="POST">
+        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
+        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="bi bi-plus-circle-fill"></i>
       Agregar
-    </button>
+      </button>  
+      </form>
+    </div><!--FIN INPUT BUSCAR EN TABLAS-->
     <!-- Modal Agregar -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -132,11 +139,34 @@
                 <!-- FORMULARIO PARA AGREGAR COMISARIA -->
           <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
             <div class="col-md-6">
-                <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
-                <div class="col-sm-10">
-                  <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
-                </div>
+              <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
+              <div class="col-sm-10">
+                <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
               </div>
+            </div>
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Comisaria</label>
+              <select required id="inputState" id="txtComisaria" name="txtComisaria" class="form-select">
+               
+                <?php
+                include('conexion.php');
+                $tabla_comisaria = "SELECT idUsuario, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                
+
+                while ($row = mysqli_fetch_array($resultado4)){
+
+                  $idComisaria = $row['idComisaria'];
+                  $nombre = $row['nombre'];
+                   ?>
+                
+                  <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
+                  <?php
+                }
+                ?>
+              </select>
+            </div>
+
               <div class="col-md-6">
                 <label for="inputState" class="form-label">Turno</label>
                 <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
@@ -225,28 +255,36 @@
         </tr>
       </thead>
 
-      <tbody>
-          <?php 
-            while ($row = $resultado->fetch_assoc()) {
-          ?>  
-        <tr>
-          <th scope="row"><?php echo $nombreComisaria;?></th>
-          <td><?php echo $row['fecha'] ?></td>
-          <td><?php echo $row['turno'] ?></td>
-          <td><?php echo $row['superior_de_turno'] ?></td>
-          <td><?php echo $row['oficial_servicio'] ?></td>
-          <td>
-            <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-            <a class="btn btn-primary" href="novedades-ver-mas.php?id=<?php echo $row['id']?>">Ver más</a>
-          </td>
-        </tr>
-        <?php 
-            }
-          ?>
+      <tbody id="content">
+          
       </tbody>
     </table>
   </main><!-- End #main -->
+ <script>
+  /* Llamando a la función getData() */
+        getData()
 
+        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+        document.getElementById("campo").addEventListener("keyup", getData)
+
+        /* Peticion AJAX */
+        function getData() {
+            let input = document.getElementById("campo").value
+            let content = document.getElementById("content")
+            let url = "search-novedades.php"
+            let formaData = new FormData()
+            formaData.append('campo', input)
+
+            fetch(url, {
+                    method: "POST",
+                    body: formaData
+                }).then(response => response.json())
+                .then(data => {
+                    content.innerHTML = data
+                }).catch(err => console.log(err))
+        }
+
+</script>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->

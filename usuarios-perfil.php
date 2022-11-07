@@ -2,14 +2,21 @@
 <?php 
   include('conexion.php');
   session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+  header('Location: index.php');
+  }
   //SUPONIENDO QUE EL ID QUE TRAEMOS ES == 1
-  $id = 1;
+  $idPersona = $_SESSION['id'];
+  $idUsusario = $_SESSION['id'];
+  $idComisaria = $_SESSION['idComisaria'];
+
   //CONSULTA TABLA PERSONA
-  $consultaPersonas = 'SELECT * FROM personas WHERE idPersona=1';
+  $consultaPersonas = "SELECT * FROM personas WHERE idPersona= '$idPersona'";
   //CONSULTA TABLA USUARIOS 
-  $consultaUsuarios = 'SELECT * FROM usuarios WHERE idUsuario=1';
+  $consultaUsuarios = "SELECT * FROM usuarios WHERE idUsuario='$idUsusario'";
   //CONSULTA TABLA COMISARIA
-  $consultaComisarias = 'SELECT * FROM comisarias WHERE idComisaria=1';
+  $consultaComisarias =" SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
 
   //RESULTADOS
   $resultado1 = mysqli_query($conexion, $consultaPersonas);
@@ -157,7 +164,7 @@
               
                     <h2><?php echo $apellidoPersona." ".$nombrePersona;?></h2><!--extraer campo nombre persona tabla persona-->
                     
-                    <h3><?php echo "comisaria $nombreComisaria"?></h3><!--extraer campo nombre tabla comisaria comisaria php-->
+                    <h3><?php echo "comisaria: $nombreComisaria"?></h3><!--extraer campo nombre tabla comisaria comisaria php-->
               
               
             </div>

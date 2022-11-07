@@ -2,15 +2,10 @@
     include('conexion.php');
     session_start();
     $idComisaria = $_GET['id'];
-    $id = $_GET['id'];
-
-    $idComisaria=intval($idComisaria);
-    $id=intval($id);
-
-
     
-  if (isset($_POST['guardar'])) {
-    $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
+  if(isset($_POST['guardar'])) {
+
+    $sql="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
     $resultado1=mysqli_query($conexion,$sql);
     if($row1=$resultado1->fetch_assoc()){
       $nombre=$row1['nombre'];
@@ -19,29 +14,21 @@
       $departamento=$row1['departamento'];
       $localidad=$row1['localidad'];
       $telefono=$row1['telefono'];
-      $latitud='0';
-      $longitud='0';
-      $habilitado='0';
-      $eliminado='0';
-
-      $nombre=strval($nombre);
-      $direccion=strval($direccion);
-      $provincia=strval($provincia);
-      $departamento=strval($departamento);
-      $localidad=strval($localidad);
-      $telefono=strval($telefono);
-      $latitud='0';
-      $longitud='0';
-      $habilitado='0';
-      $eliminado='0';
+      $habilitado=$row1['habilitado'];
+      $latitud='001231234123';
+      $longitud='9123477124';
+      $habilitado=1;
+      $eliminado=0;
     }
-    //CONSULTA EDITAR REGISTRO
-      $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
-      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
+  //CONSULTA EDITAR REGISTRO
+  $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
+
+
+      $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro) or die(mysqli_error());
       if (!$resultadoEditarRegistro) {
         echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
       }else{
-        header('location:comisarias-tabla.php');
+        header('location:comisarias-update.php');
       }
     }
     mysqli_close($conexion);
@@ -333,7 +320,7 @@
                     <div class="card-body">
                       
                       <!-- FORMULARIO PARA EDITAR COMISARIA -->
-                      <form class="row g-3" method="POST" action="comisarias-ver-mas.php">
+                      <form class="row g-3" method="POST">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
                           <input type="text" class="form-control" id="nombre" name="nombre">
@@ -359,10 +346,8 @@
                           <input type="text" class="form-control" id="telefono" name="telefono">
                         </div>
                         <div class="col-md-6">
-                          <label for="inputState" class="form-label">Habilitado</label>
-                          <select id="inputState" class="form-select" name="habilitado" >
-                            <option >Habilitado</option>
-                            <option>Deshabilitado</option>
+                          <label for="inputAddress5" class="form-label">Habilitado</label>
+                          <input type="text" class="form-control" id="habilitado" name="habilitado">
                           </select>
                         </div>
                         
@@ -392,20 +377,6 @@
       <a class="btn btn-primary " href="comisarias-tabla.php">Volver</a>
     </div>
   </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

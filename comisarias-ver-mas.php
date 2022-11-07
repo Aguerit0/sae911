@@ -1,15 +1,33 @@
 <?php 
     include('conexion.php');
     session_start();
+    // PREGUNTA SI HAY UN USUARIO REGISTRADO
+    if(!isset($_SESSION['usuario'])){
+      header('Location: index.php');
+    }
+        
     $idComisaria = $_GET['id'];
     $id = $_GET['id'];
+    $estado ="";
+    $nombre="";
     
 
     //CONSULTA TABLA COMISARIA
     $consulta = $bd_conex->prepare("SELECT * FROM comisarias WHERE idComisaria = :id");
     $consulta->bindParam(':id',$id);
     $consulta->execute();
-    $row = $consulta->fetch(PDO::FETCH_LAZY);
+    $comisaria = $consulta->fetch(PDO::FETCH_LAZY);
+
+    $nombreComisaria=$comisaria['nombre'];
+    $direccionComisaria=$comisaria['direccion'];
+    $provinciaComisaria=$comisaria['provincia'];
+    $departamentoComisaria=$comisaria['departamento'];
+    $localidadComisaria=$comisaria['localidad'];
+    $telefonoComisaria=$comisaria['telefono'];
+    $latitudComisaria=$comisaria['latitud'];
+    $longitudComisaria=$comisaria['longitud'];
+    $habilitadoComisaria=$comisaria['habilitado'];
+    $eliminadoComisaria=$comisaria['eliminado'];
 
     // $consulta="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
     // $resultado=mysqli_query($conexion,$consulta);
@@ -19,33 +37,13 @@
 
     //OBTENCION DE DATOS TABLA COMISARIA
     // if ($row = $resultado->fetch_assoc()) {
-      $nombreComisaria=$row['nombre'];
-      $direccionComisaria=$row['direccion'];
-      $provinciaComisaria=$row['provincia'];
-      $departamentoComisaria=$row['departamento'];
-      $localidadComisaria=$row['localidad'];
-      $telefonoComisaria=$row['telefono'];
-      $latitudComisaria=$row['latitud'];
-      $longitudComisaria=$row['longitud'];
-      $habilitadoComisaria=$row['habilitado'];
-      $eliminadoComisaria=$row['eliminado'];
+      
   // }
-  if($nombreComisaria != null) {
-    echo $nombreComisaria;
-   }else{
-    echo 'no hay nada';
-   }
-  //ELIMINAR UN REGISTRO
-  //CONSULTA ELIMINAR REGISTRO
-    if (isset($_POST['confirmarEliminarRegistro'])) {
-      $consultaEliminarRegistro="DELETE FROM comisarias WHERE idComisaria='$idComisaria'";
-      $resultadoConsularEliminarRegistro=mysqli_query($conexion,$consultaEliminarRegistro);
-      if (!$resultadoConsularEliminarRegistro) {
-      echo '<script>alert("ERROR AL ELIMINAR COMISARIA")</script>';
-      }else{
-      header('location:comisarias-tabla.php');
-      }
-    }
+  // if($nombreComisaria != null) {
+  //   echo $nombreComisaria;
+  //  }else{
+  //   echo 'no hay nada';
+  //  }
 
 
     //EDITAR UN REGISTRO
@@ -73,18 +71,25 @@
       $eliminado=0;
   }
   */
+    $nombre=(isset($_POST['nombre']))?$_POST['nombre']:"";;
+    $direccion=(isset($_POST['direccion']))?$_POST['direccion']:"";;
+    $provincia=(isset($_POST['provincia']))?$_POST['provincia']:"";;
+    $departamento=(isset($_POST['departamento']))?$_POST['departamento']:"";;
+    $localidad=(isset($_POST['localidad']))?$_POST['localidad']:"";;
+    $telefono=(isset($_POST['telefono']))?$_POST['telefono']:"";;
   if (isset($_POST['guardar'])) {
-    $consulta = $bd_conex->prepare("UPDATE comisarias SET nombre=:nombre, direccion=:direccion, provincia=:provincia,departamento=:departamento, localidad=:localidad, telefono=:telefono, habilitado=:habilitado WHERE idComisaria=:id");
+
+    $consulta = $bd_conex->prepare("UPDATE comisarias SET nombre=:nombre, direccion=:direccion, provincia=:provincia, departamento=:departamento, localidad=:localidad, telefono=:telefono WHERE idComisaria=:id");
     $consulta ->bindParam(':id', $id);
-    $consulta ->bindParam(':nombre', $nombreComisaria);
-    $consulta ->bindParam(':direccion', $direccionComisaria);
-    $consulta ->bindParam(':provincia', $provinciaComisaria);
-    $consulta ->bindParam(':departamento', $departamentoComisaria);
-    $consulta ->bindParam(':localidad', $localidadComisaria);
-    $consulta ->bindParam(':telefono', $telefonoComisaria);
-    $consulta ->bindParam(':habilitado', $habilitadoComisaria);
+    $consulta ->bindParam(':nombre', $nombre);
+    $consulta ->bindParam(':direccion', $direccion);
+    $consulta ->bindParam(':provincia', $provincia);
+    $consulta ->bindParam(':departamento', $departamento);
+    $consulta ->bindParam(':localidad', $localidad);
+    $consulta ->bindParam(':telefono', $telefono);
     $consulta->execute();
 
+    header('Location: comisarias-tabla.php');
      
   }
     // $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
@@ -130,6 +135,36 @@
   //     }
   //   }
   //   mysqli_close($conexion);
+
+    //ELIMINAR UN REGISTRO
+    if (isset($_POST['confirmarEliminarRegistro'])){
+      $eliminadoComisaria = 1;
+      $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET eliminado=:eliminado WHERE idComisaria=:id');
+      $sentenciaSQL->bindParam(':id', $id);
+      $sentenciaSQL->bindParam(':eliminado', $eliminadoComisaria);
+      $sentenciaSQL->execute();
+      
+      header('Location: comisarias-tabla.php');
+    }
+
+
+    // HABILITAR / DESHABILITAR
+
+    if(isset($_POST['confirmarDeshabilitar'])){
+      if($habilitadoComisaria == 1){
+        $estado = 0;
+      }elseif($habilitadoComisaria==0){
+        $estado = 1;
+      }
+      $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET habilitado=:estado WHERE idComisaria=:id');
+      $sentenciaSQL->bindParam(':id',$id);
+      $sentenciaSQL->bindParam(':estado',$estado);
+      $sentenciaSQL->execute();
+
+      header('Location: comisarias-tabla.php');
+    }
+
+
  ?>
 
 <!DOCTYPE html>
@@ -142,7 +177,7 @@
   <title>SAE 911</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-<br>
+  <br>
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -200,7 +235,6 @@
       <div class="card-body">
         
         <ul class="list-group mb-3">
-            <li class="list-group-item fw-bold">ID: <span class="fw-normal ms-2"><?php echo $idComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombreComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Direccion: <span class="fw-normal ms-2"><?php echo $direccionComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Provincia: <span class="fw-normal ms-2"><?php echo $provinciaComisaria; ?></span></li>
@@ -210,18 +244,50 @@
             <li class="list-group-item fw-bold">Latitud: <span class="fw-normal ms-2"><?php echo $latitudComisaria; ?></span></li>
             <li class="list-group-item fw-bold">Longitud: <span class="fw-normal ms-2"><?php echo $longitudComisaria; ?></span></li>
             <li class="list-group-item fw-bold">
-              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Habilitado";}else{echo "Deshabilitado";} ?></span> 
+              Habilitado: <span class="fw-normal ms-2"><?php if($habilitadoComisaria == 1){echo "Si";}else{echo "No";} ?></span> 
             </li>
-            <li class="list-group-item fw-bold">Eliminado: <span class="fw-normal ms-2"><?php echo $eliminadoComisaria; ?></span></li>
         </ul>
 
-        
+         <!-- BOTON MODAL ELIMINAR -->
+         <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalEliminar" value="eliminarRegistro">
+          Eliminar
+          </button>
+
+          <!-- Modal ELIMINAR -->
+          <form method="post">
+          <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel" data-bs-dismiss="modal">Eliminar</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>¿Esta seguro que desea eliminar este archivo?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <form action="" method="post">
+                    <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>  
+
+          </form>
           
           
           <!-- BOTON MODAL DESHABILITAR -->
-          <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-            Deshabilitar
-          </button>
+          <?php if($habilitadoComisaria == 1){?>
+            <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+              Deshabilitar
+            </button>                    
+          <?php }elseif($habilitadoComisaria==0){?>
+            <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+             Habilitar
+            </button>                    
+          <?php }?>  
           <!-- Modal DEHABILITAR -->
           <div class="modal fade" id="modalDeshabilitar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -235,7 +301,13 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-danger">Deshabilitar</button>
+                  <form action="" method="post">
+                    <?php if($habilitadoComisaria == 1){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
+                    <?php }elseif($habilitadoComisaria==0){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
+                    <?php }?>                     
+                  </form>
                 </div>
               </div>
             </div>
@@ -257,27 +329,8 @@
                 <div class="modal-body">
                   <div class="card">
                     <div class="card-body">
-                      
-                      
-        
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <!-- <button type="button" class="btn btn-primary">Understood</button> -->
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
-    <br>
-    <div class="d-flex justify-content-between">
-      <a class="btn btn-primary " href="tabla-comisaria.php">Volver</a>
-    </div>
-    <!-- FORMULARIO PARA EDITAR COMISARIA -->
-    <form class="row g-3" method="POST" action="comisarias-ver-mas.php">
+                      <!-- FORMULARIO PARA EDITAR COMISARIA -->
+                      <form class="row g-3" method="post" action="comisarias-ver-mas.php">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
                           <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombreComisaria?>">
@@ -302,33 +355,33 @@
                           <label for="inputAddress5" class="form-label">Teléfono</label>
                           <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefonoComisaria ?>">
                         </div>
-                        <div class="col-md-6">
-                          <label for="inputState" class="form-label">Habilitado</label>
-                          <?php if ($habilitadoComisaria==1) {
-                            ?>
-                            <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
-                              <option selected="">Habilitado</option>
-                              <option>Deshabilitado</option>
-                          </select>  
-                          <?php }else{ ?>
-                            <select id="habilitado" class="form-select" name="habilitado"  value="<?php echo $habilitadoComisaria ?>">
-                              <option selected="">Habilitado</option>
-                              <option>Deshabilitado</option>
-                          </select>  
-                          <?php } ?>
-
-
-                          
-                        </div>
                         
                         <div class="text-center">
-                          <!--
-                          <button type="submit" class="btn btn-primary float-end">Guardar</button>
-                          -->
-                          <input type="submit" class="btn btn-primary float-end" name="guardar" value="Guardar">
+                          
+                          <button type="submit" name="guardar" class="btn btn-primary float-end" value="guardar">Guardar</button>
+                         
+                          
 
                         </div>
                       </form><!-- End Multi Columns Form -->
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-between">
+      <a class="btn btn-primary " href="comisarias-tabla.php">Volver</a>
+    </div>
+    
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
