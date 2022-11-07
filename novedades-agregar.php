@@ -8,10 +8,11 @@
   }
 
   //INICIALIZAMOS DATOS
-  $idUsuario = 1;
-  $idComisaria=1;
+  $idUsuario = $_SESSION['id'];
+  // $idComisaria=1;
   if (isset($_POST['agregar'])) {
     $txtFecha = $_POST['txtFecha'];
+    $txtComisaria = $_POST['txtComisaria'];
     $txtTurno = $_POST['txtTurno'];
     $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
     $txtOficialServicio = $_POST['txtOficialServicio'];
@@ -31,7 +32,7 @@
 
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$idComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
+    $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$txtComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar=mysqli_query($conexion,$insertar);
@@ -119,19 +120,43 @@
           <!-- FORMULARIO PARA AGREGAR COMISARIA -->
           <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
             <div class="col-md-6">
-                <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
-                <div class="col-sm-10">
-                  <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
-                </div>
+              <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
+              <div class="col-sm-10">
+                <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
               </div>
-              <div class="col-md-6">
-                <label for="inputState" class="form-label">Turno</label>
-                <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
-                  <option value="MATUTINO (06:00 - 14:00)" selected>MATUTINO (06:00 - 14:00)</option>
-                  <option value="VESPERTINO (14:00 - 22:00)">VESPERTINO (14:00 - 22:00)</option>
-                  <option value="NOCTURNO (22:00 - 06:00)">NOCTURNO (22:00 - 06:00)</option>
-                </select>
-              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Comisaria</label>
+              <select required id="inputState" id="txtComisaria" name="txtComisaria" class="form-select">
+               
+                <?php
+                include('conexion.php');
+                $tabla_comisaria = "SELECT idUsuario, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                
+
+                while ($row = mysqli_fetch_array($resultado4)){
+
+                  $idComisaria = $row['idComisaria'];
+                  $nombre = $row['nombre'];
+                   ?>
+                
+                  <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
+                  <?php
+                }
+                ?>
+              </select>
+            </div>
+            
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Turno</label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="MATUTINO (06:00 - 14:00)" selected>MATUTINO (06:00 - 14:00)</option>
+                <option value="VESPERTINO (14:00 - 22:00)">VESPERTINO (14:00 - 22:00)</option>
+                <option value="NOCTURNO (22:00 - 06:00)">NOCTURNO (22:00 - 06:00)</option>
+              </select>
+            </div>
             <div class="col-md-6">
               <label for="inputEmail5" class="form-label">Superior de Turno</label>
               <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control" id="inputEmail5">

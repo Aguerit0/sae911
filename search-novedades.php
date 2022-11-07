@@ -7,7 +7,7 @@
 require 'conexion.php';
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['id','fecha', 'turno', 'superior_de_turno', 'oficial_servicio'];
+$columns = ['id','fecha', 'turno', 'superior_de_turno', 'oficial_servicio','idComisaria'];
 
 /* Nombre de la tabla */
 $table = "novedades_de_guardia";
@@ -43,8 +43,14 @@ $html = '';
 
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
+        $idComisaria = $row['idComisaria'];
+        $cons="SELECT nombre FROM comisarias WHERE idComisaria=$idComisaria ";
+        $res=mysqli_query($conexion,$cons);
+        if ($fila = $res->fetch_assoc()) {
+            $nombreComis=$fila['nombre'];
+        }
         $html .= '<tr>';
-        $html .= '<th scope="row">nombre</td>';
+        $html .= '<th scope="row">' . $nombreComis .'</td>';
         $html .= '<th scope="row">' . $row['fecha'] . '</td>';
         $html .= '<td scope="row">' . $row['turno'] . '</td>';
         $html .= '<td scope="row">' . $row['superior_de_turno'] . '</td>';
