@@ -1,10 +1,10 @@
 <?php
-include 'conexion.php';
-session_start();
-// PREGUNTA SI HAY UN USUARIO REGISTRADO
-if (!isset($_SESSION['usuario'])) {
-    header('Location: index.php');
-}
+    include 'conexion.php';
+    session_start();
+    // PREGUNTA SI HAY UN USUARIO REGISTRADO
+    if(!isset($_SESSION['usuario'])){
+        header('Location: index.php');
+    }
 
 
 
@@ -47,18 +47,10 @@ if (isset($_POST['agregarPersona'])) {
     }
 }
 //****************************************************************************************************************
+    
 
 
 
-
-//CONSULTA TABLAS PARA MOSTRAR DATOS DE USUARIO
-$consultaDatosTabla = "SELECT * FROM usuarios u INNER JOIN personas p WHERE u.idPersona=p.idPersona";
-//RESULTAOD DE LA CONSULTA
-$resultado4 = mysqli_query($conexion, $consultaDatosTabla);
-if (!$resultado4) {
-    echo "<script>alert('ERROR AL CONSULTAR INFORMACIÓN 4');</script>";
-} else {
-}
 //CERRAMOS CONEXIÓN BD
 mysqli_close($conexion);
 ?>
@@ -99,14 +91,14 @@ mysqli_close($conexion);
 <body>
 
     <!-- ======= Header ======= -->
-    <?php include("./template/dashboard.php") ?>
+    <?php include("./template/dashboard.php")?>
 
     <!-- ======= Sidebar ======= -->
-    <?php if ($_SESSION['rol'] == 1) {
-        include("./template/admin.php");
-    } else {
-        include("template/usuario.php");
-    }
+    <?php  if($_SESSION['rol'] == 1){
+        include ("./template/admin.php");
+        }else{
+        include ("./template/usuario.php");
+        }
     ?>
 
     <main id="main" class="main">
@@ -122,10 +114,16 @@ mysqli_close($conexion);
             </nav>
         </div><!-- End Page Title -->
 
-        <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <i class="bi bi-plus-circle-fill"></i>
-            Agregar
-        </button>
+         <!--INPUT BUSCAR EN TABLAS-->
+    <div class="search">
+      <form method="post"><input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
+        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <i class="bi bi-plus-circle-fill"></i>
+      Agregar
+      </button>
+      </form>  
+    </div><!--FIN INPUT BUSCAR EN TABLAS-->
+
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
@@ -195,19 +193,8 @@ mysqli_close($conexion);
                                     <input type="password" name="password" class="form-control" id="yourPassword" required>
                                     <div class="invalid-feedback">¡Por favor, escriba una Contraseña!</div>
                                     </div>
-
-                                    <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                                        <label class="form-check-label" for="acceptTerms">Acepto todos los <a href="#">terminos y condiciones</a></label>
-                                        <div class="invalid-feedback">You must agree before submitting.</div>
-                                    </div>
-                                    </div>
-                                    <div class="col-12">
-                                    <button class="btn btn-primary w-100" type="submit" name="Bregistrar">Crear Cuenta</button>
-                                    </div>
-                                    <div class="col-12">
-                                    <p class="small mb-0 text-center">¿Ya tienes una cuenta? <a href="pages-login.html">Iniciar sesión</a></p>
+                                    <div class="col-12 d-flex align-items-center justify-content-center">
+                                    <button class="btn btn-primary w-50 " type="submit" name="Bregistrar">Agregar Usuario</button>
                                     </div>
                                 </form>
 
@@ -215,7 +202,7 @@ mysqli_close($conexion);
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <!-- <button type="button" class="btn btn-primary">Understood</button> -->
                     </div>
                 </div>
@@ -233,32 +220,41 @@ mysqli_close($conexion);
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
-
-                <tbody>
-                    <?php
-                    while ($row = $resultado4->fetch_assoc()) {
-                    ?>
-                        <tr>
-                            <th scope="row"><?php echo $row['usuario'] ?></th>
-                            <td scope="row"><?php echo $row['nombre'] ?></td>
-                            <td scope="row"><?php echo $row['correo'] ?></td>
-                            <td scope="row"><?php echo $row['fechaRegistro'] ?></td>
-                            <td scope="row"><?php echo $row['habilitado'] ?></td>
-                            <?php $idUsuario = $row['idUsuario'] ?>
-                            <td scope="row">
-                                <!-- BOTON VER MAS / EDITAR / ELIMINAR -->
-                                <a class="btn btn-primary" href="usuarios-ver-mas.php?id=<?php echo $idUsuario ?>">Ver más</a>
-                            </td>
-                            </td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
+                <tbody id="content">
+                    
                 </tbody>
+
+               
             </table>
         </section>
 
     </main><!-- End #main -->
+
+      <script>
+  /* Llamando a la función getData() */
+        getData()
+
+        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+        document.getElementById("campo").addEventListener("keyup", getData)
+
+        /* Peticion AJAX */
+        function getData() {
+            let input = document.getElementById("campo").value
+            let content = document.getElementById("content")
+            let url = "search-usuarios.php"
+            let formaData = new FormData()
+            formaData.append('campo', input)
+
+            fetch(url, {
+                    method: "POST",
+                    body: formaData
+                }).then(response => response.json())
+                .then(data => {
+                    content.innerHTML = data
+                }).catch(err => console.log(err))
+        }
+
+</script>
 
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
