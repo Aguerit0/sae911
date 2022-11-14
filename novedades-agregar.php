@@ -132,10 +132,14 @@
                <option value="">Seleccionar</option>
                 <?php
                 include('conexion.php');
-                $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
-                $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                if($_SESSION['rol'] == 1){
+                  $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias ORDER BY idComisaria ASC;";
+                  $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                }else{
+                  $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                  $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                }
                 
-
                 while ($row = mysqli_fetch_assoc($resultado4)){
                   
                   $idComisaria = $row['idComisaria'];
@@ -159,55 +163,55 @@
             </div>
             <div class="col-md-6">
               <label for="inputEmail5" class="form-label">Superior de Turno</label>
-              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control" id="inputEmail5">
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control"">
             </div>
             <div class="col-md-6">
               <label for="inputtext5"  class="form-label">Oficial en Servicio</label>
-              <input required type="text" id="txtOficialServicio" name="txtOficialServicio" class="form-control" id="inputtext5">
+              <input required type="text" id="txtOficialServicio" name="txtOficialServicio" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5"  class="form-label">Cantidad de personal en guardia</label>
-              <input required type="text" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control" id="inputtext5">
+              <input required type="text" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control"">
             </div>
             <div class="col-6">
               <label for="inputAddress5" class="form-label">Motoristas</label>
-              <input required type="text" id="txtMotoristas" name="txtMotoristas" class="form-control" id="inputAddres5s">
+              <input required type="text" id="txtMotoristas" name="txtMotoristas" class="form-control">
             </div>
             <div class="col-6">
                 <label for="inputAddress5" class="form-label">Moviles en funcionamiento</label>
-                <input required type="text" id="txtMovilesFuncionamiento" name="txtMovilesFuncionamiento" class="form-control" id="inputAddres5s">
+                <input required type="text" id="txtMovilesFuncionamiento" name="txtMovilesFuncionamiento" class="form-control">
               </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Moviles fuera de servicio</label>
-              <input required type="text" id="txtMovilesFueraFuncionamiento" name="txtMovilesFueraFuncionamiento" class="form-control" id="inputtext5">
+              <input required type="text" id="txtMovilesFueraFuncionamiento" name="txtMovilesFueraFuncionamiento" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Cantidad de detenidos Causa Federal</label>
-              <input required type="text" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control" id="inputtext5">
+              <input required type="text" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
-              <input required type="text" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control" id="inputtext5">
+              <input required type="text" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Arrestados averiguacion del hecho</label>
-              <input required type="text" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control" id="inputtext5">
+              <input required type="text" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Cantidad de Aprehendidos</label>
-              <input required type="text" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control" id="inputtext5">
+              <input required type="text" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Arrestados averiguacion de activiades</label>
-              <input required type="text" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control" id="inputtext5">
+              <input required type="text" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Arrestados Inf. código de faltas</label>
-              <input required type="text" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control" id="inputtext5">
+              <input required type="text" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Demorados</label>
-              <input required type="text" id="txtDemorados" name="txtDemorados" class="form-control" id="inputtext5">
+              <input required type="text" id="txtDemorados" name="txtDemorados" class="form-control">
             </div>
             <div class="text-center">
               <button type="submit" name="agregar" value="agregar"  class="btn btn-primary float-end">Agregar</button>
