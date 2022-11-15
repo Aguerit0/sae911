@@ -133,10 +133,10 @@
                 <?php
                 include('conexion.php');
                 if($_SESSION['rol'] == 1){
-                  $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias ORDER BY idComisaria ASC;";
+                  $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
                   $resultado4 = mysqli_query($conexion, $tabla_comisaria);
                 }else{
-                  $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                  $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
                   $resultado4 = mysqli_query($conexion, $tabla_comisaria);
                 }
                 
