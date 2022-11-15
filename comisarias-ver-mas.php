@@ -29,67 +29,26 @@
     $habilitadoComisaria=$comisaria['habilitado'];
     $eliminadoComisaria=$comisaria['eliminado'];
 
-    // $consulta="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
-    // $resultado=mysqli_query($conexion,$consulta);
-    // if (!$resultado) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    // if ($row = $resultado->fetch_assoc()) {
-      
-  // }
-  // if($nombreComisaria != null) {
-  //   echo $nombreComisaria;
-  //  }else{
-  //   echo 'no hay nada';
-  //  }
 
 
     //EDITAR UN REGISTRO
-/*    //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-    if (isset($_POST['guardar'])) {
-    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria='$id'";
-    $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-    if (!$resultadoSelectRegistro) {
-      echo '<script>alert("ERROR INF")</script>';
-    }
-
-
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-  }
-  */
-    $nombre=(isset($_POST['nombre']))?$_POST['nombre']:"";;
-    $direccion=(isset($_POST['direccion']))?$_POST['direccion']:"";;
-    $provincia=(isset($_POST['provincia']))?$_POST['provincia']:"";;
-    $departamento=(isset($_POST['departamento']))?$_POST['departamento']:"";;
-    $localidad=(isset($_POST['localidad']))?$_POST['localidad']:"";;
-    $telefono=(isset($_POST['telefono']))?$_POST['telefono']:"";;
+    
   if (isset($_POST['guardar'])) {
+    $nombre=$_POST['nombre'];
+    $direccion=$_POST['direccion'];
+    $provincia=$_POST['provincia'];
+    $departamento=$_POST['departamento'];
+    $localidad=$_POST['localidad'];
+    $telefono=$_POST['telefono'];
 
-    $consulta = $bd_conex->prepare("UPDATE comisarias SET nombre=:nombre, direccion=:direccion, provincia=:provincia, departamento=:departamento, localidad=:localidad, telefono=:telefono WHERE idComisaria=:id");
-    $consulta ->bindParam(':id', $id);
-    $consulta ->bindParam(':nombre', $nombre);
-    $consulta ->bindParam(':direccion', $direccion);
-    $consulta ->bindParam(':provincia', $provincia);
-    $consulta ->bindParam(':departamento', $departamento);
-    $consulta ->bindParam(':localidad', $localidad);
-    $consulta ->bindParam(':telefono', $telefono);
-    $consulta->execute();
-
-    header('Location: comisarias-tabla.php');
+    $editar ="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono' WHERE idComisaria='$idComisaria'";
+    
+    $resultadoEditarRegistro = mysqli_query($conexion,$editar);
+    if (!$resultadoEditarRegistro) {
+      echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
+    }else{
+      header('location:comisarias-tabla.php');
+    }
      
   }
     // $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
@@ -127,13 +86,8 @@
 
     
       
-  //     $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
-  //     if (!$resultadoEditarRegistro) {
-  //       echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
-  //     }else{
-  //       header('location:comisarias-tabla.php');
-  //     }
-  //   }
+      
+    
   //   mysqli_close($conexion);
 
     //ELIMINAR UN REGISTRO
@@ -297,7 +251,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <p>¿Esta seguro que desea deshabilitar este archivo?</p>
+                  <p>¿Esta seguro que desea realizar ésta acción?</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -369,7 +323,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   <!-- <button type="button" class="btn btn-primary">Understood</button> -->
                 </div>
               </div>

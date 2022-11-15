@@ -47,7 +47,7 @@
         </div>
 
         <!-- Modal EDITAR -->
-        <button type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button disabled type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           <i class="bi bi-pencil-square"></i>
           Editar
         </button>
