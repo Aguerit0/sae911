@@ -27,31 +27,31 @@ if ($row2 = $resultado2->fetch_assoc()) {
 }
 // HABILITAR / DESHABILITAR
 
-  if(isset($_POST['confirmarDeshabilitar'])){
-    if($habilitadoPersona == 1){
-      $estado = 0;
-    }elseif($habilitadoPersona==0){
-      $estado = 1;
-    }
-    $sentenciaSQL=$bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
-    $sentenciaSQL->bindParam(':id', $idPersona);
-    $sentenciaSQL->bindParam(':estado',$estado);
-    $sentenciaSQL->execute();
-
-    header('Location: usuarios-tabla.php');
+if (isset($_POST['confirmarDeshabilitar'])) {
+  if ($habilitadoPersona == 1) {
+    $estado = 0;
+  } elseif ($habilitadoPersona == 0) {
+    $estado = 1;
   }
+  $sentenciaSQL = $bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
+  $sentenciaSQL->bindParam(':id', $idPersona);
+  $sentenciaSQL->bindParam(':estado', $estado);
+  $sentenciaSQL->execute();
 
-  // ELIMINAR
-  if (isset($_POST['confirmarEliminarRegistro'])){
-    $eliminadoUsuario = 1;
-    $sentenciaSQL=$bd_conex->prepare('UPDATE usuarios SET eliminado=:eliminado WHERE idUsuario=:id');
-    $sentenciaSQL->bindParam(':id', $idUsuario);
-    $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
-    $sentenciaSQL->execute();
-    
-    header('Location: usuarios-tabla.php');
-  }
-  
+  header('Location: usuarios-tabla.php');
+}
+
+// ELIMINAR
+if (isset($_POST['confirmarEliminarRegistro'])) {
+  $eliminadoUsuario = 1;
+  $sentenciaSQL = $bd_conex->prepare('UPDATE usuarios SET eliminado=:eliminado WHERE idUsuario=:id');
+  $sentenciaSQL->bindParam(':id', $idUsuario);
+  $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
+  $sentenciaSQL->execute();
+
+  header('Location: usuarios-tabla.php');
+}
+
 
 
 ?>
@@ -114,67 +114,63 @@ if ($row2 = $resultado2->fetch_assoc()) {
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    
-    
+
+
     <div class="card w-75 pt-3">
       <div class="card-body">
 
-      <!-- CODIGO DE ALERTAS -->
-    <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'falta')
-          {
-      ?>
+        <!-- CODIGO DE ALERTAS -->
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'falta') {
+        ?>
 
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Error!</strong> Rellena todos los campos.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Error!</strong> Rellena todos los campos.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-      
-      <?php
-          }
-      ?>
-      
-      <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'registrado')
-          {
-      ?>
+
+        <?php
+        }
+        ?>
+
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'registrado') {
+        ?>
 
           <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Registrado!</strong> Se asigno correctame la comisaria al usuario.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Registrado!</strong> Se asigno correctame la comisaria al usuario.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-      
-      <?php
-          }
-      ?>
 
-      <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
-          {
-      ?>
+        <?php
+        }
+        ?>
+
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
+        ?>
 
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong> El usuairo ya pertenese a esa comisaria.</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong> El usuairo ya pertenese a esa comisaria.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-      
-      <?php
-          }
-      ?>
 
-      <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
-          {
-      ?>
+        <?php
+        }
+        ?>
+
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado') {
+        ?>
 
           <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Cambiado!</strong> Los datos fueron actualizados.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Cambiado!</strong> Los datos fueron actualizados.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-      
-      <?php
-          }
-      ?>
+
+        <?php
+        }
+        ?>
 
 
         <ul class="list-group mb-3">
@@ -182,26 +178,24 @@ if ($row2 = $resultado2->fetch_assoc()) {
           <li class="list-group-item fw-bold">Apellido: <span class="fw-normal ms-2"><?php echo $apellidoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Correo: <span class="fw-normal ms-2"><?php echo $correoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Teléfono: <span class="fw-normal ms-2"><?php echo $telefonoPersona; ?></span></li>
-          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php if ($sexoPersona == 1) 
-                                                                                              {
-                                                                                                echo "Masculino";
-                                                                                              } else { 
-                                                                                                if($sexoPersona == 2){
-                                                                                                  echo "Femenino";
-                                                                                                }else{
-                                                                                                  echo "No binario";
-                                                                                                }
-                                                                                              } ?></span>
+          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php if ($sexoPersona == 1) {
+                                                                                    echo "Masculino";
+                                                                                    } else {
+                                                                                      if ($sexoPersona == 2) {
+                                                                                        echo "Femenino";
+                                                                                      } else {
+                                                                                        echo "No binario";
+                                                                                      }
+                                                                                    } ?></span>
           </li>
           <li class="list-group-item fw-bold">DNI: <span class="fw-normal ms-2"><?php echo $dniPersona; ?></span> </li>
           <li class="list-group-item fw-bold">Fecha de Registro: <span class="fw-normal ms-2"><?php echo $fechaRegistroPersona; ?></span></li>
-          <li class="list-group-item fw-bold">Usuario: <span class="fw-normal ms-2"><?php echo $nombreUsuario; ?></span></li>          
-          <li class="list-group-item fw-bold">Habilitado: <span class="fw-normal ms-2"><?php if ($habilitadoPersona == 1) 
-                                                                                              {
-                                                                                                echo "Si";
-                                                                                              } else {
-                                                                                                echo "No";
-                                                                                              } ?></span>
+          <li class="list-group-item fw-bold">Usuario: <span class="fw-normal ms-2"><?php echo $nombreUsuario; ?></span></li>
+          <li class="list-group-item fw-bold">Habilitado: <span class="fw-normal ms-2"><?php if ($habilitadoPersona == 1) {
+                                                                                          echo "Si";
+                                                                                        } else {
+                                                                                          echo "No";
+                                                                                        } ?></span>
           </li>
         </ul>
 
@@ -231,15 +225,15 @@ if ($row2 = $resultado2->fetch_assoc()) {
         </div>
 
         <!-- BOTON MODAL DESHABILITAR -->
-        <?php if($habilitadoPersona == 1){?>
-            <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-              Deshabilitar
-            </button>                    
-        <?php }elseif($habilitadoPersona==0){?>
-            <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-             Habilitar
-            </button>                    
-        <?php }?>
+        <?php if ($habilitadoPersona == 1) { ?>
+          <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+            Deshabilitar
+          </button>
+        <?php } elseif ($habilitadoPersona == 0) { ?>
+          <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+            Habilitar
+          </button>
+        <?php } ?>
         <!-- Modal DEHABILITAR -->
         <div class="modal fade" id="modalDeshabilitar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -254,12 +248,12 @@ if ($row2 = $resultado2->fetch_assoc()) {
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <form action="" method="post">
-                    <?php if($habilitadoPersona == 1){?>
-                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
-                    <?php }elseif($habilitadoPersona==0){?>
-                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
-                    <?php }?>                     
-                  </form>
+                  <?php if ($habilitadoPersona == 1) { ?>
+                    <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
+                  <?php } elseif ($habilitadoPersona == 0) { ?>
+                    <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
+                  <?php } ?>
+                </form>
               </div>
             </div>
           </div>
@@ -349,65 +343,64 @@ if ($row2 = $resultado2->fetch_assoc()) {
                   <div class="card-body">
 
                     <!-- FORMULARIO PARA DESIGNAR COMISARIA -->
-                      <div class="p-6">
-                        <table class="table align-middle" style="text-align: center;">
-                          <thead>
+                    <div class="p-6">
+                      <table class="table align-middle" style="text-align: center;">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">Departamento</th>
+                            <th scope="col">Seleccionar</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          // Codigo Para Designar Comisaria
+                          // $sentencia = $bd_conex->query("select * from comisarias");
+                          // $usuario_comisaria = $sentencia->fetchAll(PDO::FETCH_OBJ);
+
+                          $tabla_comisaria = "SELECT * FROM comisarias WHERE eliminado<1 AND habilitado>0";
+                          $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+
+                          // SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario
+
+                          // $sql = "SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario ORDER BY idComisaria ASC";
+                          // $resultado5 = mysqli_query($conexion, $sql);
+
+                          // $idComisaria_TUC;
+
+                          while (($row4 = $resultado4->fetch_assoc())) {
+                            $idComisaria_TC = $row4['idComisaria'];
+                            $nombre = $row4['nombre'];
+                            $direccion = $row4['direccion'];
+                            $provincia = $row4['provincia'];
+                            $departamento = $row4['departamento'];
+
+                            // $idUsuario_TUC = $row5['idUsuario'];
+                            // $idComisaria_TUC = $row5['idComisaria'];
+
+
+
+                          ?>
                             <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Nombre</th>
-                              <th scope="col">Direccion</th>
-                              <th scope="col">Provincia</th>
-                              <th scope="col">Departamento</th>
-                              <th scope="col">Seleccionar</th>
+
+                              <td scope="row"><?php echo $idComisaria_TC; ?></td>
+                              <td><?php echo $nombre ?></td>
+                              <td><?php echo $direccion; ?></td>
+                              <td><?php echo $provincia; ?></td>
+                              <td><?php echo $departamento; ?></td>
+                              <td>
+                                <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $idComisaria_TC; ?>&idUsuario=<?php echo $idUsuario; ?>">Asignar</a>
+                              </td>
                             </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            // Codigo Para Designar Comisaria
-                            // $sentencia = $bd_conex->query("select * from comisarias");
-                            // $usuario_comisaria = $sentencia->fetchAll(PDO::FETCH_OBJ);
-
-                            $tabla_comisaria = "SELECT * FROM comisarias WHERE eliminado<1 AND habilitado>0";
-                            $resultado4 = mysqli_query($conexion, $tabla_comisaria);
-
-                            // SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario
-
-                            // $sql = "SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario ORDER BY idComisaria ASC";
-                            // $resultado5 = mysqli_query($conexion, $sql);
-                            
-                            // $idComisaria_TUC;
-
-                            while (($row4 = $resultado4->fetch_assoc())) 
-                            {
-                              $idComisaria_TC = $row4['idComisaria'];
-                              $nombre = $row4['nombre'];
-                              $direccion = $row4['direccion'];
-                              $provincia = $row4['provincia'];
-                              $departamento = $row4['departamento'];
-
-                              // $idUsuario_TUC = $row5['idUsuario'];
-                              // $idComisaria_TUC = $row5['idComisaria'];
-
-                              
-
-                              ?>
-                              <tr>
-
-                                <td scope="row"><?php echo $idComisaria_TC; ?></td>
-                                <td><?php echo $nombre?></td>
-                                <td><?php echo $direccion; ?></td>
-                                <td><?php echo $provincia; ?></td>
-                                <td><?php echo $departamento; ?></td>
-                                <td>
-                                    <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $idComisaria_TC; ?>&idUsuario=<?php echo $idUsuario;?>">Asignar</a>
-                                  </td>
-                              </tr>
-                                <?php
-                            }
-                            ?>
-                          </tbody>
-                        </table>
-                      </div>
+                          <?php
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>

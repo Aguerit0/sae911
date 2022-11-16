@@ -1,119 +1,119 @@
-<?php 
-    include('conexion.php');
-    session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
-      header('Location: index.php');
-    }
+<?php
+include('conexion.php');
+session_start();
+// PREGUNTA SI HAY UN USUARIO REGISTRADO
+if (!isset($_SESSION['usuario'])) {
+  header('Location: index.php');
+}
 
-    $idNovedades=$_GET['id'];
-    //CONSULTA TABLA NOVEDADES_DE_GUARDIA
-    $consultaSQL = $bd_conex->prepare("SELECT * FROM novedades_de_guardia WHERE id=:id");
-    $consultaSQL->bindParam(':id', $idNovedades);
-    $consultaSQL->execute();
-    $novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
-
-
-    // $consultaSelectNovedades="SELECT * FROM novedades_de_guardia WHERE id=$idNovedades";
-    // $resultadoSelectNovedades=mysqli_query($conexion,$consultaSelectNovedades);
-    // if (!$resultadoSelectNovedades) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-    //OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
-    
-      $idUsuario = $novedades['idUsuario'];
-      $idComisaria=$novedades['idComisaria'];
-      // LLAMADA PARA SACAR EL NOMBRE DE LA COMISARIA
-      $consultaSQL = $bd_conex->prepare("SELECT nombre FROM comisarias WHERE idComisaria=:id");
-      $consultaSQL->bindParam(':id', $idComisaria);
-      $consultaSQL->execute();
-      $comisaria = $consultaSQL->fetch(PDO::FETCH_LAZY);
-      $nombreComisaria=$comisaria['nombre'];
-      
-      $fecha = $novedades['fecha'];
-      $turno = $novedades['turno'];
-      $superior_de_turno = $novedades['superior_de_turno'];
-      $oficial_servicio = $novedades['oficial_servicio'];
-      $personas_de_guardia = $novedades['personas_de_guardia'];
-      $motoristas = $novedades['motoristas'];
-      $mov_funcionamiento = $novedades['mov_funcionamiento'];
-      $mov_fuera_de_servicio = $novedades['mov_fuera_de_servicio'];
-      $detenidos_causa_federal = $novedades['detenidos_causa_federal'];
-      $detenidos_justicia_ordinaria = $novedades['detenidos_justicia_ordinaria'];
-      $arres_averiguacion_de_hecho = $novedades['arres_averiguacion_de_hecho'];
-      $aprehendidos = $novedades['aprehendidos'];
-      $arres_averiguacion_actividades = $novedades['arres_averiguacion_actividades'];
-      $arres_info_codigo_de_faltas = $novedades['arres_info_codigo_de_faltas'];
-      $demorados = $novedades['demorados'];
-      $eliminado= $novedades['eliminado'];
-
-    //OBTENCION DE DATOS DE TABLA COMISARIAS POR: IDCOMISARIAS
-    //CONSULTAMOS BD
-    // $consultaSelectComisarias="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-    // $resultadoSelectComisarias=mysqli_query($conexion,$consultaSelectComisarias);
-    // if (!$consultaSelectComisarias) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-    // if ($row2=$resultadoSelectComisarias->fetch_assoc()) {
-    //   $nombreComisaria=$row2['nombre'];
-    // }
+$idNovedades = $_GET['id'];
+//CONSULTA TABLA NOVEDADES_DE_GUARDIA
+$consultaSQL = $bd_conex->prepare("SELECT * FROM novedades_de_guardia WHERE id=:id");
+$consultaSQL->bindParam(':id', $idNovedades);
+$consultaSQL->execute();
+$novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
 
 
-    // //BOTON GUARDAR->VERMASNOVEDADES->
-    // if (isset($_POST['guardarNovedad'])) {
-    //   $fecha=$_POST['fecha'];
-    //   $turno=$_POST['turno'];
-    //   $superior_de_turno=$_POST['superior_de_turno'];
-    //   $oficial_servicio=$_POST['oficial_servicio'];
-    //   $personas_de_guardia=$_POST['personas_de_guardia'];
-    //   $motoristas=$_POST['motoristas'];
-    //   $mov_funcionamiento=$_POST['mov_funcionamiento'];
-    //   $mov_fuera_de_servicio=$_POST['mov_fuera_de_servicio'];
-    //   $detenidos_causa_federal=$_POST['detenidos_causa_federal'];
-    //   $detenidos_justicia_ordinaria=$_POST['detenidos_justicia_ordinaria'];
-    //   $arres_averiguacion_de_hecho=$_POST['arres_averiguacion_de_hecho'];
-    //   $aprehendidos=$_POST['aprehendidos'];
-    //   $arres_averiguacion_actividades=$_POST['arres_averiguacion_actividades'];
-    //   $arres_info_codigo_de_faltas=$_POST['arres_info_codigo_de_faltas'];
-    //   $demorados=$_POST['demorados'];
+// $consultaSelectNovedades="SELECT * FROM novedades_de_guardia WHERE id=$idNovedades";
+// $resultadoSelectNovedades=mysqli_query($conexion,$consultaSelectNovedades);
+// if (!$resultadoSelectNovedades) {
+//   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+// }
+//OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
 
-    //   //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
-    //   $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
-    //   $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
-    //   if (!$resultadoUpdateNovedades) {
-    //     echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    //   }
+$idUsuario = $novedades['idUsuario'];
+$idComisaria = $novedades['idComisaria'];
+// LLAMADA PARA SACAR EL NOMBRE DE LA COMISARIA
+$consultaSQL = $bd_conex->prepare("SELECT nombre FROM comisarias WHERE idComisaria=:id");
+$consultaSQL->bindParam(':id', $idComisaria);
+$consultaSQL->execute();
+$comisaria = $consultaSQL->fetch(PDO::FETCH_LAZY);
+$nombreComisaria = $comisaria['nombre'];
 
-    // }
+$fecha = $novedades['fecha'];
+$turno = $novedades['turno'];
+$superior_de_turno = $novedades['superior_de_turno'];
+$oficial_servicio = $novedades['oficial_servicio'];
+$personas_de_guardia = $novedades['personas_de_guardia'];
+$motoristas = $novedades['motoristas'];
+$mov_funcionamiento = $novedades['mov_funcionamiento'];
+$mov_fuera_de_servicio = $novedades['mov_fuera_de_servicio'];
+$detenidos_causa_federal = $novedades['detenidos_causa_federal'];
+$detenidos_justicia_ordinaria = $novedades['detenidos_justicia_ordinaria'];
+$arres_averiguacion_de_hecho = $novedades['arres_averiguacion_de_hecho'];
+$aprehendidos = $novedades['aprehendidos'];
+$arres_averiguacion_actividades = $novedades['arres_averiguacion_actividades'];
+$arres_info_codigo_de_faltas = $novedades['arres_info_codigo_de_faltas'];
+$demorados = $novedades['demorados'];
+$eliminado = $novedades['eliminado'];
+
+//OBTENCION DE DATOS DE TABLA COMISARIAS POR: IDCOMISARIAS
+//CONSULTAMOS BD
+// $consultaSelectComisarias="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+// $resultadoSelectComisarias=mysqli_query($conexion,$consultaSelectComisarias);
+// if (!$consultaSelectComisarias) {
+//   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+// }
+// if ($row2=$resultadoSelectComisarias->fetch_assoc()) {
+//   $nombreComisaria=$row2['nombre'];
+// }
+
+
+// //BOTON GUARDAR->VERMASNOVEDADES->
+// if (isset($_POST['guardarNovedad'])) {
+//   $fecha=$_POST['fecha'];
+//   $turno=$_POST['turno'];
+//   $superior_de_turno=$_POST['superior_de_turno'];
+//   $oficial_servicio=$_POST['oficial_servicio'];
+//   $personas_de_guardia=$_POST['personas_de_guardia'];
+//   $motoristas=$_POST['motoristas'];
+//   $mov_funcionamiento=$_POST['mov_funcionamiento'];
+//   $mov_fuera_de_servicio=$_POST['mov_fuera_de_servicio'];
+//   $detenidos_causa_federal=$_POST['detenidos_causa_federal'];
+//   $detenidos_justicia_ordinaria=$_POST['detenidos_justicia_ordinaria'];
+//   $arres_averiguacion_de_hecho=$_POST['arres_averiguacion_de_hecho'];
+//   $aprehendidos=$_POST['aprehendidos'];
+//   $arres_averiguacion_actividades=$_POST['arres_averiguacion_actividades'];
+//   $arres_info_codigo_de_faltas=$_POST['arres_info_codigo_de_faltas'];
+//   $demorados=$_POST['demorados'];
+
+//   //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
+//   $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
+//   $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
+//   if (!$resultadoUpdateNovedades) {
+//     echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+//   }
+
+// }
 
 
 
 
-  //ELIMINAR UN REGISTRO
-  if (isset($_POST['confirmarEliminarRegistro'])){
-    $eliminado = 1;
-    $sentenciaSQL=$bd_conex->prepare('UPDATE novedades_de_guardia SET eliminado=:eliminado WHERE id=:id');
-    $sentenciaSQL->bindParam(':id', $idNovedades);
-    $sentenciaSQL->bindParam(':eliminado', $eliminado);
-    $sentenciaSQL->execute();
-    
-    header('Location: novedades-tabla.php');
-  }
+//ELIMINAR UN REGISTRO
+if (isset($_POST['confirmarEliminarRegistro'])) {
+  $eliminado = 1;
+  $sentenciaSQL = $bd_conex->prepare('UPDATE novedades_de_guardia SET eliminado=:eliminado WHERE id=:id');
+  $sentenciaSQL->bindParam(':id', $idNovedades);
+  $sentenciaSQL->bindParam(':eliminado', $eliminado);
+  $sentenciaSQL->execute();
 
-  //   //EDITAR UN REGISTRO
-  //   //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-  //   if (isset($_POST['guardarRegistro'])) {
-  //   $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-  //   $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-  //   if (!$resultadoSelectRegistro) {
-  //     echo '<script>alert("ERROR INF")</script>';
-  //   }
-  //   //OBTENCION DE DATOS TABLA COMISARIA
-  //   if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
+  header('Location: novedades-tabla.php');
+}
 
-  // }
-    // mysqli_close($conexion);
- ?>
+//   //EDITAR UN REGISTRO
+//   //CONSULTAR VALORES NUEVOS DE LOS INPUTS
+//   if (isset($_POST['guardarRegistro'])) {
+//   $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+//   $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
+//   if (!$resultadoSelectRegistro) {
+//     echo '<script>alert("ERROR INF")</script>';
+//   }
+//   //OBTENCION DE DATOS TABLA COMISARIA
+//   if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
+
+// }
+// mysqli_close($conexion);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +125,7 @@
   <title>SAE 911</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-<br>
+  <br>
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -157,32 +157,33 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <?php include("./template/dashboard.php")?>
+  <?php include("./template/dashboard.php") ?>
 
   <!-- ======= Sidebar ======= -->
-  <?php  if($_SESSION['rol'] == 1){
-      include ("./template/admin.php");
-    }else{
-      include ("./template/usuario.php");
-    }
+  <?php if ($_SESSION['rol'] == 1) {
+    include("./template/admin.php");
+  } else {
+    include("./template/usuario.php");
+  }
   ?>
 
   <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Tabla Novedades de Guardia</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="novedades-tabla.php">Tabla Novedades de Guardia</a></li>
-            <li class="breadcrumb-item active">Ver Más</li>
-          </ol>
-        </nav>
+      <h1>Tabla Novedades de Guardia</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="novedades-tabla.php">Tabla Novedades de Guardia</a></li>
+          <li class="breadcrumb-item active">Ver Más</li>
+        </ol>
+      </nav>
     </div><!-- End Page Title -->
     <div class="card w-75 pt-3">
       <div class="card-body">
-          <ul class="list-group">
+        <ul class="list-group">
           <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
-          <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $fecha ?></span></li></li>
+          <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $fecha ?></span></li>
+          </li>
           <li class="list-group-item fw-bold">Turno: <span class="fw-normal ms-2"><?php echo $turno ?></span></li>
           <li class="list-group-item fw-bold">Superior de turno: <span class="fw-normal ms-2"><?php echo $superior_de_turno ?></span></li>
           <li class="list-group-item fw-bold">Oficial servicio: <span class="fw-normal ms-2"><?php echo $oficial_servicio ?></span></li>
@@ -197,11 +198,11 @@
           <li class="list-group-item fw-bold">Arrestados averiguacion actividades: <span class="fw-normal ms-2"><?php echo $arres_averiguacion_actividades ?></span></li>
           <li class="list-group-item fw-bold">Arrestados inf. codigo de faltas: <span class="fw-normal ms-2"><?php echo $arres_info_codigo_de_faltas ?></span></li>
           <li class="list-group-item fw-bold">Demorados: <span class="fw-normal ms-2"><?php echo $demorados ?></span></li>
-        </ul>  
-        
-        <?php  if($_SESSION['rol'] == 1){
-           include ("./template/botonera-novedadesDeGuardia.php");
-          }
+        </ul>
+
+        <?php if ($_SESSION['rol'] == 1) {
+          include("./template/botonera-novedadesDeGuardia.php");
+        }
         ?>
       </div>
     </div>
