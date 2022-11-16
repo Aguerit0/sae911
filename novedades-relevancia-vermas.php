@@ -1,4 +1,5 @@
 <?php 
+$id=$_GET['id'];
     include('conexion.php');
     session_start();
     // PREGUNTA SI HAY UN USUARIO REGISTRADO
@@ -8,8 +9,8 @@
 
     $idNovedades=$_GET['id'];
     //CONSULTA TABLA NOVEDADES_DE_GUARDIA
-    $consultaSQL = $bd_conex->prepare("SELECT * FROM novedades_de_guardia WHERE id=:id");
-    $consultaSQL->bindParam(':id', $idNovedades);
+    $consultaSQL = $bd_conex->prepare("SELECT * FROM novedades_de_relevancia WHERE id=:id");
+    $consultaSQL->bindParam(':id', $id);
     $consultaSQL->execute();
     $novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
 
@@ -21,31 +22,34 @@
     // }
     //OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
     
-      $idUsuario = $novedades['idUsuario'];
-      $idComisaria=$novedades['idComisaria'];
-      // LLAMADA PARA SACAR EL NOMBRE DE LA COMISARIA
-      $consultaSQL = $bd_conex->prepare("SELECT nombre FROM comisarias WHERE idComisaria=:id");
-      $consultaSQL->bindParam(':id', $idComisaria);
-      $consultaSQL->execute();
-      $comisaria = $consultaSQL->fetch(PDO::FETCH_LAZY);
-      $nombreComisaria=$comisaria['nombre'];
-      
-      $fecha = $novedades['fecha'];
-      $turno = $novedades['turno'];
-      $superior_de_turno = $novedades['superior_de_turno'];
-      $oficial_servicio = $novedades['oficial_servicio'];
-      $personas_de_guardia = $novedades['personas_de_guardia'];
-      $motoristas = $novedades['motoristas'];
-      $mov_funcionamiento = $novedades['mov_funcionamiento'];
-      $mov_fuera_de_servicio = $novedades['mov_fuera_de_servicio'];
-      $detenidos_causa_federal = $novedades['detenidos_causa_federal'];
-      $detenidos_justicia_ordinaria = $novedades['detenidos_justicia_ordinaria'];
-      $arres_averiguacion_de_hecho = $novedades['arres_averiguacion_de_hecho'];
-      $aprehendidos = $novedades['aprehendidos'];
-      $arres_averiguacion_actividades = $novedades['arres_averiguacion_actividades'];
-      $arres_info_codigo_de_faltas = $novedades['arres_info_codigo_de_faltas'];
-      $demorados = $novedades['demorados'];
-      $eliminado= $novedades['eliminado'];
+
+      $fecha_reg = $novedades['fecha_reg'];
+      $fecha_reg_tabla = $novedades['fecha_reg_tabla'];
+      $hora_tabla = $novedades['hora_tabla'];
+      $lugar = $novedades['lugar'];
+      $sindicatos = $novedades['sindicatos'];
+      $caracteristicas_hecho = $novedades['caracteristicas_hecho'];
+      $elento_utlizado = $novedades['elento_utlizado'];
+      $movil = $novedades['movil'];
+      $elemento_sustraido = $novedades['elemento_sustraido'];
+      $hecho_consumado = $novedades['hecho_consumado'];
+      $tipo_motocicleta = $novedades['tipo_motocicleta'];
+      $color = $novedades['color'];
+      $adelanto_circulacion = $novedades['adelanto_circulacion'];
+      $damnificado = $novedades['damnificado'];
+      $edad = $novedades['edad'];
+      $sexo= $novedades['sexo'];
+      $denunciante= $novedades['denunciante'];
+      $denuncia= $novedades['denuncia'];
+      $unidad_judicial= $novedades['unidad_judicial'];
+      $comision_personal= $novedades['comision_personal'];
+      $medida_tomada= $novedades['medida_tomada'];
+      $id_tipo= $novedades['id_tipo'];
+      $id_subtipo= $novedades['id_subtipo'];
+      $idComisaria= $novedades['idComisaria'];
+
+
+
 
     //OBTENCION DE DATOS DE TABLA COMISARIAS POR: IDCOMISARIAS
     //CONSULTAMOS BD
@@ -181,22 +185,35 @@
     <div class="card w-75 pt-3">
       <div class="card-body">
           <ul class="list-group">
-          <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
-          <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $fecha ?></span></li></li>
-          <li class="list-group-item fw-bold">Turno: <span class="fw-normal ms-2"><?php echo $turno ?></span></li>
-          <li class="list-group-item fw-bold">Superior de turno: <span class="fw-normal ms-2"><?php echo $superior_de_turno ?></span></li>
-          <li class="list-group-item fw-bold">Oficial servicio: <span class="fw-normal ms-2"><?php echo $oficial_servicio ?></span></li>
-          <li class="list-group-item fw-bold">Cant. de personal de guardia: <span class="fw-normal ms-2"><?php echo $personas_de_guardia ?></span></li>
-          <li class="list-group-item fw-bold">Motoristas: <span class="fw-normal ms-2"><?php echo $motoristas ?></span></li>
-          <li class="list-group-item fw-bold">Mov. en funcionamiento: <span class="fw-normal ms-2"><?php echo $mov_funcionamiento ?></span></li>
-          <li class="list-group-item fw-bold">Mov. fuera de servicio: <span class="fw-normal ms-2"><?php echo $mov_fuera_de_servicio ?></span></li>
-          <li class="list-group-item fw-bold">Cant. detenidos causa federal: <span class="fw-normal ms-2"><?php echo $detenidos_causa_federal ?></span></li>
-          <li class="list-group-item fw-bold">Cant. detenidos justicia ordinaria: <span class="fw-normal ms-2"><?php echo $detenidos_justicia_ordinaria ?></span></li>
-          <li class="list-group-item fw-bold">Arrestados averiguacion del hecho: <span class="fw-normal ms-2"><?php echo $arres_averiguacion_de_hecho ?></span></li>
-          <li class="list-group-item fw-bold">Cant. aprehendidos: <span class="fw-normal ms-2"><?php echo $aprehendidos ?></span></li>
-          <li class="list-group-item fw-bold">Arrestados averiguacion actividades: <span class="fw-normal ms-2"><?php echo $arres_averiguacion_actividades ?></span></li>
-          <li class="list-group-item fw-bold">Arrestados inf. codigo de faltas: <span class="fw-normal ms-2"><?php echo $arres_info_codigo_de_faltas ?></span></li>
-          <li class="list-group-item fw-bold">Demorados: <span class="fw-normal ms-2"><?php echo $demorados ?></span></li>
+          <li class="list-group-item fw-bold">Fecha Registro: <span class="fw-normal ms-2"><?php echo $fecha_reg ?></span></li></li>
+          <li class="list-group-item fw-bold">Fecha Registro: <span class="fw-normal ms-2"><?php echo $fecha_reg_tabla ?></span></li>
+          <li class="list-group-item fw-bold">Hora: <span class="fw-normal ms-2"><?php echo $hora_tabla ?></span></li>
+          <li class="list-group-item fw-bold"> Lugar: <span class="fw-normal ms-2"><?php echo $lugar ?></span></li>
+          <li class="list-group-item fw-bold">Sindicatos: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
+          <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
+          <li class="list-group-item fw-bold">Elemnto Utilizado: <span class="fw-normal ms-2"><?php echo $elento_utlizado ?></span></li>
+          <li class="list-group-item fw-bold">Movil: <span class="fw-normal ms-2"><?php echo $movil ?></span></li>
+          <li class="list-group-item fw-bold">Elemento Sustraido: <span class="fw-normal ms-2"><?php echo $elemento_sustraido ?></span></li>
+          <li class="list-group-item fw-bold">Hecho Consumado: <span class="fw-normal ms-2"><?php echo $hecho_consumado ?></span></li>
+          <li class="list-group-item fw-bold">Tipo de Motocicleta: <span class="fw-normal ms-2"><?php echo $tipo_motocicleta ?></span></li>
+          <li class="list-group-item fw-bold">Color: <span class="fw-normal ms-2"><?php echo $color ?></span></li>
+          <li class="list-group-item fw-bold">Adelanto Circulacion: <span class="fw-normal ms-2"><?php echo $adelanto_circulacion ?></span></li>
+          <li class="list-group-item fw-bold">Damificado: <span class="fw-normal ms-2"><?php echo $damnificado ?></span></li>
+          <li class="list-group-item fw-bold">Edad: <span class="fw-normal ms-2"><?php echo $edad ?></span></li>
+          <li class="list-group-item fw-bold">Sexo: <span class="fw-normal ms-2"><?php echo $sexo ?></span></li>
+          <li class="list-group-item fw-bold">Denunciante: <span class="fw-normal ms-2"><?php echo $denunciante ?></span></li>
+
+          <li class="list-group-item fw-bold">Unidad Judicial: <span class="fw-normal ms-2"><?php echo $unidad_judicial ?></span></li>
+
+          <li class="list-group-item fw-bold">Comision Personal: <span class="fw-normal ms-2"><?php echo $comision_personal ?></span></li>
+
+          <li class="list-group-item fw-bold">Medida Tomada: <span class="fw-normal ms-2"><?php echo $medida_tomada ?></span></li>
+          <li class="list-group-item fw-bold">Tipo: <span class="fw-normal ms-2"><?php echo $id_tipo ?></span></li>
+         <li class="list-group-item fw-bold">Sub Tipo: <span class="fw-normal ms-2"><?php echo $id_subtipo ?></span></li>
+         <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $id_Comisaria ?></span></li>
+
+
+
         </ul>  
         
         <?php  if($_SESSION['rol'] == 1){
