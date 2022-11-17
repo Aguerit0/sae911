@@ -37,7 +37,7 @@
     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
   
       <li>
-        <a href="agregar-novedadesGuardia.php">
+        <a href="novedades-relevancia-agregar.php">
           <i class="bi bi-circle"></i><span>Agregar registros</span>
         </a>
       </li>
@@ -56,12 +56,12 @@
     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
      
       <li>
-        <a href="">
+        <a href="inicio-dashboard.php">
           <i class="bi bi-circle"></i><span>Agregar registros</span>
         </a>
       </li>
       <li>
-        <a href="">
+        <a href="inicio-dashboard.php">
           <i class="bi bi-circle"></i><span>Ver registros</span>
         </a>
       </li>
@@ -76,12 +76,12 @@
     
      
       <li>
-        <a href="">
+        <a href="inicio-dashboard.php">
           <i class="bi bi-circle"></i><span>Agregar registros</span>
         </a>
       </li>
       <li>
-        <a href="">
+        <a href="inicio-dashboard.php">
           <i class="bi bi-circle"></i><span>Ver registros</span>
         </a>
       </li>

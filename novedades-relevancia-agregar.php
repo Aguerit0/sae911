@@ -29,8 +29,6 @@
     $txtCantAprehendidos = $_POST['txtCantAprehendidos'];
 
 
-
-
     //CONSULTA INSERTAR DATOS
     $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$txtComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
 
@@ -107,112 +105,190 @@
 
             </div>
     <div class="pagetitle">
-        <h1>Formulario Novedades de Guardia</h1>
+        <h1>Formulario Novedades de Relevancia</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
-            <li class="breadcrumb-item active">Formulario Novedades de Comisaria</li>
+            <li class="breadcrumb-item active">Formulario Novedades de Relevancia</li>
           </ol>
         </nav>
     </div><!-- End Page Title -->
     <div class="card">
         <div class="card-body">
-          <!-- FORMULARIO PARA AGREGAR COMISARIA -->
+          <!-- FORMULARIO PARA AGREGAR NOVEDADES DE RELEVANCIA -->
           <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
+
+
+         
             <div class="col-md-6">
-              <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
+              <label for="inputDate"  class=" col-form-label">Fecha de resgitro</label>
               <div class="col-sm-10">
                 <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
               </div>
             </div>
 
             <div class="col-md-6">
-              <label for="inputState" class="form-label">Comisaria</label>
-              <select required id="txtComisaria" name="txtComisaria" class="form-select">
-               <option value="">Seleccionar</option>
-                <?php
-                include('conexion.php');
-                if($_SESSION['rol'] == 1){
-                  $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
-                  $resultado4 = mysqli_query($conexion, $tabla_comisaria);
-                }else{
-                  $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
-                  $resultado4 = mysqli_query($conexion, $tabla_comisaria);
-                }
+              <label for="inputEmail5" class="form-label">Fecha</label>
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control" id="inputEmail5">
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputEmail5" class="form-label">Hora</label>
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control" id="inputEmail5">
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputEmail5" class="form-label">Tipo</label>
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control" id="inputEmail5">
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputEmail5" class="form-label">Sub Tipo</label>
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control" id="inputEmail5">
+            </div>
+
+          
+            
+            <div class="col-md-6">
+              <label for="inputEmail5" class="form-label">Lugar</label>
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control" id="inputEmail5">
+            </div>
+
+          
+            <div class="col-md-6">
+              <label for="inputtext5"  class="form-label">Sindicados (cantidad) </label>
+              <input required type="text" id="txtOficialServicio" name="txtOficialServicio" class="form-control" id="inputtext5">
+            </div>
+
+            
+            <div class="col-md-6">
+              <label for="inputtext5"  class="form-label">Caracteristica del hecho</label>
+              <input required type="text" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control" id="inputtext5">
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Elemnto utilizado (Moto o Pie)</label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>Motocicleta</option>
+                <option value="">Pie</option>
                 
-                while ($row = mysqli_fetch_assoc($resultado4)){
-                  
-                  $idComisaria = $row['idComisaria'];
-                  $nombre = $row['nombre'];
-                   ?>
-                
-                  <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
-                  <?php
-                }
-                ?>
               </select>
+            </div>
+
+            <div class="col-6">
+              <label for="inputAddress5" class="form-label">Movil que asistio al lugar</label>
+              <input required type="text" id="txtMotoristas" name="txtMotoristas" class="form-control" id="inputAddres5s">
+            </div>
+            <div class="col-6">
+                <label for="inputAddress5" class="form-label">Elemento sustraido</label>
+                <input required type="text" id="txtMovilesFuncionamiento" name="txtMovilesFuncionamiento" class="form-control" id="inputAddres5s">
+              </div>
+            
+              <div class="col-md-6">
+              <label for="inputState" class="form-label">Echo consumado o intento </label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>Consumado</option>
+                <option value="">Intento</option>
+             </select>
+            </div>
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Tipo de motocicleta utilizada </label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>110cc</option>
+                <option value="">125/150cc</option>
+                <option value="">Enduro</option>
+                <option value="">No especifica</option>
+             </select>
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Color</label>
+              <input required type="text" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control" id="inputtext5">
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Emitio adelanto de circular </label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>SI</option>
+                <option value="">No</option>
+                
+             </select>
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Damnificado</label>
+              <input required type="text" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control" id="inputtext5">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Edad</label>
+              <input required type="text" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control" id="inputtext5">
             </div>
             
             <div class="col-md-6">
-              <label for="inputState" class="form-label">Turno</label>
+              <label for="inputState" class="form-label">Sexo </label>
               <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
-                <option value="MATUTINO (06:00 - 14:00)" selected>MATUTINO (06:00 - 14:00)</option>
-                <option value="VESPERTINO (14:00 - 22:00)">VESPERTINO (14:00 - 22:00)</option>
-                <option value="NOCTURNO (22:00 - 06:00)">NOCTURNO (22:00 - 06:00)</option>
-              </select>
+                <option value="" selected>Hombre</option>
+                <option value="">Mujer</option>
+                <option value="">No Binario</option>
+                <option value="">Otro</option>
+             </select>
             </div>
+
             <div class="col-md-6">
-              <label for="inputEmail5" class="form-label">Superior de Turno</label>
-              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control"">
+              <label for="inputState" class="form-label">Denuncia </label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>SI</option>
+                <option value="">NO</option>
+             </select>
             </div>
+
             <div class="col-md-6">
-              <label for="inputtext5"  class="form-label">Oficial en Servicio</label>
-              <input required type="text" id="txtOficialServicio" name="txtOficialServicio" class="form-control">
+              <label for="inputState" class="form-label">Unidad judicial </label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>Fiscalia de instroduccion</option>
+                <option value="">U.J. N° 1</option>
+                <option value="">U.J. N° 2</option>
+                <option value="">U.J. N° 3</option>
+                <option value="">U.J. N° 4</option>
+                <option value="">U.J. N° 5</option>
+                <option value="">U.J. N° 6</option>
+                <option value="">U.J. N° 7</option>
+                <option value="">U.J. N° 8</option>
+                <option value="">U.J. N° 9</option>
+                <option value="">U.J. N° 10</option>
+                <option value="">U.J. N° 11</option>
+                <option value="">Fiscalia de instroduccion</option>
+                <option value="">UNID. Violencia de genero</option>
+                 </select>
             </div>
+
             <div class="col-md-6">
-              <label for="inputtext5"  class="form-label">Cantidad de personal en guardia</label>
-              <input required type="text" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control"">
+              <label for="inputState" class="form-label">Comision de personal policial en la investigacion</label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>SI</option>
+                <option value="">NO</option>
+             </select>
             </div>
-            <div class="col-6">
-              <label for="inputAddress5" class="form-label">Motoristas</label>
-              <input required type="text" id="txtMotoristas" name="txtMotoristas" class="form-control">
-            </div>
-            <div class="col-6">
-                <label for="inputAddress5" class="form-label">Moviles en funcionamiento</label>
-                <input required type="text" id="txtMovilesFuncionamiento" name="txtMovilesFuncionamiento" class="form-control">
-              </div>
+
             <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Moviles fuera de servicio</label>
-              <input required type="text" id="txtMovilesFueraFuncionamiento" name="txtMovilesFueraFuncionamiento" class="form-control">
+              <label for="inputState" class="form-label">Medida tomada </label>
+              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                <option value="" selected>Fiscalia de instroduccion</option>
+                <option value="">Demora</option>
+                <option value="">A.A.A</option>
+                <option value="">A.I.C.F</option>
+                <option value="">Aprehension</option>
+                <option value="">A.A echo</option>
+                <option value="">Detencion</option>
+                <option value="">Secuestros</option>
+                <option value="">Registros</option>
+                <option value="">Allanamiento</option>
+               
+                 </select>
             </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Cantidad de detenidos Causa Federal</label>
-              <input required type="text" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
-              <input required type="text" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Arrestados averiguacion del hecho</label>
-              <input required type="text" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Cantidad de Aprehendidos</label>
-              <input required type="text" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Arrestados averiguacion de activiades</label>
-              <input required type="text" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Arrestados Inf. código de faltas</label>
-              <input required type="text" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Demorados</label>
-              <input required type="text" id="txtDemorados" name="txtDemorados" class="form-control">
-            </div>
+           
+            
+            
             <div class="text-center">
               <button type="submit" name="agregar" value="agregar"  class="btn btn-primary float-end">Agregar</button>
             </div>

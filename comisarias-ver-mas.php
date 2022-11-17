@@ -1,140 +1,65 @@
 <?php 
-    include('conexion.php');
-    session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
-      header('Location: index.php');
-    }
-        
-    $idComisaria = $_GET['id'];
-    $id = $_GET['id'];
-    $estado ="";
-    $nombre="";
-    
-
-    //CONSULTA TABLA COMISARIA
-    $consulta = $bd_conex->prepare("SELECT * FROM comisarias WHERE idComisaria = :id");
-    $consulta->bindParam(':id',$id);
-    $consulta->execute();
-    $comisaria = $consulta->fetch(PDO::FETCH_LAZY);
-
-    $nombreComisaria=$comisaria['nombre'];
-    $direccionComisaria=$comisaria['direccion'];
-    $provinciaComisaria=$comisaria['provincia'];
-    $departamentoComisaria=$comisaria['departamento'];
-    $localidadComisaria=$comisaria['localidad'];
-    $telefonoComisaria=$comisaria['telefono'];
-    $latitudComisaria=$comisaria['latitud'];
-    $longitudComisaria=$comisaria['longitud'];
-    $habilitadoComisaria=$comisaria['habilitado'];
-    $eliminadoComisaria=$comisaria['eliminado'];
-
-    // $consulta="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
-    // $resultado=mysqli_query($conexion,$consulta);
-    // if (!$resultado) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    // if ($row = $resultado->fetch_assoc()) {
+  include('conexion.php');
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
+  }
       
-  // }
-  // if($nombreComisaria != null) {
-  //   echo $nombreComisaria;
-  //  }else{
-  //   echo 'no hay nada';
-  //  }
+  $idComisaria = $_GET['id'];
+  $id = $_GET['id'];
+  $estado ="";
+  $nombre="";
+  
+
+  //CONSULTA TABLA COMISARIA
+  $consulta = $bd_conex->prepare("SELECT * FROM comisarias WHERE idComisaria = :id");
+  $consulta->bindParam(':id',$id);
+  $consulta->execute();
+  $comisaria = $consulta->fetch(PDO::FETCH_LAZY);
+
+  $nombreComisaria=$comisaria['nombre'];
+  $direccionComisaria=$comisaria['direccion'];
+  $provinciaComisaria=$comisaria['provincia'];
+  $departamentoComisaria=$comisaria['departamento'];
+  $localidadComisaria=$comisaria['localidad'];
+  $telefonoComisaria=$comisaria['telefono'];
+  $latitudComisaria=$comisaria['latitud'];
+  $longitudComisaria=$comisaria['longitud'];
+  $habilitadoComisaria=$comisaria['habilitado'];
+  $eliminadoComisaria=$comisaria['eliminado'];
+
 
 
     //EDITAR UN REGISTRO
-/*    //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-    if (isset($_POST['guardar'])) {
-    $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria='$id'";
-    $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-    if (!$resultadoSelectRegistro) {
-      echo '<script>alert("ERROR INF")</script>';
-    }
-
-
-
-    //OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-  }
-  */
-    $nombre=(isset($_POST['nombre']))?$_POST['nombre']:"";;
-    $direccion=(isset($_POST['direccion']))?$_POST['direccion']:"";;
-    $provincia=(isset($_POST['provincia']))?$_POST['provincia']:"";;
-    $departamento=(isset($_POST['departamento']))?$_POST['departamento']:"";;
-    $localidad=(isset($_POST['localidad']))?$_POST['localidad']:"";;
-    $telefono=(isset($_POST['telefono']))?$_POST['telefono']:"";;
+    
   if (isset($_POST['guardar'])) {
+    $nombre=$_POST['nombre'];
+    $direccion=$_POST['direccion'];
+    $provincia=$_POST['provincia'];
+    $departamento=$_POST['departamento'];
+    $localidad=$_POST['localidad'];
+    $telefono=$_POST['telefono'];
 
-    $consulta = $bd_conex->prepare("UPDATE comisarias SET nombre=:nombre, direccion=:direccion, provincia=:provincia, departamento=:departamento, localidad=:localidad, telefono=:telefono WHERE idComisaria=:id");
-    $consulta ->bindParam(':id', $id);
-    $consulta ->bindParam(':nombre', $nombre);
-    $consulta ->bindParam(':direccion', $direccion);
-    $consulta ->bindParam(':provincia', $provincia);
-    $consulta ->bindParam(':departamento', $departamento);
-    $consulta ->bindParam(':localidad', $localidad);
-    $consulta ->bindParam(':telefono', $telefono);
-    $consulta->execute();
-
-    header('Location: comisarias-tabla.php');
+    $editar ="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono' WHERE idComisaria='$idComisaria'";
+    
+    $resultadoEditarRegistro = mysqli_query($conexion,$editar);
+    if (mysqli_errno($conexion)!=0) {
+      echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
+    }else{
+      // header('location:comisarias-ver-mas.php?id=<?php echo $id;?>');
+      ?>
+      <script language='JavaScript' type="text/javascript">
+        function B()
+                {     
+                location.href ='comisarias-ver-mas.php?id=<?php echo $id?>';
+                }
+                B();
+      </script>
+      <?php
+    }
      
   }
-    // $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
-    // $resultado1=mysqli_query($conexion,$sql);
-
-    // while($row1=$resultado1->fetch_assoc()){
-    //   $nombre=$row1['nombre'];
-    //   $direccion=$row1['direccion'];
-    //   $provincia=$row1['provincia'];
-    //   $departamento=$row1['departamento'];
-    //   $localidad=$row1['localidad'];
-    //   $telefono=$row1['telefono'];
-    //   $latitud=$row1['latitud'];
-    //   $longitud=$row1['longitud'];
-    //   $habilitado=$row1['habilitado'];
-    //   $eliminado=$row1['eliminado'];
-    // }
-    
-    /*//OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultado1->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-      }*/
-
-    //CONSULTA EDITAR REGISTRO
-  // $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
-
-    
-      
-  //     $resultadoEditarRegistro = mysqli_query($conexion,$consultaEditarRegistro);
-  //     if (!$resultadoEditarRegistro) {
-  //       echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
-  //     }else{
-  //       header('location:comisarias-tabla.php');
-  //     }
-  //   }
-  //   mysqli_close($conexion);
 
     //ELIMINAR UN REGISTRO
     if (isset($_POST['confirmarEliminarRegistro'])){
@@ -198,12 +123,6 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.4.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -297,7 +216,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <p>¿Esta seguro que desea deshabilitar este archivo?</p>
+                  <p>¿Esta seguro que desea realizar ésta acción?</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -330,7 +249,7 @@
                   <div class="card">
                     <div class="card-body">
                       <!-- FORMULARIO PARA EDITAR COMISARIA -->
-                      <form class="row g-3" method="post" action="comisarias-ver-mas.php">
+                      <form class="row g-3" method="post" action="">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
                           <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombreComisaria?>">
@@ -359,9 +278,7 @@
                         <div class="text-center">
                           
                           <button type="submit" name="guardar" class="btn btn-primary float-end" value="guardar">Guardar</button>
-                         
-                          
-
+ 
                         </div>
                       </form><!-- End Multi Columns Form -->
                       
@@ -369,7 +286,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   <!-- <button type="button" class="btn btn-primary">Understood</button> -->
                 </div>
               </div>
@@ -377,7 +294,6 @@
           </div>
       </div>
     </div>
-    <br>
     <div class="d-flex justify-content-between">
       <a class="btn btn-primary " href="comisarias-tabla.php">Volver</a>
     </div>

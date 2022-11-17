@@ -178,8 +178,6 @@ if ($row2 = $resultado2->fetch_assoc()) {
 
 
         <ul class="list-group mb-3">
-        <li class="list-group-item fw-bold">id Usuario: <span class="fw-normal ms-2"><?php echo $idUsuario; ?></span></li>
-
           <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombrePersona; ?></span></li>
           <li class="list-group-item fw-bold">Apellido: <span class="fw-normal ms-2"><?php echo $apellidoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Correo: <span class="fw-normal ms-2"><?php echo $correoPersona; ?></span></li>
@@ -251,7 +249,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p>¿Esta seguro que desea deshabilitar este archivo?</p>
+                <p>¿Esta seguro que desea realizar ésta acción?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -285,7 +283,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
                   <div class="card-body">
 
                     <!-- FORMULARIO PARA EDITAR USUARIO -->
-                    <form class="row g-3">
+                    <form class="row g-3" method="post" action="">
                       <div class="col-md-12">
                         <label for="inputName5" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="inputName5">
@@ -334,7 +332,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
         <!-- BOTON DESIGNAR COMISARIA-->
         <button type="button" class="btn btn-info float-left mt-3" data-bs-toggle="modal" data-bs-target="#btn-designar">
           <i class="bi bi-pencil-square"></i>
-          Designar comisaria
+          Asignar comisaria
         </button>
 
         <div class="modal fade bd-example-modal-lg" id="btn-designar" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -342,7 +340,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
             <div class="modal-content">
 
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Designar Comisaria</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Asignar Comisaria</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
 
@@ -381,7 +379,6 @@ if ($row2 = $resultado2->fetch_assoc()) {
 
                             while (($row4 = $resultado4->fetch_assoc())) 
                             {
-
                               $idComisaria_TC = $row4['idComisaria'];
                               $nombre = $row4['nombre'];
                               $direccion = $row4['direccion'];
@@ -402,7 +399,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
                                 <td><?php echo $provincia; ?></td>
                                 <td><?php echo $departamento; ?></td>
                                 <td>
-                                    <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $idComisaria_TC; ?>&idUsuario=<?php echo $idUsuario;?>">Designar</a>
+                                    <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $idComisaria_TC; ?>&idUsuario=<?php echo $idUsuario;?>">Asignar</a>
                                   </td>
                               </tr>
                                 <?php

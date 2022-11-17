@@ -2,14 +2,30 @@
   require_once "conexion.php";
   session_start();
   $error = ""; //variable para almacenar error
-
+  if(isset($_SESSION['usuario'])){
+    header('Location: inicio-dashboard.php');
+  }
   if (isset($_POST['submit'])){
-    if (!isset($_POST['usuario']) && !isset($_POST['password'])) {
+    // VARIABLES DEL CAPTCHA
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $captcha = $_POST['g-recaptcha-response'];
+    $secretkey = "6Le2M_giAAAAAMNBT9xuD4VJAf8g_Hf_zLmLIVrH";
+
+    $respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$captcha&remoteip=$ip");
+    $atributos = json_decode($respuesta, TRUE);
+
+    if(!$atributos['success']){
+      $error = "Verificar Captcha";
+
+    }elseif (!isset($_POST['usuario']) && !isset($_POST['password']))
+    {
       $error = "Usuario o Contraseña invalidos";
     }else{
       // DEFINE USUSARIO Y Contraseña
       $usuario = $_POST['usuario'];
       $password = $_POST['password'];
+
+      
 
       $sentenciaSQL=$bd_conex->prepare('SELECT idUsuario, usuario, rol FROM usuarios WHERE usuario=:usuario AND contraseña=:password');
       $sentenciaSQL->bindParam(':usuario', $usuario);
@@ -21,7 +37,6 @@
         $_SESSION['usuario']=$cuenta['usuario'];
         $_SESSION['rol']=$cuenta['rol'];
         $_SESSION['id']=$cuenta['idUsuario'];
-        
 
         $sentenciaSQL=$bd_conex->prepare('SELECT nombre, apellido FROM personas WHERE idPersona =:id');
         $sentenciaSQL->bindParam(':id', $_SESSION['id']);
@@ -90,6 +105,9 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
+  <!-- RECAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -118,7 +136,7 @@
                 </a>
               </div><!-- End Logo -->
 
-              <div class="card mb-3">
+              <div class="card mb-3 pb-3">
 
                 <div class="card-body">
 
@@ -143,14 +161,7 @@
                       <div class="invalid-feedback">Por favor, introduzca su contraseña.</div>
                     </div>
 
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Recordar cuenta</label>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
+                    <div class="col-12 d-flex align-items-center justify-content-center">
                       <div style='color:red'>
                         <?php
                        
@@ -158,15 +169,18 @@
                         ?> 
                         </div>
                     </div>
-                    
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                      <div class="g-recaptcha" data-sitekey="6Le2M_giAAAAACUkbvA13FYQumhDiPSyaQ9wivf2" required>
+
+                      </div>
+                      <div class="invalid-feedback">Por favor, valide el captcha.</div>
+                    </div>
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                      <button class="btn btn-primary w-50" type="submit" name="submit">Ingresar</button>
+                    </div>
+                  </form>
 
                 </div>
-
-                <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit" name="submit">Ingresar</button>
-                </div>
-                </form>
-
               </div>
             </div>
 
