@@ -47,7 +47,7 @@
     if (mysqli_errno($conexion)!=0) {
       echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
     }else{
-      // header('location:comisarias-ver-mas.php?id=<?php echo $id;?>');
+  
       ?>
       <script language='JavaScript' type="text/javascript">
         function B()
@@ -60,46 +60,8 @@
     }
      
   }
-    // $sql="SELECT * FROM comisarias WHERE idComisaria='$idComisaria'";
-    // $resultado1=mysqli_query($conexion,$sql);
 
-    // while($row1=$resultado1->fetch_assoc()){
-    //   $nombre=$row1['nombre'];
-    //   $direccion=$row1['direccion'];
-    //   $provincia=$row1['provincia'];
-    //   $departamento=$row1['departamento'];
-    //   $localidad=$row1['localidad'];
-    //   $telefono=$row1['telefono'];
-    //   $latitud=$row1['latitud'];
-    //   $longitud=$row1['longitud'];
-    //   $habilitado=$row1['habilitado'];
-    //   $eliminado=$row1['eliminado'];
-    // }
-    
-    /*//OBTENCION DE DATOS TABLA COMISARIA
-    if ($row1 = $resultado1->fetch_assoc()) {
-      $nombre='1';
-      $direccion='1';
-      $provincia='1';
-      $departamento='1';
-      $localidad='1';
-      $telefono='1';
-      $latitud='1';
-      $longitud='1';
-      $habilitado=1;
-      $eliminado=0;
-      }*/
-
-    //CONSULTA EDITAR REGISTRO
-  // $consultaEditarRegistro="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono', habilitado='$habilitado', latitud='$latitud', longitud='$longitud', eliminado='$eliminado' WHERE idComisaria='$idComisaria' ";
-
-    
-      
-      
-    
-  //   mysqli_close($conexion);
-
-    //ELIMINAR UN REGISTRO
+    // ELIMINAR UN REGISTRO
     if (isset($_POST['confirmarEliminarRegistro'])){
       $eliminadoComisaria = 1;
       $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET eliminado=:eliminado WHERE idComisaria=:id');
