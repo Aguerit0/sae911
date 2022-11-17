@@ -1,33 +1,33 @@
 <?php 
-    include('conexion.php');
-    session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
-      header('Location: index.php');
-    }
-        
-    $idComisaria = $_GET['id'];
-    $id = $_GET['id'];
-    $estado ="";
-    $nombre="";
-    
+  include('conexion.php');
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
+  }
+      
+  $idComisaria = $_GET['id'];
+  $id = $_GET['id'];
+  $estado ="";
+  $nombre="";
+  
 
-    //CONSULTA TABLA COMISARIA
-    $consulta = $bd_conex->prepare("SELECT * FROM comisarias WHERE idComisaria = :id");
-    $consulta->bindParam(':id',$id);
-    $consulta->execute();
-    $comisaria = $consulta->fetch(PDO::FETCH_LAZY);
+  //CONSULTA TABLA COMISARIA
+  $consulta = $bd_conex->prepare("SELECT * FROM comisarias WHERE idComisaria = :id");
+  $consulta->bindParam(':id',$id);
+  $consulta->execute();
+  $comisaria = $consulta->fetch(PDO::FETCH_LAZY);
 
-    $nombreComisaria=$comisaria['nombre'];
-    $direccionComisaria=$comisaria['direccion'];
-    $provinciaComisaria=$comisaria['provincia'];
-    $departamentoComisaria=$comisaria['departamento'];
-    $localidadComisaria=$comisaria['localidad'];
-    $telefonoComisaria=$comisaria['telefono'];
-    $latitudComisaria=$comisaria['latitud'];
-    $longitudComisaria=$comisaria['longitud'];
-    $habilitadoComisaria=$comisaria['habilitado'];
-    $eliminadoComisaria=$comisaria['eliminado'];
+  $nombreComisaria=$comisaria['nombre'];
+  $direccionComisaria=$comisaria['direccion'];
+  $provinciaComisaria=$comisaria['provincia'];
+  $departamentoComisaria=$comisaria['departamento'];
+  $localidadComisaria=$comisaria['localidad'];
+  $telefonoComisaria=$comisaria['telefono'];
+  $latitudComisaria=$comisaria['latitud'];
+  $longitudComisaria=$comisaria['longitud'];
+  $habilitadoComisaria=$comisaria['habilitado'];
+  $eliminadoComisaria=$comisaria['eliminado'];
 
 
 
@@ -44,10 +44,19 @@
     $editar ="UPDATE comisarias SET nombre='$nombre', direccion='$direccion', provincia='$provincia', departamento='$departamento', localidad='$localidad', telefono='$telefono' WHERE idComisaria='$idComisaria'";
     
     $resultadoEditarRegistro = mysqli_query($conexion,$editar);
-    if (!$resultadoEditarRegistro) {
+    if (mysqli_errno($conexion)!=0) {
       echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
     }else{
-      header('location:comisarias-tabla.php');
+      // header('location:comisarias-ver-mas.php?id=<?php echo $id;?>');
+      ?>
+      <script language='JavaScript' type="text/javascript">
+        function B()
+                {     
+                location.href ='comisarias-ver-mas.php?id=<?php echo $id?>';
+                }
+                B();
+      </script>
+      <?php
     }
      
   }
@@ -284,7 +293,7 @@
                   <div class="card">
                     <div class="card-body">
                       <!-- FORMULARIO PARA EDITAR COMISARIA -->
-                      <form class="row g-3" method="post" action="comisarias-ver-mas.php">
+                      <form class="row g-3" method="post" action="">
                         <div class="col-md-12">
                           <label for="inputName5" class="form-label">Nombre</label>
                           <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombreComisaria?>">
@@ -313,9 +322,7 @@
                         <div class="text-center">
                           
                           <button type="submit" name="guardar" class="btn btn-primary float-end" value="guardar">Guardar</button>
-                         
-                          
-
+ 
                         </div>
                       </form><!-- End Multi Columns Form -->
                       
@@ -331,7 +338,6 @@
           </div>
       </div>
     </div>
-    <br>
     <div class="d-flex justify-content-between">
       <a class="btn btn-primary " href="comisarias-tabla.php">Volver</a>
     </div>

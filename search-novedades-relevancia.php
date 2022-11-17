@@ -51,7 +51,7 @@ if ($num_rows > 0) {
         $html .= '<td scope="row">' . $row['hora_tabla'] . '</td>';
         $html .= '<td scope="row">' . $row['lugar'] . '</td>';
         $id=$row['id'];
-        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' . $row['id'] .'">Ver más</a></td>';
+        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' .$id .'">Ver más</a></td>';
         $html .= '</tr>';
 
     }

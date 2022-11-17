@@ -121,7 +121,7 @@
 
          
             <div class="col-md-6">
-              <label for="inputDate"  class="col-sm-2 col-form-label">Fecha de resgitro</label>
+              <label for="inputDate"  class=" col-form-label">Fecha de resgitro</label>
               <div class="col-sm-10">
                 <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
               </div>
