@@ -29,7 +29,7 @@ $id=$_GET['id'];
       $lugar = $novedades['lugar'];
       $sindicatos = $novedades['sindicatos'];
       $caracteristicas_hecho = $novedades['caracteristicas_hecho'];
-      $elento_utlizado = $novedades['elento_utlizado'];
+      $elemento_utlizado = $novedades['elemento_utilizado'];
       $movil = $novedades['movil'];
       $elemento_sustraido = $novedades['elemento_sustraido'];
       $hecho_consumado = $novedades['hecho_consumado'];
@@ -191,7 +191,7 @@ $id=$_GET['id'];
           <li class="list-group-item fw-bold"> Lugar: <span class="fw-normal ms-2"><?php echo $lugar ?></span></li>
           <li class="list-group-item fw-bold">Sindicatos: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
           <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
-          <li class="list-group-item fw-bold">Elemnto Utilizado: <span class="fw-normal ms-2"><?php echo $elento_utlizado ?></span></li>
+          <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utlizado ?></span></li>
           <li class="list-group-item fw-bold">Movil: <span class="fw-normal ms-2"><?php echo $movil ?></span></li>
           <li class="list-group-item fw-bold">Elemento Sustraido: <span class="fw-normal ms-2"><?php echo $elemento_sustraido ?></span></li>
           <li class="list-group-item fw-bold">Hecho Consumado: <span class="fw-normal ms-2"><?php echo $hecho_consumado ?></span></li>
