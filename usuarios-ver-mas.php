@@ -266,7 +266,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
         </div>
 
         <!-- BOTON MODAL EDITAR -->
-        <button disabled type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#modalEditar">
+        <button type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#modalEditar">
           <i class="bi bi-pencil-square"></i>
           Editar
         </button>
@@ -283,7 +283,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
                   <div class="card-body">
 
                     <!-- FORMULARIO PARA EDITAR USUARIO -->
-                    <form class="row g-3">
+                    <form class="row g-3" method="post" action="">
                       <div class="col-md-12">
                         <label for="inputName5" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="inputName5">
