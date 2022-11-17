@@ -173,11 +173,11 @@ $id=$_GET['id'];
 
   <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Tabla Novedades de Guardia</h1>
+        <h1>Tabla Novedades de Relevancia</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="novedades-tabla.php">Tabla Novedades de Guardia</a></li>
+            <li class="breadcrumb-item"><a href="novedades-tabla.php">Tabla Novedades de Relevancia</a></li>
             <li class="breadcrumb-item active">Ver Más</li>
           </ol>
         </nav>
@@ -217,7 +217,7 @@ $id=$_GET['id'];
         </ul>  
         
         <?php  if($_SESSION['rol'] == 1){
-           include ("./template/botonera-novedadesDeRelevancia.php.php");
+           include ("./template/botonera-novedadesDeRelevancia.php");
           }
         ?>
       </div>
