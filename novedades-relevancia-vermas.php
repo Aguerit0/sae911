@@ -23,13 +23,13 @@ $id=$_GET['id'];
     //OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
     
 
+      $idNovedadesRelevancia = $novedades['id'];
       $fecha_reg = $novedades['fecha_reg'];
       $fecha_reg_tabla = $novedades['fecha_reg_tabla'];
-      $hora_tabla = $novedades['hora_tabla'];
-      $lugar = $novedades['lugar'];
-      $sindicatos = $novedades['sindicatos'];
+      $hora_reg = $novedades['hora_reg'];
+      $sindicatos = $novedades['sindicados'];
       $caracteristicas_hecho = $novedades['caracteristicas_hecho'];
-      $elemento_utlizado = $novedades['elemento_utilizado'];
+      $elemento_utilizado = $novedades['elemento_utilizado'];
       $movil = $novedades['movil'];
       $elemento_sustraido = $novedades['elemento_sustraido'];
       $hecho_consumado = $novedades['hecho_consumado'];
@@ -44,8 +44,8 @@ $id=$_GET['id'];
       $unidad_judicial= $novedades['unidad_judicial'];
       $comision_personal= $novedades['comision_personal'];
       $medida_tomada= $novedades['medida_tomada'];
-      $id_tipo= $novedades['id_tipo'];
-      $id_subtipo= $novedades['id_subtipo'];
+      $tipo= $novedades['tipo'];
+      $subtipo= $novedades['subtipo'];
       $idComisaria= $novedades['idComisaria'];
 
 
@@ -185,13 +185,12 @@ $id=$_GET['id'];
     <div class="card w-75 pt-3">
       <div class="card-body">
           <ul class="list-group">
-          <li class="list-group-item fw-bold">Fecha Registro: <span class="fw-normal ms-2"><?php echo $fecha_reg ?></span></li></li>
-          <li class="list-group-item fw-bold">Fecha Registro: <span class="fw-normal ms-2"><?php echo $fecha_reg_tabla ?></span></li>
-          <li class="list-group-item fw-bold">Hora: <span class="fw-normal ms-2"><?php echo $hora_tabla ?></span></li>
-          <li class="list-group-item fw-bold"> Lugar: <span class="fw-normal ms-2"><?php echo $lugar ?></span></li>
+          <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php echo $fecha_reg_tabla ?></span></li></li>
+          <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php echo $fecha_reg ?></span></li>
+          <li class="list-group-item fw-bold">Hora Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
           <li class="list-group-item fw-bold">Sindicatos: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
           <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
-          <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utlizado ?></span></li>
+          <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utilizado ?></span></li>
           <li class="list-group-item fw-bold">Movil: <span class="fw-normal ms-2"><?php echo $movil ?></span></li>
           <li class="list-group-item fw-bold">Elemento Sustraido: <span class="fw-normal ms-2"><?php echo $elemento_sustraido ?></span></li>
           <li class="list-group-item fw-bold">Hecho Consumado: <span class="fw-normal ms-2"><?php echo $hecho_consumado ?></span></li>
@@ -208,9 +207,9 @@ $id=$_GET['id'];
           <li class="list-group-item fw-bold">Comision Personal: <span class="fw-normal ms-2"><?php echo $comision_personal ?></span></li>
 
           <li class="list-group-item fw-bold">Medida Tomada: <span class="fw-normal ms-2"><?php echo $medida_tomada ?></span></li>
-          <li class="list-group-item fw-bold">Tipo: <span class="fw-normal ms-2"><?php echo $id_tipo ?></span></li>
-         <li class="list-group-item fw-bold">Sub Tipo: <span class="fw-normal ms-2"><?php echo $id_subtipo ?></span></li>
-         <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $id_Comisaria ?></span></li>
+          <li class="list-group-item fw-bold">Tipo: <span class="fw-normal ms-2"><?php echo $tipo ?></span></li>
+         <li class="list-group-item fw-bold">Sub Tipo: <span class="fw-normal ms-2"><?php echo $subtipo ?></span></li>
+         <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $idComisaria ?></span></li>
 
 
 
