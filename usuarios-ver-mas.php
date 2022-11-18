@@ -190,7 +190,7 @@ if (isset($_POST['guardar'])) {
       ?>
 
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong> El usuairo ya pertenese a esa comisaria.</strong>
+              <strong> El usuario ya pertenese a esa comisaria.</strong>
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
       
@@ -203,7 +203,7 @@ if (isset($_POST['guardar'])) {
           {
       ?>
 
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
               <strong>Cambiado!</strong> Los datos fueron actualizados.
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
