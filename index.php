@@ -2,7 +2,9 @@
   require_once "conexion.php";
   session_start();
   $error = ""; //variable para almacenar error
-
+  if(isset($_SESSION['usuario'])){
+    header('Location: inicio-dashboard.php');
+  }
   if (isset($_POST['submit'])){
     // VARIABLES DEL CAPTCHA
     $ip = $_SERVER['REMOTE_ADDR'];

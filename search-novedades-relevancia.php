@@ -7,7 +7,7 @@
 require 'conexion.php';
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['id','fecha_reg', 'fecha_reg_tabla', 'hora_tabla', 'lugar'];
+$columns = ['id','fecha_reg', 'fecha_reg_tabla', 'tipo', 'subtipo'];
 
 /* Nombre de la tabla */
 $table = "novedades_de_relevancia";
@@ -48,10 +48,10 @@ if ($num_rows > 0) {
         $html .= '<th scope="row">' . $id .'</td>';
         $html .= '<th scope="row">' . $row['fecha_reg'] . '</td>';
         $html .= '<td scope="row">' . $row['fecha_reg_tabla'] . '</td>';
-        $html .= '<td scope="row">' . $row['hora_tabla'] . '</td>';
-        $html .= '<td scope="row">' . $row['lugar'] . '</td>';
+        $html .= '<td scope="row">' . $row['tipo'] . '</td>';
+        $html .= '<td scope="row">' . $row['subtipo'] . '</td>';
         $id=$row['id'];
-        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' . $row['id'] .'">Ver más</a></td>';
+        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' .$id .'">Ver más</a></td>';
         $html .= '</tr>';
 
     }
