@@ -10,6 +10,7 @@ if ($row1 = $resultado1->fetch_assoc()) {
   $nombreUsuario = $row1['usuario'];
   $contraseñaUsuario = $row1['contraseña'];
   $idPersona = $row1['idPersona'];
+  $rolUsuario = $row1['rol'];
 }
 
 $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
@@ -25,6 +26,41 @@ if ($row2 = $resultado2->fetch_assoc()) {
   $habilitadoPersona = $row2['habilitado'];
   $eliminadoPersona = $row2['eliminado'];
 }
+//EDITAR REGISTRO
+if (isset($_POST['guardar'])) {
+  $nombre=$_POST['nombre'];
+  $apellido=$_POST['apellido'];
+  $correo=$_POST['correo'];
+  $telefono=$_POST['telefono'];
+  $sexo=$_POST['sexo'];
+  $dni=$_POST['dni'];
+  $usuario=$_POST['usuario'];
+  $contraseña=$_POST['contraseña'];
+  $rol =$_POST['rol'];
+
+  $editarPersona ="UPDATE personas SET nombre='$nombre', apellido='$apellido', correo='$correo', telefono='$telefono', sexo='$sexo', dni='$dni' WHERE idPersona='$idPersona'";
+
+  $editarUsuario ="UPDATE usuarios SET usuario='$usuario', contraseña='$contraseña', rol='$rol'  WHERE idUsuario='$idUsuario'";
+  
+  $ejecutarEditarPersona = mysqli_query($conexion,$editarPersona);
+  $ejecutarEditarUsuario = mysqli_query($conexion,$editarUsuario);
+
+  if (mysqli_errno($conexion)!=0) {
+    echo "<script>alert('ERROR AL EDITAR DATOS');</script>";
+  } else {
+    ?>
+    <script language='JavaScript' type="text/javascript">
+      function B()
+              {     
+              location.href ='usuarios-ver-mas.php?id=<?php echo $idUsuario?>';
+              }
+              B();
+    </script>
+    <?php
+  }
+   
+}
+
 // HABILITAR / DESHABILITAR
 
   if(isset($_POST['confirmarDeshabilitar'])){
@@ -154,7 +190,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
       ?>
 
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong> El usuairo ya pertenese a esa comisaria.</strong>
+              <strong> El usuario ya pertenese a esa comisaria.</strong>
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
       
@@ -167,7 +203,7 @@ if ($row2 = $resultado2->fetch_assoc()) {
           {
       ?>
 
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
               <strong>Cambiado!</strong> Los datos fueron actualizados.
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
@@ -203,6 +239,8 @@ if ($row2 = $resultado2->fetch_assoc()) {
                                                                                                 echo "No";
                                                                                               } ?></span>
           </li>
+          <li class="list-group-item fw-bold">Rol: <span class="fw-normal ms-2"><?php if($rolUsuario == 1){echo 'Administrador';}else{echo 'Usuario';} ?></span>
+          </li> 
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->
@@ -286,34 +324,57 @@ if ($row2 = $resultado2->fetch_assoc()) {
                     <form class="row g-3" method="post" action="">
                       <div class="col-md-12">
                         <label for="inputName5" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="inputName5">
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombrePersona?>">
                       </div>
                       <div class="col-md-12">
                         <label for="inputLastName5" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="inputLastName5">
+                        <input type="text" class="form-control" id="apellido" name="apellido" value="<?php echo $apellidoPersona?>">
                       </div>
                       <div class="col-md-12">
                         <label for="inputEmail5" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="inputEmail5">
+                        <input type="email" class="form-control" id="correo" name="correo" value="<?php echo $correoPersona?>">
                       </div>
                       <div class="col-12">
                         <label for="inputPhone5" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="inputPhone5">
+                        <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefonoPersona?>">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputPhone5" class="form-label">Genero</label>
+                        <select name="sexo" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
+                          <option selected value="<?php echo $sexoPersona?>"><?php echo $sexoPersona?></option>
+                          <option value="Masculino">Masculino</option>
+                          <option value="Femenino">Femenino</option>
+                          <option value="No Binario">No binario</option>
+                        </select>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="inputUser5" class="form-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $dniPersona?>">
                       </div>
                       <div class="col-md-12">
                         <label for="inputUser5" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" id="inputUser5">
+                        <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $nombreUsuario?>">
                       </div>
-                      <div class="col-md-6">
-                        <label for="inputState" class="form-label">Habilitado</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Habilitado</option>
-                          <option>Deshabilitado</option>
+                      <div class="col-md-12">
+                        <label for="inputUser5" class="form-label">Contraseña</label>
+                        <input type="text" class="form-control" id="contraseña" name="contraseña" value="<?php echo $contraseñaUsuario?>">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputPhone5" class="form-label">Rol</label>
+                        <select name="rol" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
+                          <option selected value="<?php echo $rolUsuario?>"><?php
+                          if($rolUsuario == 1){
+                            echo 'Administrador';
+                          }else{
+                            echo 'Usuario';
+                          }
+                          ?></option>
+                          <option value="1">Administrador</option>
+                          <option value="0">Usuario</option>
                         </select>
                       </div>
-
                       <div class="text-center">
-                        <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                        <button type="submit" name="guardar" value="guardar" class="btn btn-primary float-end">Guardar</button>
                       </div>
                     </form>
                     <!-- End Multi Columns Form -->
