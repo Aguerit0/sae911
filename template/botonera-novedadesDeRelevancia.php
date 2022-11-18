@@ -1,6 +1,6 @@
 <?php 
   
-    //EDITAR NOVEDAD DE GUARDIA
+
     //BOTON GUARDAR->VERMASNOVEDADES->
      if (isset($_POST['guardarNovedadRelevancia'])) {
       include('conexion.php');
