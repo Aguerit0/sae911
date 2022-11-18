@@ -39,7 +39,7 @@ FROM $table
 $where ";
 
 if ($_SESSION['rol']==1) {
-    $sql2 = "SELECT * FROM  novedades_de_guardia n INNER JOIN comisarias c WHERE n.idComisaria=c.idComisaria";
+    $sql2 = "SELECT * FROM  novedades_de_guardia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%')";
 }else if ($_SESSION['rol']==0) {
     $sql2 = "SELECT * FROM novedades_de_guardia n INNER JOIN comisarias c WHERE (n.idComisaria= c.idComisaria) AND (n.idComisaria = $id) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%')";
 }

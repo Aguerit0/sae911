@@ -335,8 +335,8 @@ mysqli_close($conexion);
                     <th scope="col">ID</th>
                     <th scope="col">Fecha registro</th>
                     <th scope="col">Fecha Suceso</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Lugar</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Subtipo</th>
                     <th scope="col">. . .</th>
                 </tr>
             </thead>

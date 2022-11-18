@@ -47,7 +47,7 @@
     if (mysqli_errno($conexion)!=0) {
       echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
     }else{
-  
+      // header('location:comisarias-ver-mas.php?id=<?php echo $id;?>');
       ?>
       <script language='JavaScript' type="text/javascript">
         function B()
@@ -61,7 +61,7 @@
      
   }
 
-    // ELIMINAR UN REGISTRO
+    //ELIMINAR UN REGISTRO
     if (isset($_POST['confirmarEliminarRegistro'])){
       $eliminadoComisaria = 1;
       $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET eliminado=:eliminado WHERE idComisaria=:id');
@@ -123,12 +123,6 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.4.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>

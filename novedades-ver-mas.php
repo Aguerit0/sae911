@@ -13,13 +13,6 @@
     $consultaSQL->execute();
     $novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
 
-
-    // $consultaSelectNovedades="SELECT * FROM novedades_de_guardia WHERE id=$idNovedades";
-    // $resultadoSelectNovedades=mysqli_query($conexion,$consultaSelectNovedades);
-    // if (!$resultadoSelectNovedades) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-    //OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
     
       $idUsuario = $novedades['idUsuario'];
       $idComisaria=$novedades['idComisaria'];
@@ -47,45 +40,8 @@
       $demorados = $novedades['demorados'];
       $eliminado= $novedades['eliminado'];
 
-    //OBTENCION DE DATOS DE TABLA COMISARIAS POR: IDCOMISARIAS
-    //CONSULTAMOS BD
-    // $consultaSelectComisarias="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-    // $resultadoSelectComisarias=mysqli_query($conexion,$consultaSelectComisarias);
-    // if (!$consultaSelectComisarias) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-    // if ($row2=$resultadoSelectComisarias->fetch_assoc()) {
-    //   $nombreComisaria=$row2['nombre'];
-    // }
 
-
-    // //BOTON GUARDAR->VERMASNOVEDADES->
-    // if (isset($_POST['guardarNovedad'])) {
-    //   $fecha=$_POST['fecha'];
-    //   $turno=$_POST['turno'];
-    //   $superior_de_turno=$_POST['superior_de_turno'];
-    //   $oficial_servicio=$_POST['oficial_servicio'];
-    //   $personas_de_guardia=$_POST['personas_de_guardia'];
-    //   $motoristas=$_POST['motoristas'];
-    //   $mov_funcionamiento=$_POST['mov_funcionamiento'];
-    //   $mov_fuera_de_servicio=$_POST['mov_fuera_de_servicio'];
-    //   $detenidos_causa_federal=$_POST['detenidos_causa_federal'];
-    //   $detenidos_justicia_ordinaria=$_POST['detenidos_justicia_ordinaria'];
-    //   $arres_averiguacion_de_hecho=$_POST['arres_averiguacion_de_hecho'];
-    //   $aprehendidos=$_POST['aprehendidos'];
-    //   $arres_averiguacion_actividades=$_POST['arres_averiguacion_actividades'];
-    //   $arres_info_codigo_de_faltas=$_POST['arres_info_codigo_de_faltas'];
-    //   $demorados=$_POST['demorados'];
-
-    //   //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
-    //   $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
-    //   $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
-    //   if (!$resultadoUpdateNovedades) {
-    //     echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    //   }
-
-    // }
-
+    
 
 
 
@@ -99,20 +55,7 @@
     
     header('Location: novedades-tabla.php');
   }
-
-  //   //EDITAR UN REGISTRO
-  //   //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-  //   if (isset($_POST['guardarRegistro'])) {
-  //   $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-  //   $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-  //   if (!$resultadoSelectRegistro) {
-  //     echo '<script>alert("ERROR INF")</script>';
-  //   }
-  //   //OBTENCION DE DATOS TABLA COMISARIA
-  //   if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-
-  // }
-    // mysqli_close($conexion);
+    mysqli_close($conexion);
  ?>
 
 <!DOCTYPE html>
