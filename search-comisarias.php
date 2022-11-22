@@ -25,7 +25,7 @@ if ($campo != null) {
     for ($i = 0; $i < $cont; $i++) {
         $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
     }
-    $where = substr_replace($where, "", -3);
+    $where = substr_replace($where, "", -4);
     $where .= ")";
 }else{
     $where = "WHERE (eliminado<1) AND (";
@@ -34,7 +34,7 @@ if ($campo != null) {
     for ($i = 0; $i < $cont; $i++) {
         $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
     }
-    $where = substr_replace($where, "", -3);
+    $where = substr_replace($where, "", -4);
     $where .= ")";
 }
 

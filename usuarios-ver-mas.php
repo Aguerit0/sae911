@@ -10,6 +10,7 @@ if ($row1 = $resultado1->fetch_assoc()) {
   $nombreUsuario = $row1['usuario'];
   $contraseñaUsuario = $row1['contraseña'];
   $idPersona = $row1['idPersona'];
+  $rolUsuario = $row1['rol'];
 }
 
 $consultaSelectPersona = "SELECT * FROM personas WHERE idPersona=$idPersona";
@@ -25,33 +26,68 @@ if ($row2 = $resultado2->fetch_assoc()) {
   $habilitadoPersona = $row2['habilitado'];
   $eliminadoPersona = $row2['eliminado'];
 }
+//EDITAR REGISTRO
+if (isset($_POST['guardar'])) {
+  $nombre=$_POST['nombre'];
+  $apellido=$_POST['apellido'];
+  $correo=$_POST['correo'];
+  $telefono=$_POST['telefono'];
+  $sexo=$_POST['sexo'];
+  $dni=$_POST['dni'];
+  $usuario=$_POST['usuario'];
+  $contraseña=$_POST['contraseña'];
+  $rol =$_POST['rol'];
+
+  $editarPersona ="UPDATE personas SET nombre='$nombre', apellido='$apellido', correo='$correo', telefono='$telefono', sexo='$sexo', dni='$dni' WHERE idPersona='$idPersona'";
+
+  $editarUsuario ="UPDATE usuarios SET usuario='$usuario', contraseña='$contraseña', rol='$rol'  WHERE idUsuario='$idUsuario'";
+  
+  $ejecutarEditarPersona = mysqli_query($conexion,$editarPersona);
+  $ejecutarEditarUsuario = mysqli_query($conexion,$editarUsuario);
+
+  if (mysqli_errno($conexion)!=0) {
+    echo "<script>alert('ERROR AL EDITAR DATOS');</script>";
+  } else {
+    ?>
+    <script language='JavaScript' type="text/javascript">
+      function B()
+              {     
+              location.href ='usuarios-ver-mas.php?id=<?php echo $idUsuario?>';
+              }
+              B();
+    </script>
+    <?php
+  }
+   
+}
+
 // HABILITAR / DESHABILITAR
 
-if (isset($_POST['confirmarDeshabilitar'])) {
-  if ($habilitadoPersona == 1) {
-    $estado = 0;
-  } elseif ($habilitadoPersona == 0) {
-    $estado = 1;
+  if(isset($_POST['confirmarDeshabilitar'])){
+    if($habilitadoPersona == 1){
+      $estado = 0;
+    }elseif($habilitadoPersona==0){
+      $estado = 1;
+    }
+    $sentenciaSQL=$bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
+    $sentenciaSQL->bindParam(':id', $idPersona);
+    $sentenciaSQL->bindParam(':estado',$estado);
+    $sentenciaSQL->execute();
+
+    header('Location: usuarios-tabla.php');
   }
-  $sentenciaSQL = $bd_conex->prepare('UPDATE personas SET habilitado=:estado WHERE idPersona=:id');
-  $sentenciaSQL->bindParam(':id', $idPersona);
-  $sentenciaSQL->bindParam(':estado', $estado);
-  $sentenciaSQL->execute();
 
-  header('Location: usuarios-tabla.php');
-}
-
-// ELIMINAR
-if (isset($_POST['confirmarEliminarRegistro'])) {
-  $eliminadoUsuario = 1;
-  $sentenciaSQL = $bd_conex->prepare('UPDATE usuarios SET eliminado=:eliminado WHERE idUsuario=:id');
-  $sentenciaSQL->bindParam(':id', $idUsuario);
-  $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
-  $sentenciaSQL->execute();
-
-  header('Location: usuarios-tabla.php');
-}
-
+  // ELIMINAR
+  if (isset($_POST['confirmarEliminarRegistro'])){
+    $eliminadoUsuario = 1;
+    $sentenciaSQL=$bd_conex->prepare('UPDATE usuarios SET eliminado=:eliminado WHERE idUsuario=:id');
+    $sentenciaSQL->bindParam(':id', $idUsuario);
+    $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
+    $sentenciaSQL->execute();
+    
+    header('Location: usuarios-tabla.php');
+  }
+  
 
 
 ?>
@@ -114,63 +150,67 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
-
+    
+    
     <div class="card w-75 pt-3">
       <div class="card-body">
 
-        <!-- CODIGO DE ALERTAS -->
-        <?php
-        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'falta') {
-        ?>
+      <!-- CODIGO DE ALERTAS -->
+    <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'falta')
+          {
+      ?>
 
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> Rellena todos los campos.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <strong>Error!</strong> Rellena todos los campos.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-
-        <?php
-        }
-        ?>
-
-        <?php
-        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'registrado') {
-        ?>
+      
+      <?php
+          }
+      ?>
+      
+      <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'registrado')
+          {
+      ?>
 
           <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Registrado!</strong> Se asigno correctame la comisaria al usuario.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <strong>Registrado!</strong> Se asigno correctame la comisaria al usuario.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
+      
+      <?php
+          }
+      ?>
 
-        <?php
-        }
-        ?>
-
-        <?php
-        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
-        ?>
+      <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+          {
+      ?>
 
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong> El usuairo ya pertenese a esa comisaria.</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <strong> El usuario ya pertenese a esa comisaria.</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
+      
+      <?php
+          }
+      ?>
 
-        <?php
-        }
-        ?>
+      <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
+          {
+      ?>
 
-        <?php
-        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado') {
-        ?>
-
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Cambiado!</strong> Los datos fueron actualizados.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Cambiado!</strong> Los datos fueron actualizados.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-
-        <?php
-        }
-        ?>
+      
+      <?php
+          }
+      ?>
 
 
         <ul class="list-group mb-3">
@@ -178,25 +218,29 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
           <li class="list-group-item fw-bold">Apellido: <span class="fw-normal ms-2"><?php echo $apellidoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Correo: <span class="fw-normal ms-2"><?php echo $correoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Teléfono: <span class="fw-normal ms-2"><?php echo $telefonoPersona; ?></span></li>
-          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php if ($sexoPersona == 1) {
-                                                                                    echo "Masculino";
-                                                                                    } else {
-                                                                                      if ($sexoPersona == 2) {
-                                                                                        echo "Femenino";
-                                                                                      } else {
-                                                                                        echo "No binario";
-                                                                                      }
-                                                                                    } ?></span>
+          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php if ($sexoPersona == 1) 
+                                                                                              {
+                                                                                                echo "Masculino";
+                                                                                              } else { 
+                                                                                                if($sexoPersona == 2){
+                                                                                                  echo "Femenino";
+                                                                                                }else{
+                                                                                                  echo "No binario";
+                                                                                                }
+                                                                                              } ?></span>
           </li>
           <li class="list-group-item fw-bold">DNI: <span class="fw-normal ms-2"><?php echo $dniPersona; ?></span> </li>
           <li class="list-group-item fw-bold">Fecha de Registro: <span class="fw-normal ms-2"><?php echo $fechaRegistroPersona; ?></span></li>
-          <li class="list-group-item fw-bold">Usuario: <span class="fw-normal ms-2"><?php echo $nombreUsuario; ?></span></li>
-          <li class="list-group-item fw-bold">Habilitado: <span class="fw-normal ms-2"><?php if ($habilitadoPersona == 1) {
-                                                                                          echo "Si";
-                                                                                        } else {
-                                                                                          echo "No";
-                                                                                        } ?></span>
+          <li class="list-group-item fw-bold">Usuario: <span class="fw-normal ms-2"><?php echo $nombreUsuario; ?></span></li>          
+          <li class="list-group-item fw-bold">Habilitado: <span class="fw-normal ms-2"><?php if ($habilitadoPersona == 1) 
+                                                                                              {
+                                                                                                echo "Si";
+                                                                                              } else {
+                                                                                                echo "No";
+                                                                                              } ?></span>
           </li>
+          <li class="list-group-item fw-bold">Rol: <span class="fw-normal ms-2"><?php if($rolUsuario == 1){echo 'Administrador';}else{echo 'Usuario';} ?></span>
+          </li> 
         </ul>
 
         <!-- BOTON MODAL ELIMINAR -->
@@ -225,15 +269,15 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
         </div>
 
         <!-- BOTON MODAL DESHABILITAR -->
-        <?php if ($habilitadoPersona == 1) { ?>
-          <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-            Deshabilitar
-          </button>
-        <?php } elseif ($habilitadoPersona == 0) { ?>
-          <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
-            Habilitar
-          </button>
-        <?php } ?>
+        <?php if($habilitadoPersona == 1){?>
+            <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+              Deshabilitar
+            </button>                    
+        <?php }elseif($habilitadoPersona==0){?>
+            <button type="button" class="btn btn-success float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#modalDeshabilitar">
+             Habilitar
+            </button>                    
+        <?php }?>
         <!-- Modal DEHABILITAR -->
         <div class="modal fade" id="modalDeshabilitar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -248,12 +292,12 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <form action="" method="post">
-                  <?php if ($habilitadoPersona == 1) { ?>
-                    <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
-                  <?php } elseif ($habilitadoPersona == 0) { ?>
-                    <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
-                  <?php } ?>
-                </form>
+                    <?php if($habilitadoPersona == 1){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-danger">Deshabilitar</button>
+                    <?php }elseif($habilitadoPersona==0){?>
+                            <button type="submit" name="confirmarDeshabilitar" value="deshabilitar" class="btn btn-success">Habilitar</button>
+                    <?php }?>                     
+                  </form>
               </div>
             </div>
           </div>
@@ -280,34 +324,57 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
                     <form class="row g-3" method="post" action="">
                       <div class="col-md-12">
                         <label for="inputName5" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="inputName5">
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombrePersona?>">
                       </div>
                       <div class="col-md-12">
                         <label for="inputLastName5" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="inputLastName5">
+                        <input type="text" class="form-control" id="apellido" name="apellido" value="<?php echo $apellidoPersona?>">
                       </div>
                       <div class="col-md-12">
                         <label for="inputEmail5" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="inputEmail5">
+                        <input type="email" class="form-control" id="correo" name="correo" value="<?php echo $correoPersona?>">
                       </div>
                       <div class="col-12">
                         <label for="inputPhone5" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="inputPhone5">
+                        <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefonoPersona?>">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputPhone5" class="form-label">Genero</label>
+                        <select name="sexo" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
+                          <option selected value="<?php echo $sexoPersona?>"><?php echo $sexoPersona?></option>
+                          <option value="Masculino">Masculino</option>
+                          <option value="Femenino">Femenino</option>
+                          <option value="No Binario">No binario</option>
+                        </select>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="inputUser5" class="form-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $dniPersona?>">
                       </div>
                       <div class="col-md-12">
                         <label for="inputUser5" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" id="inputUser5">
+                        <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $nombreUsuario?>">
                       </div>
-                      <div class="col-md-6">
-                        <label for="inputState" class="form-label">Habilitado</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Habilitado</option>
-                          <option>Deshabilitado</option>
+                      <div class="col-md-12">
+                        <label for="inputUser5" class="form-label">Contraseña</label>
+                        <input type="text" class="form-control" id="contraseña" name="contraseña" value="<?php echo $contraseñaUsuario?>">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputPhone5" class="form-label">Rol</label>
+                        <select name="rol" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
+                          <option selected value="<?php echo $rolUsuario?>"><?php
+                          if($rolUsuario == 1){
+                            echo 'Administrador';
+                          }else{
+                            echo 'Usuario';
+                          }
+                          ?></option>
+                          <option value="1">Administrador</option>
+                          <option value="0">Usuario</option>
                         </select>
                       </div>
-
                       <div class="text-center">
-                        <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                        <button type="submit" name="guardar" value="guardar" class="btn btn-primary float-end">Guardar</button>
                       </div>
                     </form>
                     <!-- End Multi Columns Form -->
@@ -343,64 +410,65 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
                   <div class="card-body">
 
                     <!-- FORMULARIO PARA DESIGNAR COMISARIA -->
-                    <div class="p-6">
-                      <table class="table align-middle" style="text-align: center;">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Provincia</th>
-                            <th scope="col">Departamento</th>
-                            <th scope="col">Seleccionar</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          // Codigo Para Designar Comisaria
-                          // $sentencia = $bd_conex->query("select * from comisarias");
-                          // $usuario_comisaria = $sentencia->fetchAll(PDO::FETCH_OBJ);
-
-                          $tabla_comisaria = "SELECT * FROM comisarias WHERE eliminado<1 AND habilitado>0";
-                          $resultado4 = mysqli_query($conexion, $tabla_comisaria);
-
-                          // SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario
-
-                          // $sql = "SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario ORDER BY idComisaria ASC";
-                          // $resultado5 = mysqli_query($conexion, $sql);
-
-                          // $idComisaria_TUC;
-
-                          while (($row4 = $resultado4->fetch_assoc())) {
-                            $idComisaria_TC = $row4['idComisaria'];
-                            $nombre = $row4['nombre'];
-                            $direccion = $row4['direccion'];
-                            $provincia = $row4['provincia'];
-                            $departamento = $row4['departamento'];
-
-                            // $idUsuario_TUC = $row5['idUsuario'];
-                            // $idComisaria_TUC = $row5['idComisaria'];
-
-
-
-                          ?>
+                      <div class="p-6">
+                        <table class="table align-middle" style="text-align: center;">
+                          <thead>
                             <tr>
-
-                              <td scope="row"><?php echo $idComisaria_TC; ?></td>
-                              <td><?php echo $nombre ?></td>
-                              <td><?php echo $direccion; ?></td>
-                              <td><?php echo $provincia; ?></td>
-                              <td><?php echo $departamento; ?></td>
-                              <td>
-                                <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $idComisaria_TC; ?>&idUsuario=<?php echo $idUsuario; ?>">Asignar</a>
-                              </td>
+                              <th scope="col">#</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Direccion</th>
+                              <th scope="col">Provincia</th>
+                              <th scope="col">Departamento</th>
+                              <th scope="col">Seleccionar</th>
                             </tr>
-                          <?php
-                          }
-                          ?>
-                        </tbody>
-                      </table>
-                    </div>
+                          </thead>
+                          <tbody>
+                            <?php
+                            // Codigo Para Designar Comisaria
+                            // $sentencia = $bd_conex->query("select * from comisarias");
+                            // $usuario_comisaria = $sentencia->fetchAll(PDO::FETCH_OBJ);
+
+                            $tabla_comisaria = "SELECT * FROM comisarias WHERE eliminado<1 AND habilitado>0";
+                            $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+
+                            // SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario
+
+                            // $sql = "SELECT * FROM `usuario-comisaria` WHERE idUsuario = $idUsuario ORDER BY idComisaria ASC";
+                            // $resultado5 = mysqli_query($conexion, $sql);
+                            
+                            // $idComisaria_TUC;
+
+                            while (($row4 = $resultado4->fetch_assoc())) 
+                            {
+                              $idComisaria_TC = $row4['idComisaria'];
+                              $nombre = $row4['nombre'];
+                              $direccion = $row4['direccion'];
+                              $provincia = $row4['provincia'];
+                              $departamento = $row4['departamento'];
+
+                              // $idUsuario_TUC = $row5['idUsuario'];
+                              // $idComisaria_TUC = $row5['idComisaria'];
+
+                              
+
+                              ?>
+                              <tr>
+
+                                <td scope="row"><?php echo $idComisaria_TC; ?></td>
+                                <td><?php echo $nombre?></td>
+                                <td><?php echo $direccion; ?></td>
+                                <td><?php echo $provincia; ?></td>
+                                <td><?php echo $departamento; ?></td>
+                                <td>
+                                    <a class="btn btn-primary" href="designar-comisaria.php?idComisaria=<?php echo $idComisaria_TC; ?>&idUsuario=<?php echo $idUsuario;?>">Asignar</a>
+                                  </td>
+                              </tr>
+                                <?php
+                            }
+                            ?>
+                          </tbody>
+                        </table>
+                      </div>
                   </div>
                 </div>
               </div>
