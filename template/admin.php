@@ -66,6 +66,11 @@
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
+          <li>
+            <a href="novedades-ver-mapa.php">
+              <i class="bi bi-circle"></i><span>Ver Mapas</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
 
