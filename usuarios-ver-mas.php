@@ -218,16 +218,7 @@ if (isset($_POST['guardar'])) {
           <li class="list-group-item fw-bold">Apellido: <span class="fw-normal ms-2"><?php echo $apellidoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Correo: <span class="fw-normal ms-2"><?php echo $correoPersona; ?></span></li>
           <li class="list-group-item fw-bold">Teléfono: <span class="fw-normal ms-2"><?php echo $telefonoPersona; ?></span></li>
-          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php if ($sexoPersona == 1) 
-                                                                                              {
-                                                                                                echo "Masculino";
-                                                                                              } else { 
-                                                                                                if($sexoPersona == 2){
-                                                                                                  echo "Femenino";
-                                                                                                }else{
-                                                                                                  echo "No binario";
-                                                                                                }
-                                                                                              } ?></span>
+          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php echo $sexoPersona ?></span>
           </li>
           <li class="list-group-item fw-bold">DNI: <span class="fw-normal ms-2"><?php echo $dniPersona; ?></span> </li>
           <li class="list-group-item fw-bold">Fecha de Registro: <span class="fw-normal ms-2"><?php echo $fechaRegistroPersona; ?></span></li>
@@ -488,7 +479,6 @@ if (isset($_POST['guardar'])) {
 
     </div>
     </div>
-    <br>
     <div class="d-flex justify-content-between">
       <a class="btn btn-primary " href="usuarios-tabla.php">Volver</a>
     </div>

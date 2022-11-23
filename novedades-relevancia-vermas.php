@@ -206,7 +206,7 @@
           <li class="list-group-item fw-bold">Adelanto Circulacion: <span class="fw-normal ms-2"><?php echo $adelanto_circulacion ?></span></li>
           <li class="list-group-item fw-bold">Damificado: <span class="fw-normal ms-2"><?php echo $damnificado ?></span></li>
           <li class="list-group-item fw-bold">Edad: <span class="fw-normal ms-2"><?php echo $edad ?></span></li>
-          <li class="list-group-item fw-bold">Sexo: <span class="fw-normal ms-2"><?php echo $sexo ?></span></li>
+          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php echo $sexo ?></span></li>
           <li class="list-group-item fw-bold">Denunciante: <span class="fw-normal ms-2"><?php echo $denunciante ?></span></li>
 
           <li class="list-group-item fw-bold">Unidad Judicial: <span class="fw-normal ms-2"><?php echo $unidad_judicial ?></span></li>

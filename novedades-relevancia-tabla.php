@@ -288,11 +288,11 @@ mysqli_close($conexion);
                                     </div>
                                     
                                     <div class="col-md-6">
-                                    <label for="inputState" class="form-label">Sexo </label>
+                                    <label for="inputState" class="form-label">Genero</label>
                                     <select required id="inputState" id="Sexo" name="Sexo" class="form-select">
                                         <option value="">Seleccionar</option>
-                                        <option value="Hombre">Hombre</option>
-                                        <option value="Mujer">Mujer</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
                                         <option value="No Binario">No Binario</option>
                                     </select>
                                     </div>

@@ -148,7 +148,6 @@
         ?>
       </div>
     </div>
-    <br>
     <a class="btn btn-primary" href="novedades-tabla.php">Volver</a>
   </main><!-- End #main -->
 

@@ -167,7 +167,7 @@ mysqli_close($conexion);
 
                                     <div class="col-12">
                                     <select name="sexo" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-sm">
-                                    <option selected value="">Sexo</option>
+                                    <option selected value="">Genero</option>
                                     <option value="Masculino">Masculino</option>
                                     <option value="Femenino">Femenino</option>
                                     <option value="No Binario">No binario</option>
