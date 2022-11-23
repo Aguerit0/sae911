@@ -63,7 +63,15 @@
 
   <main id="main" class="main">
 
-   
+    <div class="pagetitle">
+        <h1>Mapa Novedades de Relevancia</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="inicio-dashboard.html">Home</a></li>
+                <li class="breadcrumb-item active">Ver Mapa</li>
+            </ol>
+        </nav>
+    </div>
 
     
 
@@ -124,7 +132,11 @@
         ?>
             L.marker([<?php echo $row2['latitud'] ?>,<?php echo $row2['longitud'] ?>]).addTo(map).bindPopup(`
             <p>ID: <?php echo $row2['id'] ?></p>
-            <p>Fecha: <?php echo $row2['fecha_reg'] ?></p>
+            <p>Fecha: 
+            <?php 
+            $newDate = date("d/m/Y", strtotime($row2['fecha_reg']));
+            echo $newDate;
+            ?></p>
             <p>Hora: <?php echo $row2['hora_reg'] ?></p>
             <p>Tipo: <?php echo $row2['tipo'] ?></p>
             <p>Subtipo: <?php echo $row2['subtipo'] ?></p>

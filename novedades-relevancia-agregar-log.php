@@ -27,7 +27,7 @@ if (isset($_POST['BtnAgregar']))
 
         echo "Todo Okey";
 
-        $fecha_reg_tabla = date("y/m/d");
+        $fecha_reg_tabla = date("Y/m/d");
 
         $txtFecha = trim($_POST['txtFecha']);
         $txtHora = trim($_POST['txtHora']);

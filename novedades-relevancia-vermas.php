@@ -189,8 +189,11 @@
     <div class="card w-75 pt-3">
       <div class="card-body">
           <ul class="list-group">
-          <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php echo $fecha_reg_tabla ?></span></li></li>
-          <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php echo $fecha_reg ?></span></li>
+          <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php 
+          $newDate = date("d/m/Y", strtotime($fecha_reg_tabla));
+          echo $newDate ?></span></li></li>
+          <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
+          echo $newDate ?></span></li>
           <li class="list-group-item fw-bold">Hora Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
           <li class="list-group-item fw-bold">Sindicados: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
           <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
