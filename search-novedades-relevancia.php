@@ -37,17 +37,18 @@ $where ";
 $resultado = $conexion->query($sql);
 $num_rows = $resultado->num_rows;
 
-
 /* Mostrado resultados */
 $html = '';
 
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
+        $newDateFRT = date("d/m/Y", strtotime($row['fecha_reg_tabla']));
+        $newDateFR = date("d/m/Y", strtotime($row['fecha_reg']));
         $id = $row['id'];
         $html .= '<tr>';
         $html .= '<th scope="row">' . $id .'</td>';
-        $html .= '<th scope="row">' . $row['fecha_reg'] . '</td>';
-        $html .= '<td scope="row">' . $row['fecha_reg_tabla'] . '</td>';
+        $html .= '<th scope="row">' . $newDateFRT . '</td>';
+        $html .= '<td scope="row">' . $newDateFR . '</td>';
         $html .= '<td scope="row">' . $row['tipo'] . '</td>';
         $html .= '<td scope="row">' . $row['subtipo'] . '</td>';
         $id=$row['id'];
