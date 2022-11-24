@@ -231,7 +231,6 @@
         ?>
       </div>
     </div>
-    <br>
     <a class="btn btn-primary" href="novedades-relevancia-tabla.php">Volver</a>
   </main><!-- End #main -->
 
