@@ -52,7 +52,7 @@ if (isset($_POST['guardar'])) {
     <script language='JavaScript' type="text/javascript">
       function B()
               {     
-              location.href ='usuarios-ver-mas.php?id=<?php echo $idUsuario?>';
+              location.href ='usuarios-ver-mas.php?mensaje=editado&id=<?php echo $idUsuario?>';
               }
               B();
     </script>
@@ -74,7 +74,15 @@ if (isset($_POST['guardar'])) {
     $sentenciaSQL->bindParam(':estado',$estado);
     $sentenciaSQL->execute();
 
-    header('Location: usuarios-tabla.php');
+    ?>
+    <script language='JavaScript' type="text/javascript">
+      function B()
+              {     
+              location.href ='usuarios-ver-mas.php?id=<?php echo $idUsuario?>';
+              }
+              B();
+    </script>
+    <?php
   }
 
   // ELIMINAR
@@ -85,7 +93,7 @@ if (isset($_POST['guardar'])) {
     $sentenciaSQL->bindParam(':eliminado', $eliminadoUsuario);
     $sentenciaSQL->execute();
     
-    header('Location: usuarios-tabla.php');
+    header('Location: usuarios-tabla.php?mensaje=eliminado');
   }
   
 
@@ -156,34 +164,6 @@ if (isset($_POST['guardar'])) {
       <div class="card-body">
 
       <!-- CODIGO DE ALERTAS -->
-    <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'falta')
-          {
-      ?>
-
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Error!</strong> Rellena todos los campos.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      
-      <?php
-          }
-      ?>
-      
-      <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'registrado')
-          {
-      ?>
-
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Registrado!</strong> Se asigno correctame la comisaria al usuario.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      
-      <?php
-          }
-      ?>
-
       <?php
           if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
           {
@@ -204,7 +184,7 @@ if (isset($_POST['guardar'])) {
       ?>
 
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Cambiado!</strong> Los datos fueron actualizados.
+              <strong>Editado!</strong> Los datos fueron actualizados.
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
       

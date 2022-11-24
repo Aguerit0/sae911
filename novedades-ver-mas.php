@@ -53,7 +53,7 @@
     $sentenciaSQL->bindParam(':eliminado', $eliminado);
     $sentenciaSQL->execute();
     
-    header('Location: novedades-tabla.php');
+    header('Location: novedades-tabla.php?mensaje=eliminado');
   }
     mysqli_close($conexion);
  ?>
@@ -123,6 +123,30 @@
     </div><!-- End Page Title -->
     <div class="card w-75 pt-3">
       <div class="card-body">
+
+          <!-- CODIGO DE ALERTAS -->
+          <?php
+            if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
+            {
+          ?>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Editado!</strong> Los datos fueron actualizados.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <?php
+              }
+          ?>
+          <?php
+            if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+            {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong> Error</strong> No se pudo editar la infomación.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <?php
+              }
+          ?>
           <ul class="list-group">
           <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
           <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $fecha ?></span></li></li>

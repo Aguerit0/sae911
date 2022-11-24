@@ -108,10 +108,6 @@
   ?>
 
   <main id="main" class="main">
-  
-            <div class="alert alert-success">
-
-            </div>
     <div class="pagetitle">
         <h1>Formulario Novedades de Relevancia</h1>
         <nav>

@@ -40,7 +40,7 @@
       echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     }
     else{
-      header('location:novedades-tabla.php');
+      header('location:novedades-tabla.php?mensaje=agregado');
     }
   }
   mysqli_close($conexion);
@@ -102,10 +102,6 @@
   ?>
 
   <main id="main" class="main">
-  
-            <div class="alert alert-success">
-
-            </div>
     <div class="pagetitle">
         <h1>Formulario Novedades de Guardia</h1>
         <nav>

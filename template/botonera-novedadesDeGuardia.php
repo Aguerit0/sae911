@@ -31,7 +31,7 @@
         <script language='JavaScript' type="text/javascript">
           function B()
                   {     
-                  location.href ='novedades-ver-mas.php?id=<?php echo $idNovedades?>';
+                  location.href ='novedades-ver-mas.php?mensaje=editado&id=<?php echo $idNovedades?>';
                   }
                   B();
         </script>
