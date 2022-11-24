@@ -12,43 +12,6 @@ $comisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
 
 //INICIALIZAMOS DATOS
 $idUsuario = $_SESSION['id'];
-// $idComisaria=$_SESSION['idComisaria'];
-// $nombreComisaria = $comisaria['nombre'];
-/*if (isset($_POST['agregar'])) {
-    $idComisaria = $_POST['txtComisaria'];
-    $txtFecha = $_POST['txtFecha'];
-    $txtTurno = $_POST['txtTurno'];
-    $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
-    $txtOficialServicio = $_POST['txtOficialServicio'];
-    $txtCantPersonalGuardia = $_POST['txtCantPersonalGuardia'];
-    $txtMotoristas = $_POST['txtMotoristas'];
-    $txtMovilesFuncionamiento = $_POST['txtMovilesFuncionamiento'];
-    $txtMovilesFueraFuncionamiento = $_POST['txtMovilesFueraFuncionamiento'];
-    $txtCantDetenidosCausaFederal = $_POST['txtCantDetenidosCausaFederal'];
-    $txtCantDetenidosJusticiaOrdinaria = $_POST['txtCantDetenidosJusticiaOrdinaria'];
-    $txtArrestadisAveriguacionHecho = $_POST['txtArrestadisAveriguacionHecho'];
-    $txtArrestadosAveriguacionActividades = $_POST['txtArrestadosAveriguacionActividades'];
-    $txtArrestadosInfCodigoFaltas = $_POST['txtArrestadosInfCodigoFaltas'];
-    $txtDemorados = $_POST['txtDemorados'];
-    $txtCantAprehendidos = $_POST['txtCantAprehendidos'];
-
-
-    //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$idComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
-
-    //EJECUTAR CONSULTA INSERTAR DATOS
-    $ejecutarInsertar = mysqli_query($conexion, $insertar);
-    if (!$ejecutarInsertar) {
-        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
-    } else {
-        header('location:novedades-tabla.php');
-    }
-}
-
-
-
-mysqli_close($conexion);
-*/
 ?>
 
 
@@ -92,12 +55,6 @@ mysqli_close($conexion);
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
 
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin - v2.4.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -363,7 +320,7 @@ mysqli_close($conexion);
         <table class="table table-sm table-hover table-bordered text-center">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Fecha Registro</th>
                     <th scope="col">Fecha registro</th>
                     <th scope="col">Fecha Suceso</th>
                     <th scope="col">Tipo</th>
