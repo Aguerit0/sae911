@@ -5,56 +5,47 @@
 
 
 require 'conexion.php';
+session_start();
+$id = $_SESSION['idComisaria'];
+
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['id','fecha_reg', 'fecha_reg_tabla', 'tipo', 'subtipo'];
+$columns = ['id','fecha_reg_tabla','fecha_reg', 'hora_reg', 'tipo', 'subtipo'];
 
 /* Nombre de la tabla */
 $table = "novedades_de_relevancia";
 
-$campo = isset($_POST['campo']) ? $conexion->real_escape_string($_POST['campo']) : null;
 
-
-/* Filtrado */
-$where = '';
-
-if ($campo != null) {
-    $where = "WHERE (";
-
-    $cont = count($columns);
-    for ($i = 0; $i < $cont; $i++) {
-        $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
-    }
-    $where = substr_replace($where, "", -3);
-    $where .= ")";
+if ($_SESSION['rol']==1) {
+    $sql2 = "SELECT * FROM  novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria)";
+}else if ($_SESSION['rol']==0) {
+    $sql2 = "SELECT * FROM novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.idComisaria=3) AND (n.eliminado<1) AND (c.idComisaria=3)";
 }
 
 
-/* Consulta */
-$sql = "SELECT " . implode(", ", $columns) . "
-FROM $table
-$where ";
-$resultado = $conexion->query($sql);
+$resultado = $conexion->query($sql2);
 $num_rows = $resultado->num_rows;
+
+
 
 /* Mostrado resultados */
 $html = '';
 
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
-        $newDateFRT = date("d/m/Y", strtotime($row['fecha_reg_tabla']));
-        $newDateFR = date("d/m/Y", strtotime($row['fecha_reg']));
-        $id = $row['id'];
+        if (($row['eliminado']>=1)) {
+            
+        }else{
         $html .= '<tr>';
-        $html .= '<th scope="row">' . $id .'</td>';
-        $html .= '<th scope="row">' . $newDateFRT . '</td>';
-        $html .= '<td scope="row">' . $newDateFR . '</td>';
+        $html .= '<th scope="row">' . $row['fecha_reg_tabla'] . '</td>';
+        $html .= '<td scope="row">' . $row['fecha_reg'] . '</td>';
+        $html .= '<td scope="row">' . $row['hora_reg'] . '</td>';
         $html .= '<td scope="row">' . $row['tipo'] . '</td>';
         $html .= '<td scope="row">' . $row['subtipo'] . '</td>';
         $id=$row['id'];
-        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' .$id .'">Ver más</a></td>';
-        $html .= '</tr>';
-
+        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' . $row['id'] .'">Ver más</a></td>';
+        $html .= '</tr>';   
+        }
     }
 } else {
     $html .= '<tr>';
