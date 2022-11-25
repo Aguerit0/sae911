@@ -41,9 +41,9 @@ if (isset($_POST['agregarPersona'])) {
     //EJECUTAR CONSULTA DE INSERTAR
     $ejecutarInsertarUsuario = mysqli_query($conexion, $insertarUsuario);
     if (!$ejecutarInsertarUsuario) {
-        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+        header('location:usuarios-tabla.php?mensaje=error');
     } else {
-        header('location:usuarios-tabla.php');
+        header('location:usuarios-tabla.php?mensaje=agregado');
     }
 }
 //****************************************************************************************************************
@@ -114,7 +114,42 @@ mysqli_close($conexion);
             </nav>
         </div><!-- End Page Title -->
 
-         <!--INPUT BUSCAR EN TABLAS-->
+        <!-- CODIGO DE ALERTAS -->
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado')
+        {
+        ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Exito!</strong> Se agregó correctamente un nuevo usuario.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+        {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> Error</strong> No se pudo agregar la nueva comisaria.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado')
+        {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Eliminado!</strong> Se eliminó correctamente el usuario.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+
+        <!--INPUT BUSCAR EN TABLAS-->
     <div class="search">
       <form method="post"><input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
         <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">

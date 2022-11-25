@@ -25,9 +25,9 @@
       //EJECUTAR CONSULTA DE INSERTAR
       $ejecutarInsertarComisaria=mysqli_query($conexion,$insertarComisaria);
       if (!$ejecutarInsertarComisaria) {
-        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+        header('location:comisarias-tabla.php?mensaje=error');
       }else{
-        header('location:comisarias-tabla.php');
+        header('location:comisarias-tabla.php?mensaje=agregado');
       }
     }
 
@@ -109,7 +109,42 @@
         </nav>
     </div><!-- End Page Title -->
 
- <!--INPUT BUSCAR EN TABLAS-->
+    <!-- CODIGO DE ALERTAS -->
+    <?php
+      if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado')
+      {
+    ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Exito!</strong> Se agregó correctamente una nueva comisaria.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php
+        }
+    ?>
+    <?php
+      if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+      {
+    ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong> Error</strong> No se pudo agregar la nueva comisaria.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php
+        }
+    ?>
+    <?php
+      if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado')
+      {
+    ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Eliminado!</strong> Se eliminó correctamente la comisaria.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php
+        }
+    ?>
+
+    <!--INPUT BUSCAR EN TABLAS-->
     <div class="search">
       <form method="post"><input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
         <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">

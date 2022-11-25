@@ -20,7 +20,7 @@
     // if (!$resultadoSelectNovedades) {
     //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
     // }
-    //OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
+    //OBTENCION DE DATOS TABLA NOVEDADES_DE_RELEVANCIA
     
 
       $idNovedadesRelevancia = $novedades['id'];
@@ -231,7 +231,6 @@
         ?>
       </div>
     </div>
-    <br>
     <a class="btn btn-primary" href="novedades-relevancia-tabla.php">Volver</a>
   </main><!-- End #main -->
 

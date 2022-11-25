@@ -31,7 +31,7 @@
 
 
 
-    //EDITAR UN REGISTRO
+  //EDITAR UN REGISTRO
     
   if (isset($_POST['guardar'])) {
     $nombre=$_POST['nombre'];
@@ -45,14 +45,22 @@
     
     $resultadoEditarRegistro = mysqli_query($conexion,$editar);
     if (mysqli_errno($conexion)!=0) {
-      echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
+      ?>
+      <script language='JavaScript' type="text/javascript">
+        function B()
+                {     
+                location.href ='comisarias-ver-mas.php?mensaje=error&id=<?php echo $id?>';
+                }
+                B();
+      </script>
+      <?php
     }else{
       // header('location:comisarias-ver-mas.php?id=<?php echo $id;?>');
       ?>
       <script language='JavaScript' type="text/javascript">
         function B()
                 {     
-                location.href ='comisarias-ver-mas.php?id=<?php echo $id?>';
+                location.href ='comisarias-ver-mas.php?mensaje=editado&id=<?php echo $id?>';
                 }
                 B();
       </script>
@@ -61,36 +69,42 @@
      
   }
 
-    //ELIMINAR UN REGISTRO
-    if (isset($_POST['confirmarEliminarRegistro'])){
-      $eliminadoComisaria = 1;
-      $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET eliminado=:eliminado WHERE idComisaria=:id');
-      $sentenciaSQL->bindParam(':id', $id);
-      $sentenciaSQL->bindParam(':eliminado', $eliminadoComisaria);
-      $sentenciaSQL->execute();
-      
-      header('Location: comisarias-tabla.php');
+  //ELIMINAR UN REGISTRO
+  if (isset($_POST['confirmarEliminarRegistro'])){
+    $eliminadoComisaria = 1;
+    $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET eliminado=:eliminado WHERE idComisaria=:id');
+    $sentenciaSQL->bindParam(':id', $id);
+    $sentenciaSQL->bindParam(':eliminado', $eliminadoComisaria);
+    $sentenciaSQL->execute();
+    
+    header('Location: comisarias-tabla.php?mensaje=eliminado');
+  }
+
+
+  // HABILITAR / DESHABILITAR
+
+  if(isset($_POST['confirmarDeshabilitar'])){
+    if($habilitadoComisaria == 1){
+      $estado = 0;
+    }elseif($habilitadoComisaria==0){
+      $estado = 1;
     }
+    $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET habilitado=:estado WHERE idComisaria=:id');
+    $sentenciaSQL->bindParam(':id',$id);
+    $sentenciaSQL->bindParam(':estado',$estado);
+    $sentenciaSQL->execute();
 
-
-    // HABILITAR / DESHABILITAR
-
-    if(isset($_POST['confirmarDeshabilitar'])){
-      if($habilitadoComisaria == 1){
-        $estado = 0;
-      }elseif($habilitadoComisaria==0){
-        $estado = 1;
-      }
-      $sentenciaSQL=$bd_conex->prepare('UPDATE comisarias SET habilitado=:estado WHERE idComisaria=:id');
-      $sentenciaSQL->bindParam(':id',$id);
-      $sentenciaSQL->bindParam(':estado',$estado);
-      $sentenciaSQL->execute();
-
-      header('Location: comisarias-tabla.php');
-    }
-
-
- ?>
+    ?>
+      <script language='JavaScript' type="text/javascript">
+        function B()
+                {     
+                location.href ='comisarias-ver-mas.php?id=<?php echo $id?>';
+                }
+                B();
+      </script>
+      <?php
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -152,6 +166,30 @@
     <!-- DATOS DE COMISARIA -->
     <div class="card w-75 pt-3">
       <div class="card-body">
+
+        <!-- CODIGO DE ALERTAS -->
+        <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
+          {
+        ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Editado!</strong> Los datos fueron actualizados.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+        <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+          {
+        ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> Error</strong> No se pudo editar la infomación.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <?php
+            }
+        ?>
         
         <ul class="list-group mb-3">
             <li class="list-group-item fw-bold">Nombre: <span class="fw-normal ms-2"><?php echo $nombreComisaria; ?></span></li>
