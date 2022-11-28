@@ -106,7 +106,7 @@
             </a>
           </li>
           <li>
-          <a href="././registro-secuestros/vermas-registro-secuestros.php">
+          <a href="././registro-secuestros/tabla-registro-secuestros.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
