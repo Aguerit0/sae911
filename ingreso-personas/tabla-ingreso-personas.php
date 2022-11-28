@@ -43,7 +43,7 @@
     <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
 
     <!-- Css Reloj -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -148,21 +148,21 @@
                                     <input required type="datetime-local" name="fecha_hora_egreso" id="fecha_hora_egreso" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6">
-                                    <label readonly for="inputEmail5" class="form-label">Secuestro</label>
+                                    <label readonly for="secuestro" class="form-label">Secuestro</label>
                                     <input required type="text" name="secuestro" id="secuestro" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6">
-                                    <label readonly for="inputEmail5" class="form-label">Elemento Secuestrado</label>
+                                    <label readonly for="elem_secuestrado" class="form-label">Elemento Secuestrado</label>
                                     <input required type="text" name="elem_secuestrado" id="elem_secuestrado" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6">
-                                    <label readonly for="inputEmail5" class="form-label">Longitud</label>
-                                    <input required type="text" name="lon" id="lon" class="form-control" readonly>
+                                    <label readonly for="latitud" class="form-label">Latitud</label>
+                                    <input required type="text" name="latitud" id="latitud" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6">
-                                    <label readonly for="inputEmail5" class="form-label">Latitud</label>
-                                    <input required type="text" name="lat" id="lat" class="form-control" readonly>
-                                    </div> 
+                                    <label readonly for="longitud" class="form-label">Longitud</label>
+                                    <input required type="text" name="longitud" id="longitud" class="form-control" readonly>
+                                    </div>
                                     <div class="text-center">
                                     <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
@@ -205,7 +205,7 @@
         function getData() {
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
-            let url = "search-novedades-relevancia.php"
+            let url = "search-ingreso-personas.php"
             let formaData = new FormData()
             formaData.append('campo', input)
 
