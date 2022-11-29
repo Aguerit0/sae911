@@ -109,7 +109,7 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Formulario Novedades de Relevancia</h1>
+        <h1>Formulario Novedades de Relevancia </h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
