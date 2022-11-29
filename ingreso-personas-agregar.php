@@ -152,7 +152,7 @@
             </div>
             <div class="col-md-6">
               <label for="inputEmail5" class="form-label">Superior de Turno</label>
-              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control"">
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5"  class="form-label">Oficial en Servicio</label>
