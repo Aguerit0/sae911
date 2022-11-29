@@ -61,12 +61,12 @@
     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
      
       <li>
-        <a href="././ingreso-personas/agregar-ingreso-personas.php">
+        <a href="ingreso-personas-agregar.php">
           <i class="bi bi-circle"></i><span>Agregar personas</span>
         </a>
       </li>
       <li>
-        <a href="././ingreso-personas/tabla-ingreso-personas.php">
+        <a href="ingreso-personas-tabla.php">
           <i class="bi bi-circle"></i><span>Ver personas</span>
         </a>
       </li>
