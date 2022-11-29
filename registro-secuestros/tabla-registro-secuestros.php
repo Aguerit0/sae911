@@ -47,38 +47,46 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
     <meta content="" name="description">
     <meta content="" name="keywords">
     <br>
+
+   
     <!-- Favicons -->
-    <link href="../assets/img/favicon.png" rel="icon">
-    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="../assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    
+    <!-- Css Reloj -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="clockpicker.css">
+
+
 
 </head>
 
 <body>
 
     <!-- ======= Header ======= -->
-    <?php include("../template/dashboard.php") ?>
+    <?php include("template/dashboard.php") ?>
 
     <!-- ======= Sidebar ======= -->
     <?php if ($_SESSION['rol'] == 1) {
-        include("../template/admin.php");
+        include("template/admin.php");
     } else {
-        include("../template/usuario.php");
+        include("template/usuario.php");
     }
     ?>
 
@@ -151,7 +159,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
                             <div class="card-body">
                                 <!-- FORMULARIO PARA AGREGAR USUARIO -->
 
-                                <form class="row g-3 needs-validation" method="POST" action="registrar_log.php">
+                                <form class="row g-3 needs-validation" method="POST">
 
                                     <div class="col-12">
                                         <label for="inputEmail5" class="form-label">Fecha de registro tabla</label>
@@ -167,12 +175,12 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
-                                        <label for="inputEmail5" class="form-label">Hora</label>
-                                        <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true" readonly="">
+                                    <div class="col-md-6">
+                                    <label for="inputEmail5" class="form-label">Hora</label>
+                                    <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true">
                                     </div>
 
-                                    
+
 
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Hecho</label>
@@ -189,7 +197,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
                                     </div>
 
                                     <div class="text-center">
-                                    <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
+                                        <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
 
                                 </form>
@@ -208,11 +216,12 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
             <table class="table table-sm table-hover table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Fecha Registro Tabla</th>
+                      
                         <th scope="col">Fecha Registro </th>
-                        <th scope="col">Hora</th>
-                        <th scope="col">Hecho</th>
+                        <th scope="col"> Hora </th>
+                        <th scope="col"> Hecho </th>
                         <th scope="col">Elemento Sucuestrado</th>
+                        <th scope="col"> ... </th>
 
                     </tr>
                 </thead>
@@ -255,9 +264,9 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/vendor/chart.js/chart.min.js"></script>
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.min.js"></script>
     <script src="assets/vendor/echarts/echarts.min.js"></script>
     <script src="assets/vendor/quill/quill.min.js"></script>
     <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
@@ -266,6 +275,17 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
+
+    <!-- Script de reloj -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="clockpicker.js"></script>
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+    </script>
+
 
 </body>
 
