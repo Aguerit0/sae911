@@ -1,5 +1,9 @@
 <?php
   require_once "conexion.php";
+  //si es necesario cambiar la config. del php.ini desde tu script
+  ini_set("session.use_only_cookies","1");
+  ini_set("session.use_trans_sid","0");
+  
   session_start();
   $error = ""; //variable para almacenar error
   if(isset($_SESSION['usuario'])){

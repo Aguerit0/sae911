@@ -28,6 +28,7 @@
       $fecha_reg_tabla = $novedades['fecha_reg_tabla'];
       $hora_reg = $novedades['hora_reg'];
       $sindicatos = $novedades['sindicados'];
+      $descripcion = $novedades['descripcion_lugar'];
       $caracteristicas_hecho = $novedades['caracteristicas_hecho'];
       $elemento_utilizado = $novedades['elemento_utilizado'];
       $movil = $novedades['movil'];
@@ -148,6 +149,10 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
+  <!-- Css Reloj -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="clockpicker.css">
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -195,6 +200,7 @@
           <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
           echo $newDate ?></span></li>
           <li class="list-group-item fw-bold">Hora Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
+          <li class="list-group-item fw-bold">Descripcion del lugar: <span class="fw-normal ms-2"><?php echo $descripcion ?></span></li>
           <li class="list-group-item fw-bold">Sindicados: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
           <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
           <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utilizado ?></span></li>
