@@ -217,7 +217,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
                 <thead class="table-dark">
                     <tr>
                       
-                        <th scope="col">Fecha Registro </th>
+                        <th scope="col">Fecha </th>
                         <th scope="col"> Hora </th>
                         <th scope="col"> Hecho </th>
                         <th scope="col">Elemento Sucuestrado</th>
@@ -246,7 +246,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
         function getData() {
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
-            let url = "search-usuarios.php"
+            let url = "search-registro-secuestros.php"
             let formaData = new FormData()
             formaData.append('campo', input)
 

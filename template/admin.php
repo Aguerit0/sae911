@@ -101,12 +101,12 @@
         
          
           <li>
-            <a href="././registro-secuestros/agregar-registro-secuestros.php">
+            <a href="agregar-registro-secuestros.php">
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
-          <a href="././registro-secuestros/tabla-registro-secuestros.php">
+          <a href="tabla-registro-secuestros.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>

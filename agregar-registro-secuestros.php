@@ -80,7 +80,7 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
-    !-- Css Reloj -->
+    <!-- Css Reloj -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="clockpicker.css">
 
@@ -95,15 +95,15 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <?php include("template/dashboard.php") ?>
+  <?php include("./template/dashboard.php")?>
 
-    <!-- ======= Sidebar ======= -->
-    <?php if ($_SESSION['rol'] == 1) {
-        include("template/admin.php");
-    } else {
-        include("template/usuario.php");
-    }
-    ?>
+<!-- ======= Sidebar ======= -->
+<?php  if($_SESSION['rol'] == 1){
+    include ("./template/admin.php");
+  }else{
+    include ("./template/usuario.php");
+  }
+?>
 
     <main id="main" class="main">
         <div class="pagetitle">
@@ -126,7 +126,7 @@
                 <form class="row g-3 pt-3 needs-validation" method="POST" action="registrar_log.php">
 
                     <div class="col-md-6">
-                        <label for="inputEmail5" class="form-label">Fecha de registro </label>
+                        <label for="inputEmail5" class="form-label">Fecha </label>
                         <div class="col-sm-10">
                             <input required type="date" id="txtFechaReg" name="txtFechaReg" class="form-control">
                         </div>
