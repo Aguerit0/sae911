@@ -87,7 +87,7 @@ $idUsuario = $_SESSION['id'];
                 <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
                 <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <i class="bi bi-plus-circle-fill"></i>
-                    Agregar
+                    Agregar 
                 </button>
                 <a href="novedades-ver-mapa.php">
                 <button type="button" class="btn btn-secondary float-end mb-2 mx-2">
@@ -108,7 +108,7 @@ $idUsuario = $_SESSION['id'];
                     </div>
                     <div class="modal-body">
                         <div class="card">
-                            <div class="card-body">
+                            <ƒdiv class="card-body">
                                 <!-- FORMULARIO PARA AGREGAR NOVEDADES DE RELEVANCIA -->
 
                                 <form action="novedades-relevancia-agregar-log.php" method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
@@ -307,7 +307,7 @@ $idUsuario = $_SESSION['id'];
                                 </form><!-- End Multi Columns Form -->
 
                             </div>
-                        </div>
+                       </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

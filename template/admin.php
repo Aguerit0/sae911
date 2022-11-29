@@ -101,12 +101,12 @@
         
          
           <li>
-            <a href="inicio-dashboard.php">
+            <a href="agregar-registro-secuestros.php">
               <i class="bi bi-circle"></i><span>Agregar registros</span>
             </a>
           </li>
           <li>
-            <a href="inicio-dashboard.php">
+          <a href="tabla-registro-secuestros.php">
               <i class="bi bi-circle"></i><span>Ver registros</span>
             </a>
           </li>
