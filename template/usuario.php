@@ -54,24 +54,24 @@
       </ul>
     </li><!-- End Forms Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-layout-text-window-reverse"></i><span>Ingreso Personas</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-        <li>
-          <a href="inicio-dashboard.php">
-            <i class="bi bi-circle"></i><span>Agregar registros</span>
-          </a>
-        </li>
-        <li>
-          <a href="inicio-dashboard.php">
-            <i class="bi bi-circle"></i><span>Ver registros</span>
-          </a>
-        </li>
-      </ul>
-    </li><!-- End Tables Nav -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Ingreso de Personas</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+     
+      <li>
+        <a href="ingreso-personas-agregar.php">
+          <i class="bi bi-circle"></i><span>Agregar personas</span>
+        </a>
+      </li>
+      <li>
+        <a href="ingreso-personas-tabla.php">
+          <i class="bi bi-circle"></i><span>Ver personas</span>
+        </a>
+      </li>
+    </ul>
+  </li><!-- End Tables Nav -->
 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
