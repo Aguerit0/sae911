@@ -40,7 +40,7 @@
       echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     }
     else{
-      header('location:novedades-tabla.php');
+      header('location:novedades-tabla.php?mensaje=agregado');
     }
   }
   mysqli_close($conexion);
@@ -102,10 +102,6 @@
   ?>
 
   <main id="main" class="main">
-  
-            <div class="alert alert-success">
-
-            </div>
     <div class="pagetitle">
         <h1>Formulario Novedades de Guardia</h1>
         <nav>
@@ -133,10 +129,10 @@
                 <?php
                 include('conexion.php');
                 if($_SESSION['rol'] == 1){
-                  $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias ORDER BY idComisaria ASC;";
+                  $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
                   $resultado4 = mysqli_query($conexion, $tabla_comisaria);
                 }else{
-                  $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                  $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
                   $resultado4 = mysqli_query($conexion, $tabla_comisaria);
                 }
                 
@@ -171,11 +167,11 @@
             </div>
             <div class="col-md-6">
               <label for="inputtext5"  class="form-label">Cantidad de personal en guardia</label>
-              <input required type="text" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control"">
+              <input required type="number" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control"">
             </div>
             <div class="col-6">
               <label for="inputAddress5" class="form-label">Motoristas</label>
-              <input required type="text" id="txtMotoristas" name="txtMotoristas" class="form-control">
+              <input required type="number" id="txtMotoristas" name="txtMotoristas" class="form-control">
             </div>
             <div class="col-6">
                 <label for="inputAddress5" class="form-label">Moviles en funcionamiento</label>
@@ -187,31 +183,31 @@
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Cantidad de detenidos Causa Federal</label>
-              <input required type="text" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control">
+              <input required type="number" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
-              <input required type="text" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control">
+              <input required type="number" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Arrestados averiguacion del hecho</label>
-              <input required type="text" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control">
+              <input required type="number" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Cantidad de Aprehendidos</label>
-              <input required type="text" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control">
+              <input required type="number" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Arrestados averiguacion de activiades</label>
-              <input required type="text" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control">
+              <input required type="number" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Arrestados Inf. código de faltas</label>
-              <input required type="text" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control">
+              <input required type="number" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Demorados</label>
-              <input required type="text" id="txtDemorados" name="txtDemorados" class="form-control">
+              <input required type="number" id="txtDemorados" name="txtDemorados" class="form-control">
             </div>
             <div class="text-center">
               <button type="submit" name="agregar" value="agregar"  class="btn btn-primary float-end">Agregar</button>

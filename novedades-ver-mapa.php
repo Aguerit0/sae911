@@ -6,6 +6,8 @@
     header('Location: index.php');
   }
 
+
+
 ?>
 
 
@@ -38,7 +40,11 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   
-  <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+
+      <!-- Css Mapa -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
+
 
 </head>
 
@@ -57,12 +63,25 @@
 
   <main id="main" class="main">
 
+    <div class="pagetitle">
+        <h1>Mapa Novedades de Relevancia</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="inicio-dashboard.html">Home</a></li>
+                <li class="breadcrumb-item active">Ver Mapa</li>
+            </ol>
+        </nav>
+    </div>
+
     
 
     <section class="section dashboard">
-      
-         
+
+            <li class="list-group-item fw-bold">
+            <div id="map" style="height:75vh; width: 70vw; margin: 0 auto; border-radius: 10px;"></div>
+          </li>
     </section>
+
   </main><!-- End #main -->>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -79,6 +98,56 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Script de mapa -->
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+  <script>
+    // Coordenadas iniciales
+
+    var lat = -28.47326;
+    var lon = -65.78756;
+    
+    //inicializa mapa con centro del mapa con coordenadas iniciales y zoom de 17 en DIV mapid
+
+    var map = L.map('map').setView([lat, lon], 20);
+    //Indica que Tile se utilizará
+    /* L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(map); */
+
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+    }).addTo(map);
+
+    <?php
+
+    $sql_rel = "SELECT * FROM novedades_de_relevancia";
+    $resultado2 = mysqli_query($conexion,$sql_rel);
+
+    while ($row2 = $resultado2->fetch_assoc()) 
+    {
+        ?>
+            L.marker([<?php echo $row2['latitud'] ?>,<?php echo $row2['longitud'] ?>]).addTo(map).bindPopup(`
+            <p>ID: <?php echo $row2['id'] ?></p>
+            <p>Fecha: 
+            <?php 
+            $newDate = date("d/m/Y", strtotime($row2['fecha_reg']));
+            echo $newDate;
+            ?></p>
+            <p>Hora: <?php echo $row2['hora_reg'] ?></p>
+            <p>Tipo: <?php echo $row2['tipo'] ?></p>
+            <p>Subtipo: <?php echo $row2['subtipo'] ?></p>
+            `);
+        <?php
+    }
+    ?>
+
+    </script>
+
+
 
 </body>
 
