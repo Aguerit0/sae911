@@ -9,30 +9,20 @@
 
   //INICIALIZAMOS DATOS
   $idUsuario = $_SESSION['id'];
-  // $idComisaria=1;
+
   if (isset($_POST['agregar'])) {
-    $txtFecha = $_POST['txtFecha'];
-    $txtComisaria = $_POST['txtComisaria'];
-    $txtTurno = $_POST['txtTurno'];
-    $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
-    $txtOficialServicio = $_POST['txtOficialServicio'];
-    $txtCantPersonalGuardia = $_POST['txtCantPersonalGuardia'];
-    $txtMotoristas = $_POST['txtMotoristas'];
-    $txtMovilesFuncionamiento = $_POST['txtMovilesFuncionamiento'];
-    $txtMovilesFueraFuncionamiento = $_POST['txtMovilesFueraFuncionamiento'];
-    $txtCantDetenidosCausaFederal = $_POST['txtCantDetenidosCausaFederal'];
-    $txtCantDetenidosJusticiaOrdinaria = $_POST['txtCantDetenidosJusticiaOrdinaria'];
-    $txtArrestadisAveriguacionHecho = $_POST['txtArrestadisAveriguacionHecho'];
-    $txtArrestadosAveriguacionActividades = $_POST['txtArrestadosAveriguacionActividades'];
-    $txtArrestadosInfCodigoFaltas = $_POST['txtArrestadosInfCodigoFaltas'];
-    $txtDemorados = $_POST['txtDemorados'];
-    $txtCantAprehendidos = $_POST['txtCantAprehendidos'];
-
-
-
+    $fechaHoraRegistro = $_POST['txtFechaHoraRegistro'];
+    $comisaria = $_POST['txtComisaria'];
+    $tipo = $_POST['tipo'];
+    $subtipo = $_POST['subtipo'];
+    $dispuestoPor = $_POST['dispuesto_por'];
+    $fechaHoraIngreso = $_POST['fecha_hora_ingreso'];
+    $secuestro = $_POST['secuestro'];
+    $elementoSecuestrado = $_POST['elem_secuestrado'];
+    
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$txtComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
+    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha__hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES ('$fechaHoraRegistro','$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar=mysqli_query($conexion,$insertar);
@@ -40,7 +30,7 @@
       echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     }
     else{
-      header('location:novedades-tabla.php?mensaje=agregado');
+      header('location:ingreso-personas-tabla.php');
     }
   }
   mysqli_close($conexion);
@@ -106,12 +96,13 @@
     </div><!-- End Page Title -->
     <div class="card">
         <div class="card-body">
-          <!-- FORMULARIO PARA AGREGAR COMISARIA -->
+
+          <!-- FORMULARIO PARA INGRESO DE PERSONAS -->
           <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
             <div class="col-md-6">
-              <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
+              <label for="inputDate"  class="col-form-label">Fecha y hora de registro</label>
               <div class="col-sm-10">
-                <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
+                <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control"  value="<?php date_default_timezone_set("America/Argentina/Catamarca"); echo date("d-m-Y H:i");?>">
               </div>
             </div>
 
@@ -143,65 +134,54 @@
             </div>
             
             <div class="col-md-6">
-              <label for="inputState" class="form-label">Turno</label>
-              <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
-                <option value="MATUTINO (06:00 - 14:00)" selected>MATUTINO (06:00 - 14:00)</option>
-                <option value="VESPERTINO (14:00 - 22:00)">VESPERTINO (14:00 - 22:00)</option>
-                <option value="NOCTURNO (22:00 - 06:00)">NOCTURNO (22:00 - 06:00)</option>
+              <label for="tipo" class="form-label">Tipo</label>
+              <select required id="tipo" name="tipo" class="form-select">
+                <option value="">Seleccionar</option>
+                <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
+                <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
+                <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
+                <option value="ARREBATO">ARREBATO</option>
+                <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
+                <option value="DESORDEN">DESORDEN</option>
+                <option value="ABUSO SEXUAL">ABUSO SEXUAL</option>
+                <option value="ACOSO SEXUAL">ACOSO SEXUAL</option>
+                <option value="AMENAZAS">AMENAZAS</option>
+                <option value="ARMAS">ARMAS</option>
+                <option value="EXHIBICIONES OBSENAS">EXHIBICIONES OBSENAS</option>
+                <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
               </select>
             </div>
+
             <div class="col-md-6">
-              <label for="inputEmail5" class="form-label">Superior de Turno</label>
-              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control">
+            <label for="subtipo" class="form-label">Subtipo</label>
+            <select required id="subtipo" name="subtipo" class="form-select" disabled>
+            </select>
             </div>
+
             <div class="col-md-6">
-              <label for="inputtext5"  class="form-label">Oficial en Servicio</label>
-              <input required type="text" id="txtOficialServicio" name="txtOficialServicio" class="form-control">
+            <label readonly for="dispuesto_por" class="form-label">Dispuesto por</label>
+            <input required type="text" name="dispuesto_por" id="dispuesto_por" class="form-control" >
             </div>
+
             <div class="col-md-6">
-              <label for="inputtext5"  class="form-label">Cantidad de personal en guardia</label>
-              <input required type="number" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control"">
+            <label readonly for="fecha_hora_ingreso" class="form-label">Fecha y Hora de Ingreso</label>
+            <input required type="datetime-local" name="fecha_hora_ingreso" id="fecha_hora_ingreso" class="form-control" >
             </div>
-            <div class="col-6">
-              <label for="inputAddress5" class="form-label">Motoristas</label>
-              <input required type="number" id="txtMotoristas" name="txtMotoristas" class="form-control">
-            </div>
-            <div class="col-6">
-                <label for="inputAddress5" class="form-label">Moviles en funcionamiento</label>
-                <input required type="text" id="txtMovilesFuncionamiento" name="txtMovilesFuncionamiento" class="form-control">
-              </div>
+
             <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Moviles fuera de servicio</label>
-              <input required type="text" id="txtMovilesFueraFuncionamiento" name="txtMovilesFueraFuncionamiento" class="form-control">
+            <label readonly for="secuestro" class="form-label">Secuestro</label>
+            <select required name="secuestro" id="secuestro" class="form-select">
+              <option value="">Seleccionar</option>
+              <option value="Si">Si</option>
+              <option value="No">No</option>
+            </select>
             </div>
+
             <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Cantidad de detenidos Causa Federal</label>
-              <input required type="number" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control">
+            <label readonly for="elem_secuestrado" class="form-label">Elemento Secuestrado</label>
+            <input required type="text" name="elem_secuestrado" id="elem_secuestrado" class="form-control">
             </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
-              <input required type="number" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Arrestados averiguacion del hecho</label>
-              <input required type="number" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Cantidad de Aprehendidos</label>
-              <input required type="number" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Arrestados averiguacion de activiades</label>
-              <input required type="number" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Arrestados Inf. código de faltas</label>
-              <input required type="number" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label for="inputtext5" class="form-label">Demorados</label>
-              <input required type="number" id="txtDemorados" name="txtDemorados" class="form-control">
-            </div>
+
             <div class="text-center">
               <button type="submit" name="agregar" value="agregar"  class="btn btn-primary float-end">Agregar</button>
             </div>
@@ -226,6 +206,9 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <!-- Script de select -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="novedades-relevancia-agregar.js"></script>
+
 
 </body>
 
