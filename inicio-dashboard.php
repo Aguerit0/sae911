@@ -60,6 +60,12 @@
     
 
     <section class="section dashboard">
+
+    <!--      GRAFICOS   INICIO     -->
+    <?php 
+      include ('./graficos/graficos.php');
+    ?>
+
       
          
     </section>
