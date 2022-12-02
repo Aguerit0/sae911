@@ -9,7 +9,7 @@
   $idUsuario = $_SESSION['id'];
 
   if (isset($_POST['agregar'])) {
-    $fechaHoraRegistro = $_POST['txtFechaHoraRegistro'];
+    $fechaHoraRegistro = $_POST['fechaHoraRegistro'];
     $comisaria = $_POST['txtComisaria'];
     $tipo = $_POST['tipo'];
     $subtipo = $_POST['subtipo'];
@@ -121,7 +121,7 @@
                                 <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
                                     <div class="col-md-6">
                                         <label for="inputDate" class="col-form-label">Fecha y hora de registro</label>
-                                        <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control"  value="<?php date_default_timezone_set("America/Argentina/Catamarca"); echo date("d-m-Y H:i");?>">
+                                        <input disabled type="datetime" id="fechaHoraRegistro" name="fechaHoraRegistro" class="form-control" value="<?php echo date("d-m-Y H:i");?>">
                                     </div>
 
                                     <div class="col-md-6">
