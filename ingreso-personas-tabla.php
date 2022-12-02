@@ -4,7 +4,34 @@
     // PREGUNTA SI HAY UN USUARIO REGISTRADO
     if(!isset($_SESSION['usuario'])){
     header('Location: index.php');
-    }mysqli_close($conexion);
+    }
+    //INICIALIZAMOS DATOS
+  $idUsuario = $_SESSION['id'];
+
+  if (isset($_POST['agregar'])) {
+    $fechaHoraRegistro = $_POST['fechaHoraRegistro'];
+    $comisaria = $_POST['txtComisaria'];
+    $tipo = $_POST['tipo'];
+    $subtipo = $_POST['subtipo'];
+    $dispuestoPor = $_POST['dispuesto_por'];
+    $fechaHoraIngreso = $_POST['fecha_hora_ingreso'];
+    $secuestro = $_POST['secuestro'];
+    $elementoSecuestrado = $_POST['elem_secuestrado'];
+    
+
+    //CONSULTA INSERTAR DATOS
+    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha__hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES ('$fechaHoraRegistro','$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
+
+    //EJECUTAR CONSULTA INSERTAR DATOS
+    $ejecutarInsertar=mysqli_query($conexion,$insertar);
+    if(!$ejecutarInsertar){
+      echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+    }
+    else{
+      header('location:ingreso-personas-tabla.php');
+    }
+  }
+  mysqli_close($conexion);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,59 +117,93 @@
                     <div class="modal-body">
                         <div class="card">
                             <div class="card-body">
-                                <!-- FORMULARIO PARA AGREGAR NOVEDADES DE RELEVANCIA -->
-
-                                <form action="#" method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
+                                <!-- FORMULARIO PARA INGRESO DE PERSONAS -->
+                                <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
                                     <div class="col-md-6">
-                                    <label for="tipo" class="form-label">Tipo</label>
-                                    <select required id="tipo" name="tipo" class="form-select">
-                                        <option value="">Seleccionar</option>
-                                        <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
-                                        <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
-                                        <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
-                                        <option value="ARREBATO">ARREBATO</option>
-                                        <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
-                                        <option value="DESORDEN">DESORDEN</option>
-                                        <option value="ABUSO SEXUAL">ABUSO SEXUAL</option>
-                                        <option value="ACOSO SEXUAL">ACOSO SEXUAL</option>
-                                        <option value="AMENAZAS">AMENAZAS</option>
-                                        <option value="ARMAS">ARMAS</option>
-                                        <option value="EXHIBICIONES OBSENAS">EXHIBICIONES OBSENAS</option>
-                                        <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
-
-                                    </select>
+                                        <label for="inputDate" class="col-form-label">Fecha y hora de registro</label>
+                                        <input disabled type="datetime" id="fechaHoraRegistro" name="fechaHoraRegistro" class="form-control" value="<?php echo date("d-m-Y H:i");?>">
                                     </div>
 
                                     <div class="col-md-6">
-                                    <label for="subtipo" class="form-label">Subtipo</label>
-                                    <select required id="subtipo" name="subtipo" class="form-select" disabled>
-                                    </select>
+                                        <label for="inputState" class="form-label">Comisaria</label>
+                                        <select required id="txtComisaria" name="txtComisaria" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            <?php
+                                            include('conexion.php');
+                                            if($_SESSION['rol'] == 1){
+                                            $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
+                                            $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                                            }else{
+                                            $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                                            $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                                            }
+                                            
+                                            while ($row = mysqli_fetch_assoc($resultado4)){
+                                            
+                                            $idComisaria = $row['idComisaria'];
+                                            $nombre = $row['nombre'];
+                                            ?>
+                                            
+                                            <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
+                                    
                                     <div class="col-md-6">
-                                    <label readonly for="dispuesto_por" class="form-label">Dispuesto por</label>
-                                    <input required type="text" name="dispuesto_por" id="dispuesto_por" class="form-control" readonly>
+                                        <label for="tipo" class="form-label">Tipo</label>
+                                        <select required id="tipo" name="tipo" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
+                                            <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
+                                            <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
+                                            <option value="ARREBATO">ARREBATO</option>
+                                            <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
+                                            <option value="DESORDEN">DESORDEN</option>
+                                            <option value="ABUSO SEXUAL">ABUSO SEXUAL</option>
+                                            <option value="ACOSO SEXUAL">ACOSO SEXUAL</option>
+                                            <option value="AMENAZAS">AMENAZAS</option>
+                                            <option value="ARMAS">ARMAS</option>
+                                            <option value="EXHIBICIONES OBSENAS">EXHIBICIONES OBSENAS</option>
+                                            <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
+                                        </select>
                                     </div>
+
                                     <div class="col-md-6">
-                                    <label readonly for="fecha_hora_ingreso" class="form-label">Fecha y Hora de Ingreso</label>
-                                    <input required type="datetime-local" name="fecha_hora_ingreso" id="fecha_hora_ingreso" class="form-control" readonly>
+                                        <label for="subtipo" class="form-label">Subtipo</label>
+                                        <select required id="subtipo" name="subtipo" class="form-select" disabled>
+                                        </select>
                                     </div>
+
                                     <div class="col-md-6">
-                                    <label readonly for="fecha_hora_egreso" class="form-label">Fecha y Hora de Egreso</label>
-                                    <input required type="datetime-local" name="fecha_hora_egreso" id="fecha_hora_egreso" class="form-control" readonly>
+                                        <label readonly for="dispuesto_por" class="form-label">Dispuesto por</label>
+                                        <input required type="text" name="dispuesto_por" id="dispuesto_por" class="form-control" >
                                     </div>
+
                                     <div class="col-md-6">
-                                    <label readonly for="secuestro" class="form-label">Secuestro</label>
-                                    <input required type="text" name="secuestro" id="secuestro" class="form-control" readonly>
+                                        <label readonly for="fecha_hora_ingreso" class="form-label">Fecha y Hora de Ingreso</label>
+                                        <input required type="datetime-local" name="fecha_hora_ingreso" id="fecha_hora_ingreso" class="form-control" >
                                     </div>
+
                                     <div class="col-md-6">
-                                    <label readonly for="elem_secuestrado" class="form-label">Elemento Secuestrado</label>
-                                    <input required type="text" name="elem_secuestrado" id="elem_secuestrado" class="form-control" readonly>
+                                        <label readonly for="secuestro" class="form-label">Secuestro</label>
+                                        <select required name="secuestro" id="secuestro" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
+                                        </select>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <label readonly for="elem_secuestrado" class="form-label">Elemento Secuestrado</label>
+                                        <input required type="text" name="elem_secuestrado" id="elem_secuestrado" class="form-control">
+                                    </div>
+
                                     <div class="text-center">
-                                    <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
+                                        <button type="submit" name="agregar" value="agregar"  class="btn btn-primary float-end">Agregar</button>
                                     </div>
                                 </form><!-- End Multi Columns Form -->
-
                             </div>
                         </div>
                     </div>

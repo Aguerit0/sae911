@@ -13,18 +13,18 @@
     $consultaSQL->bindParam(':id', $id);
     $consultaSQL->execute();
     $roww = $consultaSQL->fetch(PDO::FETCH_LAZY);
-        //OBTENCION DE DATOS TABLA INGRESO DE PERSONAS
-        $idIngresoPersonas = $roww['id'];
-        $fecha_hora_reg = $roww['fecha_hora_reg'];
-        $tipo= $roww['tipo'];
-        $subtipo= $roww['subtipo'];
-        $dispuesto_por = $roww['dispuesto_por'];
-        $fecha_hora_ingreso = $roww['fecha_hora_ingreso'];
-        $fecha_hora_egreso = $roww['fecha_hora_egreso'];
-        $secuestro = $roww['secuestro'];
-        $elem_secuestrado = $roww['elem_secuestrado'];
-        $idComisaria= $roww['idComisaria'];
-        $eliminado = $roww['eliminado'];
+    //OBTENCION DE DATOS TABLA INGRESO DE PERSONAS
+    $idIngresoPersonas = $roww['id'];
+    $fecha_hora_reg = $roww['fecha_hora_reg'];
+    $tipo= $roww['tipo'];
+    $subtipo= $roww['subtipo'];
+    $dispuesto_por = $roww['dispuesto_por'];
+    $fecha_hora_ingreso = $roww['fecha_hora_ingreso'];
+    $fecha_hora_egreso = $roww['fecha_hora_egreso'];
+    $secuestro = $roww['secuestro'];
+    $elem_secuestrado = $roww['elem_secuestrado'];
+    $idComisaria= $roww['idComisaria'];
+    $eliminado = $roww['eliminado'];
   
   
     //OBTENER NOMBRE COMISARIA
