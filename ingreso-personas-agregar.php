@@ -11,7 +11,6 @@
   $idUsuario = $_SESSION['id'];
 
   if (isset($_POST['agregar'])) {
-    $fechaHoraRegistro = $_POST['txtFechaHoraRegistro'];
     $comisaria = $_POST['txtComisaria'];
     $tipo = $_POST['tipo'];
     $subtipo = $_POST['subtipo'];
@@ -22,7 +21,7 @@
     
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha__hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES ('$fechaHoraRegistro','$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
+    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha_hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar=mysqli_query($conexion,$insertar);
