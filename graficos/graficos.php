@@ -1,5 +1,7 @@
 <?php 
   include ('./conexion.php');
+  $idUsuario = $_SESSION['idUsuario'];
+  $idComisaria = $_SESSION['idComisaria'];
 ?>
 
 <html>
@@ -12,6 +14,14 @@
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           <?php
+          //EXTRAER CANTIDAD TOTAL DE (TODAS) LAS NOVEDADES DE GUARDIA
+          $sqlCantNovRel = "SELECT * FROM novedades_de_relevancia";
+          $resSqlCantNovRel = mysqli_query($conexion, $sqlCantNovRel);
+          $contadorCantNovRel = 0;
+          while($rowCantNov = mysqli_fetch_assoc($resSqlCantNov)){
+            $contadorCantNov = $contadorCantNov+1;
+          }
+
             $sql = "SELECT * FROM novedades_de_guardia";
             $resultado = mysqli_query($conexion,$sql);
             while($row = mysqli_fetch_assoc($resultado) ){
@@ -29,7 +39,6 @@
         chart.draw(data, options);
       }
     </script>
-    
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
@@ -37,36 +46,34 @@
 
       function drawStuff() {
         var data = new google.visualization.arrayToDataTable([
-          ['Opening Move', 'Percentage'],
-          <?php
-            $sql = "SELECT * FROM novedades_de_guardia";
-            $resultado = mysqli_query($conexion,$sql);
-            while($row = mysqli_fetch_assoc($resultado) ){
-              echo "['" .$row['turno']."', " .$row['motoristas']."],";
-            }
-          ?>
+          ['Move', 'Percentage'],
+          ["King's pawn (e4)", 44],
+          ["Queen's pawn (d4)", 31],
+          ["Knight to King 3 (Nf3)", 12],
+          ["Queen's bishop pawn (c4)", 10],
+          ['Other', 3]
         ]);
 
         var options = {
-          title: 'Novedades de Guardia',
-          backgroundColor: 'black',
-          width: 700,
+          width: 800,
           legend: { position: 'none' },
-          chart: { title: 'Chess opening moves',
-                   subtitle: 'popularity by percentage' },
-          bars: 'horizontal', // Required for Material Bar Charts.
+          chart: {
+            title: 'Chess opening moves',
+            subtitle: 'popularity by percentage' },
           axes: {
             x: {
-              0: { side: 'top', label: 'Percentage'} // Top x-axis.
+              0: { side: 'top', label: 'White to move'} // Top x-axis.
             }
           },
           bar: { groupWidth: "90%" }
         };
 
         var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-        chart.draw(data, options);
+        // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
       };
     </script>
+
   
 
 
@@ -76,7 +83,7 @@
   <body>
     <div>
       <div id="novedadesGuardia" style="width: 700px; height: 500px;"></div>
-      <div id="top_x_div" style="width: 700px; height: 500px;"></div>
+      <div id="top_x_div" style="width: 700px; height: 600px;"></div>
     </div>
     
   </body>

@@ -113,7 +113,7 @@
             <li class="list-group-item fw-bold">Tipo: <span class="fw-normal ms-2"><?php echo $tipo ?></span></li>
             <li class="list-group-item fw-bold">Sub Tipo: <span class="fw-normal ms-2"><?php echo $subtipo ?></span></li>
             <li class="list-group-item fw-bold">Dispuesto Por: <span class="fw-normal ms-2"><?php echo $dispuesto_por ?></span></li>
-            <li class="list-group-item fw-bold">Fecha y Hora de Ingreso: <span class="fw-normal ms-2"><?php echo $fecha_hora_ingreso ?></span></li>
+            <li class="list-group-item fw-bold">Fecha y Hora de Ingreso: <span class="fw-normal ms-2"><?php echo date("d/m/Y H:i:s", strtotime($fecha_hora_ingreso)) ?></span></li>
             <li class="list-group-item fw-bold">Fecha y Hora de Egreso: <span class="fw-normal ms-2"><?php echo $fecha_hora_egreso ?></span></li>
             <li class="list-group-item fw-bold">Secuestro: <span class="fw-normal ms-2"><?php echo $secuestro ?></span></li>
             <li class="list-group-item fw-bold">Elemento Secuestrado: <span class="fw-normal ms-2"><?php echo $elem_secuestrado ?></span></li>
