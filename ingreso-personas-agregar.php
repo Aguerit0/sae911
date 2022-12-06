@@ -21,7 +21,7 @@
     
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha_hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
+    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha__hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar=mysqli_query($conexion,$insertar);
@@ -98,12 +98,7 @@
 
           <!-- FORMULARIO PARA INGRESO DE PERSONAS -->
           <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
-            <div class="col-md-6">
-              <label for="inputDate"  class="col-form-label">Fecha y hora de registro</label>
-              <div class="col-sm-10">
-                <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control"  value="<?php date_default_timezone_set("America/Argentina/Catamarca"); echo date("d-m-Y H:i");?>">
-              </div>
-            </div>
+            
 
             <div class="col-md-6">
               <label for="inputState" class="form-label">Comisaria</label>
