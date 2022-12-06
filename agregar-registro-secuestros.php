@@ -1,11 +1,11 @@
 <?php
-// // LLAMANDO A LA BASE DE DATOS
-//   include('conexion.php');
-//   session_start();
-//    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-//   if(!isset($_SESSION['usuario'])){
-//   header('Location: index.php');
-//   }
+// LLAMANDO A LA BASE DE DATOS
+include('conexion.php');
+session_start();
+// PREGUNTA SI HAY UN USUARIO REGISTRADO
+if (!isset($_SESSION['usuario'])) {
+    header('Location: index.php');
+}
 
 //   //INICIALIZAMOS DATOS
 //   $idUsuario = $_SESSION['id'];
@@ -45,6 +45,32 @@
 //   }
 //   mysqli_close($conexion);
 
+$idUsuario = $_SESSION['id'];
+
+if (isset($_POST['agregarResgitroSecuestro'])) {
+    $txtFechaRegTabla = $_POST['txtFechaRegTabla'];
+    $txtFechaReg = $_POST['txtFechaReg'];
+    $txtHora = $_POST['txtHora'];
+    $hecho = $_POST['hecho'];
+    $elementoSecuestrado = $_POST['elementoSecuestrado'];
+
+    $insertarRegistroSecuestro = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado) 
+    VALUE ('txtFechaRegTabla', 'txtFechaReg', 'txtHora', 'hecho', 'elementoSecuestrado')";
+
+    // $resultado = mysqli_query($conexion, $insertarRegistroSecuestro);
+
+    $ejecutar = mysqli_query($conexion, $insertarRegistroSecuestro);
+    if (!$ejecutar) 
+    {
+        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+    } 
+    else 
+    {
+        header('location:agregar-registro-secuestros.php?mensaje=agregado');
+    }
+}
+
+mysqli_close($conexion);
 ?>
 
 
@@ -81,8 +107,8 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Css Reloj -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="clockpicker.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="clockpicker.css">
 
     <!-- =======================================================
   * Template Name: NiceAdmin - v2.4.1
@@ -95,15 +121,16 @@
 <body>
 
     <!-- ======= Header ======= -->
-  <?php include("./template/dashboard.php")?>
+    <?php include("./template/dashboard.php") ?>
 
-<!-- ======= Sidebar ======= -->
-<?php  if($_SESSION['rol'] == 1){
-    include ("./template/admin.php");
-  }else{
-    include ("./template/usuario.php");
-  }
-?>
+    <!-- ======= Sidebar ======= -->
+    <?php if ($_SESSION['rol'] == 1) {
+        include("./template/admin.php");
+    } else {
+        include("./template/usuario.php");
+    }
+    ?>
+
 
     <main id="main" class="main">
         <div class="pagetitle">
@@ -117,7 +144,7 @@
         </div><!-- End Page Title -->
         <div class="card">
             <div class="card-body">
-         
+
 
 
 
@@ -181,12 +208,14 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
-     <!-- Script de reloj -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="clockpicker.js"></script>
-  <script type="text/javascript">$('.clockpicker').clockpicker();</script>
+    <!-- Script de reloj -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="clockpicker.js"></script>
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+    </script>
 
 
 </body>
