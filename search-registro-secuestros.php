@@ -13,13 +13,13 @@ $id = $_SESSION['idComisaria'];
 $columns = ['id','fecha_reg_tabla','fecha_reg', 'hora_reg', 'tipo', 'subtipo'];
 
 /* Nombre de la tabla */
-$table = "novedades_de_relevancia";
+$table = "registro_secuestro";
 
 
 if ($_SESSION['rol']==1) {
-    $sql2 = "SELECT * FROM  novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria)";
+    $sql2 = "SELECT * FROM  registro_secuestro n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria)";
 }else if ($_SESSION['rol']==0) {
-    $sql2 = "SELECT * FROM novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.idComisaria=3) AND (n.eliminado<1) AND (c.idComisaria=3)";
+    $sql2 = "SELECT * FROM registro_secuestro n INNER JOIN comisarias c WHERE (n.idComisaria=3) AND (n.eliminado<1) AND (c.idComisaria=3)";
 }
 
 
@@ -40,7 +40,7 @@ if ($num_rows > 0) {
         $html .= '<th scope="row">' . $row['fecha_reg_tabla'] . '</td>';
         $html .= '<td scope="row">' . $row['fecha_reg'] . '</td>';
         $html .= '<td scope="row">' . $row['hora_reg'] . '</td>';
-        $html .= '<td scope="row">' . $row['tipo'] . '</td>';
+        $html .= '<td scope="row">' . $row['hecho'] . '</td>';
         $html .= '<td scope="row">' . $row['subtipo'] . '</td>';
         $id=$row['id'];
         $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' . $row['id'] .'">Ver más</a></td>';

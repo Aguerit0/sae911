@@ -40,8 +40,6 @@
       }else{
         header("Location: usuarios-ver-mas.php?id=$idUsuario&mensaje=error");
         exit();
-        // $sentencia = $bd_conex->prepare("UPDATE `usuario-comisaria`SET idComisaria` VALUES (?) WHERE idComisaria = ");
-        // $resultado_usu_com = $sentencia->execute([$idComisaria]);
       }
     }
 ?>

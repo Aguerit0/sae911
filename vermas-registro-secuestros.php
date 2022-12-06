@@ -1,64 +1,125 @@
-<?php 
-    $id=$_GET['id'];
-    include('conexion.php');
-    session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
-      header('Location: index.php');
-    }
+ <?php 
+  //   $id=$_GET['id'];
+  //   include('conexion.php');
+  //   session_start();
+  //   // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  //   if(!isset($_SESSION['usuario'])){
+  //     header('Location: index.php');
+  //   }
 
-    $idNovedades=$_GET['id'];
-    //CONSULTA TABLA NOVEDADES_DE_GUARDIA
-    $consultaSQL = $bd_conex->prepare("SELECT * FROM novedades_de_relevancia WHERE id=:id");
-    $consultaSQL->bindParam(':id', $id);
-    $consultaSQL->execute();
-    $novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
-
-
-
-      $idNovedadesRelevancia = $novedades['id'];
-      $fecha_reg = $novedades['fecha_reg'];
-      $fecha_reg_tabla = $novedades['fecha_reg_tabla'];
-      $hora_reg = $novedades['hora_reg'];
-      $sindicatos = $novedades['sindicados'];
-      $descripcion = $novedades['descripcion_lugar'];
-      $caracteristicas_hecho = $novedades['caracteristicas_hecho'];
-      $elemento_utilizado = $novedades['elemento_utilizado'];
-      $movil = $novedades['movil'];
-      $elemento_sustraido = $novedades['elemento_sustraido'];
-      $hecho_consumado = $novedades['hecho_consumado'];
-      $tipo_motocicleta = $novedades['tipo_motocicleta'];
-      $color = $novedades['color'];
-      $adelanto_circulacion = $novedades['adelanto_circulacion'];
-      $damnificado = $novedades['damnificado'];
-      $edad = $novedades['edad'];
-      $sexo= $novedades['sexo'];
-      $denunciante= $novedades['denunciante'];
-      $denuncia= $novedades['denuncia'];
-      $unidad_judicial= $novedades['unidad_judicial'];
-      $comision_personal= $novedades['comision_personal'];
-      $medida_tomada= $novedades['medida_tomada'];
-      $tipo= $novedades['tipo'];
-      $subtipo= $novedades['subtipo'];
-      $idComisaria= $novedades['idComisaria'];
-      $longitud = $novedades['longitud'];
-      $latitud = $novedades['latitud'];
+  //   $idNovedades=$_GET['id'];
+  //   //CONSULTA TABLA NOVEDADES_DE_GUARDIA
+  //   $consultaSQL = $bd_conex->prepare("SELECT * FROM registro_secuestro WHERE id=:id");
+  //   $consultaSQL->bindParam(':id', $id);
+  //   $consultaSQL->execute();
+  //   $novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
 
 
-
-
-
-  //ELIMINAR UN REGISTRO
-  if (isset($_POST['confirmarEliminarRegistro'])){
-    $eliminado = 1;
-    $sentenciaSQL=$bd_conex->prepare('UPDATE novedades_de_guardia SET eliminado=:eliminado WHERE id=:id');
-    $sentenciaSQL->bindParam(':id', $idNovedades);
-    $sentenciaSQL->bindParam(':eliminado', $eliminado);
-    $sentenciaSQL->execute();
+  //   // $consultaSelectNovedades="SELECT * FROM novedades_de_guardia WHERE id=$idNovedades";
+  //   // $resultadoSelectNovedades=mysqli_query($conexion,$consultaSelectNovedades);
+  //   // if (!$resultadoSelectNovedades) {
+  //   //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+  //   // }
+  //   //OBTENCION DE DATOS TABLA NOVEDADES_DE_RELEVANCIA
     
-    header('Location: novedades-tabla.php');
-  }
+
+  //     $idNovedadesRelevancia = $novedades['id'];
+  //     $fecha_reg = $novedades['fecha_reg'];
+  //     $fecha_reg_tabla = $novedades['fecha_reg_tabla'];
+  //     $hora_reg = $novedades['hora_reg'];
+  //     $sindicatos = $novedades['sindicados'];
+  //     $caracteristicas_hecho = $novedades['caracteristicas_hecho'];
+  //     $elemento_utilizado = $novedades['elemento_utilizado'];
+  //     $movil = $novedades['movil'];
+  //     $elemento_sustraido = $novedades['elemento_sustraido'];
+  //     $hecho_consumado = $novedades['hecho_consumado'];
+  //     $tipo_motocicleta = $novedades['tipo_motocicleta'];
+  //     $color = $novedades['color'];
+  //     $adelanto_circulacion = $novedades['adelanto_circulacion'];
+  //     $damnificado = $novedades['damnificado'];
+  //     $edad = $novedades['edad'];
+  //     $sexo= $novedades['sexo'];
+  //     $denunciante= $novedades['denunciante'];
+  //     $denuncia= $novedades['denuncia'];
+  //     $unidad_judicial= $novedades['unidad_judicial'];
+  //     $comision_personal= $novedades['comision_personal'];
+  //     $medida_tomada= $novedades['medida_tomada'];
+  //     $tipo= $novedades['tipo'];
+  //     $subtipo= $novedades['subtipo'];
+  //     $idComisaria= $novedades['idComisaria'];
+  //     $longitud = $novedades['longitud'];
+  //     $latitud = $novedades['latitud'];
+
+
+
+  //   //OBTENCION DE DATOS DE TABLA COMISARIAS POR: IDCOMISARIAS
+  //   //CONSULTAMOS BD
+  //   // $consultaSelectComisarias="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+  //   // $resultadoSelectComisarias=mysqli_query($conexion,$consultaSelectComisarias);
+  //   // if (!$consultaSelectComisarias) {
+  //   //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+  //   // }
+  //   // if ($row2=$resultadoSelectComisarias->fetch_assoc()) {
+  //   //   $nombreComisaria=$row2['nombre'];
+  //   // }
+
+
+  //   // //BOTON GUARDAR->VERMASNOVEDADES->
+  //   // if (isset($_POST['guardarNovedad'])) {
+  //   //   $fecha=$_POST['fecha'];
+  //   //   $turno=$_POST['turno'];
+  //   //   $superior_de_turno=$_POST['superior_de_turno'];
+  //   //   $oficial_servicio=$_POST['oficial_servicio'];
+  //   //   $personas_de_guardia=$_POST['personas_de_guardia'];
+  //   //   $motoristas=$_POST['motoristas'];
+  //   //   $mov_funcionamiento=$_POST['mov_funcionamiento'];
+  //   //   $mov_fuera_de_servicio=$_POST['mov_fuera_de_servicio'];
+  //   //   $detenidos_causa_federal=$_POST['detenidos_causa_federal'];
+  //   //   $detenidos_justicia_ordinaria=$_POST['detenidos_justicia_ordinaria'];
+  //   //   $arres_averiguacion_de_hecho=$_POST['arres_averiguacion_de_hecho'];
+  //   //   $aprehendidos=$_POST['aprehendidos'];
+  //   //   $arres_averiguacion_actividades=$_POST['arres_averiguacion_actividades'];
+  //   //   $arres_info_codigo_de_faltas=$_POST['arres_info_codigo_de_faltas'];
+  //   //   $demorados=$_POST['demorados'];
+
+  //   //   //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
+  //   //   $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
+  //   //   $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
+  //   //   if (!$resultadoUpdateNovedades) {
+  //   //     echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
+  //   //   }
+
+  //   // }
+
+
+
+
+  // //ELIMINAR UN REGISTRO
+  // if (isset($_POST['confirmarEliminarRegistro'])){
+  //   $eliminado = 1;
+  //   $sentenciaSQL=$bd_conex->prepare('UPDATE novedades_de_guardia SET eliminado=:eliminado WHERE id=:id');
+  //   $sentenciaSQL->bindParam(':id', $idNovedades);
+  //   $sentenciaSQL->bindParam(':eliminado', $eliminado);
+  //   $sentenciaSQL->execute();
+    
+  //   header('Location: novedades-tabla.php');
+  // }
+
+  // //   //EDITAR UN REGISTRO
+  // //   //CONSULTAR VALORES NUEVOS DE LOS INPUTS
+  // //   if (isset($_POST['guardarRegistro'])) {
+  // //   $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
+  // //   $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
+  // //   if (!$resultadoSelectRegistro) {
+  // //     echo '<script>alert("ERROR INF")</script>';
+  // //   }
+  // //   //OBTENCION DE DATOS TABLA COMISARIA
+  // //   if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
+
+  // // }
+  // // mysqli_close($conexion);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,10 +149,6 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <!-- Css Reloj -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="clockpicker.css">
-
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -109,13 +166,13 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <?php include("./template/dashboard.php")?>
+  <?php include("template/dashboard.php")?>
 
   <!-- ======= Sidebar ======= -->
   <?php  if($_SESSION['rol'] == 1){
-      include ("./template/admin.php");
+      include ("template/admin.php");
     }else{
-      include ("./template/usuario.php");
+      include ("template/usuario.php");
     }
   ?>
 
@@ -139,7 +196,6 @@
           <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
           echo $newDate ?></span></li>
           <li class="list-group-item fw-bold">Hora Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
-          <li class="list-group-item fw-bold">Descripcion del lugar: <span class="fw-normal ms-2"><?php echo $descripcion ?></span></li>
           <li class="list-group-item fw-bold">Sindicados: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
           <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
           <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utilizado ?></span></li>

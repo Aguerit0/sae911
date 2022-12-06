@@ -43,9 +43,6 @@
  ?>
     
 
-
-
-
 <!-- BOTON MODAL ELIMINAR -->
 <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#eliminarNovedadesGuardia">
           Eliminar
@@ -103,7 +100,7 @@
           <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Novedades de Guardia</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Registro de Secuestros</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -117,41 +114,11 @@
                             <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $fecha?>">
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <label for="turno" class="form-label">Turno</label>
-                          <select class="form-select" value="turno" id="turno" name="turno">
-                            <option value="<?php echo $turno?>"><?php echo $turno?></option>
-                            <option >MATUTINO (06:00 - 14:00)</option>
-                            <option>VESPERTINO (14:00 - 22:00)</option>
-                            <option>NOCTURNO (22:00 - 06:00)</option>
-                          </select>
-                        </div>
+                       
+                      
+                   
                       <div class="col-md-6">
-                        <label for="superior_de_turno" class="form-label">Superior de Turno</label>
-                        <input type="text" class="form-control" id="superior_de_turno" name="superior_de_turno" value="<?php echo $superior_de_turno?>">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="oficial_servicio" class="form-label">Oficial Servicio</label>
-                        <input type="text" class="form-control" id="oficial_servicio" name="oficial_servicio" value="<?php echo $oficial_servicio?>">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="personas_de_guardia" class="form-label">Cantidad de personal en guardia</label>
-                        <input type="text" class="form-control" id="personas_de_guardia" name="personas_de_guardia" value="<?php echo $personas_de_guardia?>">
-                      </div>
-                      <div class="col-6">
-                        <label for="motoristas" class="form-label">Motoristas</label>
-                        <input type="text" class="form-control" id="motoristas" name="motoristas" value="<?php echo $motoristas?>">
-                      </div>
-                      <div class="col-6">
-                          <label for="mov_funcionamiento" class="form-label">Moviles en funcionamiento</label>
-                          <input type="text" class="form-control" id="mov_funcionamiento" name="mov_funcionamiento" value="<?php echo $mov_funcionamiento?>">
-                        </div>
-                      <div class="col-md-6">
-                        <label for="mov_fuera_de_servicio" class="form-label">Moviles fuera de servicio</label>
-                        <input type="text" class="form-control" id="mov_fuera_de_servicio" name="mov_fuera_de_servicio" value="<?php echo $mov_fuera_de_servicio?>">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="detenidos_causa_federal" class="form-label">Cantidad de detenidos Causa Federal</label>
+                        <label for="detenidos_causa_federal" class="form-label"></label>
                         <input type="text" class="form-control" id="detenidos_causa_federal" name="detenidos_causa_federal" value="<?php echo $detenidos_causa_federal?>">
                       </div>
                       <div class="col-md-6">
@@ -166,18 +133,7 @@
                         <label for="aprehendidos" class="form-label">Cantidad de Aprehendidos</label>
                         <input type="text" class="form-control" id="aprehendidos" name="aprehendidos" value="<?php echo $aprehendidos?>">
                       </div>
-                      <div class="col-md-6">
-                        <label for="arres_averiguacion_actividades" class="form-label">Arrestados averiguacion de activiades</label>
-                        <input type="text" class="form-control" id="arres_averiguacion_actividades" name="arres_averiguacion_actividades" value="<?php echo $arres_averiguacion_actividades?>">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="arres_info_codigo_de_faltas" class="form-label">Arrestados Inf. código de faltas</label>
-                        <input type="text" class="form-control" id="arres_info_codigo_de_faltas" name="arres_info_codigo_de_faltas" value="<?php echo $arres_info_codigo_de_faltas?>">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="demorados" class="form-label">Demorados</label>
-                        <input type="text" class="form-control" id="demorados" name="demorados" value="<?php echo $demorados?>">
-                      </div>
+                      
                       <div class="text-center">
                         <button type="submit" class="btn btn-primary float-end" name="guardarNovedad" id="guardarNovedad" value="guardarNovedad">Guardar</button>
                       </div>
@@ -187,7 +143,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <!-- <button type="button" class="btn btn-primary">Understood</button> -->
               </div>
             </div>
