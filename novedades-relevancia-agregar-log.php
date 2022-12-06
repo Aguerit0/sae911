@@ -93,7 +93,22 @@ if (isset($_POST['BtnAgregar']))
         }
 
         $ComisionPolicialInvestigacion = $_POST['ComisionPolicialInvestigacion'];
-        $MedidaTomada = $_POST['MedidaTomada'];
+
+        // $ESTADO = $_REQUEST['ESTADO'];
+
+        $MedidaTomadaArray = $_REQUEST['MedidaTomada'];
+        if(count($MedidaTomadaArray) > count(array_unique($MedidaTomadaArray)))
+        {
+            // echo "¡Hay repetidos!";
+            header('Location: novedades-relevancia-agregar.php?mensaje=error');
+            exit();
+        }
+        else
+        {
+            // echo "No hay repetidos";
+            $MedidaTomada = implode(" - ",$MedidaTomadaArray);
+        }
+
         $eliminado = 0;
 
         echo $fecha_reg_tabla, $txtFecha, $txtHora, $tipo, $subtipo, $txtLon, $txtLat, $txtDescr_Lugar, $txtSindicados, $txtCaractDeHechos, $txtMovil, $txtElementoSustraido, $Hecho_Con_Int, $ElementoUtilizado, $TipoMotocicleta, $txtColor, $EmitioAdelanto, $txtDamnificado, $txtEdad, $Sexo, $Denuncia, $txtDenunciante, $UnidadJudicial, $ComisionPolicialInvestigacion, $MedidaTomada, $eliminado, $idComisaria, $idUsuario;

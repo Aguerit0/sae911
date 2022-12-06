@@ -86,6 +86,9 @@
   <!-- Css Mapa -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
 
+  <!-- JQuery medidas tomadas -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.4.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -126,15 +129,16 @@
           <!-- FORMULARIO PARA AGREGAR NOVEDADES DE RELEVANCIA -->
           <form action="novedades-relevancia-agregar-log.php" method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
 
-            <div class="col-md-6">
-              <label for="inputEmail5" class="form-label">Fecha de registro</label>
-              <div class="col-sm-10">
+            <div class="col-md-4">
+              <label for="inputEmail5" class="form-label">Fecha del Suceso</label>
+              <!-- <div class="col-sm-10"> -->
                 <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
-              </div>
+              <!-- </div> -->
             </div>
+            <div class="col-md-2"></div>
 
             <div class="col-md-6">
-              <label for="inputEmail5" class="form-label">Hora</label>
+              <label for="inputEmail5" class="form-label">Hora del Suceso</label>
               <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true" readonly="">
             </div>
 
@@ -186,7 +190,7 @@
             </div>
           
             <div class="col-md-6">
-              <label for="inputEmail5" class="form-label">Descripcion Del Lugar</label>
+              <label for="inputEmail5" class="form-label">Descripcion del lugar</label>
               <input required type="text" id="txtDescr_Lugar" name="txtDescr_Lugar" class="form-control" id="inputEmail5">
             </div>
 
@@ -194,7 +198,7 @@
               <label for="inputtext5"  class="form-label">Sindicados (cantidad) </label>
               <input required type="number" id="txtSindicados" name="txtSindicados" class="form-control" id="inputtext5">
             </div>
-            
+
             <div class="col-md-6">
               <label for="inputtext5"  class="form-label">Caracteristica del hecho</label>
               <input required type="text" id="txtCaractDeHecho" name="txtCaractDeHecho" class="form-control" id="inputtext5">
@@ -217,9 +221,6 @@
                 <option value="Intento">Intento</option>
             </select>
             </div>
-
-
-
 
             <div class="col-md-6">
               <label for="inputState" class="form-label">Elemento utilizado (Moto o Pie)</label>
@@ -261,7 +262,7 @@
             </div>
             
             <div class="col-md-6">
-              <label for="inputState" class="form-label">Sexo </label>
+              <label for="inputState" class="form-label">Genero</label>
               <select required id="inputState" id="Sexo" name="Sexo" class="form-select">
                 <option value="">Seleccionar</option>
                 <option value="Hombre">Hombre</option>
@@ -296,30 +297,59 @@
                 <option value="">Seleccionar</option>
                 <option value="Si">Si</option>
                 <option value="No">No</option>
+                <option value="No">No se especifica</option>
             </select>
             </div>
 
-            <div class="col-md-6">
+
+
+            <div class="col-md-5">
               <label for="inputState" class="form-label">Medida tomada </label>
-              <select required id="inputState" id="MedidaTomada" name="MedidaTomada" class="form-select">
+              <select required id="inputState" name="MedidaTomada[]" class="form-select">
                 <option value="">Seleccionar</option>
-                <option value="Fiscalia de instroduccion">Fiscalia de instroduccion</option>
                 <option value="Demora">Demora</option>
                 <option value="A.A.A">A.A.A</option>
                 <option value="A.I.C.F">A.I.C.F</option>
                 <option value="Aprehension">Aprehension</option>
-                <option value="A.A echo">A.A Hecho</option>
+                <option value="A.A Hecho">A.A Hecho</option>
                 <option value="Detencion">Detencion</option>
                 <option value="Secuestros">Secuestros</option>
                 <option value="Registros">Registros</option>
                 <option value="Allanamiento">Allanamiento</option>
               </select>
             </div>
-            
-            
-            <div class="text-center">
-              <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
+
+            <div class="col-md-1 mt-5">
+              <button class="btn btn-success add-btn"><i class="bi bi-plus-circle-fill"></i></button>
             </div>
+            <!-- class="row g-3 pt-3" -->
+
+            <div class="row newData g-2 ms-0">
+            </div>
+              
+
+
+            <!-- <div class="col-md-6">
+              <label for="inputState" class="form-label">Medida tomada</label>
+              <select required id="inputState" id="MedidaTomada"  name="MedidaTomada" class="form-select">
+                <option value="">Seleccionar</option>
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+                <option value="No">No se especifica</option>
+            </select>
+            </div> -->
+
+
+
+
+
+            
+            <hr>
+
+            <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
+              <button type="submit" name="BtnAgregar" class="btn btn-primary float-end px-xl-5">Agregar Registro</button>
+            </div>
+
           </form><!-- End Multi Columns Form -->
 
         </div>
@@ -368,6 +398,57 @@
   <!-- Script de mapa -->
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
   <script src="mapa.js"></script>
+
+  <!-- Script de medidas tomadas -->
+  <script type="text/javascript">
+    $(function () { 
+      var i = 1;
+      $('.add-btn').click(function (e) {
+        e.preventDefault();
+          i++;
+
+        $('.newData').append('<div id="newRow'+i+'" class="col-md-6">'
+
+            +'<div class="row g-3">'
+              +'<div class="col-md-10">'
+            
+                +'<label>Medida tomada</label>'
+
+                +'<select required id="inputState" name="MedidaTomada[]" class="form-control">'
+                  +'<option value="">Seleccionar</option>'
+                  +'<option value="Demora">Demora</option>'
+                  +'<option value="A.A.A">A.A.A</option>'
+                  +'<option value="A.I.C.F">A.I.C.F</option>'
+                  +'<option value="Aprehension">Aprehension</option>'
+                  +'<option value="A.A echo">A.A Hecho</option>'
+                  +'<option value="Detencion">Detencion</option>'
+                  +'<option value="Secuestros">Secuestros</option>'
+                  +'<option value="Registros">Registros</option>'
+                  +'<option value="Allanamiento">Allanamiento</option>'
+                +'</select>'
+
+              +'</div>'
+              
+              +'<div class="col-md-2 mt-5">'
+                +'<a href="#" class="btn btn-danger remove-lnk" id="'+i+'"><i class="bi bi-trash3"></i></a>'
+              +'</div>'
+            
+            +'</div>'
+          +'</div>'
+          );  
+      });
+
+
+      $(document).on('click', '.remove-lnk', function(e) 
+      {
+        e.preventDefault();
+
+        var id = $(this).attr("id");
+        $('#newRow'+id+'').remove();
+      });
+
+    });
+  </script>
   
 </body>
 
