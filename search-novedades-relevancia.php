@@ -31,11 +31,13 @@ $num_rows = $resultado->num_rows;
 /* Mostrado resultados */
 $html = '';
 
+echo "asd";
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
         if (($row['eliminado']>=1)) {
             
         }else{
+            echo "asd";
         $html .= '<tr>';
         $html .= '<th scope="row">' . $row['fecha_reg_tabla'] . '</td>';
         $html .= '<td scope="row">' . $row['fecha_reg'] . '</td>';

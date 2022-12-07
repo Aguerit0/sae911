@@ -304,8 +304,8 @@ $idUsuario = $_SESSION['id'];
                                     <div class="text-center">
                                         <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
-                                </form><!-- End Multi Columns Form -->
-
+                                </form>
+                                <!-- End Multi Columns Form -->
                         </div>
                     </div>
                 </div>
@@ -315,7 +315,7 @@ $idUsuario = $_SESSION['id'];
                 </div>
             </div>
         </div>
-        
+        .
         <!-- R -->
         <table class="table table-sm table-hover table-bordered text-center">
             <thead class="table-dark">

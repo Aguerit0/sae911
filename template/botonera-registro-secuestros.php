@@ -1,21 +1,27 @@
 <?php
+// LLAMANDO A LA BASE DE DATOS
+include('conexion.php');
+// PREGUNTA SI HAY UN USUARIO REGISTRADO
+if (!isset($_SESSION['usuario'])) {
+  header('Location: index.php');
+}
 
+//INICIALIZAMOS DATOS
+$idUsuario = $_SESSION['id'];
+$idComisaria = $_SESSION['idComisaria'];
 
 //BOTON GUARDAR->VERMASNOVEDADES->
 if (isset($_POST['guardarRegistroSecuestro'])) {
   include('conexion.php');
-  $txtfecha_reg_tabla = $_POST['fecha_reg_tabla'];
-  $txtfecha_reg = $_POST['fecha_reg'];
-  $txthora_reg = $_POST['hora_reg'];
-  $txthecho = $_POST['hecho'];
-  $txtelemento_secuestrado = $_POST['elemento_secuestrado'];
-  $txteliminado = $_POST['eliminado'];
-  $txtid_usuario = $_POST['id_usuario'];
-  $txtid_comisaria = $_POST['id_comisaria'];
+  $fecha_reg = $_POST['fecha_reg'];
+  $hora_reg = $_POST['hora_reg'];
+  $hecho = $_POST['hecho'];
+  $elemento_secuestrado = $_POST['elemento_secuestrado'];
 
   //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
-  $sqlUpdateRegistroSecuestro = "UPDATE registro_secuestro SET fecha_reg_tabla='$txtfecha_reg_tabla', fecha_reg='$txtfecha_reg', hora_reg='$txthora_reg',hecho='$txthecho', elemento_secuestrado='$txtelemento_secuestrado', eliminado='$txteliminado', id_usuario='$txtid_usuario', id_comisaria='$txtid_comisaria' WHERE id=$idRegistroSecuestro ";
-  $resultadoUpdateNovedades = mysqli_query($conexion, $sqlUpdateRegistroSecuestro);
+  $sqlUpdateRegistroSecuestros = "UPDATE registro_secuestro SET fecha_reg='$fecha_reg', hora_reg='$hora_reg',hecho='$hecho', elemento_secuestrado='$elemento_secuestrado' WHERE id=$idRegistroSecuestro ";
+
+  $resultadoUpdateRegistroSecuestros = mysqli_query($conexion, $sqlUpdateRegistroSecuestros);
   if (mysqli_errno($conexion) != 0) {
     echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
   } else {
@@ -23,7 +29,7 @@ if (isset($_POST['guardarRegistroSecuestro'])) {
 ?>
     <script language='JavaScript' type="text/javascript">
       function B() {
-        location.href = 'novedades-ver-mas.php?mensaje=editado&id=<?php echo $idRegistroSecuestro ?>';
+        location.href = 'registro-secuestros-vermas.php?mensaje=editado&id=<?php echo $idRegistroSecuestro ?>';
       }
       B();
     </script>
@@ -79,30 +85,23 @@ if (isset($_POST['guardarRegistroSecuestro'])) {
             <!-- FORMULARIO PARA EDITAR NOVEDADES DE GUARDIA -->
             <form class="row g-4 pt-3" method="POST" action="">
               <div class="col-md-6">
-                <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
-                <div class="col-sm-10">
-                  <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $fecha ?>">
-                </div>
+                <label for="fecha_reg" class="col-form-label">Fecha de registro</label>
+                <input required type="date" id="fecha_reg" name="fecha_reg" class="form-control" value="<?php echo $fecha_reg?>">
               </div>
 
               <div class="col-md-6">
-                <label for="detenidos_causa_federal" class="form-label"></label>
-                <input type="text" class="form-control" id="detenidos_causa_federal" name="detenidos_causa_federal" value="<?php echo $detenidos_causa_federal ?>">
+                <label for="hora_reg" class="form-label">Hora</label>
+                <input type="time" id="hora_reg" name="hora_reg" class="form-control clockpicker" data-placement="center" data-align="top" data-autoclose="true"  value="<?php echo $hora_reg ?>">
               </div>
 
               <div class="col-md-6">
-                <label for="detenidos_justicia_ordinaria" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
-                <input type="text" class="form-control" id="detenidos_justicia_ordinaria" name="detenidos_justicia_ordinaria" value="<?php echo $detenidos_justicia_ordinaria ?>">
+                <label for="hecho" class="form-label">Hecho</label>
+                <input required type="text" name="hecho" id="hecho" class="form-control" value="<?php echo $hecho ?>"> 
               </div>
 
               <div class="col-md-6">
-                <label for="arres_averiguacion_de_hecho" class="form-label">Arrestados averiguacion del hecho</label>
-                <input type="text" class="form-control" id="arres_averiguacion_de_hecho" name="arres_averiguacion_de_hecho" value="<?php echo $arres_averiguacion_de_hecho ?>">
-              </div>
-
-              <div class="col-md-6">
-                <label for="aprehendidos" class="form-label">Cantidad de Aprehendidos</label>
-                <input type="text" class="form-control" id="aprehendidos" name="aprehendidos" value="<?php echo $aprehendidos ?>">
+                <label for="elemento_secuestrado" class="form-label">Elemento secuestrado</label>
+                <input required type="text" name="elemento_secuestrado" id="elemento_secuestrado" class="form-control" value="<?php echo $elemento_secuestrado ?>"> 
               </div>
 
               <div class="text-center">
@@ -120,3 +119,12 @@ if (isset($_POST['guardarRegistroSecuestro'])) {
     </div>
   </div>
 </div>
+
+<!-- Script de reloj -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="clockpicker.js"></script>
+<script type="text/javascript">
+  $('.clockpicker').clockpicker();
+</script>
