@@ -92,6 +92,40 @@
                 </ol>
             </nav>
         </div><!-- End Page Title -->
+        <!-- CODIGO DE ALERTAS -->
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado')
+        {
+        ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Exito!</strong> Se ingresó correctament la persona.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+        {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> Error</strong> No se pudo agregar la nueva comisaria.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado')
+        {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Eliminado!</strong> Se eliminó correctamente el registro.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
 
         <div class="search">
             <!--INPUT BUSCAR EN TABLAS-->

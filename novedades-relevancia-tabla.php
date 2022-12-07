@@ -14,8 +14,6 @@ $comisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
 $idUsuario = $_SESSION['id'];
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,10 +88,10 @@ $idUsuario = $_SESSION['id'];
                     Agregar 
                 </button>
                 <a href="novedades-ver-mapa.php">
-                <button type="button" class="btn btn-secondary float-end mb-2 mx-2">
-                    <i class="bi bi-geo-alt-fill"></i>
-                    Ver mapa
-                </button>
+                    <button type="button" class="btn btn-secondary float-end mb-2 mx-2">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        Ver mapa
+                    </button>
                 </a>
             </form>
         </div>
