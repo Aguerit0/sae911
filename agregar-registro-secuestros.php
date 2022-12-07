@@ -7,9 +7,9 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: index.php');
 }
 
-//   //INICIALIZAMOS DATOS
-//   $idUsuario = $_SESSION['id'];
-//   // $idComisaria=1;
+  //INICIALIZAMOS DATOS
+  //$idUsuario = $_SESSION['id'];
+  //$idComisaria=1;
 //   if (isset($_POST['agregar'])) {
 //     $txtFecha = $_POST['txtFecha'];
 //     $txtComisaria = $_POST['txtComisaria'];
@@ -46,16 +46,20 @@ if (!isset($_SESSION['usuario'])) {
 //   mysqli_close($conexion);
 
 $idUsuario = $_SESSION['id'];
+$idComisaria = $_SESSION['idComisaria'];
 
-if (isset($_POST['agregarResgitroSecuestro'])) {
-    $txtFechaRegTabla = $_POST['txtFechaRegTabla'];
+if (isset($_POST['agregarRegistroSecuestro'])) {
+
     $txtFechaReg = $_POST['txtFechaReg'];
     $txtHora = $_POST['txtHora'];
     $hecho = $_POST['hecho'];
     $elementoSecuestrado = $_POST['elementoSecuestrado'];
 
-    $insertarRegistroSecuestro = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado) 
-    VALUE ('txtFechaRegTabla', 'txtFechaReg', 'txtHora', 'hecho', 'elementoSecuestrado')";
+
+    $insertar = "INSERT INTO registro_secuestro(`fecha_reg_tabla`, `fecha_reg`, `hora_reg`, `hecho`, `elemento_secuestrado`, `eliminado`, `id_usuario`, `id_comisaria`) VALUES('$txtFechaReg', '$txtFechaReg', '$txtHora', '$hecho', '$elementoSecuestrado', '$idUsuario', '$idComisaria')";
+
+    $insertarRegistroSecuestro = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, id_usuario, id_comisaria) 
+    VALUE ('$txtFechaReg', '$txtFechaReg', '$txtHora', '$hecho', '$elementoSecuestrado', '$idUsuario', '$idComisaria')";
 
     // $resultado = mysqli_query($conexion, $insertarRegistroSecuestro);
 
@@ -135,6 +139,8 @@ mysqli_close($conexion);
     <main id="main" class="main">
         <div class="pagetitle">
             <h1>Formulario Registro de Secuestros</h1>
+
+            
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
@@ -150,7 +156,7 @@ mysqli_close($conexion);
 
                 <!-- FORMULARIO PARA AGREGAR REGISTRO DE SECUESTROS -->
 
-                <form class="row g-3 pt-3 needs-validation" method="POST" action="registrar_log.php">
+                <form class="row g-3 pt-3 needs-validation" method="POST" action="">
 
                     <div class="col-md-6">
                         <label for="inputEmail5" class="form-label">Fecha </label>
@@ -181,7 +187,7 @@ mysqli_close($conexion);
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
+                        <button type="submit" name="agregarRegistroSecuestro" id="agregarRegistroSecuestro" class="btn btn-primary float-end">Agregar</button>
                     </div>
 
                 </form><!-- End Multi Columns Form -->
@@ -213,8 +219,7 @@ mysqli_close($conexion);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="clockpicker.js"></script>
-    <script type="text/javascript">
-        $('.clockpicker').clockpicker();
+    <script type="text/javascript">$('.clockpicker').clockpicker();</script>
     </script>
 
 
