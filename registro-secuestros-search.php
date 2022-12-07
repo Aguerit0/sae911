@@ -6,14 +6,15 @@
 
 require 'conexion.php';
 session_start();
-$id = $_SESSION['idComisaria'];
-
+$id = $_SESSION['id'];
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['id','fecha_reg_tabla','fecha_reg', 'hora_reg', 'tipo', 'subtipo'];
+$columns = ['id','fecha_reg_tabla','fecha_reg', 'hora_reg', 'hecho', 'elemento_secuestrado', 'eliminado', 'id_usuario', 'id_comisaria'];
 
 /* Nombre de la tabla */
 $table = "registro_secuestro";
+
+$campo = isset($_POST['campo']) ? $conexion->real_escape_string($_POST['campo']) : null;
 
 
 if ($_SESSION['rol']==1) {
@@ -37,13 +38,12 @@ if ($num_rows > 0) {
             
         }else{
         $html .= '<tr>';
-        $html .= '<th scope="row">' . $row['fecha_reg_tabla'] . '</td>';
         $html .= '<td scope="row">' . $row['fecha_reg'] . '</td>';
         $html .= '<td scope="row">' . $row['hora_reg'] . '</td>';
         $html .= '<td scope="row">' . $row['hecho'] . '</td>';
-        $html .= '<td scope="row">' . $row['subtipo'] . '</td>';
+        $html .= '<td scope="row">' . $row['elemento_secuestrado'] . '</td>';
         $id=$row['id'];
-        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' . $row['id'] .'">Ver más</a></td>';
+        $html .= '<td scope="row"><a class="btn btn-primary" href="vermas-registro-secuestros.php?id=' . $row['id'] .'">Ver más</a></td>';
         $html .= '</tr>';   
         }
     }

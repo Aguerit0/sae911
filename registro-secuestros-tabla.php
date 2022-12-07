@@ -1,5 +1,4 @@
 <?php
-
 include 'conexion.php';
 session_start();
 // PREGUNTA SI HAY UN USUARIO REGISTRADO
@@ -7,32 +6,26 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: index.php');
 }
 
-
-
-
+$idUsuario = $_SESSION['id'];
 if (isset($_POST['agregarResgitroSecuestro'])) {
     $txtFechaRegTabla = $_POST['txtFechaRegTabla'];
     $txtFechaReg = $_POST['txtFechaReg'];
     $txtHora = $_POST['txtHora'];
-    $hecho = $_POST['hecho'];
-    $elementoSecuestrado = $_POST['elementoSecuestrado'];
+    $txtHecho = $_POST['hecho'];
+    $txtElementoSecuestrado = $_POST['elementoSecuestrado'];
 
     $insertarRegistroSecuestro = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado) 
-    VALUE ('txtFechaRegTabla', 'txtFechaReg', 'txtHora', 'hecho', 'elementoSecuestrado')";
+    VALUE ('txtFechaRegTabla', 'txtFechaReg', 'txtHora', 'txtHecho', 'txtElementoSecuestrado')";
 
     $resultado = mysqli_query($conexion, $insertarRegistroSecuestro);
 
-    $ejecutar = mysqli_query($conexion, $insertarRegistroSecuestro);
+    $ejecutar = mysqli_query($conexion, $resultado);
     if (!$ejecutar) {
         echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     } else {
         header('location:tabla-registro-secuestros.php?mensaje=agregado');
     }
 }
-
-
-
-
 ?>
 
 
@@ -48,7 +41,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
     <meta content="" name="keywords">
     <br>
 
-   
+
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -68,7 +61,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
-    
+
     <!-- Css Reloj -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="clockpicker.css">
@@ -97,8 +90,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                    <li class="breadcrumb-item active">Usuarios</li>
+                    <li class="breadcrumb-item active">Registro de Secuestros</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -176,11 +168,9 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
                                     </div>
 
                                     <div class="col-md-6">
-                                    <label for="inputEmail5" class="form-label">Hora</label>
-                                    <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                        <label for="inputEmail5" class="form-label">Hora</label>
+                                        <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true">
                                     </div>
-
-
 
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Hecho</label>
@@ -216,7 +206,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
             <table class="table table-sm table-hover table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
-                      
+
                         <th scope="col">Fecha </th>
                         <th scope="col"> Hora </th>
                         <th scope="col"> Hecho </th>
