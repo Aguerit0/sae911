@@ -1,5 +1,5 @@
 <?php 
-$id=$_GET['id'];
+    $id=$_GET['id'];
     include('conexion.php');
     session_start();
     // PREGUNTA SI HAY UN USUARIO REGISTRADO
@@ -15,19 +15,13 @@ $id=$_GET['id'];
     $novedades = $consultaSQL->fetch(PDO::FETCH_LAZY);
 
 
-    // $consultaSelectNovedades="SELECT * FROM novedades_de_guardia WHERE id=$idNovedades";
-    // $resultadoSelectNovedades=mysqli_query($conexion,$consultaSelectNovedades);
-    // if (!$resultadoSelectNovedades) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-    //OBTENCION DE DATOS TABLA NOVEDADES_DE_GUARDIA
-    
 
       $idNovedadesRelevancia = $novedades['id'];
       $fecha_reg = $novedades['fecha_reg'];
       $fecha_reg_tabla = $novedades['fecha_reg_tabla'];
       $hora_reg = $novedades['hora_reg'];
       $sindicatos = $novedades['sindicados'];
+      $descripcion = $novedades['descripcion_lugar'];
       $caracteristicas_hecho = $novedades['caracteristicas_hecho'];
       $elemento_utilizado = $novedades['elemento_utilizado'];
       $movil = $novedades['movil'];
@@ -47,48 +41,9 @@ $id=$_GET['id'];
       $tipo= $novedades['tipo'];
       $subtipo= $novedades['subtipo'];
       $idComisaria= $novedades['idComisaria'];
+      $longitud = $novedades['longitud'];
+      $latitud = $novedades['latitud'];
 
-
-
-
-    //OBTENCION DE DATOS DE TABLA COMISARIAS POR: IDCOMISARIAS
-    //CONSULTAMOS BD
-    // $consultaSelectComisarias="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-    // $resultadoSelectComisarias=mysqli_query($conexion,$consultaSelectComisarias);
-    // if (!$consultaSelectComisarias) {
-    //   echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    // }
-    // if ($row2=$resultadoSelectComisarias->fetch_assoc()) {
-    //   $nombreComisaria=$row2['nombre'];
-    // }
-
-
-    // //BOTON GUARDAR->VERMASNOVEDADES->
-    // if (isset($_POST['guardarNovedad'])) {
-    //   $fecha=$_POST['fecha'];
-    //   $turno=$_POST['turno'];
-    //   $superior_de_turno=$_POST['superior_de_turno'];
-    //   $oficial_servicio=$_POST['oficial_servicio'];
-    //   $personas_de_guardia=$_POST['personas_de_guardia'];
-    //   $motoristas=$_POST['motoristas'];
-    //   $mov_funcionamiento=$_POST['mov_funcionamiento'];
-    //   $mov_fuera_de_servicio=$_POST['mov_fuera_de_servicio'];
-    //   $detenidos_causa_federal=$_POST['detenidos_causa_federal'];
-    //   $detenidos_justicia_ordinaria=$_POST['detenidos_justicia_ordinaria'];
-    //   $arres_averiguacion_de_hecho=$_POST['arres_averiguacion_de_hecho'];
-    //   $aprehendidos=$_POST['aprehendidos'];
-    //   $arres_averiguacion_actividades=$_POST['arres_averiguacion_actividades'];
-    //   $arres_info_codigo_de_faltas=$_POST['arres_info_codigo_de_faltas'];
-    //   $demorados=$_POST['demorados'];
-
-    //   //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
-    //   $consultaUpdateNovedades = "UPDATE novedades_de_guardia SET fecha='$fecha', turno='$turno', superior_de_turno='$superior_de_turno', oficial_servicio='$oficial_servicio', personas_de_guardia='$personas_de_guardia', motoristas='$motoristas', mov_funcionamiento='$mov_funcionamiento', mov_fuera_de_servicio='$mov_fuera_de_servicio', detenidos_causa_federal='$detenidos_causa_federal', detenidos_justicia_ordinaria='$detenidos_justicia_ordinaria', arres_averiguacion_de_hecho='$arres_averiguacion_de_hecho', arres_averiguacion_actividades='$arres_averiguacion_actividades', arres_info_codigo_de_faltas='$arres_info_codigo_de_faltas', demorados='demorados' WHERE $idNovedades ";
-    //   $resultadoUpdateNovedades=mysqli_query($conexion,$consultaUpdateNovedades);
-    //   if (!$resultadoUpdateNovedades) {
-    //     echo '<script>alert("ERROR AL ENCONTRAR INFORMACIÓN")</script>';
-    //   }
-
-    // }
 
 
 
@@ -103,21 +58,7 @@ $id=$_GET['id'];
     
     header('Location: novedades-tabla.php');
   }
-
-  //   //EDITAR UN REGISTRO
-  //   //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-  //   if (isset($_POST['guardarRegistro'])) {
-  //   $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-  //   $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-  //   if (!$resultadoSelectRegistro) {
-  //     echo '<script>alert("ERROR INF")</script>';
-  //   }
-  //   //OBTENCION DE DATOS TABLA COMISARIA
-  //   if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-
-  // }
-    // mysqli_close($conexion);
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -147,8 +88,15 @@ $id=$_GET['id'];
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
+  <!-- Css Reloj -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="clockpicker.css">
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- Css Mapa -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.4.1
@@ -185,10 +133,14 @@ $id=$_GET['id'];
     <div class="card w-75 pt-3">
       <div class="card-body">
           <ul class="list-group">
-          <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php echo $fecha_reg_tabla ?></span></li></li>
-          <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php echo $fecha_reg ?></span></li>
+          <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php 
+          $newDate = date("d/m/Y", strtotime($fecha_reg_tabla));
+          echo $newDate ?></span></li></li>
+          <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
+          echo $newDate ?></span></li>
           <li class="list-group-item fw-bold">Hora Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
-          <li class="list-group-item fw-bold">Sindicatos: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
+          <li class="list-group-item fw-bold">Descripcion del lugar: <span class="fw-normal ms-2"><?php echo $descripcion ?></span></li>
+          <li class="list-group-item fw-bold">Sindicados: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
           <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
           <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utilizado ?></span></li>
           <li class="list-group-item fw-bold">Movil: <span class="fw-normal ms-2"><?php echo $movil ?></span></li>
@@ -199,7 +151,7 @@ $id=$_GET['id'];
           <li class="list-group-item fw-bold">Adelanto Circulacion: <span class="fw-normal ms-2"><?php echo $adelanto_circulacion ?></span></li>
           <li class="list-group-item fw-bold">Damificado: <span class="fw-normal ms-2"><?php echo $damnificado ?></span></li>
           <li class="list-group-item fw-bold">Edad: <span class="fw-normal ms-2"><?php echo $edad ?></span></li>
-          <li class="list-group-item fw-bold">Sexo: <span class="fw-normal ms-2"><?php echo $sexo ?></span></li>
+          <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php echo $sexo ?></span></li>
           <li class="list-group-item fw-bold">Denunciante: <span class="fw-normal ms-2"><?php echo $denunciante ?></span></li>
 
           <li class="list-group-item fw-bold">Unidad Judicial: <span class="fw-normal ms-2"><?php echo $unidad_judicial ?></span></li>
@@ -210,6 +162,9 @@ $id=$_GET['id'];
           <li class="list-group-item fw-bold">Tipo: <span class="fw-normal ms-2"><?php echo $tipo ?></span></li>
          <li class="list-group-item fw-bold">Sub Tipo: <span class="fw-normal ms-2"><?php echo $subtipo ?></span></li>
          <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $idComisaria ?></span></li>
+         <li class="list-group-item fw-bold">
+            <div id="map" style="height: 30vh; width: 40vw; margin: 0 auto; border-radius: 10px;"></div>
+          </li>
 
 
 
@@ -221,7 +176,6 @@ $id=$_GET['id'];
         ?>
       </div>
     </div>
-    <br>
     <a class="btn btn-primary" href="novedades-relevancia-tabla.php">Volver</a>
   </main><!-- End #main -->
 
@@ -240,6 +194,29 @@ $id=$_GET['id'];
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <!-- Script de mapa -->
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+  <script>
+    // Coordenadas iniciales
+    var lat = <?php echo $latitud ?>;
+    var lon = <?php echo $longitud ?>;
+    
+    //inicializa mapa con centro del mapa con coordenadas iniciales y zoom de 17 en DIV mapid
+    var map = L.map('map').setView([lat, lon], 17);
+    //Indica que Tile se utilizará
+    /* L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(map); */
+
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+    }).addTo(map);
+
+    L.marker([<?php echo $latitud?>,<?php echo $longitud ?>]).addTo(map);
+
+  </script>
 </body>
 
 </html>
