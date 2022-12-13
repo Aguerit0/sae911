@@ -86,22 +86,22 @@ if (isset($_POST['guardarRegistroSecuestro'])) {
             <form class="row g-4 pt-3" method="POST" action="">
               <div class="col-md-6">
                 <label for="fecha_reg" class="col-form-label">Fecha de registro</label>
-                <input required type="date" id="fecha_reg" name="fecha_reg" class="form-control" value="<?php echo $fecha_reg?>">
+                <input required type="date" id="fecha_reg" name="fecha_reg" class="form-control" value="<?php echo $fecha_reg ?>">
               </div>
 
               <div class="col-md-6">
                 <label for="hora_reg" class="form-label">Hora</label>
-                <input type="time" id="hora_reg" name="hora_reg" class="form-control clockpicker" data-placement="center" data-align="top" data-autoclose="true"  value="<?php echo $hora_reg ?>">
+                <input type="time" id="hora_reg" name="hora_reg" class="form-control clockpicker" data-placement="center" data-align="top" data-autoclose="true" value="<?php echo $hora_reg ?>">
               </div>
 
               <div class="col-md-6">
                 <label for="hecho" class="form-label">Hecho</label>
-                <input required type="text" name="hecho" id="hecho" class="form-control" value="<?php echo $hecho ?>"> 
+                <input required type="text" name="hecho" id="hecho" class="form-control" value="<?php echo $hecho ?>">
               </div>
 
               <div class="col-md-6">
                 <label for="elemento_secuestrado" class="form-label">Elemento secuestrado</label>
-                <input required type="text" name="elemento_secuestrado" id="elemento_secuestrado" class="form-control" value="<?php echo $elemento_secuestrado ?>"> 
+                <input required type="text" name="elemento_secuestrado" id="elemento_secuestrado" class="form-control" value="<?php echo $elemento_secuestrado ?>">
               </div>
 
               <div class="text-center">

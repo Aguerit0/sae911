@@ -7,25 +7,26 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $idUsuario = $_SESSION['id'];
-if (isset($_POST['agregarResgitroSecuestro'])) {
-    $txtFechaRegTabla = $_POST['txtFechaRegTabla'];
-    $txtFechaReg = $_POST['txtFechaReg'];
-    $txtHora = $_POST['txtHora'];
+if (isset($_POST['agregar'])) {
+    $txtFechaRegTabla = $_POST['fecha_reg_tabla'];
+    $txtFechaReg = $_POST['fecha_reg'];
+    $txtHora = $_POST['hora_reg'];
     $txtHecho = $_POST['hecho'];
-    $txtElementoSecuestrado = $_POST['elementoSecuestrado'];
+    $txtElementoSecuestrado = $_POST['elemento_secuestrado'];
 
-    $insertarRegistroSecuestro = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado) 
-    VALUE ('txtFechaRegTabla', 'txtFechaReg', 'txtHora', 'txtHecho', 'txtElementoSecuestrado')";
 
-    $resultado = mysqli_query($conexion, $insertarRegistroSecuestro);
+    //CONSULTA INSERTAR DATOS
+    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$txtFechaRegTabla','$txtFechaReg','$txtHora','$txtHecho','$txtElementoSecuestrado','$idComisaria','$idUsuario')";
 
-    $ejecutar = mysqli_query($conexion, $resultado);
-    if (!$ejecutar) {
+    //EJECUTAR CONSULTA INSERTAR DATOS
+    $ejecutarInsertar = mysqli_query($conexion, $insertar);
+    if (!$ejecutarInsertar) {
         echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     } else {
-        header('location:tabla-registro-secuestros.php?mensaje=agregado');
+        header('location:registro-secuestros-tabla.php');
     }
 }
+mysqli_close($conexion);
 ?>
 
 
@@ -236,7 +237,7 @@ if (isset($_POST['agregarResgitroSecuestro'])) {
         function getData() {
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
-            let url = "search-registro-secuestros.php"
+            let url = "registro-secuestros-search.php"
             let formaData = new FormData()
             formaData.append('campo', input)
 

@@ -14,6 +14,8 @@ $comisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
 $idUsuario = $_SESSION['id'];
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 

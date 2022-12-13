@@ -1,14 +1,14 @@
 <?php
-    include 'conexion.php';
-    session_start();
-    // PREGUNTA SI HAY UN USUARIO REGISTRADO
-    if(!isset($_SESSION['usuario'])){
+include 'conexion.php';
+session_start();
+// PREGUNTA SI HAY UN USUARIO REGISTRADO
+if (!isset($_SESSION['usuario'])) {
     header('Location: index.php');
-    }
-    //INICIALIZAMOS DATOS
-  $idUsuario = $_SESSION['id'];
+}
+//INICIALIZAMOS DATOS
+$idUsuario = $_SESSION['id'];
 
-  if (isset($_POST['agregar'])) {
+if (isset($_POST['agregar'])) {
     $comisaria = $_POST['txtComisaria'];
     $tipo = $_POST['tipo'];
     $subtipo = $_POST['subtipo'];
@@ -16,24 +16,24 @@
     $fechaHoraIngreso = $_POST['fecha_hora_ingreso'];
     $secuestro = $_POST['secuestro'];
     $elementoSecuestrado = $_POST['elem_secuestrado'];
-    
+
 
     //CONSULTA INSERTAR DATOS
     $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha_hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
-    $ejecutarInsertar=mysqli_query($conexion,$insertar);
-    if(!$ejecutarInsertar){
-      echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+    $ejecutarInsertar = mysqli_query($conexion, $insertar);
+    if (!$ejecutarInsertar) {
+        echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+    } else {
+        header('location:ingreso-personas-tabla.php');
     }
-    else{
-      header('location:ingreso-personas-tabla.php');
-    }
-  }
-  mysqli_close($conexion);
+}
+mysqli_close($conexion);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -120,7 +120,8 @@
                                 <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
                                     <div class="col-md-6">
                                         <label for="inputDate" class="col-form-label">Fecha y hora de registro</label>
-                                        <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control"  value="<?php date_default_timezone_set("America/Argentina/Catamarca"); echo date("d-m-Y H:i");?>">
+                                        <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control" value="<?php date_default_timezone_set("America/Argentina/Catamarca");
+                                                                                                                                                            echo date("d-m-Y H:i"); ?>">
                                     </div>
 
                                     <div class="col-md-6">
@@ -129,27 +130,27 @@
                                             <option value="">Seleccionar</option>
                                             <?php
                                             include('conexion.php');
-                                            if($_SESSION['rol'] == 1){
-                                            $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
-                                            $resultado4 = mysqli_query($conexion, $tabla_comisaria);
-                                            }else{
-                                            $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
-                                            $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                                            if ($_SESSION['rol'] == 1) {
+                                                $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
+                                                $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                                            } else {
+                                                $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                                                $resultado4 = mysqli_query($conexion, $tabla_comisaria);
                                             }
-                                            
-                                            while ($row = mysqli_fetch_assoc($resultado4)){
-                                            
-                                            $idComisaria = $row['idComisaria'];
-                                            $nombre = $row['nombre'];
+
+                                            while ($row = mysqli_fetch_assoc($resultado4)) {
+
+                                                $idComisaria = $row['idComisaria'];
+                                                $nombre = $row['nombre'];
                                             ?>
-                                            
-                                            <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
+
+                                                <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
                                             <?php
                                             }
                                             ?>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="col-md-6">
                                         <label for="tipo" class="form-label">Tipo</label>
                                         <select required id="tipo" name="tipo" class="form-select">
@@ -177,12 +178,12 @@
 
                                     <div class="col-md-6">
                                         <label readonly for="dispuesto_por" class="form-label">Dispuesto por</label>
-                                        <input required type="text" name="dispuesto_por" id="dispuesto_por" class="form-control" >
+                                        <input required type="text" name="dispuesto_por" id="dispuesto_por" class="form-control">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label readonly for="fecha_hora_ingreso" class="form-label">Fecha y Hora de Ingreso</label>
-                                        <input required type="datetime-local" name="fecha_hora_ingreso" id="fecha_hora_ingreso" class="form-control" >
+                                        <input required type="datetime-local" name="fecha_hora_ingreso" id="fecha_hora_ingreso" class="form-control">
                                     </div>
 
                                     <div class="col-md-6">
@@ -200,7 +201,7 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" name="agregar" value="agregar"  class="btn btn-primary float-end">Agregar</button>
+                                        <button type="submit" name="agregar" value="agregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
                                 </form><!-- End Multi Columns Form -->
                             </div>
@@ -216,14 +217,14 @@
         <!-- R -->
         <table class="table table-sm table-hover table-bordered text-center">
             <thead class="table-dark">
-            <tr>
-                <th scope="col">Tipo</th>
-                <th scope="col">Sub Tipo</th>
-                <th scope="col">Dispuesto por</th>
-                <th scope="col">Secuestro</th>
-                <th scope="col">Elem. Secuestrado</th>
-                <th scope="col">. . .</th>
-            </tr>
+                <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Sub Tipo</th>
+                    <th scope="col">Dispuesto por</th>
+                    <th scope="col">Secuestro</th>
+                    <th scope="col">Elem. Secuestrado</th>
+                    <th scope="col">. . .</th>
+                </tr>
             </thead>
             <tbody id="content">
             </tbody>
@@ -269,14 +270,17 @@
     <script src="assets/js/main.js"></script>
 
     <!-- Script de select -->
-    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="novedades-relevancia-agregar.js"></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="novedades-relevancia-agregar.js"></script>
 
     <!-- Script de reloj -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="clockpicker.js"></script>
-    <script type="text/javascript">$('.clockpicker').clockpicker();</script>
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+    </script>
 
 
 </body>
