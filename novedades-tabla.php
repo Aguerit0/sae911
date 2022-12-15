@@ -149,15 +149,16 @@
         }
     ?>
    
-  <div class="search">
+    <div class="search d-flex justify-content-between">
       <!--INPUT BUSCAR EN TABLAS-->
       <form method="POST">
-        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
-        <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      <i class="bi bi-plus-circle-fill"></i>
-      Agregar
-      </button>  
+       <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
       </form>
+      <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="bi bi-plus-circle-fill"></i>
+        Agregar
+      </button>  
+
     </div><!--FIN INPUT BUSCAR EN TABLAS-->
     <!-- Modal Agregar -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -297,32 +298,56 @@
           
       </tbody>
     </table>
+    <div class="row">
+      <div class="col-6">
+        <label id="ldl-total"></label>
+      </div>
+      <div class="col-6" id="nav-paginacion">
+
+      </div>
+    </div>
+    
   </main><!-- End #main -->
  <script>
-  /* Llamando a la función getData() */
-        getData()
 
-        /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", getData)
+    let paginaActual = 1
+    /* Llamando a la función getData() */
+    getData(paginaActual)
 
-        /* Peticion AJAX */
-        function getData() {
-            let input = document.getElementById("campo").value
-            let content = document.getElementById("content")
-            let url = "search-novedades.php"
-            let formaData = new FormData()
-            formaData.append('campo', input)
+    /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
+    document.getElementById("campo").addEventListener("keyup", function(){
+      getData(1)
+    }, false)
 
-            fetch(url, {
-                    method: "POST",
-                    body: formaData
-                }).then(response => response.json())
-                .then(data => {
-                    content.innerHTML = data
-                }).catch(err => console.log(err))
-        }
 
-</script>
+    /* Peticion AJAX */
+
+    function getData(pagina) {
+      let input = document.getElementById("campo").value
+      let content = document.getElementById("content")
+
+      if(pagina != null){
+        paginaActual = pagina
+      }
+
+      let url = "search-novedades.php"
+      let formaData = new FormData()
+      formaData.append('campo', input)
+      formaData.append('pagina', pagina)
+
+
+      fetch(url, {
+              method: "POST",
+              body: formaData
+          }).then(response => response.json())
+          .then(data => {
+              content.innerHTML = data.data
+              document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
+              ' de ' + data.totalRegistros + ' registros'
+              document.getElementById("nav-paginacion").innerHTML = data.paginacion
+          }).catch(err => console.log(err))
+    }
+  </script>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
