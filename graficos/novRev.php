@@ -4,15 +4,9 @@
   //CONSULTA PARA GRÁFICOS DE COMISARIAS GENERALES
   $sql = "SELECT COUNT(n.idComisaria) AS idComisariaContador, n.tipo, COUNT(n.id) AS contId FROM novedades_de_relevancia AS n INNER JOIN comisarias AS c ON n.idComisaria=c.idComisaria GROUP BY n.tipo ORDER BY idComisariaContador ASC";
   $r = mysqli_query($conexion, $sql);
-
-
-
-  
-
 ?>
 <html>
   <head>
-
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     google.charts.load("current", {packages:['corechart']});
@@ -67,9 +61,6 @@
   </script>
   </head>
   <body>
-    <div id="graficos">
       <div id="grafica2" ></div>
-      
-    </div>
   </body>
 </html>

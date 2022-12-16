@@ -7,7 +7,7 @@
 ?>
 <html>
   <head>
-
+    <style>#grafica1{float: left;}</style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     google.charts.load("current", {packages:['corechart']});
@@ -52,6 +52,7 @@
           italic: true 
         },
         bar:{groupWidth: "80%"},
+        width:1000,
         height: 600
       };
       var chart = new google.visualization.ColumnChart(document.getElementById("grafica1"));
@@ -60,9 +61,6 @@
   </script>
   </head>
   <body>
-    <div id="graficos">
       <div id="grafica1" ></div>
-      
-    </div>
   </body>
 </html>

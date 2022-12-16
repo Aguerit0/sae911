@@ -45,9 +45,9 @@
         // Opciones de la gráfica
         var opciones = {
           title:'Cantidad de Presos por Comisaria',
-          //is3D:true,
+          is3D:true,
           width:500,
-          height:400,
+          height:600,
           pieHole: .4
         };
 
