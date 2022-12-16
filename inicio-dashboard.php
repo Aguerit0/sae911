@@ -63,7 +63,12 @@
 
     <!--      GRAFICOS   INICIO     -->
     <?php 
-      include ('./graficos/graficos.php');
+      include ('./graficos/novGuar.php');
+      include ('./graficos/novRev.php');
+      include ('./graficos/tortaNovGuar.php');
+
+
+      
     ?>
 
       
