@@ -308,8 +308,8 @@
     </div>
     
   </main><!-- End #main -->
+  
  <script>
-
     let paginaActual = 1
     /* Llamando a la función getData() */
     getData(paginaActual)

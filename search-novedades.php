@@ -53,8 +53,14 @@ $sLimit ";
 
 if ($_SESSION['rol']==1) {
     $sql2 = "SELECT SQL_CALC_FOUND_ROWS * FROM  novedades_de_guardia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%') $sLimit";
+
+    /*variable para sacar cantidad de filas dependiendo del tipo de usuario */
+    $sqlTotal = "SELECT count($idConteo) FROM novedades_de_guardia n WHERE (n.eliminado<1)";
 }else if ($_SESSION['rol']==0) {
-    $sql2 = "SELECT SQL_CALC_FOUND_ROWS * FROM novedades_de_guardia n INNER JOIN comisarias c WHERE (n.idComisaria=$id) AND (n.eliminado<1)  AND (c.idComisaria=$id) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%')";
+    $sql2 = "SELECT SQL_CALC_FOUND_ROWS * FROM novedades_de_guardia n INNER JOIN comisarias c WHERE (n.idComisaria=$id) AND (n.eliminado<1)  AND (c.idComisaria=$id) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%') $sLimit";
+
+    /*variable para sacar cantidad de filas dependiendo del tipo de usuario */
+    $sqlTotal = "SELECT count($idConteo) FROM novedades_de_guardia n WHERE n.idComisaria = $id AND (n.eliminado<1)";
 }
 
 
@@ -70,7 +76,6 @@ $totalFiltro = $row_filtro[0];
 
 /*Consulta para total de registros */
 
-$sqlTotal = "SELECT count($idConteo) FROM $table ";
 $resTotal = $conexion->query($sqlTotal);
 $row_total = $resTotal->fetch_array();
 $totalRegistros = $row_total[0];
@@ -89,11 +94,11 @@ if ($num_rows > 0) {
             
         }else{
         $output['data'] .= '<tr>';
-        $output['data'] .= '<th scope="row">' . $row['nombre'] .'</td>';
-        $output['data'] .= '<th scope="row">' . $row['fecha'] . '</td>';
-        $output['data'] .= '<td scope="row">' . $row['turno'] . '</td>';
-        $output['data'] .= '<td scope="row">' . $row['superior_de_turno'] . '</td>';
-        $output['data'] .= '<td scope="row">' . $row['oficial_servicio'] . '</td>';
+        $output['data'] .= '<th class="align-middle" scope="row">' . $row['nombre'] .'</td>';
+        $output['data'] .= '<th class="align-middle" scope="row">' . $row['fecha'] . '</td>';
+        $output['data'] .= '<td class="align-middle" scope="row">' . $row['turno'] . '</td>';
+        $output['data'] .= '<td class="align-middle" scope="row">' . $row['superior_de_turno'] . '</td>';
+        $output['data'] .= '<td class="align-middle" scope="row">' . $row['oficial_servicio'] . '</td>';
         $id=$row['id'];
         $output['data'] .= '<td scope="row"><a class="btn btn-primary" href="novedades-ver-mas.php?id=' . $row['id'] .'">Ver más</a></td>';
         $output['data'] .= '</tr>';   
