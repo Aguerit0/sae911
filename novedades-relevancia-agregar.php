@@ -128,6 +128,9 @@
         <div class="card-body">
           <!-- FORMULARIO PARA AGREGAR NOVEDADES DE RELEVANCIA -->
           <form action="novedades-relevancia-agregar-log.php" method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
+            
+            <h2 class="page-title text-center d-flex justify-content-center align-items-center">Agregar Novedades de Relevancia</h2>
+            <hr>
 
             <div class="col-md-4">
               <label for="inputEmail5" class="form-label">Fecha del Suceso</label>
@@ -249,16 +252,17 @@
                 <option value="">Seleccionar</option>
                 <option value="Si">Si</option>
                 <option value="No">No</option>
+                <option value="No especifica">No especifica</option>
             </select>
             </div>
 
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Damnificado</label>
-              <input required type="text" id="txtDamnificado" name="txtDamnificado" class="form-control" id="inputtext5">
+              <input type="text" id="txtDamnificado" name="txtDamnificado" class="form-control" id="inputtext5">
             </div>
             <div class="col-md-6">
               <label for="inputtext5" class="form-label">Edad</label>
-              <input required type="number" id="txtEdad" name="txtEdad" class="form-control" id="inputtext5">
+              <input type="number" id="txtEdad" name="txtEdad" class="form-control" id="inputtext5">
             </div>
             
             <div class="col-md-6">
@@ -268,6 +272,7 @@
                 <option value="Hombre">Hombre</option>
                 <option value="Mujer">Mujer</option>
                 <option value="No Binario">No Binario</option>
+                <option value="No especifica">No especifica</option>
             </select>
             </div>
 
@@ -277,6 +282,7 @@
                 <option value="">Seleccionar</option>
                 <option value="Si">Si</option>
                 <option value="No">No</option>
+                <option value="No especifica">No especifica</option>
             </select>
             </div>
 
@@ -286,7 +292,7 @@
             </div>
 
             <div class="col-md-6">
-              <label for="inputState" class="form-label">Unidad judicial </label>
+              <label for="inputState" class="form-label">Unidad judicial</label>
               <select required id="UnidadJudicial" name="UnidadJudicial" class="form-select" disabled>
               </select>
             </div>
@@ -297,11 +303,9 @@
                 <option value="">Seleccionar</option>
                 <option value="Si">Si</option>
                 <option value="No">No</option>
-                <option value="No">No se especifica</option>
-            </select>
+                <option value="No especifica">No especifica</option>
+              </select>
             </div>
-
-
 
             <div class="col-md-5">
               <label for="inputState" class="form-label">Medida tomada </label>

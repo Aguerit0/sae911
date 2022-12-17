@@ -44,7 +44,7 @@
       $longitud = $novedades['longitud'];
       $latitud = $novedades['latitud'];
 
-
+      
 
 
 
@@ -57,6 +57,15 @@
     $sentenciaSQL->execute();
     
     header('Location: novedades-tabla.php');
+  }
+
+  // Pasar la comisaria de numero a texto
+  $sql_rel = "SELECT * FROM comisarias WHERE idComisaria = '$idComisaria'";
+  $resultado2 = mysqli_query($conexion,$sql_rel);
+  
+  if ($row3 = $resultado2 -> fetch_assoc())
+  {
+    $nombreComisaria = $row3['nombre'];
   }
 ?>
 
@@ -125,43 +134,80 @@
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="novedades-tabla.php">Tabla Novedades de Relevancia</a></li>
+            <li class="breadcrumb-item"><a href="novedades-relevancia-tabla.php">Tabla Novedades de Relevancia</a></li>
             <li class="breadcrumb-item active">Ver Más</li>
           </ol>
         </nav>
     </div><!-- End Page Title -->
     <div class="card w-75 pt-3">
+
+      <!-- CODIGO DE ALERTAS -->
+      <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+          {
+      ?>
+
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong> El usuario ya pertenese a esa comisaria.</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      
+      <?php
+          }
+      ?>
+
+      <?php
+          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
+          {
+      ?>
+
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Editado!</strong> Los datos fueron actualizados.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      
+      <?php
+          }
+      ?>
+
       <div class="card-body">
           <ul class="list-group">
-          <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php 
-          $newDate = date("d/m/Y", strtotime($fecha_reg_tabla));
-          echo $newDate ?></span></li></li>
-          <li class="list-group-item fw-bold">Fecha Hecho: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
+          <?php  
+            if($_SESSION['rol'] == 1){
+              ?>
+              <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php 
+              $newDate = date("d/m/Y", strtotime($fecha_reg_tabla));
+              echo $newDate ?></span></li></li>
+              <?php
+            }else{
+            }
+          ?>
+          
+          
+          <li class="list-group-item fw-bold">Fecha Suceso: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
           echo $newDate ?></span></li>
-          <li class="list-group-item fw-bold">Hora Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
+          <li class="list-group-item fw-bold">Hora Suceso: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
+          <li class="list-group-item fw-bold">Tipo: <span class="fw-normal ms-2"><?php echo $tipo ?></span></li>
+          <li class="list-group-item fw-bold">Subtipo: <span class="fw-normal ms-2"><?php echo $subtipo ?></span></li>
           <li class="list-group-item fw-bold">Descripcion del lugar: <span class="fw-normal ms-2"><?php echo $descripcion ?></span></li>
           <li class="list-group-item fw-bold">Sindicados: <span class="fw-normal ms-2"><?php echo $sindicatos ?></span></li>
           <li class="list-group-item fw-bold">Catacteristicas de Hecho: <span class="fw-normal ms-2"><?php echo $caracteristicas_hecho ?></span></li>
-          <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utilizado ?></span></li>
           <li class="list-group-item fw-bold">Movil: <span class="fw-normal ms-2"><?php echo $movil ?></span></li>
           <li class="list-group-item fw-bold">Elemento Sustraido: <span class="fw-normal ms-2"><?php echo $elemento_sustraido ?></span></li>
-          <li class="list-group-item fw-bold">Hecho Consumado: <span class="fw-normal ms-2"><?php echo $hecho_consumado ?></span></li>
+          <li class="list-group-item fw-bold">Hecho Consumado o Intento: <span class="fw-normal ms-2"><?php echo $hecho_consumado ?></span></li>
+          <li class="list-group-item fw-bold">Elemento Utilizado: <span class="fw-normal ms-2"><?php echo $elemento_utilizado ?></span></li>
           <li class="list-group-item fw-bold">Tipo de Motocicleta: <span class="fw-normal ms-2"><?php echo $tipo_motocicleta ?></span></li>
           <li class="list-group-item fw-bold">Color: <span class="fw-normal ms-2"><?php echo $color ?></span></li>
           <li class="list-group-item fw-bold">Adelanto Circulacion: <span class="fw-normal ms-2"><?php echo $adelanto_circulacion ?></span></li>
           <li class="list-group-item fw-bold">Damificado: <span class="fw-normal ms-2"><?php echo $damnificado ?></span></li>
           <li class="list-group-item fw-bold">Edad: <span class="fw-normal ms-2"><?php echo $edad ?></span></li>
           <li class="list-group-item fw-bold">Genero: <span class="fw-normal ms-2"><?php echo $sexo ?></span></li>
+          <li class="list-group-item fw-bold">Denuncia: <span class="fw-normal ms-2"><?php echo $denuncia ?></span></li>
           <li class="list-group-item fw-bold">Denunciante: <span class="fw-normal ms-2"><?php echo $denunciante ?></span></li>
-
           <li class="list-group-item fw-bold">Unidad Judicial: <span class="fw-normal ms-2"><?php echo $unidad_judicial ?></span></li>
-
           <li class="list-group-item fw-bold">Comision Personal: <span class="fw-normal ms-2"><?php echo $comision_personal ?></span></li>
-
           <li class="list-group-item fw-bold">Medida Tomada: <span class="fw-normal ms-2"><?php echo $medida_tomada ?></span></li>
-          <li class="list-group-item fw-bold">Tipo: <span class="fw-normal ms-2"><?php echo $tipo ?></span></li>
-         <li class="list-group-item fw-bold">Sub Tipo: <span class="fw-normal ms-2"><?php echo $subtipo ?></span></li>
-         <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $idComisaria ?></span></li>
+         <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
          <li class="list-group-item fw-bold">
             <div id="map" style="height: 30vh; width: 40vw; margin: 0 auto; border-radius: 10px;"></div>
           </li>

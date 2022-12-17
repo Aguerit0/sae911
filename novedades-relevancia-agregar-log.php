@@ -20,7 +20,7 @@ if (isset($_POST['BtnAgregar']))
 {
     print_r($_POST);
 
-    if (strlen(trim($_POST['txtHora'])) >= 1 && strlen(trim($_POST['txtDescr_Lugar'])) >= 1 && strlen(trim($_POST['txtSindicados'])) >= 1 && strlen(trim($_POST['txtCaractDeHecho'])) >= 1 && strlen(trim($_POST['txtMovil'])) >= 1 && strlen(trim($_POST['txtElementoSustraido'])) >= 1 && strlen(trim($_POST['txtDamnificado'])) >= 1 && strlen(trim($_POST['txtEdad'])) >= 1)
+    if (strlen(trim($_POST['txtHora'])) >= 1 && strlen(trim($_POST['txtDescr_Lugar'])) >= 1 && strlen(trim($_POST['txtSindicados'])) >= 1 && strlen(trim($_POST['txtCaractDeHecho'])) >= 1 && strlen(trim($_POST['txtMovil'])) >= 1 && strlen(trim($_POST['txtElementoSustraido'])) >= 1)
     {
         // hay que hacer la verificacion de como entro lo de color pero hay que verificar primero que dato trajo Elemento utilizado
         // lo mismo con lo de denunciante
@@ -39,7 +39,19 @@ if (isset($_POST['BtnAgregar']))
         $txtLat = trim($_POST['lat']);
 
         $txtDescr_Lugar = trim($_POST['txtDescr_Lugar']);
+
         $txtSindicados = trim($_POST['txtSindicados']);
+        if ($txtSindicados >= 0)
+        {
+            $txtSindicados = trim($_POST['txtSindicados']);
+        }
+        else
+        {
+            header('Location: novedades-relevancia-agregar.php');
+            exit();
+        } 
+
+
         $txtCaractDeHechos = trim($_POST['txtCaractDeHecho']);
         $txtMovil = trim($_POST['txtMovil']);
         $txtElementoSustraido = trim($_POST['txtElementoSustraido']);
@@ -67,9 +79,33 @@ if (isset($_POST['BtnAgregar']))
         }
 
         $EmitioAdelanto = $_POST['EmitioAdelanto'];
-        $txtDamnificado = trim($_POST['txtDamnificado']);
-        $txtEdad = trim($_POST['txtEdad']);
 
+        if(strlen(trim($_POST['txtDamnificado']))>= 1)
+        {
+            $txtDamnificado = trim($_POST['txtDamnificado']);
+        }
+        else
+        {
+            $txtDamnificado = "No especifica";
+        }
+        
+        if (strlen(trim($_POST['txtEdad'])) >= 1)
+        {
+            if ($txtEdad > 0)
+            {
+                $txtEdad = trim($_POST['txtEdad']);
+            }
+            else
+            {
+                header('Location: novedades-relevancia-agregar.php');
+                exit();
+            }
+        }
+        else
+        {
+            $txtEdad = "No especifica";
+        }
+        
         $Sexo = $_POST['Sexo'];
         $Denuncia = $_POST['Denuncia'];
 
@@ -111,7 +147,7 @@ if (isset($_POST['BtnAgregar']))
 
         $eliminado = 0;
 
-        echo $fecha_reg_tabla, $txtFecha, $txtHora, $tipo, $subtipo, $txtLon, $txtLat, $txtDescr_Lugar, $txtSindicados, $txtCaractDeHechos, $txtMovil, $txtElementoSustraido, $Hecho_Con_Int, $ElementoUtilizado, $TipoMotocicleta, $txtColor, $EmitioAdelanto, $txtDamnificado, $txtEdad, $Sexo, $Denuncia, $txtDenunciante, $UnidadJudicial, $ComisionPolicialInvestigacion, $MedidaTomada, $eliminado, $idComisaria, $idUsuario;
+        echo $fecha_reg_tabla, $txtFecha, $txtHora, $tipo, $subtipo, $txtLon, $txtLat, $txtDescr_Lugar, $txtSindicados, $txtCaractDeHechos, $txtMovil, $txtElementoSustraido, $Hecho_Con_Int, $ElementoUtilizado, $TipoMotocicleta, $txtColor, $EmitioAdelanto, "damni:", $txtDamnificado, "edad:", $txtEdad, $Sexo, $Denuncia, $txtDenunciante, $UnidadJudicial, $ComisionPolicialInvestigacion, $MedidaTomada, $eliminado, $idComisaria, $idUsuario;
 
         $sentencia = $bd_conex -> prepare("INSERT INTO `novedades_de_relevancia`(`fecha_reg_tabla`, `fecha_reg`, `hora_reg`, `tipo`, `subtipo`, `longitud`, `latitud`, `descripcion_lugar`, `sindicados`, `caracteristicas_hecho`, `movil`, `elemento_sustraido`, `hecho_consumado`, `elemento_utilizado`, `tipo_motocicleta`, `color`, `adelanto_circulacion`, `damnificado`, `edad`, `sexo`, `denuncia`, `denunciante`, `unidad_judicial`, `comision_personal`, `medida_tomada`, `eliminado`, `idComisaria`, `idUsuario`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 

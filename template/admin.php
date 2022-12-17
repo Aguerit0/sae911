@@ -68,7 +68,7 @@
           </li>
           <li>
             <a href="novedades-ver-mapa.php">
-              <i class="bi bi-circle"></i><span>Ver Mapas</span>
+              <i class="bi bi-circle"></i><span>Ver Mapa</span>
             </a>
           </li>
         </ul>
