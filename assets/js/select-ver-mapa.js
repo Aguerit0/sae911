@@ -1,7 +1,12 @@
 $(document).ready(function() {
 
     // Creamos el array de cada tipo de delito que contiene sus diferentes subtipos de delitos
+    var todos = [
+        { display: "TODOS", value: "TODOS" }
+    ];
+
     var sustraccion_de_motocicleta = [
+        { display: "TODOS", value: "TODOS" },
         { display: "VIA PUBLICA", value: "VIA PUBLICA" },
         { display: "USO DE ARMA BLANCA O DE FUEGO", value: "USO DE ARMA BLANCA O DE FUEGO" },
         { display: "INTERIOR DEL DOMICILIO", value: "INTERIOR DEL DOMICILIO" },
@@ -9,12 +14,14 @@ $(document).ready(function() {
     ];
 
     var sustraccion_de_automovil = [
+        { display: "TODOS", value: "TODOS" },
         { display: "SUSTRACCION DEL RODADO", value: "SUSTRACCION DEL RODADO" },
         { display: "ELEMENTOS DEL INTERIOR", value: "ELEMENTOS DEL INTERIOR" },
         { display: "SUSTRACCION DE RUEDAS.", value: "SUSTRACCION DE RUEDAS" }
     ];
 
     var ilicito_contra_la_propiedad = [
+        { display: "TODOS", value: "TODOS" },
         { display: "COMERCIO", value: "COMERCIO" },
         { display: "CASA PARTICULAR", value: "CASA PARTICULAR" },
         { display: "ENTIDAD PUBLICA", value: "ENTIDAD PUBLICA" },
@@ -25,11 +32,13 @@ $(document).ready(function() {
     ];
 
     var arrebato = [
+        { display: "TODOS", value: "TODOS" },
         { display: "INTENTO", value: "INTENTO" },
         { display: "CONSUMADO", value: "CONSUMADO" },
     ];
 
     var ilicito_en_la_via_publica = [
+        { display: "TODOS", value: "TODOS" },
         { display: "SUMINISTRO ELECTRICO/SEÑAL DE TELEFONIA/OTROS", value: "SUMINISTRO ELECTRICO/SEÑAL DE TELEFONIA/OTROS" },
         { display: "ASALTO CON ARMA BLANCA/ ELEMENTO CONTUNDENTE", value: "ASALTO CON ARMA BLANCA/ ELEMENTO CONTUNDENTE" },
         { display: "ASALTO CON ARMA DE FUEGO", value: "ASALTO CON ARMA DE FUEGO" },
@@ -37,6 +46,7 @@ $(document).ready(function() {
     ];
 
     var desorden = [
+        { display: "TODOS", value: "TODOS" },
         { display: "VIVIENDA", value: "VIVIENDA" },
         { display: "VIA PUBLICA", value: "VIA PUBLICA" },
         { display: "CON ARMAS DE FUEGO", value: "CON ARMAS DE FUEGO" },
@@ -46,15 +56,18 @@ $(document).ready(function() {
     ];
 
     var abuso_sexual = [
+        { display: "TODOS", value: "TODOS" },
         { display: "ABUSO SEXUAL", value: "ABUSO SEXUAL" },
         { display: "TENTATIVA DE ABUSO", value: "TENTATIVA DE ABUSO" },
     ];
 
     var acoso_sexual = [
+        { display: "TODOS", value: "TODOS" },
         { display: "ACOSO EN LA VIA PUBLICA", value: "ACOSO EN LA VIA PUBLICA" },
     ];
 
     var amenazas = [
+        { display: "TODOS", value: "TODOS" },
         { display: "AMENAZA DE BOMBA", value: "AMENAZA DE BOMBA" },
         { display: "AMENAZA VERBAL", value: "AMENAZA VERBAL" },
         { display: "AMENAZAS CON ARMA BLANCA", value: "AMENAZAS CON ARMA BLANCA" },
@@ -62,6 +75,7 @@ $(document).ready(function() {
     ];
 
     var armas = [
+        { display: "TODOS", value: "TODOS" },
         { display: "DETONACIONES", value: "DETONACIONES" },
         { display: "PORTACION DE ARMA BLANCA", value: "PORTACION DE ARMA BLANCA" },
         { display: "PORTACION DE ARMA DE FUEGO", value: "PORTACION DE ARMA DE FUEGO" },
@@ -69,44 +83,15 @@ $(document).ready(function() {
     ];
 
     var exhibiciones_obsenas = [
+        { display: "TODOS", value: "TODOS" },
         { display: "EXHIBICION OBSENA EN LA VIA PUBLICA", value: "EXHIBICION OBSENA EN LA VIA PUBLICA" },
     ];
 
     var violencia_familiar_y_de_genero = [
+        { display: "TODOS", value: "TODOS" },
         { display: "VIOLENCIA DE GENERO EN DOMICILIO", value: "VIOLENCIA DE GENERO EN DOMICILIO" },
         { display: "VIOLENCIA DE GENERO EN LA VIA PUBLICA", value: "VIOLENCIA DE GENERO EN LA VIA PUBLICA" },
         { display: "VIOLENCIA INTRAFAMILIAR", value: "VIOLENCIA INTRAFAMILIAR" }
-    ];
-
-    // Array de Elemento Utilizado -> Tipo Motocicleta
-
-    var tipo_de_motocicleta = [
-        { display: "110cc", value: "110cc" },
-        { display: "125/150cc", value: "125/150cc" },
-        { display: "250cc", value: "250cc" },
-        { display: "350cc", value: "350cc" },
-        { display: "450cc", value: "450cc" },
-        { display: "Scooter", value: "Scooter" },
-        { display: "Enduro", value: "Enduro" },
-        { display: "No especifica", value: "No especifica" }
-    ];
-
-    // Array de Denuncia -> Unidad Judicial
-
-    var unidad_judicial = [
-        { display: "U.J. N° 1", value: "U.J. N° 1" },
-        { display: "U.J. N° 2", value: "U.J. N° 2" },
-        { display: "U.J. N° 3", value: "U.J. N° 3" },
-        { display: "U.J. N° 4", value: "U.J. N° 4" },
-        { display: "U.J. N° 5", value: "U.J. N° 5" },
-        { display: "U.J. N° 6", value: "U.J. N° 6" },
-        { display: "U.J. N° 7", value: "U.J. N° 7" },
-        { display: "U.J. N° 8", value: "U.J. N° 8" },
-        { display: "U.J. N° 9", value: "U.J. N° 9" },
-        { display: "U.J. N° 10", value: "U.J. N° 10" },
-        { display: "U.J. N° 11", value: "U.J. N° 11" },
-        { display: "Fiscalia de instroduccion", value: "Fiscalia de instroduccion" },
-        { display: "Unid. Violencia de genero", value: "Unid. Violencia de genero" }
     ];
 
     // Aqui creamos verificamos cual opciones apareceran dependiendo de la seleccion@superservicios
@@ -115,6 +100,9 @@ $(document).ready(function() {
         var parent = $(this).val();
 
         switch (parent) {
+            case 'TODOS':
+                list(todos);
+                break;
             case 'SUSTRACCION DE MOTOCICLETA':
                 list(sustraccion_de_motocicleta);
                 break;
@@ -158,38 +146,6 @@ $(document).ready(function() {
         }
     });
 
-    $("#ElementoUtilizado").change(function() {
-        var parent = $(this).val();
-
-        switch (parent) {
-            case 'Motocicleta':
-                list2(tipo_de_motocicleta);
-                break;
-            default: //default child option is blank
-                $("#txtColor").val('');
-                $("#TipoMotocicleta").html('');
-                $('#txtColor').prop('disabled', true);
-                $('#TipoMotocicleta').prop('disabled', true);
-                break;
-        }
-    });
-
-    $("#Denuncia").change(function() {
-        var parent2 = $(this).val();
-
-        switch (parent2) {
-            case 'Si':
-                list3(unidad_judicial);
-                break;
-            default: //default child option is blank
-                $("#txtDenunciante").val('');
-                $("#UnidadJudicial").html('');
-                $('#txtDenunciante').prop('disabled', true);
-                $('#UnidadJudicial').prop('disabled', true);
-                break;
-        }
-    });
-
     //function to populate child select box
     function list(array_list) {
         $("#subtipo").html(""); //reset child options
@@ -199,21 +155,4 @@ $(document).ready(function() {
         $('#subtipo').prop('disabled', false);
     }
 
-    function list2(array_list2) {
-        $("#TipoMotocicleta").html(""); //reset child options
-        $(array_list2).each(function(i) { //populate child options
-            $("#TipoMotocicleta").append("<option value=\"" + array_list2[i].value + "\">" + array_list2[i].display + "</option>");
-        });
-        $('#txtColor').prop('disabled', false);
-        $('#TipoMotocicleta').prop('disabled', false);
-    }
-
-    function list3(array_list3) {
-        $("#UnidadJudicial").html(""); //reset child options
-        $(array_list3).each(function(i) { //populate child options
-            $("#UnidadJudicial").append("<option value=\"" + array_list3[i].value + "\">" + array_list3[i].display + "</option>");
-        });
-        $('#txtDenunciante').prop('disabled', false);
-        $('#UnidadJudicial').prop('disabled', false);
-    }
 });

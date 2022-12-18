@@ -75,7 +75,7 @@ $idUsuario = $_SESSION['id'];
             <h1>Tabla Novedades de Relevancia</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="inicio-dashboard.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="inicio-dashboard.php">Home</a></li>
                     <li class="breadcrumb-item active">Novedades de Relevancia</li>
                 </ol>
             </nav>
@@ -85,10 +85,12 @@ $idUsuario = $_SESSION['id'];
             <!--INPUT BUSCAR EN TABLAS-->
             <form method="POST">
                 <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
-                <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <a href="novedades-relevancia-agregar.php">
+                <button type="button" class="btn btn-success float-end mb-2">
                     <i class="bi bi-plus-circle-fill"></i>
                     Agregar
                 </button>
+                </a>
                 <a href="novedades-ver-mapa.php">
                     <button type="button" class="btn btn-secondary float-end mb-2 mx-2">
                         <i class="bi bi-geo-alt-fill"></i>
@@ -108,7 +110,7 @@ $idUsuario = $_SESSION['id'];
                     </div>
                     <div class="modal-body">
                         <div class="card">
-                            <ƒdiv class="card-body">
+                            <div class="card-body">
                                 <!-- FORMULARIO PARA AGREGAR NOVEDADES DE RELEVANCIA -->
 
                                 <form action="novedades-relevancia-agregar-log.php" method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
@@ -320,9 +322,8 @@ $idUsuario = $_SESSION['id'];
         <table class="table table-sm table-hover table-bordered text-center">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Fecha Registro</th>
-                    <th scope="col">Fecha registro</th>
                     <th scope="col">Fecha Suceso</th>
+                    <th scope="col">Hora Suceso</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Subtipo</th>
                     <th scope="col">. . .</th>

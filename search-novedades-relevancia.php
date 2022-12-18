@@ -10,16 +10,51 @@ $id = $_SESSION['idComisaria'];
 
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['id','fecha_reg_tabla','fecha_reg', 'hora_reg', 'tipo', 'subtipo'];
+$columns = ['fecha_reg', 'hora_reg', 'tipo', 'subtipo'];
 
 /* Nombre de la tabla */
 $table = "novedades_de_relevancia";
 
+$campo = isset($_POST['campo']) ? $conexion->real_escape_string($_POST['campo']) : null;
+
+
+/* Filtrado */
+$where = '';
+
+if ($campo != null) {
+    $where = "WHERE (eliminado<1) AND (";
+
+    $cont = count($columns);
+    for ($i = 0; $i < $cont; $i++) {
+        $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
+    }
+    $where = substr_replace($where, "", -4);
+    $where .= ")";
+}else{
+    $where = "WHERE (eliminado<1) AND (";
+
+    $cont = count($columns);
+    for ($i = 0; $i < $cont; $i++) {
+        $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
+    }
+    $where = substr_replace($where, "", -4);
+    $where .= ")";
+}
+
+
+/* Consulta */
+$sql = "SELECT " . implode(", ", $columns) . "
+FROM $table
+$where ";
+$resultado = $conexion->query($sql);
+$num_rows = $resultado->num_rows;
+
+// SELECT * FROM  novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria)
 
 if ($_SESSION['rol']==1) {
     $sql2 = "SELECT * FROM  novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria)";
 }else if ($_SESSION['rol']==0) {
-    $sql2 = "SELECT * FROM novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.idComisaria=3) AND (n.eliminado<1) AND (c.idComisaria=3)";
+    $sql2 = "SELECT * FROM novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.idComisaria='$id') AND (n.eliminado<1) AND (c.idComisaria='$id')";
 }
 
 
@@ -31,16 +66,15 @@ $num_rows = $resultado->num_rows;
 /* Mostrado resultados */
 $html = '';
 
-echo "asd";
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
         if (($row['eliminado']>=1)) {
             
         }else{
-            echo "asd";
+        $newDate = date("d/m/Y", strtotime($row['fecha_reg']));
+
         $html .= '<tr>';
-        $html .= '<th scope="row">' . $row['fecha_reg_tabla'] . '</td>';
-        $html .= '<td scope="row">' . $row['fecha_reg'] . '</td>';
+        $html .= '<td scope="row">' . $newDate . '</td>';
         $html .= '<td scope="row">' . $row['hora_reg'] . '</td>';
         $html .= '<td scope="row">' . $row['tipo'] . '</td>';
         $html .= '<td scope="row">' . $row['subtipo'] . '</td>';
