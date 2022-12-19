@@ -337,15 +337,15 @@
 
 
       fetch(url, {
-              method: "POST",
-              body: formaData
-          }).then(response => response.json())
-          .then(data => {
-              content.innerHTML = data.data
-              document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
-              ' de ' + data.totalRegistros + ' registros'
-              document.getElementById("nav-paginacion").innerHTML = data.paginacion
-          }).catch(err => console.log(err))
+            method: "POST",
+            body: formaData
+        }).then(response => response.json())
+        .then(data => {
+            content.innerHTML = data.data
+            document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
+            ' de ' + data.totalRegistros + ' registros'
+            document.getElementById("nav-paginacion").innerHTML = data.paginacion
+        }).catch(err => console.log(err))
     }
   </script>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

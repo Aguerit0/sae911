@@ -33,7 +33,7 @@ if ($campo != null) {
 }
 
 /*Limmit */
-$pagina = isset($_POST['pagina']) ? $conexion->real_escape_string($_POST['pagina']) : 0;;
+$pagina = isset($_POST['pagina']) ? $conexion->real_escape_string($_POST['pagina']) : 0;
 $limit = 8;
 
 if(!$pagina){
@@ -46,10 +46,6 @@ if(!$pagina){
 $sLimit = "LIMIT $inicio, $limit";
 
 /* Consulta */
-$sql = "SELECT " . implode(", ", $columns) . "
-FROM $table
-$where
-$sLimit ";
 
 if ($_SESSION['rol']==1) {
     $sql2 = "SELECT SQL_CALC_FOUND_ROWS * FROM  novedades_de_guardia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%') $sLimit";
