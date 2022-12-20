@@ -1,41 +1,9 @@
 <?php 
-  include('./conexion.php');
-  //CONSULTAS NOVEDADES_DE_RELEVANCIA: TIPOS
-  //CONTADOR --ARREBATO--
-  $sql1 = "SELECT count(*) id FROM novedades_de_relevancia WHERE tipo like '%ARREBATO%'";
-  $res1 = mysqli_query($conexion,$sql1);
-  $row1 = mysqli_fetch_assoc($res1);
-  $var1 = 'ARREBATOS';
-
-  //CONTADOR --ILICITOS VIA PUBLICA--
-  $sql2 = "SELECT count(*) id FROM novedades_de_relevancia WHERE tipo like '%ILICITO EN LA VIA PUBLICA%'";
-  $res2 = mysqli_query($conexion,$sql2);
-  $row2 = mysqli_fetch_assoc($res2);
-  $var2 = 'ILICITO EN LA VIA PUBLICA';
-
-  //CONTADOR --ARMAS--
-  $sql3 = "SELECT count(*) id FROM novedades_de_relevancia WHERE tipo like '%ARMAS%'";
-  $res3 = mysqli_query($conexion,$sql3);
-  $row3 = mysqli_fetch_assoc($res3);
-  $var3 = 'ARMAS';
-
-  //CONTADOR --ILICITO CONTRA LA PROPIEDAD--
-  $sql4 = "SELECT count(*) id FROM novedades_de_relevancia WHERE tipo like '%ILICITO CONTRA LA PROPIEDAD%'";
-  $res4 = mysqli_query($conexion,$sql4);
-  $row4 = mysqli_fetch_assoc($res4);
-  $var4 = 'ILICITO CONTRA LA PROPIEDAD';
-
-  //CONTADOR --SUSTRACCION DE AUTOMOVIL--
-  $sql5 = "SELECT count(*) id FROM novedades_de_relevancia WHERE tipo like '%SUSTRACCION DE AUTOMOVIL%'";
-  $res5 = mysqli_query($conexion,$sql5);
-  $row5 = mysqli_fetch_assoc($res5);
-  $var5 = 'SUSTRACCION DE AUTOMOVIL';
-
-  //CONTADOR --ACOSO SEXUAL--
-  $sql6 = "SELECT count(*) id FROM novedades_de_relevancia WHERE tipo like '%ACOSO SEXUAL%'";
-  $res6 = mysqli_query($conexion,$sql6);
-  $row6 = mysqli_fetch_assoc($res6);
-  $var6 = 'ACOSO SEXUAL';
+  include('././conexion.php');
+  //
+  $sql = "SELECT COUNT(n.idComisaria) AS idComisariaContador, c.nombre FROM novedades_de_guardia AS n INNER JOIN comisarias AS c ON n.idComisaria=c.idComisaria GROUP BY c.nombre ORDER BY idComisariaContador ASC";
+  //
+  $r = mysqli_query($conexion, $sql);
 
   
 ?>
@@ -140,25 +108,25 @@ series.columns.template.adapters.add("stroke", function(stroke, target) {
 
 
 // Set data
-var data = [{
-  country: "<?php echo $var1?>",
-  value: <?php echo $row1['id'] ?>
-}, {
-  country: "<?php echo $var2 ?>",
-  value: <?php echo $row2['id'] ?>
-}, {
-  country: "<?php echo $var3 ?>",
-  value: <?php echo $row3['id'] ?>
-}, {
-  country: "<?php echo $var4 ?>",
-  value: <?php echo $row4['id'] ?>
-}, {
-  country: "<?php echo $var5 ?>",
-  value: <?php echo $row5['id'] ?>
-}, {
-  country: "<?php echo $var6 ?>",
-  value: <?php echo $row6['id'] ?>
-}];
+var data = [
+    {
+        
+        <?php
+            $i = 0;
+            $n = mysqli_num_rows($r);
+            while($row=mysqli_fetch_assoc($r)){
+                ?>
+
+                country: "<?php echo $row['nombre'];?>",
+                value: "<?php echo $row['idComisariaContador'];?>"
+                
+              <?php
+              $i++;
+              if($i<$n) print ",";
+            }
+          ?>
+}
+];
 
 xAxis.data.setAll(data);
 series.data.setAll(data);
