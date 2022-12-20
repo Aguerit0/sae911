@@ -219,35 +219,54 @@ mysqli_close($conexion);
                 <tbody id="content">
 
                 </tbody>
-
-
             </table>
+            <div class="row">
+                <div class="col-6">
+                    <label id="ldl-total"></label>
+                </div>
+                <div class="col-6" id="nav-paginacion">
+
+                </div>
+            </div>
         </section>
 
     </main><!-- End #main -->
 
     <script>
+        let paginaActual = 1
+
         /* Llamando a la función getData() */
-        getData()
+        getData(paginaActual)
 
         /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", getData)
+        document.getElementById("campo").addEventListener("keyup", function(){
+            getData(1)
+        }, false)
 
         /* Peticion AJAX */
-        function getData() {
+        function getData(pagina) {
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
+
+            if(pagina != null){
+                paginaActual = pagina
+            }
+            
             let url = "registro-secuestros-search.php"
             let formaData = new FormData()
             formaData.append('campo', input)
+            formaData.append('pagina', pagina)
 
-            fetch(url, {
-                    method: "POST",
-                    body: formaData
-                }).then(response => response.json())
-                .then(data => {
-                    content.innerHTML = data
-                }).catch(err => console.log(err))
+        fetch(url, {
+                method: "POST",
+                body: formaData
+            }).then(response => response.json())
+            .then(data => {
+                content.innerHTML = data.data
+                document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
+                ' de ' + data.totalRegistros + ' registros'
+                document.getElementById("nav-paginacion").innerHTML = data.paginacion
+            }).catch(err => console.log(err))
         }
     </script>
 

@@ -21,7 +21,7 @@
     
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha__hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
+    $insertar = "INSERT INTO ingreso_persona (fecha_hora_reg, tipo, subtipo, dispuesto_por, fecha_hora_ingreso, secuestro, elem_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$tipo','$subtipo','$dispuestoPor','$fechaHoraIngreso','$secuestro','$elementoSecuestrado','$comisaria','$idUsuario')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar=mysqli_query($conexion,$insertar);
@@ -29,7 +29,7 @@
       echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
     }
     else{
-      header('location:ingreso-personas-tabla.php');
+      header('location:ingreso-personas-tabla.php?mensaje=agregado');
     }
   }
   mysqli_close($conexion);
@@ -147,14 +147,14 @@
             </div>
 
             <div class="col-md-6">
-            <label for="subtipo" class="form-label">Subtipo</label>
-            <select required id="subtipo" name="subtipo" class="form-select" disabled>
-            </select>
+              <label for="subtipo" class="form-label">Subtipo</label>
+              <select required id="subtipo" name="subtipo" class="form-select" disabled>
+              </select>
             </div>
 
             <div class="col-md-6">
-            <label readonly for="dispuesto_por" class="form-label">Dispuesto por</label>
-            <input required type="text" name="dispuesto_por" id="dispuesto_por" class="form-control" >
+              <label readonly for="dispuesto_por" class="form-label">Dispuesto por</label>
+              <input required type="text" name="dispuesto_por" id="dispuesto_por" class="form-control" >
             </div>
 
             <div class="col-md-6">
@@ -201,7 +201,8 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <!-- Script de select -->
-  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="novedades-relevancia-agregar.js"></script>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script  src="novedades-relevancia-agregar.js"></script>
 
 
 </body>
