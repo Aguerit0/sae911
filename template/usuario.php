@@ -80,16 +80,16 @@
       <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
 
-        <li>
-          <a href="././registro-secuestros/agregar-registro-secuestros.php">
-            <i class="bi bi-circle"></i><span>Agregar registros</span>
-          </a>
-        </li>
-        <li>
-          <a href="././registro-secuestros/vermas-registro-secuestros.php">
-            <i class="bi bi-circle"></i><span>Ver registros</span>
-          </a>
-        </li>
+      <li>
+            <a href="registro-secuestros-agregar.php">
+              <i class="bi bi-circle"></i><span>Agregar registros</span>
+            </a>
+          </li>
+          <li>
+          <a href="registro-secuestros-tabla.php">
+              <i class="bi bi-circle"></i><span>Ver registros</span>
+            </a>
+          </li>
       </ul>
     </li><!-- End Charts Nav -->
 
