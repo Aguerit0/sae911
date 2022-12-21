@@ -1,53 +1,56 @@
 <?php
-include 'conexion.php';
-session_start();
-// PREGUNTA SI HAY UN USUARIO REGISTRADO
-if (!isset($_SESSION['usuario'])) {
-  header('Location: index.php');
-}
-$sentenciaSQL = $bd_conex->prepare('SELECT nombre FROM comisarias WHERE idComisaria =:id');
-$sentenciaSQL->bindParam(':id', $_SESSION['idComisaria']);
-$sentenciaSQL->execute();
-$comisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
-
-//INICIALIZAMOS DATOS
-$idUsuario = $_SESSION['id'];
-// $idComisaria=$_SESSION['idComisaria'];
-// $nombreComisaria = $comisaria['nombre'];
-if (isset($_POST['agregar'])) {
-  $txtComisaria = $_POST['txtComisaria'];
-  $txtFecha = $_POST['txtFecha'];
-  $txtTurno = $_POST['txtTurno'];
-  $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
-  $txtOficialServicio = $_POST['txtOficialServicio'];
-  $txtCantPersonalGuardia = $_POST['txtCantPersonalGuardia'];
-  $txtMotoristas = $_POST['txtMotoristas'];
-  $txtMovilesFuncionamiento = $_POST['txtMovilesFuncionamiento'];
-  $txtMovilesFueraFuncionamiento = $_POST['txtMovilesFueraFuncionamiento'];
-  $txtCantDetenidosCausaFederal = $_POST['txtCantDetenidosCausaFederal'];
-  $txtCantDetenidosJusticiaOrdinaria = $_POST['txtCantDetenidosJusticiaOrdinaria'];
-  $txtArrestadisAveriguacionHecho = $_POST['txtArrestadisAveriguacionHecho'];
-  $txtArrestadosAveriguacionActividades = $_POST['txtArrestadosAveriguacionActividades'];
-  $txtArrestadosInfCodigoFaltas = $_POST['txtArrestadosInfCodigoFaltas'];
-  $txtDemorados = $_POST['txtDemorados'];
-  $txtCantAprehendidos = $_POST['txtCantAprehendidos'];
-
-
-  //CONSULTA INSERTAR DATOS
-  $insertar = "INSERT INTO novedades_de_guardia (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) VALUES ('$idUsuario','$txtComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
-
-  //EJECUTAR CONSULTA INSERTAR DATOS
-  $ejecutarInsertar = mysqli_query($conexion, $insertar);
-  if (!$ejecutarInsertar) {
-    echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
-  } else {
-    header('location:novedades-tabla.php?mensaje=agregado');
+  include 'conexion.php';
+  session_start();
+  // PREGUNTA SI HAY UN USUARIO REGISTRADO
+  if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
   }
-}
+  $sentenciaSQL=$bd_conex->prepare('SELECT nombre FROM comisarias WHERE idComisaria =:id');
+  $sentenciaSQL->bindParam(':id', $_SESSION['idComisaria']);
+  $sentenciaSQL->execute();
+  $comisaria = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
+
+   //INICIALIZAMOS DATOS
+  $idUsuario = $_SESSION['id'];
+  // $idComisaria=$_SESSION['idComisaria'];
+  // $nombreComisaria = $comisaria['nombre'];
+  if (isset($_POST['agregar'])) {
+    $txtComisaria=$_POST['txtComisaria'];
+    $txtFecha = $_POST['txtFecha'];
+    $txtTurno = $_POST['txtTurno'];
+    $txtSuperiorTurno = $_POST['txtSuperiorTurno'];
+    $txtOficialServicio = $_POST['txtOficialServicio'];
+    $txtCantPersonalGuardia = $_POST['txtCantPersonalGuardia'];
+    $txtMotoristas = $_POST['txtMotoristas'];
+    $txtMovilesFuncionamiento = $_POST['txtMovilesFuncionamiento'];
+    $txtMovilesFueraFuncionamiento = $_POST['txtMovilesFueraFuncionamiento'];
+    $txtCantDetenidosCausaFederal = $_POST['txtCantDetenidosCausaFederal'];
+    $txtCantDetenidosJusticiaOrdinaria = $_POST['txtCantDetenidosJusticiaOrdinaria'];
+    $txtArrestadisAveriguacionHecho = $_POST['txtArrestadisAveriguacionHecho'];
+    $txtArrestadosAveriguacionActividades = $_POST['txtArrestadosAveriguacionActividades'];
+    $txtArrestadosInfCodigoFaltas = $_POST['txtArrestadosInfCodigoFaltas'];
+    $txtDemorados = $_POST['txtDemorados'];
+    $txtCantAprehendidos = $_POST['txtCantAprehendidos'];
 
 
+    //CONSULTA INSERTAR DATOS
+    $insertar = "INSERT INTO novedades_de_guardia 
+    (idUsuario, idComisaria, fecha, turno, superior_de_turno, oficial_servicio, personas_de_guardia, motoristas, mov_funcionamiento, mov_fuera_de_servicio, detenidos_causa_federal, detenidos_justicia_ordinaria, arres_averiguacion_de_hecho, aprehendidos, arres_averiguacion_actividades, arres_info_codigo_de_faltas, demorados) 
+    VALUES ('$idUsuario','$txtComisaria','$txtFecha','$txtTurno','$txtSuperiorTurno','$txtOficialServicio','$txtCantPersonalGuardia','$txtMotoristas','$txtMovilesFuncionamiento','$txtMovilesFueraFuncionamiento','$txtCantDetenidosCausaFederal','$txtCantDetenidosJusticiaOrdinaria','$txtArrestadisAveriguacionHecho','$txtCantAprehendidos','$txtArrestadosAveriguacionActividades','$txtArrestadosInfCodigoFaltas','$txtDemorados')";
 
-mysqli_close($conexion);
+    //EJECUTAR CONSULTA INSERTAR DATOS
+    $ejecutarInsertar=mysqli_query($conexion,$insertar);
+    if(!$ejecutarInsertar){
+      echo "<script>alert('ERROR AL INGRESAR DATOS');</script>";
+    }
+    else{
+      header('location:novedades-tabla.php?mensaje=agregado');
+    }
+  }
+
+    
+
+  mysqli_close($conexion);
 ?>
 
 
@@ -61,7 +64,7 @@ mysqli_close($conexion);
   <title>SAE 911</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <br>
+<br>
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -93,70 +96,72 @@ mysqli_close($conexion);
 <body>
 
   <!-- ======= Header ======= -->
-  <?php include("./template/dashboard.php") ?>
+  <?php include("./template/dashboard.php")?>
 
   <!-- ======= Sidebar ======= -->
-  <?php if ($_SESSION['rol'] == 1) {
-    include("./template/admin.php");
-  } else {
-    include("./template/usuario.php");
-  }
+  <?php  if($_SESSION['rol'] == 1){
+      include ("./template/admin.php");
+    }else{
+      include ("./template/usuario.php");
+    }
   ?>
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Tabla Novedades de Guardia</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="inicio-dashboard.html">Home</a></li>
-          <li class="breadcrumb-item active">Novedades de Comisaria</li>
-        </ol>
-      </nav>
+        <h1>Tabla Novedades de Guardia</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="inicio-dashboard.html">Home</a></li>
+            <li class="breadcrumb-item active">Novedades de Comisaria</li>
+          </ol>
+        </nav>
     </div><!-- End Page Title -->
     <!-- CODIGO DE ALERTAS -->
     <?php
-    if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado') {
+      if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado')
+      {
     ?>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Exito!</strong> Se agregó correctamente una nueva novedad de guardia.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <?php
-    }
+        }
     ?>
     <?php
-    if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
+      if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+      {
     ?>
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong> Error</strong> No se pudo agregar la nueva comisaria.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <?php
-    }
+        }
     ?>
     <?php
-    if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
+      if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado')
+      {
     ?>
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Eliminado!</strong> Se eliminó correctamente el registro.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <?php
-    }
+        }
     ?>
-
+   
     <div class="search d-flex justify-content-between">
       <!--INPUT BUSCAR EN TABLAS-->
       <form method="POST">
-        <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
+       <input type="text" name="campo" id="campo" placeholder="Buscar" class="rounded">
       </form>
-      <button type="button" class="btn btn-success float-end mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <button type="button" class="btn btn-success float-end mb-2"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <i class="bi bi-plus-circle-fill"></i>
         Agregar
-      </button>
+      </button>  
 
-    </div>
-    <!--FIN INPUT BUSCAR EN TABLAS-->
+    </div><!--FIN INPUT BUSCAR EN TABLAS-->
     <!-- Modal Agregar -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -169,105 +174,105 @@ mysqli_close($conexion);
             <div class="card">
               <div class="card-body">
                 <!-- FORMULARIO PARA AGREGAR COMISARIA -->
-                <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
-                  <div class="col-md-6">
-                    <label for="inputDate" class="col-sm-2 col-form-label">Fecha</label>
-                    <div class="col-sm-10">
-                      <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputState" class="form-label">Comisaria</label>
-                    <select required id="inputState" id="txtComisaria" name="txtComisaria" class="form-select">
-                      <option value="">Seleccionar</option>
-                      <?php
-                      include('conexion.php');
-                      if ($_SESSION['rol'] == 1) {
-                        $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
-                        $resultado4 = mysqli_query($conexion, $tabla_comisaria);
-                      } else {
-                        $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
-                        $resultado4 = mysqli_query($conexion, $tabla_comisaria);
-                      }
+          <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
+            <div class="col-md-6">
+              <label for="inputDate"  class="col-sm-2 col-form-label">Fecha</label>
+              <div class="col-sm-10">
+                <input required type="date" id="txtFecha" name="txtFecha" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="inputState" class="form-label">Comisaria</label>
+              <select required id="inputState" id="txtComisaria" name="txtComisaria" class="form-select">
+              <option value="">Seleccionar</option>
+                <?php
+                include('conexion.php');
+                if($_SESSION['rol'] == 1){
+                  $tabla_comisaria = "SELECT idComisaria, nombre FROM comisarias WHERE (eliminado<1) AND habilitado = 1 ORDER BY idComisaria ASC;";
+                  $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                }else{
+                  $tabla_comisaria = "SELECT idUsuario, u.idComisaria, nombre FROM `usuario-comisaria` u INNER JOIN comisarias c WHERE (c.eliminado<1) AND c.habilitado = 1 AND u.idUsuario = $idUsuario AND c.idComisaria = u.idComisaria ORDER BY u.idComisaria ASC;";
+                  $resultado4 = mysqli_query($conexion, $tabla_comisaria);
+                }
+                
+                while ($row = mysqli_fetch_assoc($resultado4)){
+                  
+                  $idComisaria = $row['idComisaria'];
+                  $nombre = $row['nombre'];
+                   ?>
+                
+                  <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
+                  <?php
+                }
+                ?>
+              </select>
+            </div>
 
-                      while ($row = mysqli_fetch_assoc($resultado4)) {
-
-                        $idComisaria = $row['idComisaria'];
-                        $nombre = $row['nombre'];
-                      ?>
-
-                        <option value="<?php echo $idComisaria; ?>"><?php echo $nombre; ?></option>
-                      <?php
-                      }
-                      ?>
-                    </select>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="inputState" class="form-label">Turno</label>
-                    <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
-                      <option value="MATUTINO (06:00 - 14:00)" selected>MATUTINO (06:00 - 14:00)</option>
-                      <option value="VESPERTINO (14:00 - 22:00)">VESPERTINO (14:00 - 22:00)</option>
-                      <option value="NOCTURNO (22:00 - 06:00)">NOCTURNO (22:00 - 06:00)</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputEmail5" class="form-label">Superior de Turno</label>
-                    <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Oficial en Servicio</label>
-                    <input required type="text" id="txtOficialServicio" name="txtOficialServicio" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Cantidad de personal en guardia</label>
-                    <input required type="number" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control">
-                  </div>
-                  <div class="col-6">
-                    <label for="inputAddress5" class="form-label">Motoristas</label>
-                    <input required type="number" id="txtMotoristas" name="txtMotoristas" class="form-control">
-                  </div>
-                  <div class="col-6">
-                    <label for="inputAddress5" class="form-label">Moviles en funcionamiento</label>
-                    <input required type="text" id="txtMovilesFuncionamiento" name="txtMovilesFuncionamiento" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Moviles fuera de servicio</label>
-                    <input required type="text" id="txtMovilesFueraFuncionamiento" name="txtMovilesFueraFuncionamiento" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Cantidad de detenidos Causa Federal</label>
-                    <input required type="number" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
-                    <input required type="number" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Arrestados averiguacion del hecho</label>
-                    <input required type="number" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Cantidad de Aprehendidos</label>
-                    <input required type="number" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Arrestados averiguacion de activiades</label>
-                    <input required type="number" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Arrestados Inf. código de faltas</label>
-                    <input required type="number" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputtext5" class="form-label">Demorados</label>
-                    <input required type="number" id="txtDemorados" name="txtDemorados" class="form-control">
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" name="agregar" value="agregar" class="btn btn-primary float-end">Agregar</button>
-                  </div>
-                </form><!-- End Multi Columns Form -->
-
+              <div class="col-md-6">
+                <label for="inputState" class="form-label">Turno</label>
+                <select required id="inputState" id="txtTurno" name="txtTurno" class="form-select">
+                  <option value="MATUTINO (06:00 - 14:00)" selected>MATUTINO (06:00 - 14:00)</option>
+                  <option value="VESPERTINO (14:00 - 22:00)">VESPERTINO (14:00 - 22:00)</option>
+                  <option value="NOCTURNO (22:00 - 06:00)">NOCTURNO (22:00 - 06:00)</option>
+                </select>
+              </div>
+            <div class="col-md-6">
+              <label for="inputEmail5" class="form-label">Superior de Turno</label>
+              <input required type="text" id="txtSuperiorTurno" name="txtSuperiorTurno" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5"  class="form-label">Oficial en Servicio</label>
+              <input required type="text" id="txtOficialServicio" name="txtOficialServicio" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5"  class="form-label">Cantidad de personal en guardia</label>
+              <input required type="number" id="txtCantPersonalGuardia" name="txtCantPersonalGuardia" class="form-control">
+            </div>
+            <div class="col-6">
+              <label for="inputAddress5" class="form-label">Motoristas</label>
+              <input required type="number" id="txtMotoristas" name="txtMotoristas" class="form-control">
+            </div>
+            <div class="col-6">
+                <label for="inputAddress5" class="form-label">Moviles en funcionamiento</label>
+                <input required type="text" id="txtMovilesFuncionamiento" name="txtMovilesFuncionamiento" class="form-control">
+              </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Moviles fuera de servicio</label>
+              <input required type="text" id="txtMovilesFueraFuncionamiento" name="txtMovilesFueraFuncionamiento" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Cantidad de detenidos Causa Federal</label>
+              <input required type="number" id="txtCantDetenidosCausaFederal" name="txtCantDetenidosCausaFederal" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Cantidad de detenidos Justicia Ordinaria</label>
+              <input required type="number" id="txtCantDetenidosJusticiaOrdinaria" name="txtCantDetenidosJusticiaOrdinaria" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Arrestados averiguacion del hecho</label>
+              <input required type="number" id="txtArrestadisAveriguacionHecho" name="txtArrestadisAveriguacionHecho" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Cantidad de Aprehendidos</label>
+              <input required type="number" id="txtCantAprehendidos" name="txtCantAprehendidos" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Arrestados averiguacion de activiades</label>
+              <input required type="number" id="txtArrestadosAveriguacionActividades" name="txtArrestadosAveriguacionActividades" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Arrestados Inf. código de faltas</label>
+              <input required type="number" id="txtArrestadosInfCodigoFaltas" name="txtArrestadosInfCodigoFaltas" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="inputtext5" class="form-label">Demorados</label>
+              <input required type="number" id="txtDemorados" name="txtDemorados" class="form-control">
+            </div>
+            <div class="text-center">
+              <button type="submit" name="agregar" value="agregar"  class="btn btn-primary float-end">Agregar</button>
+            </div>
+          </form><!-- End Multi Columns Form -->
+  
               </div>
             </div>
           </div>
@@ -292,7 +297,7 @@ mysqli_close($conexion);
       </thead>
 
       <tbody id="content">
-
+          
       </tbody>
     </table>
     <div class="row">
@@ -303,16 +308,16 @@ mysqli_close($conexion);
 
       </div>
     </div>
-
+    
   </main><!-- End #main -->
-
-  <script>
+  
+ <script>
     let paginaActual = 1
     /* Llamando a la función getData() */
     getData(paginaActual)
 
     /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-    document.getElementById("campo").addEventListener("keyup", function() {
+    document.getElementById("campo").addEventListener("keyup", function(){
       getData(1)
     }, false)
 
@@ -323,7 +328,7 @@ mysqli_close($conexion);
       let input = document.getElementById("campo").value
       let content = document.getElementById("content")
 
-      if (pagina != null) {
+      if(pagina != null){
         paginaActual = pagina
       }
 
@@ -334,14 +339,14 @@ mysqli_close($conexion);
 
 
       fetch(url, {
-          method: "POST",
-          body: formaData
+            method: "POST",
+            body: formaData
         }).then(response => response.json())
         .then(data => {
-          content.innerHTML = data.data
-          document.getElementById("ldl-total").innerHTML = 'Mostrando ' + data.totalFiltro +
+            content.innerHTML = data.data
+            document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
             ' de ' + data.totalRegistros + ' registros'
-          document.getElementById("nav-paginacion").innerHTML = data.paginacion
+            document.getElementById("nav-paginacion").innerHTML = data.paginacion
         }).catch(err => console.log(err))
     }
   </script>

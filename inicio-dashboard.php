@@ -66,6 +66,8 @@
       include ('./graficos/novRev.php');
       include ('./graficos/novGuar.php');
       include ('./graficos/tortaNovGuar.php');
+      include ('./graficos/registroSecuestro.php');
+     
 
 
       
@@ -74,7 +76,7 @@
       
          
     </section>
-  </main><!-- End #main -->>
+  </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
