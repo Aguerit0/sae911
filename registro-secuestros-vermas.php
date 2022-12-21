@@ -135,7 +135,7 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
         ?>
       </div>
     </div>
-    <a class="btn btn-primary" href="tabla-registro-secuestros.php">Volver</a>
+    <a class="btn btn-primary" href="registro-secuestros-tabla.php">Volver</a>
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

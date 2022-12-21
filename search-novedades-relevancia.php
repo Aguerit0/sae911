@@ -11,60 +11,62 @@ $id = $_SESSION['idComisaria'];
 
 /* Un arreglo de las columnas a mostrar en la tabla */
 $columns = ['fecha_reg', 'hora_reg', 'tipo', 'subtipo'];
+$idConteo = 'id';
 
 /* Nombre de la tabla */
 $table = "novedades_de_relevancia";
 
 $campo = isset($_POST['campo']) ? $conexion->real_escape_string($_POST['campo']) : null;
 
+/*Limmit */
+$pagina = isset($_POST['pagina']) ? $conexion->real_escape_string($_POST['pagina']) : 0;
+$limit = 8;
 
-/* Filtrado */
-$where = '';
-
-if ($campo != null) {
-    $where = "WHERE (eliminado<1) AND (";
-
-    $cont = count($columns);
-    for ($i = 0; $i < $cont; $i++) {
-        $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
-    }
-    $where = substr_replace($where, "", -4);
-    $where .= ")";
+if(!$pagina){
+    $inicio = 0;
+    $pagina = 2;
 }else{
-    $where = "WHERE (eliminado<1) AND (";
-
-    $cont = count($columns);
-    for ($i = 0; $i < $cont; $i++) {
-        $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
-    }
-    $where = substr_replace($where, "", -4);
-    $where .= ")";
+    $inicio = ($pagina -1) * $limit;
 }
 
+$sLimit = "LIMIT $inicio, $limit";
 
-/* Consulta */
-$sql = "SELECT " . implode(", ", $columns) . "
-FROM $table
-$where ";
-$resultado = $conexion->query($sql);
-$num_rows = $resultado->num_rows;
-
-// SELECT * FROM  novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria)
+/* Consulta y filtrado*/
 
 if ($_SESSION['rol']==1) {
-    $sql2 = "SELECT * FROM  novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria)";
-}else if ($_SESSION['rol']==0) {
-    $sql2 = "SELECT * FROM novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.idComisaria='$id') AND (n.eliminado<1) AND (c.idComisaria='$id')";
-}
+    $sql2 = "SELECT * FROM  novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria) AND (fecha_reg LIKE '%$campo%' OR hora_reg LIKE '%$campo%' OR tipo LIKE '%$campo%' OR subtipo LIKE '%$campo%') $sLimit";
 
+    /*variable para sacar cantidad de filas dependiendo del tipo de usuario */
+    $sqlTotal = "SELECT count($idConteo) FROM novedades_de_relevancia n WHERE (n.eliminado<1)";
+}else if ($_SESSION['rol']==0) {
+    $sql2 = "SELECT * FROM novedades_de_relevancia n INNER JOIN comisarias c WHERE (n.idComisaria='$id') AND (n.eliminado<1) AND (c.idComisaria='$id') AND (fecha_reg LIKE '%$campo%' OR hora_reg LIKE '%$campo%' OR tipo LIKE '%$campo%' OR subtipo LIKE '%$campo%') $sLimit";
+
+    /*variable para sacar cantidad de filas dependiendo del tipo de usuario */
+    $sqlTotal = "SELECT count($idConteo) FROM novedades_de_relevancia n WHERE n.idComisaria = $id AND (n.eliminado<1)";
+}
 
 $resultado = $conexion->query($sql2);
 $num_rows = $resultado->num_rows;
 
+/*Consulta para total de registros */
 
+$sqlFiltro = "SELECT FOUND_ROWS()";
+$resFiltro = $conexion->query($sqlFiltro);
+$row_filtro = $resFiltro->fetch_array();
+$totalFiltro = $row_filtro[0];
+
+/*Consulta para total de registros */
+
+$resTotal = $conexion->query($sqlTotal);
+$row_total = $resTotal->fetch_array();
+$totalRegistros = $row_total[0];
 
 /* Mostrado resultados */
-$html = '';
+$output = [];
+$output['totalRegistros'] = $totalRegistros;
+$output['totalFiltro'] = $totalFiltro;
+$output['data'] = '';
+$output['paginacion'] = '';
 
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
@@ -73,21 +75,53 @@ if ($num_rows > 0) {
         }else{
         $newDate = date("d/m/Y", strtotime($row['fecha_reg']));
 
-        $html .= '<tr>';
-        $html .= '<td scope="row">' . $newDate . '</td>';
-        $html .= '<td scope="row">' . $row['hora_reg'] . '</td>';
-        $html .= '<td scope="row">' . $row['tipo'] . '</td>';
-        $html .= '<td scope="row">' . $row['subtipo'] . '</td>';
+        $output['data'] .= '<tr>';
+        $output['data'] .= '<td class="align-middle" scope="row">' . $newDate . '</td>';
+        $output['data'] .= '<td class="align-middle" scope="row">' . $row['hora_reg'] . '</td>';
+        $output['data'] .= '<td class="align-middle" scope="row">' . $row['tipo'] . '</td>';
+        $output['data'] .= '<td class="align-middle" scope="row">' . $row['subtipo'] . '</td>';
         $id=$row['id'];
-        $html .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' . $row['id'] .'">Ver más</a></td>';
-        $html .= '</tr>';   
+        $output['data'] .= '<td scope="row"><a class="btn btn-primary" href="novedades-relevancia-vermas.php?id=' . $row['id'] .'">Ver más</a></td>';
+        $output['data'] .= '</tr>';   
         }
     }
 } else {
-    $html .= '<tr>';
-    $html .= '<td colspan="7">Sin resultados</td>';
-    $html .= '</tr>';
+    $output['data'] .= '<tr>';
+    $output['data'] .= '<td colspan="7">Sin resultados</td>';
+    $output['data'] .= '</tr>';
 }
 
-echo json_encode($html, JSON_UNESCAPED_UNICODE);
+if($output['totalRegistros'] > 0){
+    $totalPaginas =  ceil($output['totalRegistros'] /$limit);
+
+    $output['paginacion'] .= '<nav>';
+    $output['paginacion'] .= '<ul class="pagination">';
+
+    $numeroInicio = 1;
+
+    if(($pagina - 4) > 1){
+        $numeroInicio = $pagina - 4;
+    }
+
+    $numeroFin = $numeroInicio + 4;
+    if($numeroFin > $totalPaginas){
+        $numeroFin = $totalPaginas;
+    }
+
+    for($i = $numeroInicio; $i <= $numeroFin; $i++){
+        if($pagina == $i){
+            $output['paginacion'] .= '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
+
+        }else{
+            $output['paginacion'] .= '<li class="page-item"><a class="page-link" href="#" onclick="getData('.$i.')">'.$i.'</a></li>';
+        }
+
+    }
+
+    $output['paginacion'] .= '</ul>';
+    $output['paginacion'] .= '</nav>';
+
+}
+
+echo json_encode($output, JSON_UNESCAPED_UNICODE);
 ?>

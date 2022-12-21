@@ -92,6 +92,40 @@
                 </ol>
             </nav>
         </div><!-- End Page Title -->
+        <!-- CODIGO DE ALERTAS -->
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado')
+        {
+        ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Exito!</strong> Se ingresó correctament la persona.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+        {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> Error</strong> No se pudo agregar la nueva comisaria.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+        <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado')
+        {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Eliminado!</strong> Se eliminó correctamente el registro.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
 
         <div class="search">
             <!--INPUT BUSCAR EN TABLAS-->
@@ -217,39 +251,61 @@
         <table class="table table-sm table-hover table-bordered text-center">
             <thead class="table-dark">
             <tr>
-                <th scope="col">Tipo</th>
-                <th scope="col">Sub Tipo</th>
-                <th scope="col">Dispuesto por</th>
-                <th scope="col">Secuestro</th>
-                <th scope="col">Elem. Secuestrado</th>
-                <th scope="col">. . .</th>
+                <th class="align-middle" scope="col">Tipo</th>
+                <th class="align-middle" scope="col">Sub Tipo</th>
+                <th class="align-middle" scope="col">Dispuesto por</th>
+                <th class="align-middle" scope="col">Secuestro</th>
+                <th class="align-middle" scope="col">Elem. Secuestrado</th>
+                <th class="align-middle" scope="col">. . .</th>
             </tr>
             </thead>
             <tbody id="content">
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-6">
+                <label id="ldl-total"></label>
+            </div>
+            <div class="col-6" id="nav-paginacion">
+
+            </div>
+        </div>
     </main><!-- End #main -->
+
     <script>
+        let paginaActual = 1
         /* Llamando a la función getData() */
-        getData()
+        getData(paginaActual)
 
         /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", getData)
+        document.getElementById("campo").addEventListener("keyup", function(){
+            getData(1)
+        }, false)
+
 
         /* Peticion AJAX */
-        function getData() {
+        function getData(pagina) {
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
+            
+            if(pagina != null){
+                paginaActual = pagina
+            }
+
             let url = "ingreso-personas-search.php"
             let formaData = new FormData()
             formaData.append('campo', input)
+            formaData.append('pagina', pagina)
 
             fetch(url, {
                     method: "POST",
                     body: formaData
                 }).then(response => response.json())
                 .then(data => {
-                    content.innerHTML = data
+                    content.innerHTML = data.data
+                    document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
+                    ' de ' + data.totalRegistros + ' registros'
+                    document.getElementById("nav-paginacion").innerHTML = data.paginacion
                 }).catch(err => console.log(err))
         }
     </script>
