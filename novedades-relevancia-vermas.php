@@ -43,6 +43,7 @@
       $idComisaria= $novedades['idComisaria'];
       $longitud = $novedades['longitud'];
       $latitud = $novedades['latitud'];
+      $eliminado = $novedades['eliminado'];
 
       
 
@@ -143,22 +144,120 @@
 
       <!-- CODIGO DE ALERTAS -->
       <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
-          {
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorsindicados')
+        {
       ?>
 
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong> El usuario ya pertenese a esa comisaria.</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> ingrese una cantidad de sindicados valida
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
       
       <?php
-          }
+        }
       ?>
 
       <?php
-          if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
-          {
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorcolor')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> al ingresar color. Intente nuevamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'erroredad')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> ingrese una edad valida.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errordenunciante')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> al ingresar denunciante. Intente nuevamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errormedidatomada')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> campos repetidos en Medidas Tomadas. Intente nuevamente
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorbd')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> al cargar datos en la base de datos.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errormalingresado')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> Intente nuevamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errornombreboton')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> boton del formulario no coincide.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
+        {
       ?>
 
           <div class="alert alert-warning alert-dismissible fade show" role="alert">

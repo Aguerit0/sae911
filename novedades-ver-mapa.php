@@ -227,16 +227,16 @@
           {
             if($comisaria == "TODOS")
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia`";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE `eliminado` < 1";
             }
             else
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE idComisaria = '$comisaria'";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE idComisaria = '$comisaria' && `eliminado` < 1";
             }
           }
           else if ($_SESSION['rol']==0) 
           {
-            $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE idComisaria = '$idComisaria'";
+            $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE idComisaria = '$idComisaria' && `eliminado` < 1";
           }
           // $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE idComisaria = '$idComisaria'";
         }
@@ -246,16 +246,16 @@
           {
             if($comisaria == "TODOS")
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE fecha_reg = '$fecha'";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE fecha_reg = '$fecha' && `eliminado` < 1";
             }
             else
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE fecha_reg = '$fecha' && idComisaria = '$comisaria'";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE fecha_reg = '$fecha' && idComisaria = '$comisaria' && `eliminado` < 1";
             }
           }
           else if ($_SESSION['rol']==0) 
           {
-            $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE fecha_reg = '$fecha' && idComisaria = '$idComisaria'";
+            $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE fecha_reg = '$fecha' && idComisaria = '$idComisaria' && `eliminado` < 1";
           }
           // $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE fecha_reg = '$fecha' && idComisaria = '$idComisaria'";
         }
@@ -270,16 +270,16 @@
             {
               if($comisaria == "TODOS")
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && `eliminado` < 1";
               }
               else
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && idComisaria = '$comisaria'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && idComisaria = '$comisaria' && `eliminado` < 1";
               }
             }
             else if ($_SESSION['rol']==0) 
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && idComisaria = '$idComisaria'";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && idComisaria = '$idComisaria' && `eliminado` < 1";
             }
             // $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && idComisaria = '$idComisaria'";
           }
@@ -289,16 +289,16 @@
             {
               if($comisaria == "TODOS")
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && fecha_reg = '$fecha'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && fecha_reg = '$fecha' && `eliminado` < 1";
               }
               else
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && fecha_reg = '$fecha' && idComisaria = '$comisaria'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && fecha_reg = '$fecha' && idComisaria = '$comisaria' && `eliminado` < 1";
               }
             }
             else if ($_SESSION['rol']==0) 
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && fecha_reg = '$fecha' && idComisaria = '$idComisaria'";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && fecha_reg = '$fecha' && idComisaria = '$idComisaria' && `eliminado` < 1";
             }
             // $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && fecha_reg = '$fecha' && idComisaria = '$idComisaria'";
           }
@@ -311,16 +311,16 @@
             {
               if($comisaria == "TODOS")
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && `eliminado` < 1";
               }
               else
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && idComisaria = '$comisaria'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && idComisaria = '$comisaria' && `eliminado` < 1";
               }
             }
             else if ($_SESSION['rol']==0) 
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && idComisaria = '$idComisaria'";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && idComisaria = '$idComisaria' && `eliminado` < 1";
             }
             // $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && idComisaria = '$idComisaria'";
           }
@@ -330,16 +330,16 @@
             {
               if($comisaria == "TODOS")
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && fecha_reg = '$fecha'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && fecha_reg = '$fecha' && `eliminado` < 1";
               }
               else
               {
-                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && fecha_reg = '$fecha' && idComisaria = '$comisaria'";
+                $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && fecha_reg = '$fecha' && idComisaria = '$comisaria' && `eliminado` < 1";
               }
             }
             else if ($_SESSION['rol']==0) 
             {
-              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && fecha_reg = '$fecha' && idComisaria = '$idComisaria'";
+              $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && fecha_reg = '$fecha' && idComisaria = '$idComisaria' && `eliminado` < 1";
             }
             // $sql_rel = "SELECT * FROM `novedades_de_relevancia` WHERE tipo = '$tipo' && subtipo = '$subtipo' && fecha_reg = '$fecha' && idComisaria = '$idComisaria'";
           }
@@ -354,7 +354,7 @@
         {
           $idComisaria = $row2['idComisaria'];
 
-          $sql_com = "SELECT * FROM `comisarias` WHERE idComisaria = $idComisaria";
+          $sql_com = "SELECT * FROM `comisarias` WHERE idComisaria = $idComisaria && `eliminado` < 1";
           $resultado3 = mysqli_query($conexion,$sql_com);
 
           if($row3 = $resultado3->fetch_assoc())
@@ -407,12 +407,12 @@
     {
       if ($_SESSION['rol']==1) 
       {
-        $sql_rel = "SELECT * FROM novedades_de_relevancia";
+        $sql_rel = "SELECT * FROM novedades_de_relevancia WHERE `eliminado` < 1";
         $resultado2 = mysqli_query($conexion,$sql_rel);
       }
       else if ($_SESSION['rol']==0) 
       {
-        $sql_rel = "SELECT * FROM novedades_de_relevancia WHERE idComisaria = '$idComisaria'";
+        $sql_rel = "SELECT * FROM novedades_de_relevancia WHERE idComisaria = '$idComisaria' && `eliminado` < 1";
         $resultado2 = mysqli_query($conexion,$sql_rel);
       }
   
