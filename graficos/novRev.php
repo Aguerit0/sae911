@@ -7,6 +7,7 @@
 ?>
 <html>
   <head>
+  <style>#grafica2{float: left;}</style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     google.charts.load("current", {packages:['corechart']});
@@ -31,28 +32,30 @@
       //
       var opciones = {
         title: 'Tipo de Novedad de Relevancia',
-        colors:['pink'],
+        colors:['#9932CC'],
         fontSize:25,
         fontName:"Times",
         hAxis: {
           title: 'Novedades',
-          titleTextStyle: {color: 'green', fontSize:30},
+          titleTextStyle: {color: 'black', fontSize:30},
           textPosition: "out",
-          textStyle: {color:"green", fontSize:20, fontName:"Times",bold:true, italic: true}
+          textStyle: {color:"black", fontSize:20, fontName:"Times",bold:true, italic: true}
         },
         vAxis: {
           title: 'Participación',
-          titleTextStyle: {color: 'green', bold:true, fontSize:30, fontName: "Arial"},
-          textStyle: {color: 'green', bold:true, fontSize:20, fontName: "Arial"},
-          gridlines: {color: 'green'}
+          titleTextStyle: {color: 'black', bold:true, fontSize:30, fontName: "Arial"},
+          textStyle: {color: 'black', bold:true, fontSize:20, fontName: "Arial"},
+          gridlines: {color: 'black'}
         },
         legend: { position: 'none'},
         titleTextStyle: { 
-          color: "green",
+          color: "black",
           fontSize: 40,
           italic: true 
         },
-        bar:{groupWidth: "80%"},
+        bar:{groupWidth: "100%"},
+        is3D:true,
+        width:600,
         height: 600
       };
       var chart = new google.visualization.ColumnChart(document.getElementById("grafica2"));
