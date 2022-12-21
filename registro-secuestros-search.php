@@ -6,31 +6,12 @@
 
 require 'conexion.php';
 session_start();
-$id = $_SESSION['idComisaria'];
-
+$idcom = $_SESSION['idComisaria'];
 
 /* Un arreglo de las columnas a mostrar en la tabla */
-$columns = ['id','nombre','fecha', 'turno', 'superior_de_turno', 'oficial_servicio','idComisaria','eliminado'];
 $idConteo = 'id';
-/* Nombre de la tabla */
-$table = "novedades_de_guardia";
 
 $campo = isset($_POST['campo']) ? $conexion->real_escape_string($_POST['campo']) : null;
-
-
-/* Filtrado */
-$where = '';
-
-if ($campo != null) {
-    $where = "WHERE idComisaria='$id' AND (";
-
-    $cont = count($columns);
-    for ($i = 0; $i < $cont; $i++) {
-        $where .= $columns[$i] . " LIKE '%" . $campo . "%' OR ";
-    }
-    $where = substr_replace($where, "", -3);
-    $where .= ")";
-}
 
 /*Limmit */
 $pagina = isset($_POST['pagina']) ? $conexion->real_escape_string($_POST['pagina']) : 0;
@@ -45,20 +26,19 @@ if(!$pagina){
 
 $sLimit = "LIMIT $inicio, $limit";
 
-/* Consulta */
+/*Consulta y filtrado */
 
-if ($_SESSION['rol']==1) {
-    $sql2 = "SELECT SQL_CALC_FOUND_ROWS * FROM  novedades_de_guardia n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%') $sLimit";
+if ($_SESSION['rol'] == 1) {
+    $sql2 = "SELECT * FROM  registro_secuestro n INNER JOIN comisarias c WHERE (n.eliminado<1) AND (n.idComisaria=c.idComisaria) AND (fecha_reg LIKE '%$campo%' OR hora_reg LIKE '%$campo%' OR hecho LIKE '%$campo%' OR elemento_secuestrado LIKE '%$campo%') $sLimit";
+    
+    /*variable para sacar cantidad de filas dependiendo del tipo de usuario */
+    $sqlTotal = "SELECT count($idConteo) FROM registro_secuestro n WHERE (n.eliminado<1)";
+} else if ($_SESSION['rol'] == 0) {
+    $sql2 = "SELECT * FROM registro_secuestro n INNER JOIN comisarias c WHERE (n.idComisaria=$idcom) AND (n.eliminado<1) AND (c.idComisaria=$idcom) AND (fecha_reg LIKE '%$campo%' OR hora_reg LIKE '%$campo%' OR hecho LIKE '%$campo%' OR elemento_secuestrado LIKE '%$campo%') $sLimit";
 
     /*variable para sacar cantidad de filas dependiendo del tipo de usuario */
-    $sqlTotal = "SELECT count($idConteo) FROM novedades_de_guardia n WHERE (n.eliminado<1)";
-}else if ($_SESSION['rol']==0) {
-    $sql2 = "SELECT SQL_CALC_FOUND_ROWS * FROM novedades_de_guardia n INNER JOIN comisarias c WHERE (n.idComisaria=$id) AND (n.eliminado<1)  AND (c.idComisaria=$id) AND (fecha LIKE '%$campo%' OR turno LIKE '%$campo%' OR superior_de_turno LIKE '%$campo%' OR oficial_servicio LIKE '%$campo%' OR nombre LIKE '%$campo%') $sLimit";
-
-    /*variable para sacar cantidad de filas dependiendo del tipo de usuario */
-    $sqlTotal = "SELECT count($idConteo) FROM novedades_de_guardia n WHERE n.idComisaria = $id AND (n.eliminado<1)";
+    $sqlTotal = "SELECT count($idConteo) FROM registro_secuestro n WHERE n.idComisaria = $idcom AND (n.eliminado<1)";
 }
-
 
 $resultado = $conexion->query($sql2);
 $num_rows = $resultado->num_rows;
@@ -76,6 +56,7 @@ $resTotal = $conexion->query($sqlTotal);
 $row_total = $resTotal->fetch_array();
 $totalRegistros = $row_total[0];
 
+
 /* Mostrado resultados */
 $output = [];
 $output['totalRegistros'] = $totalRegistros;
@@ -83,21 +64,18 @@ $output['totalFiltro'] = $totalFiltro;
 $output['data'] = '';
 $output['paginacion'] = '';
 
-
 if ($num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
-        if (($row['eliminado']>=1)) {
-            
-        }else{
-        $output['data'] .= '<tr>';
-        $output['data'] .= '<th class="align-middle" scope="row">' . $row['nombre'] .'</td>';
-        $output['data'] .= '<th class="align-middle" scope="row">' . $row['fecha'] . '</td>';
-        $output['data'] .= '<td class="align-middle" scope="row">' . $row['turno'] . '</td>';
-        $output['data'] .= '<td class="align-middle" scope="row">' . $row['superior_de_turno'] . '</td>';
-        $output['data'] .= '<td class="align-middle" scope="row">' . $row['oficial_servicio'] . '</td>';
-        $id=$row['id'];
-        $output['data'] .= '<td scope="row"><a class="btn btn-primary" href="novedades-ver-mas.php?id=' . $row['id'] .'">Ver más</a></td>';
-        $output['data'] .= '</tr>';   
+        if (($row['eliminado'] >= 1)) {
+        } else {
+            $output['data'] .= '<tr>';
+            $output['data'] .= '<th scope="row">' . $row['fecha_reg'] . '</td>';
+            $output['data'] .= '<td scope="row">' . $row['hora_reg'] . '</td>';
+            $output['data'] .= '<td scope="row">' . $row['hecho'] . '</td>';
+            $output['data'] .= '<td scope="row">' . $row['elemento_secuestrado'] . '</td>';
+            $id = $row['id'];
+            $output['data'] .= '<td scope="row"><a class="btn btn-primary" href="registro-secuestros-vermas.php?id=' . $row['id'] . '">Ver más</a></td>';
+            $output['data'] .= '</tr>';
         }
     }
 } else {
@@ -139,4 +117,3 @@ if($output['totalRegistros'] > 0){
 }
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
-?>

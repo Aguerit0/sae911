@@ -42,10 +42,11 @@
     $sentenciaSQL->bindParam(':id', $idIngresoPersonas);
     $sentenciaSQL->bindParam(':eliminado', $eliminado);
     $sentenciaSQL->execute();
-    header('Location: ingreso-personas-tabla.php');
+    header('Location: ingreso-personas-tabla.php?mensaje=eliminado');
   }
+
   //BOTON GUARDAR->VERMASNOVEDADES->
-  if (isset($_POST['guardarIngresoPersonas'])) {
+  if (isset($_POST['btnEgreso'])) {
     $fecha_hora_egreso = $_POST['fecha_hora_egreso'];
     //CONSULTA PARA ACTUALIZAR VALORES EN BASE DE DATOS
     $sqlUpdateIngresoPersonas = "UPDATE ingreso_persona SET fecha_hora_egreso='$fecha_hora_egreso' WHERE id=$idIngresoPersonas ";
@@ -57,7 +58,7 @@
       <script language='JavaScript' type="text/javascript">
         function B()
                 {     
-                location.href ='ingreso-personas-ver-mas.php?id=<?php echo $idIngresoPersonas?>';
+                location.href ='ingreso-personas-ver-mas.php?mensaje=egreso&id=<?php echo $idIngresoPersonas?>';
                 }
                 B();
       </script>
@@ -126,6 +127,29 @@
           </ol>
         </nav>
     </div><!-- End Page Title -->
+    <!-- CODIGO DE ALERTAS -->
+    <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'egreso')
+        {
+        ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Exito!</strong> Se ingresó correctamente la fecha y hora de egreso.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php
+        }
+    ?>
+    <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
+        {
+      ?>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Editado!</strong> Los datos fueron actualizados.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <?php
+          }
+      ?>
     <div class="card w-75 pt-3">
       <div class="card-body">
         <ul class="list-group">
@@ -140,49 +164,29 @@
             <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
             
         </ul>
-        <!-- BOTON MODAL ELIMINAR -->
+
+        <!-- BOTONERA -->
         <?php
-         if($_SESSION['rol'] == 1){?>
-            <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#eliminarNovedadesGuardia">Eliminar</button>
-          <?php
+          if($_SESSION['rol'] == 1){
+            include ("./template/ingreso-personas-botonera.php");
           }
         ?>
-        <!-- Modal ELIMINAR -->
-        <div class="modal fade" id="eliminarNovedadesGuardia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>¿Esta seguro que desea eliminar este Registro?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <form action="" method="post">
-                  <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal EDITAR -->
+        <!-- Modal FECHA DE EGRESO -->
         <?php if($fecha_hora_egreso == ""){?>
-          <button type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <button type="button" class="btn btn-warning float-end mt-3 me-2" data-bs-toggle="modal" data-bs-target="#modalEgreso">
           <i class="bi bi-pencil-square"></i>
           Agregar fecha de Egreso
           </button>
         <?php
         }else{?>
-          <button disabled type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <button disabled type="button" class="btn btn-warning float-end mt-3 me-2" data-bs-toggle="modal" data-bs-target="#modalEgreso">
           <i class="bi bi-pencil-square"></i>
           Agregar fecha de Egreso
           </button>
           <?php
         }
         ?>
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modalEgreso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
@@ -192,57 +196,57 @@
               <div class="modal-body">
                 <div class="card">
                   <div class="card-body">    
-                    <!-- FORMULARIO PARA EDITAR NOVEDADES DE RELEVANCIA -->
+                    <!-- FORMULARIO PARA EDITAR FECHA Y HORA DE EGRESO -->
                     <form class="row g-4 pt-3" method="POST" action="">
-                    <div class="col-md-6">
-                      <label for="fecha_hora_reg" class="form-label">Fecha y Hora de Registro</label>
-                      <input disabled require type="datetime-local" class="form-control" id="fecha_hora_reg" name="fecha_hora_reg" value="<?php echo $fecha_hora_reg?>">
-                    </div>
-                    <div class="col-md-6">
-                      <label for="tipo" class="form-label">Tipo</label>
-                      <select disabled required id="tipo" name="tipo" class="form-select">
-                        <option value=""><?php echo $tipo?></option>
-                        <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
-                        <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
-                        <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
-                        <option value="ARREBATO">ARREBATO</option>
-                        <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
-                        <option value="DESORDEN">DESORDEN</option>
-                        <option value="ABUSO SEXUAL">ABUSO SEXUAL</option>
-                        <option value="ACOSO SEXUAL">ACOSO SEXUAL</option>
-                        <option value="AMENAZAS">AMENAZAS</option>
-                        <option value="ARMAS">ARMAS</option>
-                        <option value="EXHIBICIONES OBSENAS">EXHIBICIONES OBSENAS</option>
-                        <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
-                      </select>
-                    </div>
+                      <div class="col-md-6">
+                        <label for="fecha_hora_reg" class="form-label">Fecha y Hora de Registro</label>
+                        <input disabled type="datetime-local" class="form-control" id="fecha_hora_reg" name="fecha_hora_reg" value="<?php echo $fecha_hora_reg?>">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <select disabled required id="tipo" name="tipo" class="form-select">
+                          <option value=""><?php echo $tipo?></option>
+                          <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
+                          <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
+                          <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
+                          <option value="ARREBATO">ARREBATO</option>
+                          <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
+                          <option value="DESORDEN">DESORDEN</option>
+                          <option value="ABUSO SEXUAL">ABUSO SEXUAL</option>
+                          <option value="ACOSO SEXUAL">ACOSO SEXUAL</option>
+                          <option value="AMENAZAS">AMENAZAS</option>
+                          <option value="ARMAS">ARMAS</option>
+                          <option value="EXHIBICIONES OBSENAS">EXHIBICIONES OBSENAS</option>
+                          <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
+                        </select>
+                      </div>
 
-                    <div class="col-md-6">
-                      <label for="subtipo" class="form-label">Subtipo</label>
-                      <input disabled require type="text" class="form-control" value="<?php echo $subtipo?>">
-                    </div>
+                      <div class="col-md-6">
+                        <label for="subtipo" class="form-label">Subtipo</label>
+                        <input disabled type="text" class="form-control" value="<?php echo $subtipo?>">
+                      </div>
                       <div class="col-md-6">
                         <label for="dispuesto_por" class="form-label">Dispuesto Por</label>
-                        <input disabled require type="text" class="form-control" id="dispuesto_por" name="dispuesto_por" value="<?php echo $dispuesto_por?>">
+                        <input disabled type="text" class="form-control" id="dispuesto_por" name="dispuesto_por" value="<?php echo $dispuesto_por?>">
                       </div>
                       <div class="col-md-6">
                         <label for="fecha_hora_ingreso" class="form-label">Fecha y Hora de Ingreso</label>
-                        <input disabled require type="datetime-local" class="form-control" id="fecha_hora_ingreso" name="fecha_hora_ingreso" value="<?php echo $fecha_hora_ingreso?>">
+                        <input disabled type="datetime-local" class="form-control" id="fecha_hora_ingreso" name="fecha_hora_ingreso" value="<?php echo $fecha_hora_ingreso?>">
                       </div>
                       <div class="col-md-6">
                         <label for="fecha_hora_egreso" class="form-label">Fecha y Hora de Egreso</label>
-                        <input require type="datetime-local" class="form-control" id="fecha_hora_egreso" name="fecha_hora_egreso" value="<?php echo $fecha_hora_egreso?>">
+                        <input required type="datetime-local" class="form-control" id="fecha_hora_egreso" name="fecha_hora_egreso" value="<?php echo $fecha_hora_egreso?>">
                       </div>
                       <div class="col-md-6">
                         <label for="secuestro" class="form-label">Secuestro</label>
-                        <input disabled require type="text" class="form-control" id="secuestro" name="secuestro" value="<?php echo $secuestro?>">
+                        <input disabled type="text" class="form-control" id="secuestro" name="secuestro" value="<?php echo $secuestro?>">
                       </div>
                       <div class="col-md-6">
                         <label for="elem_secuestrado" class="form-label">Elemento Secuestrado</label>
-                        <input disabled require type="text" class="form-control" id="elem_secuestrado" name="elem_secuestrado" value="<?php echo $elem_secuestrado?>">
+                        <input disabled type="text" class="form-control" id="elem_secuestrado" name="elem_secuestrado" value="<?php echo $elem_secuestrado?>">
                       </div>
                       <div class="text-center">
-                        <button type="submit" class="btn btn-primary float-end" value="guardarIngresoPersonas" id="guardarIngresoPersonas" name="guardarIngresoPersonas">Guardar</button>
+                        <button type="submit" class="btn btn-primary float-end" value="btnEgreso" id="btnEgreso" name="btnEgreso">Guardar</button>
                       </div>
                     </form><!-- End Multi Columns Form -->
 
@@ -274,6 +278,10 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <!-- Script de select -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script  src="novedades-relevancia-agregar.js"></script>
+
 
   
 </body>
