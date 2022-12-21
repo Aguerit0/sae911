@@ -52,12 +52,12 @@
   //ELIMINAR UN REGISTRO
   if (isset($_POST['confirmarEliminarRegistro'])){
     $eliminado = 1;
-    $sentenciaSQL=$bd_conex->prepare('UPDATE novedades_de_guardia SET eliminado=:eliminado WHERE id=:id');
-    $sentenciaSQL->bindParam(':id', $idNovedades);
+    $sentenciaSQL=$bd_conex->prepare('UPDATE novedades_de_relevancia SET eliminado=:eliminado WHERE id=:id');
+    $sentenciaSQL->bindParam(':id', $idNovedadesRelevancia);
     $sentenciaSQL->bindParam(':eliminado', $eliminado);
     $sentenciaSQL->execute();
     
-    header('Location: novedades-tabla.php');
+    header('Location: novedades-relevancia-tabla.php');
   }
 
   // Pasar la comisaria de numero a texto
