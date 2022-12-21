@@ -62,16 +62,22 @@
     <section class="section dashboard">
 
     <!--      GRAFICOS   INICIO     -->
-    <?php 
-      include ('./graficos/novRev.php');
-      include ('./graficos/novGuar.php');
-      include ('./graficos/tortaNovGuar.php');
-      include ('./graficos/registroSecuestro.php');
-     
-
-
-      
-    ?>
+    <div class="row">
+      <div class="col">
+      <?php include ('./graficos/novRev.php');?>
+      </div>
+      <div class="col">
+      <?php include ('./graficos/novGuar.php');?>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+      <?php include ('./graficos/tortaNovGuar.php');?>
+      </div>
+      <div class="col">
+      <?php include ('./graficos/regSecuestro.php');?>
+      </div>
+    </div>
 
       
          

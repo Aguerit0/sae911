@@ -9,7 +9,7 @@
 ?>
 <html>
   <head>
-  <style>#tortaNovGuar{float:left;}</style>
+  <style>#grafico3{float:left;}</style>
     <!--Cargar AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -46,13 +46,13 @@
         var opciones = {
           title:'Cantidad de Presos por Comisaria',
           is3D:true,
-          width:500,
+          width:600,
           height:600,
           pieHole: .4
         };
 
         // Inicia la gráfica
-        var chart = new google.visualization.PieChart(document.getElementById('tortaNovGuar'));
+        var chart = new google.visualization.PieChart(document.getElementById('grafico3'));
         chart.draw(data, opciones);
       }
     </script>
@@ -60,6 +60,6 @@
 
   <body>
     <!--División para la grafica-->
-    <div id="tortaNovGuar"></div>
+    <div id="grafico3"></div>
   </body>
 </html>

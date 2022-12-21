@@ -149,7 +149,7 @@
           ?>
           <ul class="list-group">
           <li class="list-group-item fw-bold">Comisaria: <span class="fw-normal ms-2"><?php echo $nombreComisaria ?></span></li>
-          <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $fecha ?></span></li></li>
+          <li class="list-group-item fw-bold">Fecha: <span class="fw-normal ms-2"><?php echo $newDate = date("d/m/Y", strtotime($fecha)) ?></span></li></li>
           <li class="list-group-item fw-bold">Turno: <span class="fw-normal ms-2"><?php echo $turno ?></span></li>
           <li class="list-group-item fw-bold">Superior de turno: <span class="fw-normal ms-2"><?php echo $superior_de_turno ?></span></li>
           <li class="list-group-item fw-bold">Oficial servicio: <span class="fw-normal ms-2"><?php echo $oficial_servicio ?></span></li>
