@@ -2,9 +2,12 @@
  
  
     //BOTON GUARDAR->VERMASNOVEDADES->
-     if (isset($_POST['guardarNovedadRelevancia'])) {
+    if (isset($_POST['guardarNovedadRelevancia'])) {
       include('conexion.php');
       // print_r($_POST);
+
+      // PONER LAS ALERTAS EN EL EDITAR DE NOVEDADES DE RELEVANCIA
+      // HACER EL ELIMINAR DE NOVEDADES DE RELEVANCIA
 
       if (strlen(trim($_POST['txtHora'])) >= 1 && strlen(trim($_POST['txtDescr_Lugar'])) >= 1 && strlen(trim($_POST['txtSindicados'])) >= 1 && strlen(trim($_POST['txtCaractDeHecho'])) >= 1 && strlen(trim($_POST['txtMovil'])) >= 1 && strlen(trim($_POST['txtElementoSustraido'])) >= 1)
       {
@@ -34,7 +37,18 @@
         }
         else
         {
-          header('Location: novedades-relevancia-agregar.php');
+          // header('Location: novedades-relevancia-agregar.php');
+          // exit();
+          // alerta txtSindicados menor a 0 o dato incorrecto (porque es de tipo numerico)
+          ?>
+          <script language='JavaScript' type="text/javascript">
+            function B()
+            {    
+              location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errorsindicados';
+            }
+            B();
+          </script>
+          <?php
           exit();
         } 
 
@@ -62,7 +76,19 @@
             }
             else
             {
-              header('Location: novedades-relevancia-agregar.php');
+              // header('Location: novedades-relevancia-agregar.php');
+              // exit();
+              // en teoria nunca pasaria por aqui en teoria...
+              ?>
+              <script language='JavaScript' type="text/javascript">
+                function B()
+                {    
+                  location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errorcolor';
+                }
+              
+                B();
+              </script>
+              <?php
               exit();
             }
           }
@@ -75,7 +101,19 @@
             }
             else
             {
-              header('Location: novedades-relevancia-agregar.php');
+              // header('Location: novedades-relevancia-agregar.php');
+              // exit();
+              // alerta txtColor vacio
+              ?>
+              <script language='JavaScript' type="text/javascript">
+                function B()
+                {    
+                  location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errorcolor';
+                }
+              
+                B();
+              </script>
+              <?php
               exit();
             }
           }
@@ -96,11 +134,23 @@
         {
           if ($_POST['txtEdad'] > 0)
           {
-              $txtEdad = trim($_POST['txtEdad']);
+            $txtEdad = trim($_POST['txtEdad']);
           }
           else
           {
-            header('Location: novedades-relevancia-agregar.php');
+            // header('Location: novedades-relevancia-agregar.php');
+            // exit();
+            // alerta edad menor a 0
+            ?>
+            <script language='JavaScript' type="text/javascript">
+              function B()
+              {    
+                location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=erroredad';
+              }
+            
+              B();
+            </script>
+            <?php
             exit();
           }
         }
@@ -128,7 +178,19 @@
             }
             else
             {
-              header('Location: novedades-relevancia-agregar.php');
+              // header('Location: novedades-relevancia-agregar.php');
+              // exit();
+              // en teoria nunca pasaria por aqui en teoria...
+              ?>
+              <script language='JavaScript' type="text/javascript">
+                function B()
+                {    
+                  location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errordenunciante';
+                }
+              
+                B();
+              </script>
+              <?php
               exit();
             }
           }
@@ -141,7 +203,19 @@
             }
             else
             {
-              header('Location: novedades-relevancia-agregar.php');
+              // header('Location: novedades-relevancia-agregar.php');
+              // exit();
+              // alerta txtDenunciante vacio
+              ?>
+              <script language='JavaScript' type="text/javascript">
+                function B()
+                {    
+                  location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errordenunciante';
+                }
+              
+                B();
+              </script>
+              <?php
               exit();
             }
           }
@@ -153,7 +227,18 @@
         if(count($MedidaTomadaArray) > count(array_unique($MedidaTomadaArray)))
         {
           // echo "¡Hay repetidos!";
-          header('Location: novedades-relevancia-agregar.php?mensaje=error');
+          // header('Location: novedades-relevancia-agregar.php?mensaje=error');
+          // exit();
+          // alerta MedidaToamada repetidos
+          ?>
+          <script language='JavaScript' type="text/javascript">
+            function B()
+            {    
+              location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errormedidatomada';
+            }
+            B();
+          </script>
+          <?php
           exit();
         }
         else
@@ -173,22 +258,24 @@
         if ($resultado_novedades_relevancia)
         {
           // echo "funciona editar novedades relevancia";
-          header("Location: novedades-relevancia-vermas.php?id=$idRelevancia&mensaje=editado");
-          exit();
+          // header("Location: novedades-relevancia-vermas.php?id=$idRelevancia&mensaje=editado");
+          // exit();
+        
+          
         }
         else
         {
           // echo "no funciona editar novedades relevancia";
-          header("Location: novedades-relevancia-vermas.php?id=$idRelevancia&mensaje=error");
-          exit();
+          // header("Location: novedades-relevancia-vermas.php?id=$idRelevancia&mensaje=error");
+          // exit();
         }
-    } 
-    else 
-    {
-      // echo "datos mal ingresados";
-      header("Location: novedades-relevancia-vermas.php?id=$idRelevancia&mensaje=error");
-      exit();
-    } 
+      } 
+      else 
+      {
+        // echo "datos mal ingresados";
+        // header("Location: novedades-relevancia-vermas.php?id=$idRelevancia&mensaje=error");
+        // exit();
+      } 
 
 
     if (mysqli_errno($conexion)!=0) 
@@ -201,7 +288,7 @@
       <script language='JavaScript' type="text/javascript">
         function B()
         {    
-          location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>';
+          location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=editado';
         }
       
         B();

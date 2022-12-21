@@ -112,9 +112,6 @@
 
   <main id="main" class="main">
   
-            <div class="alert alert-success">
-
-            </div>
     <div class="pagetitle">
         <h1>Formulario Novedades de Relevancia</h1>
         <nav>
@@ -127,10 +124,138 @@
     <div class="card">
         <div class="card-body">
           <!-- FORMULARIO PARA AGREGAR NOVEDADES DE RELEVANCIA -->
+          <br>
+          <h2 class="page-title text-center d-flex justify-content-center align-items-center">Agregar Novedades de Relevancia</h2>
+          <hr>
+
           <form action="novedades-relevancia-agregar-log.php" method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
+
+            <!-- CODIGO DE ALERTAS -->
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorsindicados')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> ingrese una cantidad de sindicados valida
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
             
-            <h2 class="page-title text-center d-flex justify-content-center align-items-center">Agregar Novedades de Relevancia</h2>
-            <hr>
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorcolor')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> al ingresar color. Intente nuevamente.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'erroredad')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> ingrese una edad valida.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errordenunciante')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> al ingresar denunciante. Intente nuevamente.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errormedidatomada')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> campos repetidos en Medidas Tomadas. Intente nuevamente
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorbd')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> al cargar datos en la base de datos.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errormalingresado')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> Intente nuevamente.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errornombreboton')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> boton del formulario no coincide.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'registrado')
+              {
+            ?>
+
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Registrado!</strong> Se agregaron los datos.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
 
             <div class="col-md-4">
               <label for="inputEmail5" class="form-label">Fecha del Suceso</label>
@@ -330,8 +455,6 @@
 
             <div class="row newData g-2 ms-0">
             </div>
-              
-
 
             <!-- <div class="col-md-6">
               <label for="inputState" class="form-label">Medida tomada</label>
@@ -343,12 +466,10 @@
             </select>
             </div> -->
 
-
-
-
-
-            
+            <div class="col-md-12">
             <hr>
+            </div>
+            
 
             <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
               <button type="submit" name="BtnAgregar" class="btn btn-primary float-end px-xl-5">Agregar Registro</button>
@@ -424,7 +545,7 @@
                   +'<option value="A.A.A">A.A.A</option>'
                   +'<option value="A.I.C.F">A.I.C.F</option>'
                   +'<option value="Aprehension">Aprehension</option>'
-                  +'<option value="A.A echo">A.A Hecho</option>'
+                  +'<option value="A.A Hecho">A.A Hecho</option>'
                   +'<option value="Detencion">Detencion</option>'
                   +'<option value="Secuestros">Secuestros</option>'
                   +'<option value="Registros">Registros</option>'

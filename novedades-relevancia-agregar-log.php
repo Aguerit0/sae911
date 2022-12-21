@@ -47,7 +47,7 @@ if (isset($_POST['BtnAgregar']))
         }
         else
         {
-            header('Location: novedades-relevancia-agregar.php');
+            header('Location: novedades-relevancia-agregar.php?mensaje=errorsindicados');
             exit();
         } 
 
@@ -73,7 +73,7 @@ if (isset($_POST['BtnAgregar']))
             }
             else
             {
-                header('Location: novedades-relevancia-agregar.php');
+                header('Location: novedades-relevancia-agregar.php?mensaje=errorcolor');
                 exit();
             }
         }
@@ -91,13 +91,13 @@ if (isset($_POST['BtnAgregar']))
         
         if (strlen(trim($_POST['txtEdad'])) >= 1)
         {
-            if ($txtEdad > 0)
+            if ($_POST['txtEdad'] > 0)
             {
                 $txtEdad = trim($_POST['txtEdad']);
             }
             else
             {
-                header('Location: novedades-relevancia-agregar.php');
+                header('Location: novedades-relevancia-agregar.php?mensaje=erroredad');
                 exit();
             }
         }
@@ -123,7 +123,7 @@ if (isset($_POST['BtnAgregar']))
             }
             else
             {
-                header('Location: novedades-relevancia-agregar.php');
+                header('Location: novedades-relevancia-agregar.php?mensaje=errordenunciante');
                 exit();
             }
         }
@@ -136,7 +136,7 @@ if (isset($_POST['BtnAgregar']))
         if(count($MedidaTomadaArray) > count(array_unique($MedidaTomadaArray)))
         {
             // echo "¡Hay repetidos!";
-            header('Location: novedades-relevancia-agregar.php?mensaje=error');
+            header('Location: novedades-relevancia-agregar.php?mensaje=errormedidatomada');
             exit();
         }
         else
@@ -147,7 +147,7 @@ if (isset($_POST['BtnAgregar']))
 
         $eliminado = 0;
 
-        echo $fecha_reg_tabla, $txtFecha, $txtHora, $tipo, $subtipo, $txtLon, $txtLat, $txtDescr_Lugar, $txtSindicados, $txtCaractDeHechos, $txtMovil, $txtElementoSustraido, $Hecho_Con_Int, $ElementoUtilizado, $TipoMotocicleta, $txtColor, $EmitioAdelanto, "damni:", $txtDamnificado, "edad:", $txtEdad, $Sexo, $Denuncia, $txtDenunciante, $UnidadJudicial, $ComisionPolicialInvestigacion, $MedidaTomada, $eliminado, $idComisaria, $idUsuario;
+        // echo $fecha_reg_tabla, $txtFecha, $txtHora, $tipo, $subtipo, $txtLon, $txtLat, $txtDescr_Lugar, $txtSindicados, $txtCaractDeHechos, $txtMovil, $txtElementoSustraido, $Hecho_Con_Int, $ElementoUtilizado, $TipoMotocicleta, $txtColor, $EmitioAdelanto, "damni:", $txtDamnificado, "edad:", $txtEdad, $Sexo, $Denuncia, $txtDenunciante, $UnidadJudicial, $ComisionPolicialInvestigacion, $MedidaTomada, $eliminado, $idComisaria, $idUsuario;
 
         $sentencia = $bd_conex -> prepare("INSERT INTO `novedades_de_relevancia`(`fecha_reg_tabla`, `fecha_reg`, `hora_reg`, `tipo`, `subtipo`, `longitud`, `latitud`, `descripcion_lugar`, `sindicados`, `caracteristicas_hecho`, `movil`, `elemento_sustraido`, `hecho_consumado`, `elemento_utilizado`, `tipo_motocicleta`, `color`, `adelanto_circulacion`, `damnificado`, `edad`, `sexo`, `denuncia`, `denunciante`, `unidad_judicial`, `comision_personal`, `medida_tomada`, `eliminado`, `idComisaria`, `idUsuario`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 
@@ -157,26 +157,26 @@ if (isset($_POST['BtnAgregar']))
         if ($resultado_novedades_relevancia)
         {
             // echo "funciona agregar novedades relevancia";
-            header('Location: novedades-relevancia-agregar.php');
+            header('Location: novedades-relevancia-agregar.php?mensaje=registrado');
             exit();
         }
         else
         {
             // echo "no funciona agregar novedades relevancia";
-            header('Location: novedades-relevancia-agregar.php');
+            header('Location: novedades-relevancia-agregar.php?mensaje=errorbd');
             exit();
         }
     } 
     else 
     {
         // echo "datos mal ingresados";
-        header('Location: novedades-relevancia-agregar.php');
+        header('Location: novedades-relevancia-agregar.php?mensaje=errormalingresado');
         exit();
     }
 }
 else 
 {
     // echo "no esta bien el name del boton";
-    header('Location: novedades-relevancia-agregar.php');
+    header('Location: novedades-relevancia-agregar.php?mensaje=?mensaje=errornombreboton');
     exit();
 }
