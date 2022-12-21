@@ -79,6 +79,19 @@ $idUsuario = $_SESSION['id'];
           </nav>
       </div><!-- End Page Title -->
 
+      <!-- CODIGO DE ALERTAS -->
+        <?php
+            if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado')
+            {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Eliminado!</strong> Se eliminó correctamente el registro.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+            }
+        ?>
+
       <div class="search d-flex justify-content-between">
           <!--INPUT BUSCAR EN TABLAS-->
           <form method="POST">

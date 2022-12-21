@@ -101,7 +101,7 @@ mysqli_close($conexion);
         if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado') {
         ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Exito!</strong> Se agregó correctamente un nuevo usuario.
+                <strong>Exito!</strong> Se agregó correctamente un nuevo registro.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
@@ -111,7 +111,7 @@ mysqli_close($conexion);
         if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
         ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong> Error</strong> No se pudo agregar la nueva comisaria.
+                <strong> Error</strong> No se pudo agregar el registro correctamente.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
@@ -121,7 +121,7 @@ mysqli_close($conexion);
         if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Eliminado!</strong> Se eliminó correctamente el usuario.
+                <strong>Eliminado!</strong> Se eliminó correctamente el registro.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
