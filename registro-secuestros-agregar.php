@@ -109,17 +109,13 @@ mysqli_close($conexion);
                 <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
                     <div class="col-md-6">
                         <label for="inputDate" class="col-form-label">Fecha y hora de registro</label>
-                        <div class="col-sm-10">
                             <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control" value="<?php date_default_timezone_set("America/Argentina/Catamarca");
                                                                                                                                                 echo date("d-m-Y H:i"); ?>">
-                        </div>
                     </div>
 
                     <div class="col-md-6">
                         <label for="txtFecha_reg" class="form-label">Fecha de registro</label>
-                        <div class="col-sm-10">
                             <input required type="date" id="txtFecha_reg" name="txtFecha_reg" class="form-control">
-                        </div>
                     </div>
 
                     <div class="col-md-6">
