@@ -66,7 +66,7 @@ if ($num_rows > 0) {
                 $html .= '<th scope="row">' . $row['usuario'] . '</td>';
                 $html .= '<th scope="row">' . $row['nombre'] . '</td>';
                 $html .= '<th scope="row">' . $row['correo'] . '</td>';
-                $html .= '<td scope="row">' . $row['fechaRegistro'] . '</td>';
+                $html .= '<td scope="row">' . $newDate = date("d/m/Y", strtotime($row['fechaRegistro'])) . '</td>';
                 if($row['habilitado'] == 1){
                                             $html .= '<td scope="row">SI</td>';
                                         }else{$html .= '<td scope="row">NO</td>';}
