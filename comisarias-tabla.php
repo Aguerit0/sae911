@@ -227,46 +227,64 @@
     <!-- SEGUNDA OPCION -->
     <table class="table table-sm table-hover table-bordered text-center">
       <thead class="table-dark">
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Provincia</th>
-            <th scope="col">Departamento</th>
-            <th scope="col">Localidad</th>
-            <th scope="col">. . .</th>
-          </tr>
-           
-          
+        <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Provincia</th>
+        <th scope="col">Departamento</th>
+        <th scope="col">Localidad</th>
+        <th scope="col">. . .</th>
+        </tr>    
       </thead>
 
     <tbody id="content">
         
       </tbody>
     </table>
+    <div class="row">
+        <div class="col-6">
+            <label id="ldl-total"></label>
+        </div>
+        <div class="col-6" id="nav-paginacion">
+
+        </div>
+    </div>
   </main><!-- End #main -->
 
-  <script>
-  /* Llamando a la función getData() */
-        getData()
+    <script>
+        let paginaActual = 1
+        /* Llamando a la función getData() */
+        getData(paginaActual)
 
         /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", getData)
+        document.getElementById("campo").addEventListener("keyup", function(){
+            getData(1)
+        }, false)
 
         /* Peticion AJAX */
-        function getData() {
+        function getData(pagina) {
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
+
+            if(pagina != null){
+                paginaActual = pagina
+            }
+
             let url = "search-comisarias.php"
             let formaData = new FormData()
             formaData.append('campo', input)
+            formaData.append('pagina', pagina)
 
             fetch(url, {
-                    method: "POST",
-                    body: formaData
-                }).then(response => response.json())
-                .then(data => {
-                    content.innerHTML = data
-                }).catch(err => console.log(err))
+            method: "POST",
+            body: formaData
+            }).then(response => response.json())
+            .then(data => {
+                content.innerHTML = data.data
+                document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
+                ' de ' + data.totalRegistros + ' registros'
+                document.getElementById("nav-paginacion").innerHTML = data.paginacion
+            }).catch(err => console.log(err))
         }
 </script>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

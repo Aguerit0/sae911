@@ -57,7 +57,7 @@
     $sentenciaSQL->bindParam(':eliminado', $eliminado);
     $sentenciaSQL->execute();
     
-    header('Location: novedades-relevancia-tabla.php');
+    header('Location: novedades-relevancia-tabla.php?mensaje=eliminado');
   }
 
   // Pasar la comisaria de numero a texto
