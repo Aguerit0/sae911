@@ -8,16 +8,16 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $idUsuario = $_SESSION['id'];
+$idComisaria = $_SESSION['idComisaria'];
 if (isset($_POST['agregar'])) {
-    $txtFechaRegTabla = $_POST['fecha_reg_tabla'];
-    $txtFechaReg = $_POST['fecha_reg'];
-    $txtHora = $_POST['hora_reg'];
-    $txtHecho = $_POST['hecho'];
-    $txtElementoSecuestrado = $_POST['elemento_secuestrado'];
+    $txtFecha_reg = $_POST['txtFecha_reg'];
+    $txtHora_reg = $_POST['txtHora_reg'];
+    $txtHecho = $_POST['txtHecho'];
+    $txtElemento_secuestrado = $_POST['txtElemento_secuestrado'];
 
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$txtFechaRegTabla','$txtFechaReg','$txtHora','$txtHecho','$txtElementoSecuestrado','$idComisaria','$idUsuario')";
+    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idUsuario, idComisaria) VALUES (NOW(),'$txtFecha_reg', '$txtHora_reg', '$txtHecho', '$txtElemento_secuestrado','$idUsuario', '$idComisaria')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar = mysqli_query($conexion, $insertar);
@@ -172,10 +172,17 @@ mysqli_close($conexion);
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="yourName" class="form-label">Hecho</label>
-                                        <input required type="text" name="txtHecho" id="txtHecho" class="form-control">
-                                        <div class="invalid-feedback">¡Por favor, escriba el hecho!
-                                        </div>
+                                        <label readonly for="txtHecho" class="form-label">Hecho</label>
+                                        <select required id="txtHecho" name="txtHecho" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
+                                            <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
+                                            <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
+                                            <option value="ARREBATO">ARREBATO</option>
+                                            <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
+                                            <option value="DESORDEN">DESORDEN</option>
+                                            <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
+                                        </select>
                                     </div>
 
                                     <div class="col-12">
@@ -186,7 +193,7 @@ mysqli_close($conexion);
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" name="BtnAgregar" id="BtnAgregar" value="btnAgregar" class="btn btn-primary float-end">Agregar</button>
+                                        <button type="submit" name="agregar" value="agregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
 
                                 </form>
@@ -206,9 +213,9 @@ mysqli_close($conexion);
                 <thead class="table-dark">
                     <tr>
 
-                        <th scope="col">Fecha </th>
-                        <th scope="col"> Hora </th>
-                        <th scope="col"> Hecho </th>
+                        <th scope="col">Fecha del Suceso </th>
+                        <th scope="col">Hora del Suceso</th>
+                        <th scope="col">Hecho Registrado </th>
                         <th scope="col">Elemento Sucuestrado</th>
                         <th scope="col"> ... </th>
 
