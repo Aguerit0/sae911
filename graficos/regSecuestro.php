@@ -2,7 +2,7 @@
   include('././conexion.php');
   
   //CONSULTA PARA GRÁFICOS DE COMISARIAS GENERALES
-  $sql = "SELECT COUNT(id) AS idRegistroSecuestro, fecha_reg_tabla, hecho FROM registro_secuestro GROUP BY hecho ORDER BY id ASC";
+  $sql = "SELECT COUNT(id) AS idRegistroSecuestro, fecha_reg_tabla, hecho FROM registro_secuestro WHERE eliminado<1 GROUP BY hecho ORDER BY id ASC";
   $r = mysqli_query($conexion, $sql);
 ?>
 <html>
@@ -30,24 +30,24 @@
       //
       var opciones = {
         title: 'Cantidad de Registros de Secuestros',
-        colors:['orange'],
+        colors:['#FF4500'],
         fontSize:25,
         fontName:"Times",
         hAxis: {
           title: 'Hechos',
-          titleTextStyle: {color: 'blue', fontSize:30},
+          titleTextStyle: {color: '#2F4F4F', fontSize:30},
           textPosition: "out",
-          textStyle: {color:"blue", fontSize:20, fontName:"Times",bold:true, italic: true}
+          textStyle: {color:"#2F4F4F", fontSize:20, fontName:"Times",bold:true, italic: true}
         },
         vAxis: {
-          title: 'Cantidad',
-          titleTextStyle: {color: '#0000FF', bold:true, fontSize:30, fontName: "Arial"},
-          textStyle: {color: '#0000FF', bold:true, fontSize:20, fontName: "Arial"},
-          gridlines: {color: 'gray'}
+          title: 'Cantidad de Registros',
+          titleTextStyle: {color: '#2F4F4F', bold:true, fontSize:30, fontName: "Arial"},
+          textStyle: {color: '#2F4F4F', bold:true, fontSize:20, fontName: "Arial"},
+          gridlines: {color: '#2F4F4F'}
         },
         legend: { position: 'none'},
         titleTextStyle: { 
-          color: "gray",
+          color: "#2F4F4F",
           fontSize: 40,
           italic: true 
         },
