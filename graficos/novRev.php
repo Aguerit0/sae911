@@ -2,7 +2,7 @@
   include('././conexion.php');
   
   //CONSULTA PARA GRÁFICOS DE COMISARIAS GENERALES
-  $sql = "SELECT COUNT(n.idComisaria) AS idComisariaContador, n.tipo, COUNT(n.id) AS contId FROM novedades_de_relevancia AS n INNER JOIN comisarias AS c ON n.idComisaria=c.idComisaria GROUP BY n.tipo ORDER BY idComisariaContador ASC";
+  $sql = "SELECT COUNT(n.idComisaria) AS idComisariaContador, n.tipo, COUNT(n.id) AS contId FROM novedades_de_relevancia AS n INNER JOIN comisarias AS c ON n.idComisaria=c.idComisaria AND c.eliminado<1 AND n.eliminado<1 GROUP BY n.tipo ORDER BY idComisariaContador ASC";
   $r = mysqli_query($conexion, $sql);
 ?>
 <html>
@@ -36,13 +36,13 @@
         fontSize:25,
         fontName:"Times",
         hAxis: {
-          title: 'Novedades',
+          title: 'Tipo de Delitos',
           titleTextStyle: {color: 'black', fontSize:30},
           textPosition: "out",
           textStyle: {color:"black", fontSize:20, fontName:"Times",bold:true, italic: true}
         },
         vAxis: {
-          title: 'Participación',
+          title: 'Cantidad de Delitos',
           titleTextStyle: {color: 'black', bold:true, fontSize:30, fontName: "Arial"},
           textStyle: {color: 'black', bold:true, fontSize:20, fontName: "Arial"},
           gridlines: {color: 'black'}
