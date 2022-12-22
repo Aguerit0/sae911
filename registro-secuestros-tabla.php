@@ -7,16 +7,18 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $idUsuario = $_SESSION['id'];
-if (isset($_POST['agregar'])) {
-    $txtFechaRegTabla = $_POST['fecha_reg_tabla'];
-    $txtFechaReg = $_POST['fecha_reg'];
-    $txtHora = $_POST['hora_reg'];
+$idComisaria = $_SESSION['idComisaria'];
+
+if (isset($_POST['BtnAgregar'])) {
+    $txtFechaRegTabla = $_POST['txtFechaRegTabla'];
+    $txtFechaReg = $_POST['txtFechaReg'];
+    $txtHora = $_POST['txtHora'];
     $txtHecho = $_POST['hecho'];
-    $txtElementoSecuestrado = $_POST['elemento_secuestrado'];
+    $txtElementoSecuestrado = $_POST['elementoSecuestrado'];
 
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$txtFechaRegTabla','$txtFechaReg','$txtHora','$txtHecho','$txtElementoSecuestrado','$idComisaria','$idUsuario')";
+    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$txtFechaReg','$txtHora','$txtHecho','$txtElementoSecuestrado','$idComisaria','$idUsuario')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar = mysqli_query($conexion, $insertar);
@@ -188,7 +190,7 @@ mysqli_close($conexion);
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" name="BtnAgregar" class="btn btn-primary float-end">Agregar</button>
+                                        <button type="submit" name="BtnAgregar" id="BtnAgregar" value="btnAgregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
 
                                 </form>
