@@ -8,16 +8,16 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $idUsuario = $_SESSION['id'];
-$idComisaria = $_SESSION['idComisaria'];
 if (isset($_POST['agregar'])) {
-    $txtFecha_reg = $_POST['txtFecha_reg'];
-    $txtHora_reg = $_POST['txtHora_reg'];
-    $txtHecho = $_POST['txtHecho'];
-    $txtElemento_secuestrado = $_POST['txtElemento_secuestrado'];
+    $txtFechaRegTabla = $_POST['fecha_reg_tabla'];
+    $txtFechaReg = $_POST['fecha_reg'];
+    $txtHora = $_POST['hora_reg'];
+    $txtHecho = $_POST['hecho'];
+    $txtElementoSecuestrado = $_POST['elemento_secuestrado'];
 
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idUsuario, idComisaria) VALUES (NOW(),'$txtFecha_reg', '$txtHora_reg', '$txtHecho', '$txtElemento_secuestrado','$idUsuario', '$idComisaria')";
+    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$txtFechaRegTabla','$txtFechaReg','$txtHora','$txtHecho','$txtElementoSecuestrado','$idComisaria','$idUsuario')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar = mysqli_query($conexion, $insertar);
@@ -102,7 +102,7 @@ mysqli_close($conexion);
         if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'agregado') {
         ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Exito!</strong> Se agregó correctamente un nuevo usuario.
+                <strong>Exito!</strong> Se agregó correctamente un nuevo registro.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
@@ -112,7 +112,7 @@ mysqli_close($conexion);
         if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
         ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong> Error</strong> No se pudo agregar la nueva comisaria.
+                <strong> Error</strong> No se pudo agregar el registro correctamente.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
@@ -122,7 +122,7 @@ mysqli_close($conexion);
         if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Eliminado!</strong> Se eliminó correctamente el usuario.
+                <strong>Eliminado!</strong> Se eliminó correctamente el registro.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
@@ -186,7 +186,7 @@ mysqli_close($conexion);
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" name="agregar" value="agregar" class="btn btn-primary float-end">Agregar</button>
+                                        <button type="submit" name="BtnAgregar" id="BtnAgregar" value="btnAgregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
 
                                 </form>

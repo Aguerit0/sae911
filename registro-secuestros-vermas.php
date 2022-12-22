@@ -31,22 +31,9 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
   $sentenciaSQL->bindParam(':eliminado', $eliminado);
   $sentenciaSQL->execute();
 
-  header('Location: registro-secuestros-tabla.php');
+  header('Location: registro-secuestros-tabla.php?mensaje=eliminado');
 }
 
-// //   //EDITAR UN REGISTRO
-// //   //CONSULTAR VALORES NUEVOS DE LOS INPUTS
-// //   if (isset($_POST['guardarRegistro'])) {
-// //   $consultaSelectRegistro="SELECT * FROM comisarias WHERE idComisaria=$idComisaria";
-// //   $resultadoSelectRegistro=mysqli_query($conexion,$consultaSelectRegistro);
-// //   if (!$resultadoSelectRegistro) {
-// //     echo '<script>alert("ERROR INF")</script>';
-// //   }
-// //   //OBTENCION DE DATOS TABLA COMISARIA
-// //   if ($row1 = $resultadoSelectRegistro->fetch_assoc()) {
-
-// // }
-// // mysqli_close($conexion);
 ?>
 
 
@@ -117,6 +104,30 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
       </nav>
     </div><!-- End Page Title -->
     <div class="card w-75 pt-3">
+
+      <!-- CODIGO DE ALERTAS -->
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
+        {
+      ?>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Editado!</strong> Los datos fueron actualizados.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <?php
+          }
+      ?>
+      <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error')
+        {
+      ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong> Error</strong> No se pudo editar la infomación.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <?php
+          }
+      ?>
       <div class="card-body">
         <ul class="list-group">
           <li class="list-group-item fw-bold">Fecha y Hora de Registro: <span class="fw-normal ms-2"><?php echo date("d/m/Y H:i:s", strtotime($fecha_reg_tabla)) ?></span></li>

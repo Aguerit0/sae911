@@ -120,7 +120,7 @@ mysqli_close($conexion);
 
                     <div class="col-md-6">
                         <label for="txtHora_reg" class="form-label">Hora</label>
-                        <input type="text" id="txtHora_reg" name="txtHora_reg" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true" readonly="">
+                        <input type="text" id="txtHora_reg" name="txtHora_reg" class="form-control clockpicker" placeholder="Ingrese una hora" data-placement="left" data-align="top" data-autoclose="true" readonly="">
                     </div>
 
                     <div class="col-md-6">

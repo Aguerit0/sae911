@@ -123,7 +123,6 @@
     </div><!-- End Page Title -->
     <div class="card w-75 pt-3">
       <div class="card-body">
-
           <!-- CODIGO DE ALERTAS -->
           <?php
             if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado')
