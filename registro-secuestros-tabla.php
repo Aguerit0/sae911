@@ -1,4 +1,5 @@
 <?php
+// LLAMANDO A LA BASE DE DATOS
 include 'conexion.php';
 session_start();
 // PREGUNTA SI HAY UN USUARIO REGISTRADO
@@ -8,17 +9,15 @@ if (!isset($_SESSION['usuario'])) {
 
 $idUsuario = $_SESSION['id'];
 $idComisaria = $_SESSION['idComisaria'];
-
-if (isset($_POST['BtnAgregar'])) {
-    $txtFechaRegTabla = $_POST['txtFechaRegTabla'];
-    $txtFechaReg = $_POST['txtFechaReg'];
-    $txtHora = $_POST['txtHora'];
-    $txtHecho = $_POST['hecho'];
-    $txtElementoSecuestrado = $_POST['elementoSecuestrado'];
+if (isset($_POST['agregar'])) {
+    $txtFecha_reg = $_POST['txtFecha_reg'];
+    $txtHora_reg = $_POST['txtHora_reg'];
+    $txtHecho = $_POST['txtHecho'];
+    $txtElemento_secuestrado = $_POST['txtElemento_secuestrado'];
 
 
     //CONSULTA INSERTAR DATOS
-    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idComisaria, idUsuario) VALUES (NOW(),'$txtFechaReg','$txtHora','$txtHecho','$txtElementoSecuestrado','$idComisaria','$idUsuario')";
+    $insertar = "INSERT INTO registro_secuestro (fecha_reg_tabla, fecha_reg, hora_reg, hecho, elemento_secuestrado, idUsuario, idComisaria) VALUES (NOW(),'$txtFecha_reg', '$txtHora_reg', '$txtHecho', '$txtElemento_secuestrado','$idUsuario', '$idComisaria')";
 
     //EJECUTAR CONSULTA INSERTAR DATOS
     $ejecutarInsertar = mysqli_query($conexion, $insertar);
@@ -143,7 +142,7 @@ mysqli_close($conexion);
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Registro de Secuestro</h1>
@@ -156,41 +155,45 @@ mysqli_close($conexion);
 
                                 <form class="row g-3 needs-validation" method="POST">
 
-                                    <div class="col-12">
-                                        <label for="inputEmail5" class="form-label">Fecha de registro tabla</label>
-                                        <div class="col-sm-10">
-                                            <input required type="date" id="txtFecha" name="txtFechaRegTabla" class="form-control">
-                                        </div>
+                                    <div class="col-md-12">
+                                        <label for="inputDate" class="col-form-label">Fecha y hora de registro</label>
+                                        <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control" value="<?php date_default_timezone_set("America/Argentina/Catamarca");
+                                                                                                                                                            echo date("d-m-Y H:i"); ?>">
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-md-12">
                                         <label for="inputEmail5" class="form-label">Fecha de registro </label>
-                                        <div class="col-sm-10">
-                                            <input required type="date" id="txtFechaReg" name="txtFechaReg" class="form-control">
-                                        </div>
+                                        <input required type="date" id="txtFecha_reg" name="txtFecha_reg" class="form-control">
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label for="inputEmail5" class="form-label">Hora</label>
-                                        <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                        <input type="text" id="txtHora_reg" name="txtHora_reg" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true" readonly="">
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="yourName" class="form-label">Hecho</label>
-                                        <input type="text" name="hecho" class="form-control" id="hecho" required>
-                                        <div class="invalid-feedback">¡Por favor, escriba el hecho!
-                                        </div>
+                                        <label readonly for="txtHecho" class="form-label">Hecho</label>
+                                        <select required id="txtHecho" name="txtHecho" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
+                                            <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
+                                            <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
+                                            <option value="ARREBATO">ARREBATO</option>
+                                            <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
+                                            <option value="DESORDEN">DESORDEN</option>
+                                            <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
+                                        </select>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Elemento secuestrado</label>
-                                        <input type="text" name="elementoSecuestrado" class="form-control" id="elementoSecuestrado" required>
+                                        <input required type="text" name="txtElemento_secuestrado" id="txtElemento_secuestrado" class="form-control">
                                         <div class="invalid-feedback">¡Por favor, escriba el elemeto secuestrado!
                                         </div>
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" name="BtnAgregar" id="BtnAgregar" value="btnAgregar" class="btn btn-primary float-end">Agregar</button>
+                                        <button type="submit" name="agregar" value="agregar" class="btn btn-primary float-end">Agregar</button>
                                     </div>
 
                                 </form>
@@ -210,9 +213,9 @@ mysqli_close($conexion);
                 <thead class="table-dark">
                     <tr>
 
-                        <th scope="col">Fecha </th>
-                        <th scope="col"> Hora </th>
-                        <th scope="col"> Hecho </th>
+                        <th scope="col">Fecha del Suceso </th>
+                        <th scope="col">Hora del Suceso</th>
+                        <th scope="col">Hecho Registrado </th>
                         <th scope="col">Elemento Sucuestrado</th>
                         <th scope="col"> ... </th>
 
@@ -241,7 +244,7 @@ mysqli_close($conexion);
         getData(paginaActual)
 
         /* Escuchar un evento keyup en el campo de entrada y luego llamar a la función getData. */
-        document.getElementById("campo").addEventListener("keyup", function(){
+        document.getElementById("campo").addEventListener("keyup", function() {
             getData(1)
         }, false)
 
@@ -250,25 +253,25 @@ mysqli_close($conexion);
             let input = document.getElementById("campo").value
             let content = document.getElementById("content")
 
-            if(pagina != null){
+            if (pagina != null) {
                 paginaActual = pagina
             }
-            
+
             let url = "registro-secuestros-search.php"
             let formaData = new FormData()
             formaData.append('campo', input)
             formaData.append('pagina', pagina)
 
-        fetch(url, {
-                method: "POST",
-                body: formaData
-            }).then(response => response.json())
-            .then(data => {
-                content.innerHTML = data.data
-                document.getElementById("ldl-total").innerHTML = 'Mostrando ' +  data.totalFiltro +
-                ' de ' + data.totalRegistros + ' registros'
-                document.getElementById("nav-paginacion").innerHTML = data.paginacion
-            }).catch(err => console.log(err))
+            fetch(url, {
+                    method: "POST",
+                    body: formaData
+                }).then(response => response.json())
+                .then(data => {
+                    content.innerHTML = data.data
+                    document.getElementById("ldl-total").innerHTML = 'Mostrando ' + data.totalFiltro +
+                        ' de ' + data.totalRegistros + ' registros'
+                    document.getElementById("nav-paginacion").innerHTML = data.paginacion
+                }).catch(err => console.log(err))
         }
     </script>
 

@@ -132,10 +132,10 @@ if (isset($_POST['confirmarEliminarRegistro'])) {
         <ul class="list-group">
           <li class="list-group-item fw-bold">Fecha y Hora de Registro: <span class="fw-normal ms-2"><?php echo date("d/m/Y H:i:s", strtotime($fecha_reg_tabla)) ?></span></li>
           </li>
-          <li class="list-group-item fw-bold">Fecha Registro: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
+          <li class="list-group-item fw-bold">Fecha del Hecho: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
                                                                                             echo $newDate ?></span></li>
-          <li class="list-group-item fw-bold">Hora Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
-          <li class="list-group-item fw-bold">Hecho: <span class="fw-normal ms-2"><?php echo $hecho ?></span></li>
+          <li class="list-group-item fw-bold">Hora del Hecho: <span class="fw-normal ms-2"><?php echo $hora_reg ?></span></li>
+          <li class="list-group-item fw-bold">Hecho Registrado: <span class="fw-normal ms-2"><?php echo $hecho ?></span></li>
           <li class="list-group-item fw-bold">Elemento Secuestrado: <span class="fw-normal ms-2"><?php echo $elemento_secuestrado ?></span>
           </li>
         </ul>
