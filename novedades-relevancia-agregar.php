@@ -267,7 +267,7 @@
 
             <div class="col-md-6">
               <label for="inputEmail5" class="form-label">Hora del Suceso</label>
-              <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" data-placement="left" data-align="top" data-autoclose="true" readonly="">
+              <input type="text" id="txtHora" name="txtHora" class="form-control clockpicker" placeholder="Ingrese una hora" data-placement="left" data-align="top" data-autoclose="true" readonly="">
             </div>
 
             <div class="col-md-6">

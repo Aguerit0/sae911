@@ -69,7 +69,7 @@ if ($num_rows > 0) {
         if (($row['eliminado'] >= 1)) {
         } else {
             $output['data'] .= '<tr>';
-            $output['data'] .= '<th scope="row">' . $row['fecha_reg'] . '</td>';
+            $output['data'] .= '<th scope="row">' . $newDate = date("d/m/Y", strtotime($row['fecha_reg'])) . '</td>';
             $output['data'] .= '<td scope="row">' . $row['hora_reg'] . '</td>';
             $output['data'] .= '<td scope="row">' . $row['hecho'] . '</td>';
             $output['data'] .= '<td scope="row">' . $row['elemento_secuestrado'] . '</td>';

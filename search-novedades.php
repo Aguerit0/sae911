@@ -91,7 +91,7 @@ if ($num_rows > 0) {
         }else{
         $output['data'] .= '<tr>';
         $output['data'] .= '<th class="align-middle" scope="row">' . $row['nombre'] .'</td>';
-        $output['data'] .= '<th class="align-middle" scope="row">' . $row['fecha'] . '</td>';
+        $output['data'] .= '<th class="align-middle" scope="row">' . $newDate = date("d/m/Y", strtotime($row['fecha'])) . '</td>';
         $output['data'] .= '<td class="align-middle" scope="row">' . $row['turno'] . '</td>';
         $output['data'] .= '<td class="align-middle" scope="row">' . $row['superior_de_turno'] . '</td>';
         $output['data'] .= '<td class="align-middle" scope="row">' . $row['oficial_servicio'] . '</td>';
