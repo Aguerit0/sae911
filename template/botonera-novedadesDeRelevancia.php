@@ -9,7 +9,7 @@
       // PONER LAS ALERTAS EN EL EDITAR DE NOVEDADES DE RELEVANCIA
       // HACER EL ELIMINAR DE NOVEDADES DE RELEVANCIA
 
-      if (strlen(trim($_POST['txtHora'])) >= 1 && strlen(trim($_POST['txtDescr_Lugar'])) >= 1 && strlen(trim($_POST['txtSindicados'])) >= 1 && strlen(trim($_POST['txtCaractDeHecho'])) >= 1 && strlen(trim($_POST['txtMovil'])) >= 1 && strlen(trim($_POST['txtElementoSustraido'])) >= 1)
+      if (strlen(trim($_POST['txtHora'])) >= 1 && strlen(trim($_POST['txtDescr_Lugar'])) >= 1 && strlen(trim($_POST['txtCaractDeHecho'])) >= 1 && strlen(trim($_POST['txtMovil'])) >= 1 && strlen(trim($_POST['txtElementoSustraido'])) >= 1)
       {
         // echo "Todo Okey";
 
@@ -30,27 +30,14 @@
 
         $txtDescr_Lugar = trim($_POST['txtDescr_Lugar']);
 
-        $txtSindicados = trim($_POST['txtSindicados']);
-        if ($txtSindicados >= 0)
+        if (strlen(trim($_POST['txtSindicados'])) >= 1)
         {
-          $txtSindicados = trim($_POST['txtSindicados']);
+            $txtSindicados = trim($_POST['txtSindicados']);
         }
         else
         {
-          // header('Location: novedades-relevancia-agregar.php');
-          // exit();
-          // alerta txtSindicados menor a 0 o dato incorrecto (porque es de tipo numerico)
-          ?>
-          <script language='JavaScript' type="text/javascript">
-            function B()
-            {    
-              location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errorsindicados';
-            }
-            B();
-          </script>
-          <?php
-          exit();
-        } 
+            $txtSindicados = "-";
+        }
 
 
         $txtCaractDeHechos = trim($_POST['txtCaractDeHecho']);
@@ -62,8 +49,8 @@
         $ElementoUtilizado = $_POST['ElementoUtilizado'];
         if ($ElementoUtilizado != 'Motocicleta')
         {
-          $TipoMotocicleta = "null";
-          $txtColor = "null";
+          $TipoMotocicleta = "-";
+          $txtColor = "-";
         }
         else
         {
@@ -164,8 +151,8 @@
 
         if ($Denuncia != 'Si')
         {
-          $txtDenunciante = "null";
-          $UnidadJudicial = "null";
+          $txtDenunciante = "-";
+          $UnidadJudicial = "-";
         }
         else
         {
@@ -244,8 +231,52 @@
         else
         {
           // echo "No hay repetidos";
-          $MedidaTomada = implode(" - ",$MedidaTomadaArray);
+          if (strlen(trim($_POST['txtSindicados'])) >= 1)
+            {
+                for ($i=0; $i < count($MedidaTomadaArray); $i++) 
+                { 
+                    if ($MedidaTomadaArray[$i] == 'Ninguna')
+                    {
+                        $MedidaTomada = "Ninguna";
+                    }
+                }
+
+                if ($MedidaTomada != "Ninguna")
+                {
+                    $MedidaTomada = implode(" - ",$MedidaTomadaArray);
+                }
+            }
+            else
+            {
+                for ($i=0; $i < count($MedidaTomadaArray); $i++) 
+                { 
+                    if ($MedidaTomadaArray[$i] == 'Ninguna')
+                    {
+                        $MedidaTomada = "Ninguna";
+                    }
+                }
+
+                if ($MedidaTomada != "Ninguna")
+                {
+                    $MedidaTomada = implode(" - ",$MedidaTomadaArray);
+                }
+                else
+                {
+                  ?>
+                  <script language='JavaScript' type="text/javascript">
+                    function B()
+                    {    
+                      location.href ='novedades-relevancia-vermas.php?id=<?php echo $idNovedadesRelevancia?>&mensaje=errormedidatomada3';
+                    }
+                    B();
+                  </script>
+                  <?php
+                  exit();
+                }
+            }
         }
+
+        
 
         $idRelevancia = $_GET['id'];
 
@@ -407,7 +438,7 @@
                       </div>
                       <div class="col-md-6">
                         <label for="sindicados" class="form-label">Sindicados (cantidad)</label>
-                        <input required type="number" id="txtSindicados" name="txtSindicados" class="form-control" value="<?php echo $sindicatos?>">
+                        <input type="text" id="txtSindicados" name="txtSindicados" class="form-control" value="<?php if ($sindicatos == "-"){echo "";}else{echo $sindicatos;} ?>">
                       </div>
                       <div class="col-md-6">
                         <label for="caracteristicas_hecho" class="form-label">Caracteristicas del hecho</label>
@@ -446,14 +477,14 @@
                       <div class="col-md-6">
                         <label for="inputState" class="form-label">Tipo de motocicleta utilizada </label>
                         <select required id="TipoMotocicleta" name="TipoMotocicleta" class="form-select" disabled>
-                          <option value="<?php echo $tipo_motocicleta?>"><?php if ($tipo_motocicleta == "null"){echo "";}else{echo $tipo_motocicleta;} ?></option>
+                          <option value="<?php echo $tipo_motocicleta?>"><?php if ($tipo_motocicleta == "-"){echo "";}else{echo $tipo_motocicleta;} ?></option>
                         </select>
                         <input type="hidden" name="TipoMotocicleta2" value="<?php echo $tipo_motocicleta; ?>">
                       </div>
 
                       <div class="col-md-6">
                         <label for="color" class="form-label">Color </label>
-                        <input required type="text" id="txtColor" name="txtColor" class="form-control" value="<?php if ($color == "null"){echo "";}else{echo $color;} ?>" disabled>
+                        <input required type="text" id="txtColor" name="txtColor" class="form-control" value="<?php if ($color == "-"){echo "";}else{echo $color;} ?>" disabled>
                         <input type="hidden" name="txtColor2" value="<?php echo $color; ?>">
                       </div>
 
@@ -471,7 +502,7 @@
                       </div>
                       <div class="col-md-6">
                         <label for="damnificado" class="form-label">Damnificado</label>
-                        <input type="text" id="txtDamnificado" name="txtDamnificado" class="form-control" value="<?php echo $damnificado?>">
+                        <input type="text" id="txtDamnificado" name="txtDamnificado" class="form-control" value="<?php if ($damnificado == "No especifica"){echo "";}else{echo $damnificado;} ?>">
                       </div>
 
                       
@@ -505,13 +536,13 @@
                       </div>
                       <div class="col-md-6">
                         <label for="denunciante" class="form-label">Denunciante</label>
-                        <input required type="text" id="txtDenunciante" name="txtDenunciante" class="form-control" value="<?php if ($denunciante == "null"){echo "";}else{echo $denunciante;} ?>" disabled>
+                        <input required type="text" id="txtDenunciante" name="txtDenunciante" class="form-control" value="<?php if ($denunciante == "-"){echo "";}else{echo $denunciante;} ?>" disabled>
                         <input type="hidden" name="txtDenunciante2" value="<?php echo $denunciante; ?>">
                       </div>
                       <div class="col-md-6">
                         <label for="inputState" class="form-label">Unidad judicial </label>
                         <select required id="UnidadJudicial" name="UnidadJudicial" class="form-select" disabled>
-                          <option value="<?php echo $unidad_judicial?>"><?php if ($unidad_judicial == "null"){echo "";}else{echo $unidad_judicial;} ?></option>
+                          <option value="<?php echo $unidad_judicial?>"><?php if ($unidad_judicial == "-"){echo "";}else{echo $unidad_judicial;} ?></option>
                         </select>
                         <input type="hidden" name="UnidadJudicial2" value="<?php echo $unidad_judicial; ?>">
                       </div>
@@ -543,6 +574,7 @@
                           <label for="inputState" class="form-label">Medida tomada </label>
                           <select required id="inputState" name="MedidaTomada[]" class="form-select">
                             <option value="<?php echo $medida_tomada_array[$i]?>"><?php echo $medida_tomada_array[$i] ?></option>
+                            <option value="Ninguna">Ninguna</option>
                             <option value="Demora">Demora</option>
                             <option value="A.A.A">A.A.A</option>
                             <option value="A.I.C.F">A.I.C.F</option>
@@ -569,6 +601,7 @@
                                 <label for="inputState" class="form-label">Medida tomada </label>
                                 <select required id="inputState" name="MedidaTomada[]" class="form-select">
                                 <option value="<?php echo $medida_tomada_array[$i]?>"><?php echo $medida_tomada_array[$i] ?></option>
+                                  <option value="Ninguna">Ninguna</option>
                                   <option value="Demora">Demora</option>
                                   <option value="A.A.A">A.A.A</option>
                                   <option value="A.I.C.F">A.I.C.F</option>
@@ -680,6 +713,7 @@
 
                       +'<select required id="inputState" name="MedidaTomada[]" class="form-control">'
                         +'<option value="">Seleccionar</option>'
+                        +'<option value="Ninguna">Ninguna</option>'
                         +'<option value="Demora">Demora</option>'
                         +'<option value="A.A.A">A.A.A</option>'
                         +'<option value="A.I.C.F">A.I.C.F</option>'

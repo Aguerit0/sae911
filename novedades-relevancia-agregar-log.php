@@ -20,14 +20,15 @@ if (isset($_POST['BtnAgregar']))
 {
     print_r($_POST);
 
-    if (strlen(trim($_POST['txtHora'])) >= 1 && strlen(trim($_POST['txtDescr_Lugar'])) >= 1 && strlen(trim($_POST['txtSindicados'])) >= 1 && strlen(trim($_POST['txtCaractDeHecho'])) >= 1 && strlen(trim($_POST['txtMovil'])) >= 1 && strlen(trim($_POST['txtElementoSustraido'])) >= 1)
+    if (strlen(trim($_POST['txtHora'])) >= 1 && strlen(trim($_POST['txtDescr_Lugar'])) >= 1 && strlen(trim($_POST['txtCaractDeHecho'])) >= 1 && strlen(trim($_POST['txtMovil'])) >= 1 && strlen(trim($_POST['txtElementoSustraido'])) >= 1)
     {
         // hay que hacer la verificacion de como entro lo de color pero hay que verificar primero que dato trajo Elemento utilizado
         // lo mismo con lo de denunciante
 
         echo "Todo Okey";
 
-        $fecha_reg_tabla = date("Y/m/d");
+        date_default_timezone_set("America/Argentina/Catamarca");
+        $fecha_reg_tabla = date("Y/m/d H:i");        
 
         $txtFecha = trim($_POST['txtFecha']);
         $txtHora = trim($_POST['txtHora']);
@@ -40,16 +41,25 @@ if (isset($_POST['BtnAgregar']))
 
         $txtDescr_Lugar = trim($_POST['txtDescr_Lugar']);
 
-        $txtSindicados = trim($_POST['txtSindicados']);
-        if ($txtSindicados >= 0)
+        if (strlen(trim($_POST['txtSindicados'])) >= 1)
         {
             $txtSindicados = trim($_POST['txtSindicados']);
         }
         else
         {
-            header('Location: novedades-relevancia-agregar.php?mensaje=errorsindicados');
-            exit();
-        } 
+            $txtSindicados = "-";
+        }
+        
+
+        // if ($txtSindicados >= 0)
+        // {
+        //     $txtSindicados = trim($_POST['txtSindicados']);
+        // }
+        // else
+        // {
+        //     header('Location: novedades-relevancia-agregar.php?mensaje=errorsindicados');
+        //     exit();
+        // } 
 
 
         $txtCaractDeHechos = trim($_POST['txtCaractDeHecho']);
@@ -61,8 +71,8 @@ if (isset($_POST['BtnAgregar']))
 
         if ($ElementoUtilizado != 'Motocicleta')
         {
-            $TipoMotocicleta = "null";
-            $txtColor = "null";
+            $TipoMotocicleta = "-";
+            $txtColor = "-";
         }
         else
         {
@@ -111,8 +121,8 @@ if (isset($_POST['BtnAgregar']))
 
         if ($Denuncia != 'Si')
         {
-            $txtDenunciante = "null";
-            $UnidadJudicial = "null";
+            $txtDenunciante = "-";
+            $UnidadJudicial = "-";
         }
         else
         {
@@ -142,7 +152,41 @@ if (isset($_POST['BtnAgregar']))
         else
         {
             // echo "No hay repetidos";
-            $MedidaTomada = implode(" - ",$MedidaTomadaArray);
+            if (strlen(trim($_POST['txtSindicados'])) >= 1)
+            {
+                for ($i=0; $i < count($MedidaTomadaArray); $i++) 
+                { 
+                    if ($MedidaTomadaArray[$i] == 'Ninguna')
+                    {
+                        $MedidaTomada = "Ninguna";
+                    }
+                }
+
+                if ($MedidaTomada != "Ninguna")
+                {
+                    $MedidaTomada = implode(" - ",$MedidaTomadaArray);
+                }
+            }
+            else
+            {
+                for ($i=0; $i < count($MedidaTomadaArray); $i++) 
+                { 
+                    if ($MedidaTomadaArray[$i] == 'Ninguna')
+                    {
+                        $MedidaTomada = "Ninguna";
+                    }
+                }
+
+                if ($MedidaTomada != "Ninguna")
+                {
+                    $MedidaTomada = implode(" - ",$MedidaTomadaArray);
+                }
+                else
+                {
+                    header('Location: novedades-relevancia-agregar.php?mensaje=errormedidatomada3');
+                    exit();
+                }
+            }
         }
 
         $eliminado = 0;

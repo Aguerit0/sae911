@@ -202,6 +202,20 @@
             ?>
 
             <?php
+              if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errormedidatomada3')
+              {
+            ?>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> debe haber sindicados para tener ninguna en medida tomada. Intente nuevamente
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            <?php
+              }
+            ?>
+
+            <?php
               if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorbd')
               {
             ?>
@@ -324,7 +338,7 @@
 
             <div class="col-md-6">
               <label for="inputtext5"  class="form-label">Sindicados (cantidad) </label>
-              <input required type="number" id="txtSindicados" name="txtSindicados" class="form-control" id="inputtext5">
+              <input type="text" id="txtSindicados" name="txtSindicados" class="form-control" id="inputtext5">
             </div>
 
             <div class="col-md-6">
@@ -436,6 +450,7 @@
               <label for="inputState" class="form-label">Medida tomada </label>
               <select required id="inputState" name="MedidaTomada[]" class="form-select">
                 <option value="">Seleccionar</option>
+                <option value="Ninguna">Ninguna</option>
                 <option value="Demora">Demora</option>
                 <option value="A.A.A">A.A.A</option>
                 <option value="A.I.C.F">A.I.C.F</option>
@@ -541,6 +556,7 @@
 
                 +'<select required id="inputState" name="MedidaTomada[]" class="form-control">'
                   +'<option value="">Seleccionar</option>'
+                  +'<option value="Ninguna">Ninguna</option>'
                   +'<option value="Demora">Demora</option>'
                   +'<option value="A.A.A">A.A.A</option>'
                   +'<option value="A.I.C.F">A.I.C.F</option>'
