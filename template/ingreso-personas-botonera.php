@@ -109,7 +109,7 @@
                       </div>
                       <div class="col-md-6">
                         <label for="fecha_hora_ingreso" class="form-label">Fecha y Hora de Ingreso</label>
-                        <input  required type="datetime-local" class="form-control" id="fecha_hora_ingreso" name="fecha_hora_ingreso" value="<?php echo $fecha_hora_ingreso?>">
+                        <input disabled required type="datetime-local" class="form-control" id="fecha_hora_ingreso" name="fecha_hora_ingreso" value="<?php echo $fecha_hora_ingreso?>">
                       </div>
                       <div class="col-md-6">
                         <label for="fecha_hora_egreso" class="form-label">Fecha y Hora de Egreso</label>
