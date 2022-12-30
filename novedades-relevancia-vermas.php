@@ -214,6 +214,20 @@
       ?>
 
       <?php
+        if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errormedidatomada3')
+        {
+      ?>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> debe haber sindicados para tener ninguna en medida tomada. Intente nuevamente
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      
+      <?php
+        }
+      ?>
+
+      <?php
         if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'errorbd')
         {
       ?>
@@ -274,14 +288,14 @@
           <?php  
             if($_SESSION['rol'] == 1){
               ?>
-              <li class="list-group-item fw-bold">Fecha Registro Tabla: <span class="fw-normal ms-2"><?php 
-              $newDate = date("d/m/Y", strtotime($fecha_reg_tabla));
-              echo $newDate ?></span></li></li>
+              <li class="list-group-item fw-bold">Fecha y Hora Registro Tabla: <span class="fw-normal ms-2"><?php 
+              $newDate = date("d/m/Y - (H:i)", strtotime($fecha_reg_tabla));
+              echo $newDate ?></span></li>
+              </li>
               <?php
             }else{
             }
           ?>
-          
           
           <li class="list-group-item fw-bold">Fecha Suceso: <span class="fw-normal ms-2"><?php $newDate = date("d/m/Y", strtotime($fecha_reg));
           echo $newDate ?></span></li>
