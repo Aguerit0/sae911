@@ -147,7 +147,21 @@
               </div>
               <?php
             }
-            else if ($_SESSION['rol']==0) {}
+            else if ($_SESSION['rol']==0) 
+            {
+              $sql_comisarias = "SELECT * FROM comisarias WHERE idComisaria = '$idComisaria'";
+              $resultado4 = mysqli_query($conexion,$sql_comisarias);
+
+              if ($row4 = $resultado4->fetch_assoc())
+              {
+                ?>
+                <div class="col-md-6">
+                  <label for="inputState" class="form-label">Comisaria</label>
+                  <input type="text" class="form-control" value="<?php echo $row4['nombre'] ?>" disabled>
+                </div>
+                <?php
+              }
+            }
             ?>
             <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
               <button type="submit" name="BtnAgregar" class="btn btn-primary float-end px-xl-5">Buscar</button>
@@ -382,6 +396,15 @@
       {
         while ($row2 = $resultado2->fetch_assoc()) 
         {
+          $idComisaria = $row2['idComisaria'];
+
+          $sql_com = "SELECT * FROM `comisarias` WHERE idComisaria = $idComisaria";
+          $resultado3 = mysqli_query($conexion,$sql_com);
+
+          if($row3 = $resultado3->fetch_assoc())
+          {
+            $nom_comisaria = $row3['nombre'];
+          }
           ?>
           L.marker([<?php echo $row2['latitud'] ?>, <?php echo $row2['longitud'] ?>]).addTo(map).bindPopup(`
           <p>Referencia: <?php echo $row2['id'] ?></p>
@@ -393,6 +416,7 @@
           <p>Hora: <?php echo $row2['hora_reg'] ?></p>
           <p>Tipo: <?php echo $row2['tipo'] ?></p>
           <p>Subtipo: <?php echo $row2['subtipo'] ?></p>
+          <p>Comisaria: <?php echo $nom_comisaria ?></p>
           `);
           <?php
         }
@@ -418,6 +442,16 @@
   
       while ($row2 = $resultado2->fetch_assoc()) 
       {
+        $idComisaria = $row2['idComisaria'];
+
+        $sql_com = "SELECT * FROM `comisarias` WHERE idComisaria = $idComisaria";
+        $resultado3 = mysqli_query($conexion,$sql_com);
+
+        if($row3 = $resultado3->fetch_assoc())
+        {
+          $nom_comisaria = $row3['nombre'];
+        }
+
         ?>
         L.marker([<?php echo $row2['latitud'] ?>,<?php echo $row2['longitud'] ?>]).addTo(map).bindPopup(`
         <p>Referencia: <?php echo $row2['id'] ?></p>
@@ -429,6 +463,7 @@
         <p>Hora: <?php echo $row2['hora_reg'] ?></p>
         <p>Tipo: <?php echo $row2['tipo'] ?></p>
         <p>Subtipo: <?php echo $row2['subtipo'] ?></p>
+        <p>Comisaria: <?php echo $nom_comisaria ?></p>
         `);
         <?php
       }
