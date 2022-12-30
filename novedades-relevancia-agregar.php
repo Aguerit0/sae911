@@ -337,7 +337,7 @@
             </div>
 
             <div class="col-md-6">
-              <label for="inputtext5"  class="form-label">Sindicados (cantidad) </label>
+              <label for="inputtext5"  class="form-label">Sindicados</label>
               <input type="text" id="txtSindicados" name="txtSindicados" class="form-control" id="inputtext5">
             </div>
 

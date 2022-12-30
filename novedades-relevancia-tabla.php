@@ -91,6 +91,19 @@ $idUsuario = $_SESSION['id'];
         <?php
             }
         ?>
+        <?php
+            if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'registrado')
+            {
+        ?>
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Registrado!</strong> Se agregaron los datos.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        
+        <?php
+            }
+        ?>
 
       <div class="search d-flex justify-content-between">
           <!--INPUT BUSCAR EN TABLAS-->

@@ -416,7 +416,7 @@
                         <input required type="text" id="txtDescr_Lugar" name="txtDescr_Lugar" class="form-control" id="inputEmail5" value="<?php echo $descripcion?>">
                       </div>
                       <div class="col-md-6">
-                        <label for="sindicados" class="form-label">Sindicados (cantidad)</label>
+                        <label for="sindicados" class="form-label">Sindicados</label>
                         <input type="text" id="txtSindicados" name="txtSindicados" class="form-control" value="<?php if ($sindicatos == "-"){echo "";}else{echo $sindicatos;} ?>">
                       </div>
                       <div class="col-md-6">
@@ -587,40 +587,7 @@
                           <div class="col-md-1 mt-5">
                             <button class="btn btn-success add-btn"><i class="bi bi-plus-circle-fill"></i></button>
                           </div>
-                          <?php
-                        }
-                        else
-                        {
-                          ?>
-                          <div id="newRow<?php echo $i ?>" class="col-md-6">
-                            <div class="row g-3">
-                              <div class="col-md-10">
-                                <label for="inputState" class="form-label">Medida tomada </label>
-                                <select required id="inputState" name="MedidaTomada[]" class="form-select">
-                                <option value="<?php echo $medida_tomada_array[$i]?>"><?php echo $medida_tomada_array[$i] ?></option>
-                                  <option value="Ninguna">Ninguna</option>
-                                  <option value="Demora">Demora</option>
-                                  <option value="A.A.A">A.A.A</option>
-                                  <option value="A.I.C.F">A.I.C.F</option>
-                                  <option value="Aprehension">Aprehension</option>
-                                  <option value="A.A Hecho">A.A Hecho</option>
-                                  <option value="Detencion">Detencion</option>
-                                  <option value="Secuestros">Secuestros</option>
-                                  <option value="Registros">Registros</option>
-                                  <option value="Allanamiento">Allanamiento</option>
-                                </select>
-                              </div>
-
-                              <div class="col-md-2 mt-5">
-                                <a href="#" class="btn btn-danger remove-lnk" id="<?php echo $i ?>"><i class="bi bi-trash3"></i></a>
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                    <?php 
+                      <?php
                     }
                   } 
                   ?>
