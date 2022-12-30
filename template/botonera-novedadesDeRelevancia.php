@@ -308,7 +308,6 @@
         // exit();
       } 
 
-
     if (mysqli_errno($conexion)!=0) 
     {
       echo '<script>alert("ERROR AL EDITAR REGISTRO")</script>';
@@ -330,56 +329,36 @@
   }
 
 ?>
-
-
-<!-- BOTON MODAL ELIMINAR -->
-<button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#eliminarNovedadesGuardia">
-          Eliminar
-        </button>
-        <!-- Modal ELIMINAR -->
-        <div class="modal fade" id="eliminarNovedadesGuardia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>¿Esta seguro que desea eliminar este archivo?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <form action="" method="post">
-                    <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
-                  </form>
-              </div>
-            </div>
+<div class="d-flex justify-content-between">
+  <!-- BOTON EXPORTAR EN EXCEL -->
+  <form method="POST" action="crear-excel.php?id=<?php echo $idNovedadesRelevancia?>">
+    <button class="btn btn-success pull-right mt-3" name="export"><span class="glyphicon glyphicon-print"></span> Exportar a Excel</button>
+  </form>
+  <div>
+    <!-- BOTON MODAL ELIMINAR -->
+    <button type="button" class="btn btn-danger float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#eliminarNovedadesGuardia">
+      Eliminar
+    </button>
+    <!-- Modal ELIMINAR -->
+    <div class="modal fade" id="eliminarNovedadesGuardia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>¿Esta seguro que desea eliminar este archivo?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <form action="" method="post">
+              <button type="submit" class="btn btn-danger" name="confirmarEliminarRegistro" value="eliminar" data-bs-dismiss="modal">Eliminar</button>
+            </form>
           </div>
         </div>
-
-        <!-- BOTON MODAL DESHABILITAR -->
-        <!-- <button type="button" class="btn btn-secondary float-end mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#deshabilitarNovedadesGuardia">
-          Deshabilitar
-        </button> -->
-        <!-- Modal DEHABILITAR -->
-        <div class="modal fade" id="deshabilitarNovedadesGuardia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>¿Esta seguro que desea deshabilitar este archivo?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Deshabilitar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      </div>
+    </div>
         <!-- Modal EDITAR -->
         <button type="button" class="btn btn-warning float-end mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           <i class="bi bi-pencil-square"></i>
@@ -462,9 +441,6 @@
                       </div>
 
 
-
-
-
                       <div class="col-md-6">
                         <label for="inputState" class="form-label">Elemento utilizado (Moto o Pie)</label>
                         <select required id="ElementoUtilizado" name="ElementoUtilizado" class="form-select">
@@ -488,9 +464,6 @@
                         <input type="hidden" name="txtColor2" value="<?php echo $color; ?>">
                       </div>
 
-
-
-
                       <div class="col-md-6">
                         <label for="inputState" class="form-label">Emitio adelanto de circular</label>
                         <select required id="inputState" id="EmitioAdelanto" name="EmitioAdelanto" class="form-select">
@@ -505,26 +478,23 @@
                         <input type="text" id="txtDamnificado" name="txtDamnificado" class="form-control" value="<?php if ($damnificado == "No especifica"){echo "";}else{echo $damnificado;} ?>">
                       </div>
 
-                      
-                      <div class="col-md-6">
-                        <label for="edad" class="form-label">Edad</label>
-                        <input type="number" id="txtEdad" name="txtEdad" class="form-control" value="<?php if ($edad == "No especifica"){echo "";}else{echo $edad;} ?>">
-                      </div>
 
-                      <div class="col-md-6">
-                        <label for="inputState" class="form-label">Genero</label>
-                        <select required id="inputState" id="Sexo" name="Sexo" class="form-select">
-                            <option value="<?php echo $sexo?>"><?php echo $sexo?></option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                            <option value="No Binario">No Binario</option>
-                            <option value="No especifica">No especifica</option>
-                        </select>
-                      </div>
+                  
+                  <div class="col-md-6">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" id="txtEdad" name="txtEdad" class="form-control" value="<?php if ($edad == "No especifica"){echo "";}else{echo $edad;} ?>">
+                  </div>
 
-
-
-
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Genero</label>
+                    <select required id="inputState" id="Sexo" name="Sexo" class="form-select">
+                        <option value="<?php echo $sexo?>"><?php echo $sexo?></option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="No Binario">No Binario</option>
+                        <option value="No especifica">No especifica</option>
+                    </select>
+                  </div>
                       <div class="col-md-6">
                         <label for="inputState" class="form-label">Denuncia </label>
                         <select required id="Denuncia" name="Denuncia" class="form-select">
@@ -550,29 +520,56 @@
 
 
 
-                      <div class="col-md-6">
-                        <label for="inputState" class="form-label">Comision de personal policial</label>
-                        <select required id="inputState" id="ComisionPolicialInvestigacion" name="ComisionPolicialInvestigacion" class="form-select">
-                            <option value="<?php echo $comision_personal?>"><?php echo $comision_personal?></option>
-                            <option value="Si">Si</option>
-                            <option value="No">No</option>
-                            <option value="No especifica">No especifica</option>
-                        </select>
+
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Comision de personal policial</label>
+                    <select required id="inputState" id="ComisionPolicialInvestigacion" name="ComisionPolicialInvestigacion" class="form-select">
+                        <option value="<?php echo $comision_personal?>"><?php echo $comision_personal?></option>
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                        <option value="No especifica">No especifica</option>
+                    </select>
+                  </div>
+
+
+
+
+                  <?php 
+                  $medida_tomada_array = explode(" - ", $medida_tomada);
+
+                  for ($i=0; $i < count($medida_tomada_array); $i++) 
+                  { 
+                    if($i == 0)
+                    { ?>
+                      <div class="col-md-5">
+                      <label for="inputState" class="form-label">Medida tomada </label>
+                      <select required id="inputState" name="MedidaTomada[]" class="form-select">
+                        <option value="<?php echo $medida_tomada_array[$i]?>"><?php echo $medida_tomada_array[$i] ?></option>
+                        <option value="Demora">Demora</option>
+                        <option value="A.A.A">A.A.A</option>
+                        <option value="A.I.C.F">A.I.C.F</option>
+                        <option value="Aprehension">Aprehension</option>
+                        <option value="A.A Hecho">A.A Hecho</option>
+                        <option value="Detencion">Detencion</option>
+                        <option value="Secuestros">Secuestros</option>
+                        <option value="Registros">Registros</option>
+                        <option value="Allanamiento">Allanamiento</option>
+                      </select>
                       </div>
 
-
-
-
-                      <?php 
-                      $medida_tomada_array = explode(" - ", $medida_tomada);
-
-                      for ($i=0; $i < count($medida_tomada_array); $i++) 
-                      { 
-                        if($i == 0)
-                        { ?>
-                          <div class="col-md-5">
-                          <label for="inputState" class="form-label">Medida tomada </label>
-                          <select required id="inputState" name="MedidaTomada[]" class="form-select">
+                      <div class="col-md-1 mt-5">
+                        <button class="btn btn-success add-btn"><i class="bi bi-plus-circle-fill"></i></button>
+                      </div>
+                      <?php
+                    }
+                    else
+                    {
+                      ?>
+                      <div id="newRow<?php echo $i ?>" class="col-md-6">
+                        <div class="row g-3">
+                          <div class="col-md-10">
+                            <label for="inputState" class="form-label">Medida tomada </label>
+                            <select required id="inputState" name="MedidaTomada[]" class="form-select">
                             <option value="<?php echo $medida_tomada_array[$i]?>"><?php echo $medida_tomada_array[$i] ?></option>
                             <option value="Ninguna">Ninguna</option>
                             <option value="Demora">Demora</option>
@@ -618,37 +615,41 @@
                                 <a href="#" class="btn btn-danger remove-lnk" id="<?php echo $i ?>"><i class="bi bi-trash3"></i></a>
                               </div>
                             </div>
+
                           </div>
-
-                        <?php 
-                        }
-                      } 
-                      ?>
-
-                      <!-- <div class="col-md-6">
-                        <div class="row newData2 g-2">
                         </div>
-                      </div> -->
+                      </div>
 
-                      <div class="row newData g-2 ms-0">
-                      </div>
-                    
-                      <div class="text-center">
-                        <button type="submit" class="btn btn-primary float-end" value="guardarNovedadRelevancia" id="guardarNovedadRelevancia" name="guardarNovedadRelevancia">Guardar</button>
-                      </div>
-                    </form><!-- End Multi Columns Form -->
-      
+                    <?php 
+                    }
+                  } 
+                  ?>
+
+                  <!-- <div class="col-md-6">
+                    <div class="row newData2 g-2">
+                    </div>
+                  </div> -->
+
+                  <div class="row newData g-2 ms-0">
                   </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary float-end" value="guardarNovedadRelevancia" id="guardarNovedadRelevancia" name="guardarNovedadRelevancia">Guardar</button>
+                  </div>
+                </form><!-- End Multi Columns Form -->
+
               </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+          </div>
         </div>
-
+      </div>
+    </div>
+  </div>
+</div>
 
         <!-- Script de reloj -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
