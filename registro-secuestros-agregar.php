@@ -109,17 +109,13 @@ mysqli_close($conexion);
                 <form method="POST" enctype="multipart/form-data" class="row g-3 pt-3">
                     <div class="col-md-6">
                         <label for="inputDate" class="col-form-label">Fecha y hora de registro</label>
-                        <div class="col-sm-10">
-                            <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control" value="<?php date_default_timezone_set("America/Argentina/Catamarca");
-                                                                                                                                                echo date("d-m-Y H:i"); ?>">
-                        </div>
+                        <input disabled type="datatime" id="txtFechaHoraRegistro" name="txtFechaHoraRegistro" class="form-control" value="<?php date_default_timezone_set("America/Argentina/Catamarca");
+                                                                                                                                            echo date("d-m-Y H:i"); ?>">
                     </div>
 
                     <div class="col-md-6">
                         <label for="txtFecha_reg" class="form-label">Fecha de registro</label>
-                        <div class="col-sm-10">
-                            <input required type="date" id="txtFecha_reg" name="txtFecha_reg" class="form-control">
-                        </div>
+                        <input required type="date" id="txtFecha_reg" name="txtFecha_reg" class="form-control">
                     </div>
 
                     <div class="col-md-6">
@@ -129,7 +125,16 @@ mysqli_close($conexion);
 
                     <div class="col-md-6">
                         <label readonly for="txtHecho" class="form-label">Hecho</label>
-                        <input required type="text" name="txtHecho" id="txtHecho" class="form-control">
+                        <select required id="txtHecho" name="txtHecho" class="form-select">
+                            <option value="">Seleccionar</option>
+                            <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
+                            <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
+                            <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
+                            <option value="ARREBATO">ARREBATO</option>
+                            <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
+                            <option value="DESORDEN">DESORDEN</option>
+                            <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
+                        </select>
                     </div>
 
                     <div class="col-md-6">

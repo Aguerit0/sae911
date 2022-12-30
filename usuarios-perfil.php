@@ -211,7 +211,7 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Fecha y Hora de Registro</div>
-                    <div class="col-lg-9 col-md-8"><?php echo $fechaRegistroPersona?></div>
+                    <div class="col-lg-9 col-md-8"><?php echo $newDate = date("d/m/Y", strtotime($fechaRegistroPersona))?></div>
                   </div>
 
                   <div class="row">

@@ -85,18 +85,27 @@ if (isset($_POST['guardarRegistroSecuestro'])) {
             <!-- FORMULARIO PARA EDITAR NOVEDADES DE GUARDIA -->
             <form class="row g-4 pt-3" method="POST" action="">
               <div class="col-md-6">
-                <label for="fecha_reg" class="col-form-label">Fecha de registro</label>
+                <label for="fecha_reg" class="col-form-label">Fecha del Suceso</label>
                 <input required type="date" id="fecha_reg" name="fecha_reg" class="form-control" value="<?php echo $fecha_reg ?>">
               </div>
 
               <div class="col-md-6">
-                <label for="hora_reg" class="form-label">Hora</label>
+                <label for="hora_reg" class="form-label">Hora del Suceso</label>
                 <input type="time" id="hora_reg" name="hora_reg" class="form-control clockpicker" data-placement="center" data-align="top" data-autoclose="true" value="<?php echo $hora_reg ?>">
               </div>
 
               <div class="col-md-6">
-                <label for="hecho" class="form-label">Hecho</label>
-                <input required type="text" name="hecho" id="hecho" class="form-control" value="<?php echo $hecho ?>">
+                <label for="tipo" class="form-label">Hecho Registrado</label>
+                <select required id="hecho" name="hecho" class="form-select">
+                  <option value="<?php echo $hecho ?>"><?php echo $hecho ?></option>
+                  <option value="SUSTRACCION DE MOTOCICLETA">SUSTRACCION DE MOTOCICLETA</option>
+                  <option value="SUSTRACCION DE AUTOMOVIL">SUSTRACCION DE AUTOMOVIL</option>
+                  <option value="ILICITO CONTRA LA PROPIEDAD">ILICITO CONTRA LA PROPIEDAD</option>
+                  <option value="ARREBATO">ARREBATO</option>
+                  <option value="ILICITO EN LA VIA PUBLICA">ILICITO EN LA VIA PUBLICA</option>
+                  <option value="DESORDEN">DESORDEN</option>
+                  <option value="VIOLENCIA FAMILIAR Y DE GENERO">VIOLENCIA FAMILIAR Y DE GENERO</option>
+                </select>
               </div>
 
               <div class="col-md-6">
