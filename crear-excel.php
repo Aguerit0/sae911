@@ -1,6 +1,7 @@
 <?php
+	date_default_timezone_set("America/Argentina/Catamarca");
 	header("Content-Type: application/vnd.ms-excel; charset=iso-8859-1");    
-	header("Content-Disposition: attachment; filename=novedad_de_relevancia_" . date('Y:m:d').".xls");
+	header("Content-Disposition: attachment; filename=novedad_de_relevancia_" . date("Y-m-d (H:i)").".xls");
 	header("Pragma: no-cache"); 
 	header("Expires: 0");
 

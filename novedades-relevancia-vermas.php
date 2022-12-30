@@ -331,6 +331,13 @@
         
         <?php  if($_SESSION['rol'] == 1){
            include ("./template/botonera-novedadesDeRelevancia.php");
+          }else{
+            ?>
+          <!-- BOTON EXPORTAR EN EXCEL -->
+          <form method="POST" action="crear-excel.php?id=<?php echo $idNovedadesRelevancia?>">
+            <button class="btn btn-success pull-right mt-3" name="export"><span class="glyphicon glyphicon-print"></span> Exportar a Excel</button>
+          </form>
+          <?php
           }
         ?>
       </div>

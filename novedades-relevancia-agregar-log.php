@@ -201,7 +201,7 @@ if (isset($_POST['BtnAgregar']))
         if ($resultado_novedades_relevancia)
         {
             // echo "funciona agregar novedades relevancia";
-            header('Location: novedades-relevancia-agregar.php?mensaje=registrado');
+            header('Location: novedades-relevancia-tabla.php?mensaje=registrado');
             exit();
         }
         else
